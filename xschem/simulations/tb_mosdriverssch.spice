@@ -1,0 +1,46 @@
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/testbenches/tb_mosdriverssch
+**.subckt tb_mosdriverssch
+V1 VDD GND 1.8
+XM1 vx vin VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
+XM2 vx vin GND GND sg13_lv_nmos w=W_N l=L_N ng=1 m=n
+XM3 vout vx VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=m
+XM4 vout vx GND GND sg13_lv_nmos w=W_N l=L_N ng=1 m=m
+V2 vin GND PULSE( 0 1.8 0 10p 10p .5n 1n)
+XM5 vcap vin VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m={1+(m/2)}
+XM6 vcap vin GND GND sg13_lv_nmos w=W_N l=L_N ng=1 m={1+(m/2)}
+C1 vcap GND 10f m=2048
+**** begin user architecture code
+
+
+.param temp=27
+.param W_P = 1.0u
+.param L_P = 0.13u
+.param W_N = 1.0u
+.param L_N = 0.13u
+.param n = 100
+.param m = 2048
+.options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
+.control
+
+* Transient Analysis
+tran 100p 10n
+
+plot vin vout vx
+plot vin vcap
+.endc
+
+
+
+
+** IHP models
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerHBT.lib hbt_typ
+.lib cornerRES.lib res_typ
+.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

@@ -1,0 +1,50 @@
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/logic/bit_cell.sch
+**.subckt bit_cell clk p_bit_dec reset comp_in VDD bit VSS dec
+*.iopin p_bit_dec
+*.iopin clk
+*.iopin reset
+*.iopin comp_in
+*.iopin VDD
+*.iopin VSS
+*.iopin bit
+*.iopin dec
+x1 VDD net2 net3 VSS bit net1 SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
+x23 net4 n_dec VDD VSS net1 sg13g2_nand2_1
+x14 n_dec comp_in VDD VSS net2 sg13g2_nand2_1
+x30 comp_in VDD VSS net4 sg13g2_inv_2
+x53 clk p_bit_dec dec n_dec reset VDD VSS sg13g2_dfrbp_1
+**.ends
+
+* expanding   symbol:  comparator/SR_latch/SR_latch.sym # of pins=6
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/SR_latch/SR_latch.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/SR_latch/SR_latch.sch
+.subckt SR_latch VDD S Qn VSS Q R  W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
+*.iopin VDD
+*.opin Q
+*.iopin VSS
+*.ipin S
+*.ipin R
+*.opin Qn
+x1 VDD Q R Qn VSS NOR_gate W_P=W_P_SR L_P=L_P_SR W_N=W_N_SR L_N=L_N_SR
+x2 VDD Qn Q S VSS NOR_gate W_P=W_P_SR L_P=L_P_SR W_N=W_N_SR L_N=L_N_SR
+.ends
+
+
+* expanding   symbol:  comparator/NOR_gate/NOR_gate.sym # of pins=5
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/NOR_gate/NOR_gate.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/NOR_gate/NOR_gate.sch
+.subckt NOR_gate VDD C A B VSS  W_P=1.0u L_P=0.13u W_N=0.5u L_N=0.13u
+*.iopin VDD
+*.opin C
+*.iopin VSS
+*.ipin A
+*.ipin B
+XM1 C A VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=1
+XM2 C B VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=1
+XM3 C B net1 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
+XM4 net1 A VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
+XM5 C A net2 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
+XM6 net2 B VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
+.ends
+
+.end

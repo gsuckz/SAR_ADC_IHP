@@ -1,0 +1,92 @@
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/unit_cell_n.sch
+**.subckt unit_cell_n B A VSS D VDD vtop
+*.iopin VSS
+*.iopin A
+*.iopin VDD
+*.ipin D
+*.iopin B
+*.iopin vtop
+x1 VDD net3 VSS net1 net2 A dac_switch_n W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u n={1
+C1 net1 vtop cu m=512
+x35 VDD B net2 VSS buffer_lv W_P_INV=1.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+x2 VDD D net3 VSS buffer_lv W_P_INV=1.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+**.ends
+
+* expanding   symbol:  dac_icms_cell/dac_switch_n.sym # of pins=6
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/dac_switch_n.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/dac_switch_n.sch
+.subckt dac_switch_n VDD di_spdt_ctrl VSS v_c v_b v_a  W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u n=1
+*.iopin v_a
+*.iopin v_c
+*.iopin VDD
+*.iopin VSS
+*.ipin di_spdt_ctrl
+*.iopin v_b
+x1 VDD di_spdt_ctrl VSS v_c v_a di_spdt_ctrl_n transmission_gate_lv_wo_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
+x8 VDD di_spdt_ctrl di_spdt_ctrl_n VSS inverter_lv W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG n=n
+XM1 net1 net2 VSS VSS sg13_lv_nmos w=0.5u l=0.2u ng=1 m=n
+XM3 net1 net2 VDD VDD sg13_lv_pmos w=1u l=0.2u ng=1 m=n
+x2 VDD di_spdt_ctrl_n VSS net1 v_c di_spdt_ctrl transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=n
+XM2 net2 v_b VSS VSS sg13_lv_nmos w=0.5u l=0.2u ng=1 m=n
+XM4 net2 v_b VDD VDD sg13_lv_pmos w=1u l=0.2u ng=1 m=n
+.ends
+
+
+* expanding   symbol:  buffer/buffer_lv.sym # of pins=4
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sch
+.subckt buffer_lv VDD vin vout VSS  W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+*.ipin vin
+*.iopin VDD
+*.iopin VSS
+*.opin vout
+x1 VDD vin net1 VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
+x2 VDD net1 vout VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
+.ends
+
+
+* expanding   symbol:  transmission_gate/transmission_gate_lv_wo_dummy.sym # of pins=6
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_wo_dummy.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_wo_dummy.sch
+.subckt transmission_gate_lv_wo_dummy VDD di_tg_ctrl VSS v_b v_a di_tg_ctrl_n  W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u
+*.iopin v_a
+*.iopin v_b
+*.iopin VDD
+*.iopin VSS
+*.ipin di_tg_ctrl
+*.ipin di_tg_ctrl_n
+XM1 v_a di_tg_ctrl v_b VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=1
+XM2 v_a di_tg_ctrl_n v_b VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
+.ends
+
+
+* expanding   symbol:  inverter/inverter_lv.sym # of pins=4
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sch
+.subckt inverter_lv VDD vin vout VSS  W_P=3.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1
+*.ipin vin
+*.iopin VDD
+*.iopin VSS
+*.opin vout
+XM1 vout vin VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
+XM2 vout vin VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
+.ends
+
+
+* expanding   symbol:  transmission_gate/transmission_gate_lv_w_dummy.sym # of pins=6
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_w_dummy.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_w_dummy.sch
+.subckt transmission_gate_lv_w_dummy VDD di_tg_ctrl VSS v_b v_a di_tg_ctrl_n  W_P=2.0u L_P=0.13u W_N=2.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=1
+*.iopin v_a
+*.iopin v_b
+*.iopin VDD
+*.iopin VSS
+*.ipin di_tg_ctrl
+*.ipin di_tg_ctrl_n
+XM1 v_a di_tg_ctrl v_b VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
+XM2 v_a di_tg_ctrl_n v_b VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
+XMdummy2 v_b di_tg_ctrl v_b VDD sg13_lv_pmos w=W_P_D l=L_P_D ng=1 m=n
+XMdummy1 v_b di_tg_ctrl_n v_b VSS sg13_lv_nmos w=W_N_D l=L_N_D ng=1 m=n
+.ends
+
+.end

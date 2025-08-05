@@ -1,0 +1,212 @@
+v {xschem version=3.4.7 file_version=1.2}
+G {}
+K {}
+V {}
+S {}
+E {}
+N -50 -25 10 -25 {
+lab=VDD}
+N 10 -85 10 -25 {
+lab=VDD}
+N -50 -85 -50 -55 {
+lab=VDD}
+N -50 -85 10 -85 {
+lab=VDD}
+N 10 -105 10 -85 {
+lab=VDD}
+N -50 125 -50 155 {
+lab=GND}
+N -50 155 10 155 {
+lab=GND}
+N 10 95 10 155 {
+lab=GND}
+N -50 95 10 95 {
+lab=GND}
+N -50 35 -50 65 {
+lab=vx}
+N -110 35 -110 95 {
+lab=vin}
+N -150 35 -110 35 {
+lab=vin}
+N -110 -25 -110 35 {
+lab=vin}
+N -110 -25 -90 -25 {
+lab=vin}
+N -110 95 -90 95 {
+lab=vin}
+N -50 35 50 35 {
+lab=vx}
+N -50 5 -50 35 {
+lab=vx}
+N 110 -40 170 -40 {
+lab=VDD}
+N 170 -100 170 -40 {
+lab=VDD}
+N 110 -100 110 -70 {
+lab=VDD}
+N 110 -100 170 -100 {
+lab=VDD}
+N 170 -120 170 -100 {
+lab=VDD}
+N 110 110 110 140 {
+lab=GND}
+N 110 140 170 140 {
+lab=GND}
+N 170 80 170 140 {
+lab=GND}
+N 110 80 170 80 {
+lab=GND}
+N 170 155 170 160 {
+lab=GND}
+N 50 35 50 80 {
+lab=vx}
+N 50 -40 50 35 {
+lab=vx}
+N 50 -40 70 -40 {
+lab=vx}
+N 50 80 70 80 {
+lab=vx}
+N 110 -10 110 50 {
+lab=vout}
+N 125 155 170 155 {lab=GND}
+N 170 140 170 155 {
+lab=GND}
+N -50 310 120 310 {lab=GND}
+N 120 310 125 155 {lab=GND}
+N 10 155 125 155 {lab=GND}
+N 450 -10 510 -10 {
+lab=VDD}
+N 510 -70 510 -10 {
+lab=VDD}
+N 450 -70 450 -40 {
+lab=VDD}
+N 450 -70 510 -70 {
+lab=VDD}
+N 510 -90 510 -70 {
+lab=VDD}
+N 450 140 450 170 {
+lab=GND}
+N 450 170 510 170 {
+lab=GND}
+N 510 110 510 170 {
+lab=GND}
+N 450 110 510 110 {
+lab=GND}
+N 390 50 390 110 {
+lab=vin}
+N 350 50 390 50 {
+lab=vin}
+N 390 -10 390 50 {
+lab=vin}
+N 390 -10 410 -10 {
+lab=vin}
+N 390 110 410 110 {
+lab=vin}
+N 450 45 450 80 {
+lab=vcap}
+N 450 45 600 45 {lab=vcap}
+N 450 20 450 45 {
+lab=vcap}
+C {devices/code_shown.sym} -1355 95 0 0 {name=NGSPICE
+simulator=ngspice
+only_toplevel=false 
+value="
+.param temp=27
+.param W_P = 1.0u
+.param L_P = 0.13u
+.param W_N = 1.0u
+.param L_N = 0.13u
+.param n = 100
+.param m = 2048
+.options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
+.control
+
+* Transient Analysis
+tran 100p 10n
+
+plot vin vout vx
+plot vin vcap
+.endc
+"}
+C {vsource.sym} -50 280 0 0 {name=V1 value=1.8 savecurrent=false}
+C {lab_pin.sym} -50 250 0 0 {name=p5 sig_type=std_logic lab=VDD}
+C {gnd.sym} -50 310 0 0 {name=l1 lab=GND}
+C {code_shown.sym} -1505 -195 0 0 {
+name=TT_MODELS
+only_toplevel=true
+value="
+** IHP models
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerHBT.lib hbt_typ
+.lib cornerRES.lib res_typ
+.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+"
+spice_ignore=false
+      }
+C {devices/lab_pin.sym} -150 35 0 0 {name=p10 lab=vin}
+C {devices/lab_pin.sym} 10 -105 3 0 {name=p11 lab=VDD}
+C {devices/lab_pin.sym} 110 30 0 0 {name=p2 lab=vout}
+C {sg13g2_pr/sg13_lv_pmos.sym} -70 -25 0 0 {name=M1
+l=L_P
+w=W_P
+ng=1
+m=n
+model=sg13_lv_pmos
+spiceprefix=X
+}
+C {sg13g2_pr/sg13_lv_nmos.sym} -70 95 0 0 {name=M2
+l=L_N
+w=W_N
+ng=1
+m=n
+model=sg13_lv_nmos
+spiceprefix=X
+}
+C {devices/lab_pin.sym} 170 -120 3 0 {name=p7 lab=VDD}
+C {sg13g2_pr/sg13_lv_pmos.sym} 90 -40 0 0 {name=M3
+l=L_P
+w=W_P
+ng=1
+m=m
+model=sg13_lv_pmos
+spiceprefix=X
+}
+C {sg13g2_pr/sg13_lv_nmos.sym} 90 80 0 0 {name=M4
+l=L_N
+w=W_N
+ng=1
+m=m
+model=sg13_lv_nmos
+spiceprefix=X
+}
+C {devices/lab_pin.sym} 20 35 0 0 {name=p1 lab=vx}
+C {vsource.sym} -415 60 0 0 {name=V2 value="PULSE( 0 1.8 0 10p 10p .5n 1n)" savecurrent=false}
+C {gnd.sym} -415 90 0 0 {name=l3 lab=GND}
+C {devices/lab_pin.sym} -415 30 0 0 {name=p3 lab=vin}
+C {devices/lab_pin.sym} 350 50 0 0 {name=p4 lab=vin}
+C {devices/lab_pin.sym} 510 -90 3 0 {name=p6 lab=VDD}
+C {sg13g2_pr/sg13_lv_pmos.sym} 430 -10 0 0 {name=M5
+l=L_P
+w=W_P
+ng=1
+m=\{1+(m/2)\}
+model=sg13_lv_pmos
+spiceprefix=X
+}
+C {sg13g2_pr/sg13_lv_nmos.sym} 430 110 0 0 {name=M6
+l=L_N
+w=W_N
+ng=1
+m=\{1+(m/2)\}
+model=sg13_lv_nmos
+spiceprefix=X
+}
+C {devices/lab_pin.sym} 600 45 0 1 {name=p8 lab=vcap}
+C {gnd.sym} 475 170 0 0 {name=l2 lab=GND}
+C {capa.sym} 600 75 0 0 {name=C1
+m=2048
+value=10f
+footprint=1206
+device="ceramic capacitor"}
+C {gnd.sym} 600 105 0 0 {name=l4 lab=GND}

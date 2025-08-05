@@ -1,0 +1,25 @@
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/pulse_gen/pgen.sch
+**.subckt pgen VDD in2 VSS in1 PULSE_n VTUNE
+*.iopin VDD
+*.iopin in2
+*.iopin in1
+*.iopin VSS
+*.iopin VTUNE
+*.iopin PULSE_n
+XM1 READY in1 VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM2 READY vx_n VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM4 vx PULSE_n net4 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+x46 vxs READY VDD VSS PULSE_n sg13g2_or2_1
+x6 vxs VDD VSS vx_n sg13g2_inv_2
+XM3 READY in2 VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM5 vx READY VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM7 net4 VTUNE VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM6 net3 vx VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM8 net2 vx net1 VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM9 net2 vx net3 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM10 net1 vx VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM11 VDD net2 net1 VDD sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM12 VSS net2 net3 VSS sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+x1 net2 VDD VSS vxs sg13g2_inv_2
+**.ends
+.end

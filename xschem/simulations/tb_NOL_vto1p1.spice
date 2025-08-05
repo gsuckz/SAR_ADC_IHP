@@ -1,0 +1,48 @@
+** sch_path: /foss/designs/SSCS-Chipathon-2025_AC3E-Chile-team/xschem/IHP_digital/NOL/tb_NOL_vto1p1.sch
+**.subckt tb_NOL_vto1p1
+VCC VCC GND 1.2
+VSS VSS GND 0
+VIN VIN VSS PULSE(0 1.2 25n 1p 1p 100n 200n)
+C1 VCP VSS 10f m=1
+C2 VCN VSS 10f m=1
+*  x1 -  NOL_vto1p1  IS MISSING !!!!
+**** begin user architecture code
+
+
+.save v(vin) v(vcp) v(vcn)
+.control
+tran 100p 300n
+plot v(vin) v(vcp) v(vcn)
+plot v(vin) v(vcp)+1.5 v(vcn)+3
+.endc
+
+.measure tran tdead_fall
++ TRIG tran1.V(vcn) TD=0u VAL=0.6 FALL=1
++ TARG tran1.V(vcp) TD=0u VAL=0.6 FALL=1
+
+
+.measure tran tdead_rise
++ TRIG tran1.V(vcp) TD=0u VAL=0.6 RISE=1
++ TARG tran1.V(vcn) TD=0u VAL=0.6 RISE=1
+
+
+
+
+
+
+.param corner=0
+
+.if (corner==0)
+.option temp = -39
+.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_ff
+.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOShv.lib mos_ff
+.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib res_typ
+.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerCAP.lib cap_typ
+.endif
+
+.include /opt/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

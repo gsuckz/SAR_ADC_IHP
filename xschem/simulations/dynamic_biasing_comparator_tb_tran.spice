@@ -1,0 +1,117 @@
+** sch_path: /foss/designs/SG13G2_ATBS-ADC/SG13G2_ATBS-ADC-main/xschem/comparator/discrete_time/Dynamic-biasing/testbenches/dynamic_biasing_comparator_tb_tran.sch
+**.subckt dynamic_biasing_comparator_tb_tran
+VDD VDD GND 1.5
+V1 clk GND pulse(0 1.5 {tstart} 10p 10p {1/fclk} {1/fphi})
+vinn vinn GND {Vcm}
+vinp vinp GND {{Vcm} + {delta_vin}}
+V2 clk_n GND pulse(1.5 0 2n 10p 10p {1/fclk} {1/fphi})
+C1 voutn GND 10f m=1
+C2 voutp GND 10f m=1
+x1 clk_n clk VDD voutp vinp GND voutn vinn dynamic_biasing_comparator
+**** begin user architecture code
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerRES.lib res_typ
+
+
+
+.param temp=27
+.param fclk=1G
+.param fphi=62500
+.param tstart=2n
+.param delta_vin = 10m
+.param Vcm=0.75
+.csparam fclk=fclk
+.csparam tstart=tstart
+.options savecurrents reltol=1e-3 abstol=1e-12 gmin=1e-15
+.control
+save all
+
+* Operating Point Analysis
+op
+remzerovec
+write dynamic_biasing_comparator_tb_tran.raw
+set appendwrite
+
+* Transient Analysis
+* tran 4p 20n
+tran 40p 150n
+write dynamic_biasing_comparator_tb_tran.raw
+
+* Measure vcpp_min & vcpn_min
+let tmeas = 1/fclk
+meas tran vcpp_min FIND v(x1.vcpp) at=tmeas
+meas tran vcpn_min FIND v(x1.vcpn) at=tmeas
+
+* Measure Propagation Delay
+* Time from clock rising edge to 90% VDD of voutp
+let voutp_limit = 0.9 * 1.5
+meas tran tcross WHEN v(voutp)=voutp_limit CROSS=1
+let tpd = tcross - tstart
+echo Propagation Delay $&tpd s
+
+* Calculate Energy / Conversion
+* i_int in As
+* energy_conv in Ws = J
+let N = 1
+let t_conv = 150n
+meas tran i_int INTEG i(VDD) from=tstart to=t_conv
+let energy_conv = 1.5 * i_int / N
+
+let energy_conv_femto = energy_conv * 1e15
+echo Energy / Conversion $&energy_conv_femto fJ/conv
+
+* Plotting
+plot v(clk) v(x1.vs) v(x1.vctail) v(x1.vcpp) v(x1.vcpn) v(voutp) v(voutn)
+plot i(VDD)
+
+* Writing Data
+set wr_singlescale
+set wr_vecnames
+let vs=x1.vs
+let vctail=x1.vctail
+let vcpp=x1.vcpp
+let vcpn=x1.vcpn
+wrdata /foss/designs/SG13G2_ATBS-ADC-main/python/plot_simulations/data/dynamic_biasing_comparator_tb_tran.txt v(clk) v(vs) v(vctail) v(vcpp) v(vcpn) v(voutp) v(voutn)
+
+*quit
+.endc
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  comparator/discrete_time/Dynamic-biasing/dynamic_biasing_comparator.sym # of pins=8
+** sym_path: /foss/designs/SG13G2_ATBS-ADC/SG13G2_ATBS-ADC-main/xschem/comparator/discrete_time/Dynamic-biasing/dynamic_biasing_comparator.sym
+** sch_path: /foss/designs/SG13G2_ATBS-ADC/SG13G2_ATBS-ADC-main/xschem/comparator/discrete_time/Dynamic-biasing/dynamic_biasing_comparator.sch
+.subckt dynamic_biasing_comparator di_clk_n di_clk VDD voutp vinp VSS voutn vinn
+*.iopin VDD
+*.opin voutp
+*.opin voutn
+*.ipin di_clk_n
+*.iopin VSS
+*.ipin vinp
+*.ipin vinn
+*.ipin di_clk
+XM3a vs di_clk vctail VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM12 voutp di_clk_n VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM8 net1 voutn VDD VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
+XM10 voutp voutn VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM11 voutn voutp VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM13 voutn di_clk_n VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+CPn vcpn VSS 300f m=1
+CPp vcpp VSS 300f m=1
+XM9 net2 voutp VDD VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
+XM6 voutp vcpn net1 VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
+XM7 voutn vcpp net2 VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
+CTAIL vctail VSS 600f m=1
+XM3b vctail di_clk_n VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM1 vcpn vinp vs VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM2 vcpp vinn vs VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM4 vcpn di_clk VDD VDD sg13_lv_pmos w=1.0u l=0.13u ng=1 m=1
+XM5 vcpp di_clk VDD VDD sg13_lv_pmos w=1.0u l=0.13u ng=1 m=1
+.ends
+
+.GLOBAL GND
+.GLOBAL VDD
+.end

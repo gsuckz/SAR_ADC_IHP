@@ -1,0 +1,233 @@
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/discrete_time/testbenches/DT_comparator_tb_tran.sch
+**.subckt DT_comparator_tb_tran
+VDD VDD GND 1.5
+V1 clk GND pulse(1.5 0 {tstart} 10p 10p 3n 6n 1)
+vinn vinn GND {Vcm}
+vinp vinp GND {0.75 + {delta_vin}}
+C2 vout GND 10f m=1
+x1 VDD vinp vout vinn clk GND pulse DT_comparator
+VDD3 VSS GND 0
+**** begin user architecture code
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerRES.lib res_typ
+.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+
+
+
+.param temp=27
+.param fclk=8000000
+.param fphi=62500
+.param tstart=2n
+.param delta_vin = 100m
+.param Vcm=0.75
+.csparam fclk=fclk
+.csparam tstart=tstart
+.options savecurrents reltol=1e-3 abstol=1e-12 gmin=1e-15
+.ic v(vout) = 0
+.control
+save all
+
+* Operating Point Analysis
+op
+remzerovec
+write DT_comparator_tb_tran.raw
+set appendwrite
+
+* Transient Analysis
+* tran 4p 20n
+tran 40p 900n
+*write DT_comparator_tb_tran.raw
+
+* Measure vcpp_min & vcpn_min
+*let tmeas = 1/fclk
+*meas tran vcpp_min FIND v(x1.x1.vcpp) at=tmeas
+*meas tran vcpn_min FIND v(x1.x1.vcpn) at=tmeas
+
+* Measure Propagation Delay
+* Time from clock rising edge to 90% VDD of vout
+*let vout_limit = 0.9 * 1.5
+*meas tran tcross WHEN v(vout)=vout_limit CROSS=1
+*let tpd = tcross - tstart
+*echo Propagation Delay $&tpd s
+
+* Calculate Energy / Conversion
+* i_int in As
+* energy_conv in Ws = J
+*let N = 1
+*let t_conv = 150n
+*meas tran i_int INTEG i(VDD) from=tstart to=t_conv
+*let energy_conv = 1.5 * i_int / N
+
+*let energy_conv_femto = energy_conv * 1e15
+*echo Energy / Conversion $&energy_conv_femto fJ/conv
+
+* Plotting
+*plot v(clk) v(vinp) v(vinn)   v(x1.voutp_comp) v(x1.voutn_comp) v(vout)
+*plot v(clk)  v(x1.voutp_comp) v(x1.voutn_comp) v(vout)
+*plot i(VDD)
+*plot v(clk)  {v(x1.x6.vx_n) +2} {v(vout) + 4} {v(x1.pulsen) + 6} {v(x1.x6.vx) + 8}  {v(x1.x6.READY) + 10}
+plot v(x1.voutp_buf) {v(x1.voutn_buf)  + 2} {v(x1.x6.vx_n) + 4}  {v(pulse) + 8} {v(x1.x6.READY) + 10}
+plot v(x1.voutp_comp) {v(x1.voutn_comp)  + 2} {v(x1.x6.vx_n) + 4}  {v(x1.x6.vx) + 8} {v(x1.x6.vxs) + 10}
+* Writing Data
+*set wr_singlescale
+*set wr_vecnames
+*let vs=x1.x1.vs
+*let vcpp=x1.x1.vcpp
+*let vcpn=x1.x1.vcpn
+*let voutp_comp=x1.voutp_comp
+*let voutn_comp=x1.voutn_comp
+*wrdata /foss/designs/SG13G2_ATBS-ADC-main/python/plot_simulations/data/DT_comparator_tb_tran.txt v(clk) v(vinp) v(vinn) v(vs) v(vcpp) v(vcpn) v(voutp_comp) v(voutn_comp) v(vout)
+
+*quit
+.endc
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  comparator/discrete_time/DT_comparator.sym # of pins=7
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/discrete_time/DT_comparator.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/discrete_time/DT_comparator.sch
+.subckt DT_comparator VDD vinp vout vinn di_clk VSS PULSE
+*.iopin VDD
+*.opin vout
+*.iopin VSS
+*.ipin vinp
+*.ipin vinn
+*.ipin di_clk
+*.iopin PULSE
+x2 VDD voutp_comp voutp_buf VSS buffer_lv W_P_INV=1.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+x3 VDD voutn_comp voutn_buf VSS buffer_lv W_P_INV=1.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+x5 VDD PULSEN PULSE VSS inverter_lv W_P=2.0u L_P=0.13u W_N=2.0u L_N=0.13u n=1
+* noconn #net1
+x4 VDD voutp_buf net1 VSS vout voutn_buf SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
+x6 VDD voutn_comp VSS voutp_comp PULSEN net2 pgen
+V1 VDD net2 1.5
+x1 PULSE PULSEN VDD voutp_comp vinp VSS voutn_comp vinn dynamic_biasing_comparator
+.ends
+
+
+* expanding   symbol:  buffer/buffer_lv.sym # of pins=4
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sch
+.subckt buffer_lv VDD vin vout VSS  W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+*.ipin vin
+*.iopin VDD
+*.iopin VSS
+*.opin vout
+x1 VDD vin net1 VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
+x2 VDD net1 vout VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
+.ends
+
+
+* expanding   symbol:  inverter/inverter_lv.sym # of pins=4
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sch
+.subckt inverter_lv VDD vin vout VSS  W_P=3.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1
+*.ipin vin
+*.iopin VDD
+*.iopin VSS
+*.opin vout
+XM1 vout vin VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
+XM2 vout vin VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
+.ends
+
+
+* expanding   symbol:  comparator/SR_latch/SR_latch.sym # of pins=6
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/SR_latch/SR_latch.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/SR_latch/SR_latch.sch
+.subckt SR_latch VDD S Qn VSS Q R  W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
+*.iopin VDD
+*.opin Q
+*.iopin VSS
+*.ipin S
+*.ipin R
+*.opin Qn
+x1 VDD Q R Qn VSS NOR_gate W_P=W_P_SR L_P=L_P_SR W_N=W_N_SR L_N=L_N_SR
+x2 VDD Qn Q S VSS NOR_gate W_P=W_P_SR L_P=L_P_SR W_N=W_N_SR L_N=L_N_SR
+.ends
+
+
+* expanding   symbol:  comparator/pulse_gen/pgen.sym # of pins=6
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/pulse_gen/pgen.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/pulse_gen/pgen.sch
+.subckt pgen VDD in2 VSS in1 PULSE_n VTUNE
+*.iopin VDD
+*.iopin in2
+*.iopin in1
+*.iopin VSS
+*.iopin VTUNE
+*.iopin PULSE_n
+XM1 READY in1 VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM2 READY vx_n VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
+XM4 vx PULSE_n net5 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+x46 vxs net1 VDD VSS PULSE_n sg13g2_or2_1
+x6 vxs VDD VSS vx_n sg13g2_inv_2
+XM3 READY in2 VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM5 vx net1 VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM7 net5 VTUNE VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM6 net4 vx VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM8 net3 vx net2 VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM9 net3 vx net4 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM10 net2 vx VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM11 VDD net3 net2 VDD sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+XM12 VSS net3 net4 VSS sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+x1 net3 VDD VSS vxs sg13g2_inv_2
+x2 READY VDD VSS net6 sg13g2_inv_2
+x3 net6 VDD VSS net1 sg13g2_inv_2
+.ends
+
+
+* expanding   symbol:  comparator/discrete_time/Dynamic-biasing/dynamic_biasing_comparator.sym # of pins=8
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/discrete_time/Dynamic-biasing/dynamic_biasing_comparator.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/discrete_time/Dynamic-biasing/dynamic_biasing_comparator.sch
+.subckt dynamic_biasing_comparator di_clk_n di_clk VDD voutp vinp VSS voutn vinn
+*.iopin VDD
+*.opin voutp
+*.opin voutn
+*.ipin di_clk_n
+*.iopin VSS
+*.ipin vinp
+*.ipin vinn
+*.ipin di_clk
+XM3a vs di_clk vctail VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM12 voutp di_clk_n VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM8 net1 voutn VDD VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
+XM10 voutp voutn VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM11 voutn voutp VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM13 voutn di_clk_n VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+CPn vcpn VSS 300f m=1
+CPp vcpp VSS 300f m=1
+XM9 net2 voutp VDD VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
+XM6 voutp vcpn net1 VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
+XM7 voutn vcpp net2 VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
+CTAIL vctail VSS 600f m=1
+XM3b vctail di_clk_n VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM1 vcpn vinp vs VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM2 vcpp vinn vs VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM4 vcpn di_clk VDD VDD sg13_lv_pmos w=1.0u l=0.13u ng=1 m=1
+XM5 vcpp di_clk VDD VDD sg13_lv_pmos w=1.0u l=0.13u ng=1 m=1
+.ends
+
+
+* expanding   symbol:  comparator/NOR_gate/NOR_gate.sym # of pins=5
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/NOR_gate/NOR_gate.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/NOR_gate/NOR_gate.sch
+.subckt NOR_gate VDD C A B VSS  W_P=1.0u L_P=0.13u W_N=0.5u L_N=0.13u
+*.iopin VDD
+*.opin C
+*.iopin VSS
+*.ipin A
+*.ipin B
+XM1 C A VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=1
+XM2 C B VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=1
+XM3 C B net1 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
+XM4 net1 A VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
+XM5 C A net2 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
+XM6 net2 B VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
+.ends
+
+.GLOBAL GND
+.GLOBAL VDD
+.end

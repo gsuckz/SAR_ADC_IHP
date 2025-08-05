@@ -1,0 +1,27 @@
+** sch_path: /foss/pdks/ihp-sg13g2/libs.tech/xschem/sg13g2_tests/tran_bondpad.sch
+**.subckt tran_bondpad
+VinB in GND dc 0 ac 0 pulse(-3.3, 3.3, 0, 100p, 100p, 2n, 4n )
+XD1 out GND dantenna l=200.78u w=200.78u
+XD2 in out dantenna l=200.78u w=200.78u
+XX1 in bondpad size=80u shape=0 padtype=0
+XX2 GND bondpad size=80u shape=0 padtype=0
+XX3 out bondpad size=80u shape=0 padtype=0
+**** begin user architecture code
+
+.include diodes.lib
+.include sg13g2_bondpad.lib
+
+
+
+.param temp=127
+.control
+save all
+tran 50p 20n
+write tran_bondpad.raw
+.endc
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

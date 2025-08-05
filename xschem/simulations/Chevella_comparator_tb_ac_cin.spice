@@ -1,0 +1,98 @@
+** sch_path: /foss/designs/SG13G2_ATBS-ADC/SG13G2_ATBS-ADC-main/xschem/comparator/discrete_time/Chevella/testbenches/Chevella_comparator_tb_ac_cin.sch
+**.subckt Chevella_comparator_tb_ac_cin
+VDD VDD GND 1.5
+V1 clk GND 1.5
+V2 clk_n GND 0
+C1 voutn GND 10f m=1
+C2 voutp GND 10f m=1
+Vmeasp vin net1 0
+.save i(vmeasp)
+Vmeasn net4 net2 0
+.save i(vmeasn)
+vin vin net3 dc 0 ac 1
+Vcm net3 GND {Vcm}
+E2 net4 GND vin GND -1
+x1 clk_n clk VDD voutp net1 GND voutn net2 Chevella_comparator
+**** begin user architecture code
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerRES.lib res_typ
+
+
+
+.param temp=27
+.param Vcm=0.75
+.options savecurrents reltol=1e-3 abstol=1e-12 gmin=1e-15
+.control
+save all
+
+* User Constants
+let fstart = 1
+let fstop = 1G
+
+* Operating Point Analysis
+op
+remzerovec
+write Chevella_comparator_tb_ac_cin.raw
+set appendwrite
+
+* AC Analysis
+ac dec 101 $&fstart $&fstop
+remzerovec
+write Chevella_comparator_tb_ac_cin.raw
+
+* Plotting Cinp
+let Cinp = mag(i(Vmeasp)) / (2 * 3.14 * frequency)
+plot Cinp
+
+* Plotting Cinn
+let Cinn = mag(i(Vmeasn)) / (2 * 3.14 * frequency)
+plot Cinn
+
+* Measure avg. Cinp & Cinn
+meas ac Cinp_avg AVG Cinp from=fstart to=fstop
+meas ac Cinn_avg AVG Cinn from=fstart to=fstop
+
+*quit
+.endc
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  comparator/discrete_time/Chevella/Chevella_comparator.sym # of pins=8
+** sym_path: /foss/designs/SG13G2_ATBS-ADC/SG13G2_ATBS-ADC-main/xschem/comparator/discrete_time/Chevella/Chevella_comparator.sym
+** sch_path: /foss/designs/SG13G2_ATBS-ADC/SG13G2_ATBS-ADC-main/xschem/comparator/discrete_time/Chevella/Chevella_comparator.sch
+.subckt Chevella_comparator di_clk_n di_clk VDD voutp vinp VSS voutn vinn
+*.iopin VDD
+*.opin voutp
+*.opin voutn
+*.ipin di_clk_n
+*.iopin VSS
+*.ipin vinp
+*.ipin vinn
+*.ipin di_clk
+XM1a vcpn vinp net1 VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM2a vcpp vinn net2 VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM3 vs di_clk VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM4a vcpn di_clk VDD VDD sg13_lv_pmos w=1.0u l=0.13u ng=1 m=1
+XM5a vcpp di_clk VDD VDD sg13_lv_pmos w=1.0u l=0.13u ng=1 m=1
+XM12 voutp di_clk_n VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM8 net3 voutn VDD VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
+XM10 voutp voutn VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM11 voutn voutp VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM13 voutn di_clk_n VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+CP1 vcpn VSS 300f m=1
+CP2 vcpp VSS 300f m=1
+XM9 net4 voutp VDD VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
+XM6 voutp vcpn net3 VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
+XM7 voutn vcpp net4 VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
+XM4b net1 di_clk VDD VDD sg13_lv_pmos w=1.0u l=0.13u ng=1 m=1
+XM5b net2 di_clk VDD VDD sg13_lv_pmos w=1.0u l=0.13u ng=1 m=1
+XM1b net1 vcpp vs VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM2b net2 vcpn vs VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+.ends
+
+.GLOBAL GND
+.GLOBAL VDD
+.end
