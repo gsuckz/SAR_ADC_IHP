@@ -42,7 +42,7 @@ value="
 .param L_P = 0.13u
 .param W_N = 1.0u
 .param L_N = 0.13u
-.options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
+.options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-10
 .control
 
 * Transient Analysis
@@ -79,7 +79,7 @@ C {vsource.sym} -120 360 0 0 {name=V2 value=.9 savecurrent=false}
 C {lab_pin.sym} -120 330 0 0 {name=p11 sig_type=std_logic lab=vcm}
 C {gnd.sym} -120 390 0 0 {name=l6 lab=GND}
 C {lab_pin.sym} -90 190 3 0 {name=p23 sig_type=std_logic lab=vcm}
-C {logic/logic.sym} 270 600 2 1 {name=x2 cu=10f}
+C {logic/logic.sym} 270 600 2 1 {name=x2 cu=10fe}
 C {lab_pin.sym} 440 -60 1 0 {name=p24 lab=b11}
 C {lab_pin.sym} 410 100 0 0 {name=p25 lab=clk}
 C {lab_pin.sym} 660 200 0 0 {name=p26 lab=VDD}

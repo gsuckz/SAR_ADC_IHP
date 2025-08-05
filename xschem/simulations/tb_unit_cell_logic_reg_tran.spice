@@ -1,6 +1,6 @@
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/testbenches/tb_unit_cell_logic_reg_tran.sch
 **.subckt tb_unit_cell_logic_reg_tran
-x1 bit net1 GND d vdd top unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=2048
+x1 bit net1 GND d vdd top unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=32
 V1 vdd GND 1.8
 V2 clk GND PULSE( 0 1.8 0 10p 10p .5n 1n)
 V3 vcm GND 0.75
@@ -11,7 +11,7 @@ S2 net2 net1 s GND SW1
 S3 vcm net1 GND s SW1
 V6 net2 GND 1
 x18 clk p_dec vdd comp_in vdd bit GND d bit_cell
-V7 p_dec GND PULSE(1.8 0 0 10p 10p 10n 20n)
+V7 p_dec GND PULSE(1.8 0 10n 10p 10p 10n 20n)
 **** begin user architecture code
 
 
@@ -56,10 +56,8 @@ plot clk comp_in+3 p_dec+6
 *.ipin D
 *.iopin B
 *.iopin vtop
-x1 VDD net3 VSS net1 net2 A dac_switch W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u n={1}
-C1 net1 vtop Cu m=n
-x35 VDD B net2 VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u
-x2 VDD D net3 VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u
+x1 VDD D VSS vcap B A dac_switch W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u n=n
+C1 vcap vtop Cu m=n
 .ends
 
 
@@ -75,12 +73,16 @@ x2 VDD D net3 VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.
 *.iopin VSS
 *.iopin bit
 *.iopin dec
-x1 VDD net2 net3 VSS bit net1 SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
-x23 net4 n_dec VDD VSS net1 sg13g2_and2_1
-x14 n_dec comp_in VDD VSS net2 sg13g2_and2_1
-x30 comp_in VDD VSS net4 sg13g2_inv_2
-x53 clk p_bit_dec dec n_dec reset VDD VSS sg13g2_dfrbp_1
-* noconn #net3
+x1 VDD net2 net4 VSS net5 net1 SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
+x23 net1 net6 n_dec VDD VSS sg13g2_and2_1
+x14 net2 n_dec comp_in VDD VSS sg13g2_and2_1
+x30 net6 comp_in VDD VSS sg13g2_inv_2
+x53 net3 n_dec clk p_bit_dec reset VDD VSS sg13g2_dfrbp_1
+* noconn #net4
+x2 VDD net5 net7 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+x3 VDD net3 net8 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+x4 VDD net8 dec VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u
+x5 VDD net7 bit VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u
 .ends
 
 
@@ -94,28 +96,15 @@ x53 clk p_bit_dec dec n_dec reset VDD VSS sg13g2_dfrbp_1
 *.iopin VSS
 *.ipin di_spdt_ctrl
 *.iopin v_b
-x1 VDD di_spdt_ctrl VSS v_c v_a di_spdt_ctrl_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u
-+ L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=n
-x8 VDD di_spdt_ctrl di_spdt_ctrl_n VSS inverter_lv W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG n=1
+x1 VDD di_spdt_ctrl VSS net2 v_a di_spdt_ctrl_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
++ W_P_D=1.0u L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=n
+x8 VDD di_spdt_ctrl di_spdt_ctrl_n VSS inverter_lv W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG n=n
 XM1 net1 v_b VSS VSS sg13_lv_nmos w=0.5u l=0.2u ng=1 m=n
 XM3 net1 v_b VDD VDD sg13_lv_pmos w=1u l=0.2u ng=1 m=n
-x2 VDD net2 VSS net1 v_c net3 transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u L_P_D=0.13u
-+ W_N_D=1.0u L_N_D=0.13u n=n
-x40 di_spdt_ctrl_n VDD VSS net2 sg13g2_dlygate4sd2_1
-x4 di_spdt_ctrl VDD VSS net3 sg13g2_dlygate4sd2_1
-.ends
-
-
-* expanding   symbol:  buffer/buffer_lv.sym # of pins=4
-** sym_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sym
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sch
-.subckt buffer_lv VDD vin vout VSS  W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
-*.ipin vin
-*.iopin VDD
-*.iopin VSS
-*.opin vout
-x1 VDD vin net1 VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
-x2 VDD net1 vout VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
+x2 VDD di_spdt_ctrl_n VSS net3 net1 di_spdt_ctrl transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
++ W_P_D=1.0u L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=n
+V1 v_c net2 0
+V2 v_c net3 0
 .ends
 
 
@@ -131,6 +120,19 @@ x2 VDD net1 vout VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV
 *.opin Qn
 x1 VDD Q R Qn VSS NOR_gate W_P=W_P_SR L_P=L_P_SR W_N=W_N_SR L_N=L_N_SR
 x2 VDD Qn Q S VSS NOR_gate W_P=W_P_SR L_P=L_P_SR W_N=W_N_SR L_N=L_N_SR
+.ends
+
+
+* expanding   symbol:  buffer/buffer_lv.sym # of pins=4
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sch
+.subckt buffer_lv VDD vin vout VSS  W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+*.ipin vin
+*.iopin VDD
+*.iopin VSS
+*.opin vout
+x1 VDD vin net1 VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
+x2 VDD net1 vout VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
 .ends
 
 

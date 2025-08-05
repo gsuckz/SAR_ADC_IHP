@@ -19,7 +19,7 @@ C2 vdacn GND 1n m=1
 .param L_P = 0.13u
 .param W_N = 1.0u
 .param L_N = 0.13u
-.options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
+.options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-10
 .control
 
 * Transient Analysis
@@ -84,48 +84,46 @@ plot {vdacp-vdacn}
 *.iopin vdacn
 *.iopin VSS
 *.iopin VDD
-x14 b0 net1 VSS D0 VDD net2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
-x15 b1 net1 VSS D1 VDD net2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
-x16 b2 net1 VSS D2 VDD net2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8
-x1 b3 net1 VSS D3 VDD net2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4
-x2 b4 net1 VSS D4 VDD net2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2
-x3 b5 net1 VSS D5 VDD net2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
-x4 b6 net1 VSS D6 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
-x5 b7 net1 VSS D7 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
-x6 b8 net1 VSS D8 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8
-x7 b9 net1 VSS D9 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4
-x8 b10 net1 VSS D10 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2
-x9 b11 net1 VSS D11 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
-x10 b0 net1 VSS VSS VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
-x11 VDD sample VSS net2 vcm sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
+x14 b0 a_rail_p VSS D0 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
+x15 b1 a_rail_p VSS D1 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
+x16 b2 a_rail_p VSS D2 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8
+x1 b3 a_rail_p VSS D3 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4
+x2 b4 a_rail_p VSS D4 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2
+x3 b5 a_rail_p VSS D5 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
+x4 b6 a_rail_p VSS D6 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
+x5 b7 a_rail_p VSS D7 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
+x6 b8 a_rail_p VSS D8 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8
+x7 b9 a_rail_p VSS D9 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4
+x8 b10 a_rail_p VSS D10 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2
+x9 b11 a_rail_p VSS D11 VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
+x10 b0 a_rail_p VSS VSS VDD vdacp unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
+x11 VDD sample VSS vdacp vcm sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
 + W_N_D=1.0u L_N_D=0.13u n=10
-x12 VDD sample VSS net1 vinp sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
-+ W_N_D=1.0u L_N_D=0.13u n=10
-x13 VDD sample_n VSS net1 vcm sample transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
+x12 VDD sample VSS a_rail_p vinp sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u
++ L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=10
+x13 VDD sample_n VSS a_rail_p vcm sample transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
 + W_N_D=1.0u L_N_D=0.13u n=10
 x17 VDD sample_n sample VSS inverter_lv W_P=5.0u L_P=0.13u W_N=5.0u L_N=0.13u n=10
-x18 b0 net3 VSS D0 VDD net4 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
-x19 b1 net3 VSS D1 VDD net4 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
-x20 b2 net3 VSS D2 VDD net4 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8
-x21 b3 net3 VSS D3 VDD net4 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4
-x22 b4 net3 VSS D4 VDD net4 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2
-x23 b5 net3 VSS D5 VDD net4 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
-x24 b6 net3 VSS D6 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
-x25 b7 net3 VSS D7 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
-x26 b8 net3 VSS D8 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8
-x27 b9 net3 VSS D9 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4
-x28 b10 net3 VSS D10 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2
-x29 b11 net3 VSS D11 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
-x30 b0 net3 VSS VDD VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
-x31 VDD sample VSS net4 vcm sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
+x18 b0 a_rail_n VSS D0 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
+x19 b1 a_rail_n VSS D1 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
+x20 b2 a_rail_n VSS D2 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8
+x21 b3 a_rail_n VSS D3 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4
+x22 b4 a_rail_n VSS D4 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2
+x23 b5 a_rail_n VSS D5 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
+x24 b6 a_rail_n VSS D6 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
+x25 b7 a_rail_n VSS D7 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
+x26 b8 a_rail_n VSS D8 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8
+x27 b9 a_rail_n VSS D9 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4
+x28 b10 a_rail_n VSS D10 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2
+x29 b11 a_rail_n VSS D11 VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
+x30 b0 a_rail_n VSS VDD VDD vdacn unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
+x31 VDD sample VSS vdacn vcm sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
 + W_N_D=1.0u L_N_D=0.13u n=10
-x32 VDD sample VSS net3 vinn sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
-+ W_N_D=1.0u L_N_D=0.13u n=10
-x33 VDD sample_n VSS net3 vcm sample transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
+x32 VDD sample VSS a_rail_n vinn sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u
++ L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=10
+x33 VDD sample_n VSS a_rail_n vcm sample transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
 + W_N_D=1.0u L_N_D=0.13u n=10
 x34 VDD sample_pin sample_n VSS inverter_lv W_P=5.0u L_P=0.13u W_N=5.0u L_N=0.13u n=10
-C1 vdacp net2 cu m=1
-C2 net4 vdacn cu m=1
 .ends
 
 
@@ -256,12 +254,16 @@ C1 vcap vtop Cu m=n
 *.iopin VSS
 *.iopin bit
 *.iopin dec
-x1 VDD net2 net3 VSS bit net1 SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
-x23 net1 net4 n_dec VDD VSS sg13g2_and2_1
+x1 VDD net2 net4 VSS net5 net1 SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
+x23 net1 net6 n_dec VDD VSS sg13g2_and2_1
 x14 net2 n_dec comp_in VDD VSS sg13g2_and2_1
-x30 net4 comp_in VDD VSS sg13g2_inv_2
-x53 dec n_dec clk p_bit_dec reset VDD VSS sg13g2_dfrbp_1
-* noconn #net3
+x30 net6 comp_in VDD VSS sg13g2_inv_2
+x53 net3 n_dec clk p_bit_dec reset VDD VSS sg13g2_dfrbp_1
+* noconn #net4
+x2 VDD net5 net7 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+x3 VDD net3 net8 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+x4 VDD net8 dec VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u
+x5 VDD net7 bit VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u
 .ends
 
 
@@ -320,6 +322,19 @@ V2 v_c net3 0
 *.opin Qn
 x1 VDD Q R Qn VSS NOR_gate W_P=W_P_SR L_P=L_P_SR W_N=W_N_SR L_N=L_N_SR
 x2 VDD Qn Q S VSS NOR_gate W_P=W_P_SR L_P=L_P_SR W_N=W_N_SR L_N=L_N_SR
+.ends
+
+
+* expanding   symbol:  buffer/buffer_lv.sym # of pins=4
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sch
+.subckt buffer_lv VDD vin vout VSS  W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+*.ipin vin
+*.iopin VDD
+*.iopin VSS
+*.opin vout
+x1 VDD vin net1 VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
+x2 VDD net1 vout VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
 .ends
 
 

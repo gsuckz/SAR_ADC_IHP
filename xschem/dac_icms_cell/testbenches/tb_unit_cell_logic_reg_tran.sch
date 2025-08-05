@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N -180 -220 -180 -190 {lab=#net1}
 N -60 -190 -40 -190 {lab=#net1}
@@ -18,7 +19,7 @@ N 385 -160 755 -160 {lab=comp_in}
 N 325 -200 325 -35 {lab=p_dec}
 N -280 -310 -180 -310 {lab=#net2}
 N -280 -310 -280 -275 {lab=#net2}
-C {dac_icms_cell/unit_cell.sym} -20 0 0 0 {name=x1 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=2048}
+C {dac_icms_cell/unit_cell.sym} -20 0 0 0 {name=x1 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=32}
 C {vsource.sym} -280 -580 0 0 {name=V1 value=1.8 savecurrent=false}
 C {lab_pin.sym} -280 -610 0 0 {name=p1 sig_type=std_logic lab=vdd}
 C {gnd.sym} -280 -550 0 0 {name=l1 lab=GND}
@@ -28,7 +29,7 @@ C {vsource.sym} 665 -5 0 0 {name=V2 value="PULSE( 0 1.8 0 10p 10p .5n 1n)" savec
 C {lab_pin.sym} 965 -260 0 0 {name=p3 sig_type=std_logic lab=bit
 }
 C {gnd.sym} 665 25 0 0 {name=l3 lab=GND}
-C {vsource.sym} -165 -570 0 0 {name=V3 value=0.75 savecurrent=false}
+C {vsource.sym} -165 -570 0 0 {name=V3 value=0.9 savecurrent=false}
 C {lab_pin.sym} -165 -600 0 0 {name=p4 sig_type=std_logic lab=vcm
 
 }
@@ -115,7 +116,7 @@ spice_ignore=false
 C {logic/bit_cell.sym} 905 -170 0 0 {name=x18}
 C {lab_pin.sym} 815 -260 0 0 {name=p6 sig_type=std_logic lab=vdd}
 C {gnd.sym} 895 -80 0 0 {name=l11 lab=GND}
-C {vsource.sym} 325 -5 0 1 {name=V7 value="PULSE(1.8 0 0 10p 10p 10n 20n)" savecurrent=false}
+C {vsource.sym} 325 -5 0 1 {name=V7 value="PULSE(1.8 0 10n 10p 10p 10n 20n)" savecurrent=false}
 C {gnd.sym} 325 25 0 0 {name=l13 lab=GND}
 C {lab_pin.sym} 965 -80 0 1 {name=p15 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} 665 -95 0 0 {name=p16 sig_type=std_logic lab=clk}
