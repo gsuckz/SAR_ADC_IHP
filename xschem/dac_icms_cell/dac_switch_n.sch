@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Switch para celda unitaria DAC} 900 -1500 0 0 1 1 {}
 T {di_spdt_ctrl = 1, di_spdt_ctrl_n = 0: v_c connected to v_a, v_b = HIGH-Z
@@ -42,22 +43,18 @@ lab=VSS}
 N 1860 -620 1860 -570 {
 lab=#net1}
 N 1900 -620 1900 -540 {lab=#net2}
-N 1560 -740 1560 -660 {
-lab=VDD}
-N 1560 -580 1560 -500 {
-lab=VSS}
 N 1580 -700 1580 -660 {
-lab=#net3}
+lab=di_spdt_ctrl_n}
 N 1580 -700 1600 -700 {
-lab=#net3}
+lab=di_spdt_ctrl_n}
 N 1600 -740 1600 -700 {
-lab=#net3}
+lab=di_spdt_ctrl_n}
 N 1580 -580 1580 -540 {
-lab=#net4}
+lab=di_spdt_ctrl}
 N 1580 -540 1600 -540 {
-lab=#net4}
+lab=di_spdt_ctrl}
 N 1600 -540 1600 -500 {
-lab=#net4}
+lab=di_spdt_ctrl}
 N 1660 -620 1860 -620 {lab=#net1}
 N 1860 -630 1860 -620 {
 lab=#net1}
@@ -115,19 +112,19 @@ m=n
 model=sg13_lv_pmos
 spiceprefix=X
 }
-C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1580 -620 0 0 {name=x2 W_P=W_P_TG L_P=L_P_TG  W_N=W_N_TG L_N=L_N_TG
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1580 -620 0 1 {name=x2 W_P=W_P_TG L_P=L_P_TG  W_N=W_N_TG L_N=L_N_TG
 n=n}
-C {devices/lab_pin.sym} 1600 -420 3 0 {name=p14 sig_type=std_logic lab=di_spdt_ctrl}
-C {devices/lab_pin.sym} 1560 -500 3 0 {name=p15 sig_type=std_logic lab=VSS}
-C {devices/lab_pin.sym} 1560 -740 1 0 {name=p16 sig_type=std_logic lab=VDD}
-C {devices/lab_pin.sym} 1600 -820 1 0 {name=p18 sig_type=std_logic lab=di_spdt_ctrl_n}
+C {devices/lab_pin.sym} 1600 -500 3 0 {name=p14 sig_type=std_logic lab=di_spdt_ctrl}
+C {devices/lab_pin.sym} 1600 -580 3 0 {name=p15 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 1600 -660 1 0 {name=p16 sig_type=std_logic lab=VDD}
+C {devices/lab_pin.sym} 1600 -740 1 0 {name=p18 sig_type=std_logic lab=di_spdt_ctrl_n}
 C {devices/lab_pin.sym} 2010 -710 1 0 {name=p4 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 2010 -500 3 0 {name=p13 sig_type=std_logic lab=VSS}
 C {sg13g2_pr/sg13_lv_nmos.sym} 2030 -560 0 1 {name=M2
 l=0.2u
 w=0.5u
 ng=1
-m=n
+m=10
 model=sg13_lv_nmos
 spiceprefix=X
 }
@@ -135,9 +132,7 @@ C {sg13g2_pr/sg13_lv_pmos.sym} 2030 -680 0 1 {name=M4
 l=0.2u
 w=1u
 ng=1
-m=n
+m=10
 model=sg13_lv_pmos
 spiceprefix=X
 }
-C {sg13g2_stdcells/sg13g2_dlygate4sd2_1.sym} 1600 -780 1 0 {name=x40 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {sg13g2_stdcells/sg13g2_dlygate4sd2_1.sym} 1600 -460 3 0 {name=x3 VDD=VDD VSS=VSS prefix=sg13g2_ }

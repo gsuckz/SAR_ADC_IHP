@@ -1,0 +1,115 @@
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/spdt_switch/testbenches/spdt_switch_tb_dc_Ron.sch
+**.subckt spdt_switch_tb_dc_Ron
+vds_x1 vin_spdt vout_a_spdt_ca 1mV
+vds_x2 vin_spdt vout_b_spdt_cb 1mV
+VDD VDD GND 1.5
+vin vin_spdt GND 0.75
+x1 VDD VDD GND vin_spdt net1 vout_a_spdt_ca spdt_switch W_P_TG={W_P} L_P_TG={L_P} W_N_TG={W_N} L_N_TG={L_N}
+x2 VDD GND GND vin_spdt vout_b_spdt_cb net2 spdt_switch W_P_TG={W_P} L_P_TG={L_P} W_N_TG={W_N} L_N_TG={L_N}
+x3 VDD VDD GND vin_spdt net3 vout_a_spdt_hz_ca GND spdt_hz_switch W_P_TG={W_P} L_P_TG={L_P} W_N_TG={W_N} L_N_TG={L_N}
+vds_x3 vin_spdt vout_a_spdt_hz_ca 1mV
+**** begin user architecture code
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerRES.lib res_typ
+
+
+
+.param temp=27
+.param W_N=1u
+.param L_N=0.13u
+.param W_P=1u
+.param L_P=0.13u
+.options savecurrents
+.control
+save all
+
+* Operating Point Analysis
+op
+remzerovec
+write spdt_switch_tb_dc_Ron.raw
+set appendwrite
+
+* DC Sweep Analysis
+dc vin 0 1.5 0.01
+write spdt_switch_tb_dc_Ron.raw
+
+* On-Resistance v_c to v_a
+let r_on_ca = (v(vout_a_spdt_ca)-v(vin_spdt))/I(vds_x1)
+plot r_on_ca xlabel 'Vin in V' ylabel 'Ron in Ohm'
+
+* On-Resistance v_c to v_b
+let r_on_cb = (v(vout_b_spdt_cb)-v(vin_spdt))/I(vds_x2)
+plot r_on_cb xlabel 'Vin in V' ylabel 'Ron in Ohm'
+
+* On-Resistance v_c to v_a with High-Z TG
+let r_on_ca = (v(vout_a_spdt_hz_ca)-v(vin_spdt))/I(vds_x3)
+plot r_on_ca xlabel 'Vin in V' ylabel 'Ron in Ohm'
+
+*quit
+.endc
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  spdt_switch/spdt_switch.sym # of pins=6
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/spdt_switch/spdt_switch.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/spdt_switch/spdt_switch.sch
+.subckt spdt_switch VDD di_spdt_ctrl VSS v_c v_b v_a  W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u
+*.iopin v_a
+*.iopin v_b
+*.iopin v_c
+*.iopin VDD
+*.iopin VSS
+*.ipin di_spdt_ctrl
+x1 VDD di_spdt_ctrl VSS v_c v_a di_spdt_ctrl_n transmission_gate_lv_wo_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
+x2 VDD di_spdt_ctrl_n VSS v_b v_c di_spdt_ctrl transmission_gate_lv_wo_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
+x8 VDD di_spdt_ctrl di_spdt_ctrl_n VSS inverter_lv W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG n=1
+.ends
+
+
+* expanding   symbol:  spdt_switch/spdt_hz_switch.sym # of pins=7
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/spdt_switch/spdt_hz_switch.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/spdt_switch/spdt_hz_switch.sch
+.subckt spdt_hz_switch VDD di_spdt_ctrl VSS v_c v_b v_a di_spdt_hz  W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u
+*.iopin v_c
+*.iopin VDD
+*.iopin VSS
+*.ipin di_spdt_ctrl
+*.ipin di_spdt_hz
+x8 VDD di_spdt_ctrl di_spdt_ctrl_n VSS inverter_lv W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG n=1
+x3 VDD di_spdt_hz di_spdt_hz_n VSS inverter_lv W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG n=1
+x4 VDD di_spdt_hz_n VSS v_c net1 di_spdt_hz transmission_gate_lv_wo_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
+.ends
+
+
+* expanding   symbol:  transmission_gate/transmission_gate_lv_wo_dummy.sym # of pins=6
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_wo_dummy.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_wo_dummy.sch
+.subckt transmission_gate_lv_wo_dummy VDD di_tg_ctrl VSS v_b v_a di_tg_ctrl_n  W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u
+*.iopin v_a
+*.iopin v_b
+*.iopin VDD
+*.iopin VSS
+*.ipin di_tg_ctrl
+*.ipin di_tg_ctrl_n
+XM1 v_a di_tg_ctrl v_b VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=1
+XM2 v_a di_tg_ctrl_n v_b VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
+.ends
+
+
+* expanding   symbol:  inverter/inverter_lv.sym # of pins=4
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sch
+.subckt inverter_lv VDD vin vout VSS  W_P=3.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1
+*.ipin vin
+*.iopin VDD
+*.iopin VSS
+*.opin vout
+XM1 vout vin VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
+XM2 vout vin VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
+.ends
+
+.GLOBAL VDD
+.GLOBAL GND
+.end
