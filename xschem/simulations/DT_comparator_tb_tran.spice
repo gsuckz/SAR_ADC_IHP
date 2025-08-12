@@ -20,7 +20,7 @@ VDD3 VSS GND 0
 .param fclk=8000000
 .param fphi=62500
 .param tstart=2n
-.param delta_vin = 100m
+.param delta_vin = 400u
 .param Vcm=0.75
 .csparam fclk=fclk
 .csparam tstart=tstart
@@ -37,7 +37,7 @@ set appendwrite
 
 * Transient Analysis
 * tran 4p 20n
-tran 40p 900n
+tran 40p 100n
 *write DT_comparator_tb_tran.raw
 
 * Measure vcpp_min & vcpn_min
@@ -89,22 +89,23 @@ plot v(x1.voutp_comp) {v(x1.voutn_comp)  + 2} {v(x1.x6.vx_n) + 4}  {v(x1.x6.vx) 
 * expanding   symbol:  comparator/discrete_time/DT_comparator.sym # of pins=7
 ** sym_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/discrete_time/DT_comparator.sym
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/discrete_time/DT_comparator.sch
-.subckt DT_comparator VDD vinp vout vinn di_clk VSS PULSE
+.subckt DT_comparator VDD vinp vout vinn en VSS PULSE
 *.iopin VDD
 *.opin vout
 *.iopin VSS
 *.ipin vinp
 *.ipin vinn
-*.ipin di_clk
+*.ipin en
 *.iopin PULSE
 x2 VDD voutp_comp voutp_buf VSS buffer_lv W_P_INV=1.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
 x3 VDD voutn_comp voutn_buf VSS buffer_lv W_P_INV=1.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
 x5 VDD PULSEN PULSE VSS inverter_lv W_P=2.0u L_P=0.13u W_N=2.0u L_N=0.13u n=1
 * noconn #net1
-x4 VDD voutp_buf net1 VSS vout voutn_buf SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
-x6 VDD voutn_comp VSS voutp_comp PULSEN net2 pgen
-V1 VDD net2 1.5
+x4 VDD voutp_buf net1 VSS net3 voutn_buf SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
+x6 VDD voutp_buf VSS voutn_buf PULSEN net2 en pgen
+V1 VDD net2 1
 x1 PULSE PULSEN VDD voutp_comp vinp VSS voutn_comp vinn dynamic_biasing_comparator
+x7 VDD net3 vout VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=3.0u L_N_INV=0.13u
 .ends
 
 
@@ -149,24 +150,25 @@ x2 VDD Qn Q S VSS NOR_gate W_P=W_P_SR L_P=L_P_SR W_N=W_N_SR L_N=L_N_SR
 .ends
 
 
-* expanding   symbol:  comparator/pulse_gen/pgen.sym # of pins=6
+* expanding   symbol:  comparator/pulse_gen/pgen.sym # of pins=7
 ** sym_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/pulse_gen/pgen.sym
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/pulse_gen/pgen.sch
-.subckt pgen VDD in2 VSS in1 PULSE_n VTUNE
+.subckt pgen VDD in2 VSS in1 PULSE_n VTUNE en
 *.iopin VDD
 *.iopin in2
 *.iopin in1
 *.iopin VSS
 *.iopin VTUNE
 *.iopin PULSE_n
-XM1 READY in1 VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+*.iopin en
+XM1 READY in1 VSS VSS sg13_lv_nmos w=.15u l=0.13u ng=1 m=1
 XM2 READY vx_n VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
-XM4 vx PULSE_n net5 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
-x46 vxs net1 VDD VSS PULSE_n sg13g2_or2_1
+XM4 vx net1 net5 VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
+x46 vxs READY VDD VSS net1 sg13g2_or2_2
 x6 vxs VDD VSS vx_n sg13g2_inv_2
-XM3 READY in2 VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
-XM5 vx net1 VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
-XM7 net5 VTUNE VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM3 READY in2 VSS VSS sg13_lv_nmos w=.15u l=0.13u ng=1 m=1
+XM5 vx READY VSS VSS sg13_lv_nmos w=1u l=0.13u ng=1 m=1
+XM7 net5 VTUNE VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
 XM6 net4 vx VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
 XM8 net3 vx net2 VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
 XM9 net3 vx net4 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
@@ -174,8 +176,8 @@ XM10 net2 vx VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
 XM11 VDD net3 net2 VDD sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
 XM12 VSS net3 net4 VSS sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
 x1 net3 VDD VSS vxs sg13g2_inv_2
-x2 READY VDD VSS net6 sg13g2_inv_2
-x3 net6 VDD VSS net1 sg13g2_inv_2
+x2 net1 en VDD VSS PULSE_n sg13g2_and2_2
+XM13 READY en VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
 .ends
 
 
@@ -191,23 +193,23 @@ x3 net6 VDD VSS net1 sg13g2_inv_2
 *.ipin vinp
 *.ipin vinn
 *.ipin di_clk
-XM3a vs di_clk vctail VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
-XM12 voutp di_clk_n VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
-XM8 net1 voutn VDD VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
-XM10 voutp voutn VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
-XM11 voutn voutp VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
-XM13 voutn di_clk_n VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
-CPn vcpn VSS 300f m=1
-CPp vcpp VSS 300f m=1
-XM9 net2 voutp VDD VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
-XM6 voutp vcpn net1 VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
-XM7 voutn vcpp net2 VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
+XM3a vs di_clk vctail VSS sg13_lv_nmos w=2.0u l=0.13u ng=1 m=1
+XM12 voutp di_clk_n VSS VSS sg13_lv_nmos w=3.0u l=0.13u ng=1 m=1
+XM8 net1 voutn VDD VDD sg13_lv_pmos w=8.0u l=0.13u ng=2 m=1
+XM10 voutp voutn VSS VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
+XM11 voutn voutp VSS VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
+XM13 voutn di_clk_n VSS VSS sg13_lv_nmos w=3.0u l=0.13u ng=1 m=1
+CPn vcpn VSS 100f m=1
+CPp vcpp VSS 100f m=1
+XM9 net2 voutp VDD VDD sg13_lv_pmos w=8.0u l=0.13u ng=2 m=1
+XM6 voutp vcpn net1 VDD sg13_lv_pmos w=10.0u l=0.13u ng=2 m=1
+XM7 voutn vcpp net2 VDD sg13_lv_pmos w=10.0u l=0.13u ng=2 m=1
 CTAIL vctail VSS 600f m=1
-XM3b vctail di_clk_n VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
-XM1 vcpn vinp vs VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
-XM2 vcpp vinn vs VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
-XM4 vcpn di_clk VDD VDD sg13_lv_pmos w=1.0u l=0.13u ng=1 m=1
-XM5 vcpp di_clk VDD VDD sg13_lv_pmos w=1.0u l=0.13u ng=1 m=1
+XM3b vctail di_clk_n VSS VSS sg13_lv_nmos w=2.0u l=0.13u ng=1 m=1
+XM1 vcpn vinp vs VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
+XM2 vcpp vinn vs VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
+XM4 vcpn di_clk VDD VDD sg13_lv_pmos w=2.0u l=0.13u ng=1 m=1
+XM5 vcpp di_clk VDD VDD sg13_lv_pmos w=2.0u l=0.13u ng=1 m=1
 .ends
 
 

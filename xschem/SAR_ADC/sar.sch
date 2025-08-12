@@ -32,6 +32,7 @@ N -460 -340 -390 -340 {lab=vcm}
 N -460 -470 -460 -340 {lab=vcm}
 N -440 -280 -390 -280 {lab=VSS}
 N -440 -280 -440 -210 {lab=VSS}
+N 30 20 30 70 {lab=#net1}
 C {comparator/discrete_time/DT_comparator.sym} -30 -60 0 0 {name=x1}
 C {dac_icms_cell/dac.sym} -870 -610 0 0 {name=x2 cu=10f}
 C {logic/logic.sym} -870 710 2 1 {name=x3 }
@@ -39,7 +40,7 @@ C {ipin.sym} -730 -90 0 0 {name=p1 lab=vinp}
 C {iopin.sym} -480 -210 0 1 {name=p5 lab=VDD}
 C {opin.sym} -700 100 1 0 {name=p2 lab=b11}
 C {ipin.sym} -730 -30 0 0 {name=p3 lab=vinn}
-C {ipin.sym} 30 20 0 0 {name=p4 lab=clk}
+C {ipin.sym} 180 60 0 0 {name=p4 lab=clk}
 C {iopin.sym} -440 -210 0 0 {name=p6 lab=VSS}
 C {lab_pin.sym} -480 310 0 0 {name=p7 lab=VDD}
 C {lab_pin.sym} -440 310 0 1 {name=p8 lab=VSS}
@@ -77,3 +78,6 @@ C {lab_pin.sym} -460 -10 1 0 {name=p29 lab=sample}
 C {lab_pin.sym} -460 -470 1 0 {name=p42 lab=vcm}
 C {vsource.sym} -390 -310 0 0 {name=V1 value=0.9 savecurrent=false}
 C {lab_pin.sym} 200 85 0 1 {name=p10 lab=comp_clk}
+C {noconn.sym} -460 80 0 1 {name=l2}
+C {lab_pin.sym} -50 70 2 1 {name=p28 lab=rst}
+C {sg13g2_stdcells/sg13g2_inv_2.sym} -10 70 0 0 {name=x6 VDD=VDD VSS=VSS prefix=sg13g2_ }

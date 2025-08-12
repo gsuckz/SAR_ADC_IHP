@@ -29,9 +29,9 @@
 *.opin b11
 *.opin d11
 *.ipin rst_pin
-*.opin sample
 *.opin eoc
-x1 clk VDD rst comp_in VDD b0 VSS d0 bit_cell
+*.opin sample
+x1 clk net1 rst comp_in VDD b0 VSS d0 bit_cell
 x14 clk d0 rst comp_in VDD b1 VSS d1 bit_cell
 x15 clk d1 rst comp_in VDD b2 VSS d2 bit_cell
 x16 clk d2 rst comp_in VDD b3 VSS d3 bit_cell
@@ -43,10 +43,12 @@ x21 clk d7 rst comp_in VDD b8 VSS d8 bit_cell
 x22 clk d8 rst comp_in VDD b9 VSS d9 bit_cell
 x23 clk d9 rst comp_in VDD b10 VSS d10 bit_cell
 x24 clk d10 rst comp_in VDD b11 VSS d11 bit_cell
-x3 rst rst_pin rst_reg VDD VSS sg13g2_nor2_2
-x4 clk d11 rst VDD VDD eoc VSS net1 bit_cell
-x5 clk net1 rst VDD VDD sample VSS net2 bit_cell
-x6 clk net2 rst VDD VDD net3 VSS rst_reg bit_cell
+x3 rst_pin rst_reg VDD VSS rst sg13g2_nor2_2
+x4 clk d11 rst VDD VDD eoc VSS smp bit_cell
+x5 clk smp rst VDD VDD net2 VSS rst_reg bit_cell
+x2 clk VDD rst VDD VDD net3 VSS net1 bit_cell
+x6 VDD smp net4 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+x7 VDD net4 sample VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u
 **.ends
 
 * expanding   symbol:  logic/bit_cell.sym # of pins=8
@@ -62,15 +64,28 @@ x6 clk net2 rst VDD VDD net3 VSS rst_reg bit_cell
 *.iopin bit
 *.iopin dec
 x1 VDD net2 net4 VSS net5 net1 SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
-x23 net1 net6 n_dec VDD VSS sg13g2_and2_1
-x14 net2 n_dec comp_in VDD VSS sg13g2_and2_1
-x30 net6 comp_in VDD VSS sg13g2_inv_2
-x53 net3 n_dec clk p_bit_dec reset VDD VSS sg13g2_dfrbp_1
+x23 net6 n_dec VDD VSS net1 sg13g2_and2_1
+x14 n_dec comp_in VDD VSS net2 sg13g2_and2_1
+x30 comp_in VDD VSS net6 sg13g2_inv_2
+x53 clk p_bit_dec net3 n_dec reset VDD VSS sg13g2_dfrbp_1
 * noconn #net4
 x2 VDD net5 net7 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
 x3 VDD net3 net8 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
 x4 VDD net8 dec VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u
 x5 VDD net7 bit VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u
+.ends
+
+
+* expanding   symbol:  buffer/buffer_lv.sym # of pins=4
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sch
+.subckt buffer_lv VDD vin vout VSS  W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+*.ipin vin
+*.iopin VDD
+*.iopin VSS
+*.opin vout
+x1 VDD vin net1 VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
+x2 VDD net1 vout VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
 .ends
 
 
@@ -89,16 +104,16 @@ x2 VDD Qn Q S VSS NOR_gate W_P=W_P_SR L_P=L_P_SR W_N=W_N_SR L_N=L_N_SR
 .ends
 
 
-* expanding   symbol:  buffer/buffer_lv.sym # of pins=4
-** sym_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sym
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sch
-.subckt buffer_lv VDD vin vout VSS  W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+* expanding   symbol:  inverter/inverter_lv.sym # of pins=4
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sch
+.subckt inverter_lv VDD vin vout VSS  W_P=3.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1
 *.ipin vin
 *.iopin VDD
 *.iopin VSS
 *.opin vout
-x1 VDD vin net1 VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
-x2 VDD net1 vout VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
+XM1 vout vin VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
+XM2 vout vin VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
 .ends
 
 
@@ -117,19 +132,6 @@ XM3 C B net1 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
 XM4 net1 A VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
 XM5 C A net2 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
 XM6 net2 B VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
-.ends
-
-
-* expanding   symbol:  inverter/inverter_lv.sym # of pins=4
-** sym_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sym
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sch
-.subckt inverter_lv VDD vin vout VSS  W_P=3.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1
-*.ipin vin
-*.iopin VDD
-*.iopin VSS
-*.opin vout
-XM1 vout vin VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
-XM2 vout vin VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
 .ends
 
 .end

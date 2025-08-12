@@ -108,14 +108,14 @@ C {devices/launcher.sym} 1720 -1300 0 0 {name=h3
 descr="Annotate OP" 
 tclcommand="set show_hidden_texts 1; xschem annotate_op"
 }
-C {code_shown.sym} 50 -1300 0 0 {name=NGSPICE
+C {code_shown.sym} 60 -1310 0 0 {name=NGSPICE
 only_toplevel=true
 value="
 .param temp=27
 .param fclk=8000000
 .param fphi=62500
 .param tstart=2n
-.param delta_vin = 100m
+.param delta_vin = 400u
 .param Vcm=0.75
 .csparam fclk=fclk
 .csparam tstart=tstart
@@ -132,7 +132,7 @@ set appendwrite
 
 * Transient Analysis
 * tran 4p 20n
-tran 40p 900n
+tran 40p 100n
 *write DT_comparator_tb_tran.raw
 
 * Measure vcpp_min & vcpn_min

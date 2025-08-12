@@ -56,14 +56,16 @@ N 860 -820 860 -380 {lab=PULSEN}
 N 800 -600 900 -600 {lab=PULSE}
 N 650 -380 860 -380 {lab=PULSEN}
 N 900 -820 900 -600 {lab=PULSE}
-N 1740 -960 1860 -960 {lab=vout}
+N 1740 -960 1860 -960 {lab=#net3}
+N 1920 -1020 1920 -1000 {lab=VDD}
+N 1920 -920 1920 -900 {lab=VSS}
 C {title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
 C {devices/iopin.sym} 800 -1080 3 0 {name=p11 lab=VDD}
-C {devices/opin.sym} 1860 -960 2 1 {name=p2 lab=vout}
+C {devices/opin.sym} 1980 -960 2 1 {name=p2 lab=vout}
 C {devices/iopin.sym} 800 -800 1 0 {name=p8 lab=VSS}
 C {ipin.sym} 620 -980 0 0 {name=p9 lab=vinp}
 C {ipin.sym} 620 -900 2 1 {name=p10 lab=vinn}
-C {ipin.sym} 900 -1220 0 0 {name=p12 lab=di_clk}
+C {ipin.sym} 1040 -560 0 0 {name=p12 lab=en}
 C {buffer/buffer_lv.sym} 1320 -1060 0 0 {name=x2 W_P_INV=1.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u}
 C {lab_wire.sym} 1320 -1120 3 1 {name=p7 sig_type=std_logic lab=VDD}
 C {lab_wire.sym} 1320 -1000 3 0 {name=p1 sig_type=std_logic lab=VSS}
@@ -85,11 +87,14 @@ C {comparator/pulse_gen/pgen.sym} 1190 -520 0 0 {name=x6}
 C {lab_wire.sym} 1340 -520 2 0 {name=p22 sig_type=std_logic lab=VSS}
 C {lab_wire.sym} 1340 -560 2 0 {name=p23 sig_type=std_logic lab=VDD}
 C {lab_wire.sym} 1480 -520 3 1 {name=p25 sig_type=std_logic lab=VDD}
-C {devices/iopin.sym} 820 -600 3 1 {name=p26 lab=PULSE}
+C {devices/iopin.sym} 800 -600 3 1 {name=p26 lab=PULSE}
 C {lab_wire.sym} 370 -720 2 1 {name=p6 sig_type=std_logic lab=voutp_buf}
 C {lab_wire.sym} 370 -680 2 1 {name=p27 sig_type=std_logic lab=voutn_buf}
-C {vsource.sym} 1480 -490 0 0 {name=V1 value=1.5 savecurrent=false}
-C {lab_wire.sym} 860 -490 2 1 {name=p29 sig_type=std_logic lab=PULSEN}
+C {vsource.sym} 1480 -490 0 0 {name=V1 value=1 savecurrent=false}
+C {lab_wire.sym} 650 -380 2 1 {name=p29 sig_type=std_logic lab=PULSEN}
 C {comparator/discrete_time/Dynamic-biasing/dynamic_biasing_comparator.sym} 820 -940 0 0 {name=x1}
-C {lab_wire.sym} 1340 -540 2 0 {name=p28 sig_type=std_logic lab=voutn_comp}
-C {lab_wire.sym} 1340 -500 2 0 {name=p30 sig_type=std_logic lab=voutp_comp}
+C {buffer/buffer_lv.sym} 1920 -960 0 0 {name=x7 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=3.0u L_N_INV=0.13u}
+C {lab_wire.sym} 1920 -1020 3 1 {name=p20 sig_type=std_logic lab=VDD}
+C {lab_wire.sym} 1920 -900 3 0 {name=p21 sig_type=std_logic lab=VSS}
+C {lab_wire.sym} 1340 -500 2 0 {name=p24 sig_type=std_logic lab=voutn_buf}
+C {lab_wire.sym} 1340 -540 2 0 {name=p28 sig_type=std_logic lab=voutp_buf}

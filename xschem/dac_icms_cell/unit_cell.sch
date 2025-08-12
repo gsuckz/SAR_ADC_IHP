@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 T {Cell for thermometer code including unit capacitor and SPDT switch with high-Z} 220 -1720 0 0 1 1 {}
 T {v0, if di_clk = 0
@@ -32,8 +31,4 @@ m=n
 value=Cu
 footprint=1206
 device="ceramic capacitor"}
-C {lab_pin.sym} 1205 -1175 1 0 {name=p143 sig_type=std_logic lab=VDD}
-C {lab_pin.sym} 1205 -1095 3 0 {name=p144 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} 1195 -970 1 0 {name=p1 sig_type=std_logic lab=VDD}
-C {lab_pin.sym} 1195 -890 3 0 {name=p4 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 1460 -870 0 0 {name=p7 sig_type=std_logic lab=vcap}

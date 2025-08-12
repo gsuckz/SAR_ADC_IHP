@@ -1,15 +1,13 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 T {CDAC full Diferencial 12 Bits } 230 -2380 0 0 1.2 1.2 {}
 T {Agregar NOL en Vin/Vcm
 Agregar Capacitor Split
 Cambiar la última Celda por algo sin BIT} 1970 -2560 0 0 1.2 1.2 {}
-N 4160 -2140 4160 -1920 {lab=a_rail_p}
 N 3900 -2140 3900 -1920 {lab=a_rail_p}
 N 3560 -2140 3560 -1920 {lab=a_rail_p}
 N 3210 -2140 3210 -1930 {lab=a_rail_p}
@@ -28,39 +26,36 @@ N 1890 -2140 2160 -2140 {lab=a_rail_p}
 N 1550 -2140 1890 -2140 {lab=a_rail_p}
 N 2510 -2140 2510 -1940 {lab=a_rail_p}
 N 2160 -2140 2510 -2140 {lab=a_rail_p}
-N 3900 -2140 4160 -2140 {lab=a_rail_p}
 N 3560 -2140 3900 -2140 {lab=a_rail_p}
 N 3210 -2140 3560 -2140 {lab=a_rail_p}
 N 2850 -2140 3210 -2140 {lab=a_rail_p}
 N 2850 -2140 2850 -1940 {lab=a_rail_p}
 N 2510 -2140 2850 -2140 {lab=a_rail_p}
-N 540 -1810 540 -1640 {lab=vdacp}
-N 190 -1800 190 -1640 {lab=vdacp}
-N 190 -1640 540 -1640 {lab=vdacp}
-N 880 -1810 880 -1640 {lab=vdacp}
-N 540 -1640 880 -1640 {lab=vdacp}
-N 1240 -1820 1240 -1640 {lab=vdacp}
-N 880 -1640 1240 -1640 {lab=vdacp}
-N 2200 -1640 2550 -1640 {lab=vdacp}
-N 2550 -1640 2890 -1640 {lab=vdacp}
-N 3940 -1640 4200 -1640 {lab=vdacp}
-N 3600 -1640 3940 -1640 {lab=vdacp}
-N 3250 -1640 3600 -1640 {lab=vdacp}
-N 2890 -1640 3250 -1640 {lab=vdacp}
-N 1590 -1770 1590 -1640 {lab=vdacp}
-N 1240 -1640 1590 -1640 {lab=vdacp}
-N 1930 -1770 1930 -1640 {lab=vdacp}
-N 1590 -1640 1930 -1640 {lab=vdacp}
-N 4200 -1740 4200 -1640 {lab=vdacp}
-N 3940 -1740 3940 -1640 {lab=vdacp}
-N 3600 -1740 3600 -1640 {lab=vdacp}
-N 3250 -1750 3250 -1640 {lab=vdacp}
-N 2890 -1760 2890 -1640 {lab=vdacp}
-N 2550 -1760 2550 -1640 {lab=vdacp}
-N 2200 -1770 2200 -1640 {lab=vdacp}
-N 2120 -1640 2200 -1640 {lab=vdacp}
+N 540 -1810 540 -1640 {lab=vdacn}
+N 190 -1800 190 -1640 {lab=vdacn}
+N 190 -1640 540 -1640 {lab=vdacn}
+N 880 -1810 880 -1640 {lab=vdacn}
+N 540 -1640 880 -1640 {lab=vdacn}
+N 1240 -1820 1240 -1640 {lab=vdacn}
+N 880 -1640 1240 -1640 {lab=vdacn}
+N 2200 -1640 2550 -1640 {lab=vdacn2}
+N 2550 -1640 2890 -1640 {lab=vdacn2}
+N 4185 -1640 4220 -1640 {lab=vdacn2}
+N 3600 -1640 3940 -1640 {lab=vdacn2}
+N 3250 -1640 3600 -1640 {lab=vdacn2}
+N 2890 -1640 3250 -1640 {lab=vdacn2}
+N 1590 -1770 1590 -1640 {lab=vdacn}
+N 1240 -1640 1590 -1640 {lab=vdacn}
+N 1930 -1770 1930 -1640 {lab=vdacn}
+N 1590 -1640 1930 -1640 {lab=vdacn}
+N 3940 -1740 3940 -1640 {lab=vdacn2}
+N 3600 -1740 3600 -1640 {lab=vdacn2}
+N 3250 -1750 3250 -1640 {lab=vdacn2}
+N 2890 -1760 2890 -1640 {lab=vdacn2}
+N 2550 -1760 2550 -1640 {lab=vdacn2}
+N 2200 -1770 2200 -1640 {lab=vdacn2}
 N 0 -2140 150 -2140 {lab=a_rail_p}
-N -40 -1640 190 -1640 {lab=vdacp}
+N -40 -1640 190 -1640 {lab=vdacn}
 N -50 -2140 0 -2140 {lab=a_rail_p}
 N -210 -1640 -200 -1640 {lab=vcm}
 N -620 -1980 -540 -1980 {lab=sample}
@@ -70,7 +65,6 @@ N -50 -1870 0 -1870 {lab=a_rail_p}
 N 0 -2140 0 -1870 {lab=a_rail_p}
 N -210 -1870 -210 -1640 {lab=vcm}
 N -420 -1640 -210 -1640 {lab=vcm}
-N 4190 -1380 4190 -1160 {lab=a_rail_n}
 N 3930 -1380 3930 -1160 {lab=a_rail_n}
 N 3590 -1380 3590 -1160 {lab=a_rail_n}
 N 3240 -1380 3240 -1170 {lab=a_rail_n}
@@ -89,38 +83,37 @@ N 1920 -1380 2190 -1380 {lab=a_rail_n}
 N 1580 -1380 1920 -1380 {lab=a_rail_n}
 N 2540 -1380 2540 -1180 {lab=a_rail_n}
 N 2190 -1380 2540 -1380 {lab=a_rail_n}
-N 3930 -1380 4190 -1380 {lab=a_rail_n}
 N 3590 -1380 3930 -1380 {lab=a_rail_n}
 N 3240 -1380 3590 -1380 {lab=a_rail_n}
 N 2880 -1380 3240 -1380 {lab=a_rail_n}
 N 2880 -1380 2880 -1180 {lab=a_rail_n}
 N 2540 -1380 2880 -1380 {lab=a_rail_n}
-N 570 -1050 570 -880 {lab=vdacn}
-N 220 -1040 220 -880 {lab=vdacn}
-N 220 -880 570 -880 {lab=vdacn}
-N 910 -1050 910 -880 {lab=vdacn}
-N 570 -880 910 -880 {lab=vdacn}
-N 1270 -1060 1270 -880 {lab=vdacn}
-N 910 -880 1270 -880 {lab=vdacn}
-N 2230 -880 2580 -880 {lab=vdacn}
-N 2580 -880 2920 -880 {lab=vdacn}
-N 3970 -880 4230 -880 {lab=vdacn}
-N 3630 -880 3970 -880 {lab=vdacn}
-N 3280 -880 3630 -880 {lab=vdacn}
-N 2920 -880 3280 -880 {lab=vdacn}
-N 1620 -1010 1620 -880 {lab=vdacn}
-N 1270 -880 1620 -880 {lab=vdacn}
-N 1960 -1010 1960 -880 {lab=vdacn}
-N 4230 -980 4230 -880 {lab=vdacn}
-N 3970 -980 3970 -880 {lab=vdacn}
-N 3630 -980 3630 -880 {lab=vdacn}
-N 3280 -990 3280 -880 {lab=vdacn}
-N 2920 -1000 2920 -880 {lab=vdacn}
-N 2580 -1000 2580 -880 {lab=vdacn}
-N 2230 -1010 2230 -880 {lab=vdacn}
-N 2150 -880 2230 -880 {lab=vdacn}
+N 570 -1050 570 -880 {lab=vdacp}
+N 220 -1040 220 -880 {lab=vdacp}
+N 235 -880 570 -880 {lab=vdacp}
+N 910 -1050 910 -880 {lab=vdacp}
+N 570 -880 910 -880 {lab=vdacp}
+N 1270 -1060 1270 -880 {lab=vdacp}
+N 910 -880 1270 -880 {lab=vdacp}
+N 2230 -880 2580 -880 {lab=vdacp2}
+N 2835 -880 2920 -880 {lab=vdacp2}
+N 3970 -880 4230 -880 {lab=vdacp2}
+N 3630 -880 3970 -880 {lab=vdacp2}
+N 3280 -880 3630 -880 {lab=vdacp2}
+N 2920 -880 3280 -880 {lab=vdacp2}
+N 1620 -1010 1620 -880 {lab=vdacp}
+N 1270 -880 1620 -880 {lab=vdacp}
+N 1960 -1010 1960 -880 {lab=vdacp}
+N 4230 -980 4230 -880 {lab=vdacp2}
+N 3970 -980 3970 -880 {lab=vdacp2}
+N 3630 -980 3630 -880 {lab=vdacp2}
+N 3280 -990 3280 -880 {lab=vdacp2}
+N 2920 -1000 2920 -880 {lab=vdacp2}
+N 2580 -1000 2580 -880 {lab=vdacp2}
+N 2230 -1010 2230 -880 {lab=vdacp2}
+N 2150 -880 2230 -880 {lab=vdacp2}
 N 30 -1380 180 -1380 {lab=a_rail_n}
-N -10 -880 220 -880 {lab=vdacn}
+N -10 -880 220 -880 {lab=vdacp}
 N -20 -1380 30 -1380 {lab=a_rail_n}
 N -180 -880 -170 -880 {lab=vcm}
 N -20 -1110 30 -1110 {lab=a_rail_n}
@@ -128,21 +121,34 @@ N 30 -1380 30 -1110 {lab=a_rail_n}
 N -180 -1110 -180 -880 {lab=vcm}
 N -420 -1640 -420 -1110 {lab=vcm}
 N -420 -1110 -180 -1110 {lab=vcm}
-N 4200 -1640 4220 -1640 {lab=vdacp}
 N -1135 -1980 -1055 -1980 {lab=sample_pin}
 N -995 -1940 -995 -1920 {lab=VSS}
 N -995 -2040 -995 -2020 {lab=VDD}
 N -915 -1980 -760 -1980 {lab=sample_n}
-N 2030 -1700 2120 -1700 {lab=vdacp}
-N 2120 -1700 2120 -1640 {lab=vdacp}
-N 1930 -1640 2030 -1640 {lab=vdacp}
-N 2070 -940 2150 -940 {lab=vdacn}
-N 2150 -940 2150 -880 {lab=vdacn}
-N 1960 -880 2070 -880 {lab=vdacn}
-N 1620 -880 1960 -880 {lab=vdacn}
-N 2030 -1700 2030 -1640 {lab=vdacp}
-N 2030 -1710 2030 -1700 {lab=vdacp}
-N 2070 -940 2070 -880 {lab=vdacn}
+N 1930 -1640 2045 -1640 {lab=vdacn}
+N 1960 -880 2090 -880 {lab=vdacp}
+N 1620 -880 1960 -880 {lab=vdacp}
+N 2100 -1640 2200 -1640 {lab=vdacn2}
+N 4440 -1695 4450 -1695 {lab=vcm}
+N 2595 -700 2605 -700 {lab=vcm}
+N 2765 -700 2835 -700 {lab=vdacp2}
+N 2835 -880 2835 -700 {lab=vdacp2}
+N 2580 -880 2835 -880 {lab=vdacp2}
+N 4610 -1700 4610 -1515 {lab=vdacn2}
+N 4175 -1515 4610 -1515 {lab=vdacn2}
+N 4175 -1640 4175 -1515 {lab=vdacn2}
+N 3940 -1640 4175 -1640 {lab=vdacn2}
+N 4185 -1805 4185 -1640 {lab=vdacn2}
+N 4175 -1640 4185 -1640 {lab=vdacn2}
+N 3900 -2140 4195 -2140 {lab=a_rail_p}
+N 4195 -2140 4195 -1865 {lab=a_rail_p}
+N 4185 -1865 4195 -1865 {lab=a_rail_p}
+N 4230 -1380 4235 -1380 {lab=a_rail_n}
+N 4230 -1380 4230 -1040 {lab=a_rail_n}
+N 3930 -1380 4230 -1380 {lab=a_rail_n}
+N 235 -880 235 -865 {lab=vdacp}
+N 220 -880 235 -880 {lab=vdacp}
+N 540 -1640 540 -1625 {lab=vdacn}
 C {dac_icms_cell/unit_cell_n.sym} 190 -1820 0 0 {name=x14 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
 n=32}
 C {devices/ipin.sym} 110 -1900 0 0 {name=p15 lab=D0}
@@ -215,24 +221,20 @@ C {devices/ipin.sym} 3860 -1840 0 0 {name=p36 lab=D11}
 C {devices/ipin.sym} 3960 -1920 1 0 {name=p37 lab=b11}
 C {lab_pin.sym} 3980 -1740 3 0 {name=p38 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 3980 -1920 1 0 {name=p39 sig_type=std_logic lab=VDD}
-C {dac_icms_cell/unit_cell_n.sym} 4200 -1760 0 0 {name=x10 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1}
-C {devices/lab_pin.sym} 4220 -1920 1 0 {name=p43 lab=b0}
-C {lab_pin.sym} 4240 -1740 3 0 {name=p44 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} 4240 -1920 1 0 {name=p45 sig_type=std_logic lab=VDD}
 C {transmission_gate/transmission_gate_lv_w_dummy.sym} -120 -1640 0 0 {name=x11 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u
-n=10}
+n=64}
 C {lab_pin.sym} -140 -1680 1 0 {name=p46 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -140 -1600 3 0 {name=p47 sig_type=std_logic lab=VSS}
 C {transmission_gate/transmission_gate_lv_w_dummy.sym} -130 -2140 0 0 {name=x12 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u
-n=10}
+n=64}
 C {devices/iopin.sym} -210 -2140 0 0 {name=p48 lab=vinp}
 C {transmission_gate/transmission_gate_lv_w_dummy.sym} -130 -1870 0 0 {name=x13 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u
-n=10}
+n=64}
 C {lab_pin.sym} -150 -1910 1 0 {name=p50 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -150 -1830 3 0 {name=p51 sig_type=std_logic lab=VSS}
 C {devices/iopin.sym} -420 -1360 0 0 {name=p52 lab=vcm}
 C {lab_pin.sym} -540 -1980 0 1 {name=p54 sig_type=std_logic lab=sample}
-C {inverter/inverter_lv.sym} -700 -1980 0 0 {name=x17 W_P=5.0u L_P=0.13u W_N=5.0u L_N=0.13u n=10
+C {inverter/inverter_lv.sym} -700 -1980 0 0 {name=x17 W_P=10.0u L_P=0.13u W_N=10.0u L_N=0.13u n=10
 }
 C {lab_pin.sym} -700 -1920 3 0 {name=p55 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -700 -2040 1 0 {name=p56 sig_type=std_logic lab=VDD}
@@ -245,7 +247,6 @@ C {lab_pin.sym} -130 -1910 1 0 {name=p61 sig_type=std_logic lab=sample_n}
 C {lab_pin.sym} -130 -1830 3 0 {name=p62 sig_type=std_logic lab=sample}
 C {lab_pin.sym} -150 -2180 1 0 {name=p63 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -150 -2100 3 0 {name=p64 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} 4120 -1840 3 0 {name=p42 sig_type=std_logic lab=VSS}
 C {dac_icms_cell/unit_cell.sym} 220 -1060 0 0 {name=x18 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
 n=32}
 C {devices/lab_pin.sym} 140 -1140 0 0 {name=p65 lab=D0}
@@ -318,19 +319,15 @@ C {devices/lab_pin.sym} 3890 -1080 0 0 {name=p115 lab=D11}
 C {devices/lab_pin.sym} 3990 -1160 1 0 {name=p116 lab=b11}
 C {lab_pin.sym} 4010 -980 3 0 {name=p117 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 4010 -1160 1 0 {name=p118 sig_type=std_logic lab=VDD}
-C {dac_icms_cell/unit_cell.sym} 4230 -1000 0 0 {name=x30 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1}
-C {devices/lab_pin.sym} 4250 -1160 1 0 {name=p119 lab=b0}
-C {lab_pin.sym} 4270 -980 3 0 {name=p120 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} 4270 -1160 1 0 {name=p121 sig_type=std_logic lab=VDD}
 C {transmission_gate/transmission_gate_lv_w_dummy.sym} -90 -880 0 0 {name=x31 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u
-n=10}
+n=64}
 C {lab_pin.sym} -110 -920 1 0 {name=p122 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -110 -840 3 0 {name=p123 sig_type=std_logic lab=VSS}
 C {transmission_gate/transmission_gate_lv_w_dummy.sym} -100 -1380 0 0 {name=x32 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u
-n=10}
+n=64}
 C {devices/iopin.sym} -180 -1380 0 0 {name=p124 lab=vinn}
 C {transmission_gate/transmission_gate_lv_w_dummy.sym} -100 -1110 0 0 {name=x33 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u
-n=10}
+n=64}
 C {lab_pin.sym} -120 -1150 1 0 {name=p125 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -120 -1070 3 0 {name=p126 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -90 -840 1 1 {name=p128 sig_type=std_logic lab=sample_n}
@@ -341,15 +338,50 @@ C {lab_pin.sym} -100 -1150 1 0 {name=p132 sig_type=std_logic lab=sample_n}
 C {lab_pin.sym} -100 -1070 3 0 {name=p133 sig_type=std_logic lab=sample}
 C {lab_pin.sym} -120 -1420 1 0 {name=p134 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -120 -1340 3 0 {name=p135 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} 4150 -1080 3 0 {name=p136 sig_type=std_logic lab=VDD}
-C {devices/iopin.sym} 4201 -1640 0 0 {name=p137 lab=vdacp}
-C {devices/iopin.sym} 4221 -880 0 0 {name=p138 lab=vdacn}
-C {iopin.sym} -800 -1730 3 0 {name=p127 sig_type=std_logic lab=VSS}
-C {iopin.sym} -800 -1710 1 0 {name=p139 sig_type=std_logic lab=VDD}
-C {lab_pin.sym} -850 -1980 1 0 {name=p140 sig_type=std_logic lab=sample_n}
-C {inverter/inverter_lv.sym} -995 -1980 0 0 {name=x34 W_P=5.0u L_P=0.13u W_N=5.0u L_N=0.13u n=10
+C {devices/iopin.sym} 235 -869 1 0 {name=p137 lab=vdacp}
+C {devices/iopin.sym} 540 -1629 1 0 {name=p138 lab=vdacn}
+C {iopin.sym} -1400 -1805 3 0 {name=p127 sig_type=std_logic lab=VSS}
+C {iopin.sym} -1400 -1785 1 0 {name=p139 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -845 -1980 1 0 {name=p140 sig_type=std_logic lab=sample_n}
+C {inverter/inverter_lv.sym} -995 -1980 0 0 {name=x34 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=10
 }
 C {lab_pin.sym} -995 -1920 3 0 {name=p141 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -995 -2040 1 0 {name=p142 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 210 -2140 3 1 {name=p143 sig_type=std_logic lab=a_rail_p}
 C {lab_pin.sym} 250 -1380 3 1 {name=p144 sig_type=std_logic lab=a_rail_n}
+C {capa.sym} 2075 -1640 1 1 {name=C1
+m=1
+value=cu
+footprint=1206
+device="ceramic capacitor"}
+C {capa.sym} 2120 -880 1 0 {name=C2
+m=1
+value=cu
+footprint=1206
+device="ceramic capacitor"}
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} 4530 -1695 0 0 {name=x35 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u
+n=64}
+C {lab_pin.sym} 4510 -1735 1 0 {name=p145 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} 4510 -1655 3 0 {name=p146 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} 4530 -1655 1 1 {name=p147 sig_type=std_logic lab=sample_n}
+C {lab_pin.sym} 4530 -1735 3 1 {name=p148 sig_type=std_logic lab=sample}
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} 2685 -700 0 0 {name=x36 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u
+n=64}
+C {lab_pin.sym} 2665 -740 1 0 {name=p149 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} 2665 -660 3 0 {name=p150 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} 2685 -660 1 1 {name=p151 sig_type=std_logic lab=sample_n}
+C {lab_pin.sym} 2685 -740 3 1 {name=p152 sig_type=std_logic lab=sample}
+C {lab_pin.sym} 2605 -700 3 1 {name=p153 sig_type=std_logic lab=vcm}
+C {lab_pin.sym} 4440 -1695 3 1 {name=p154 sig_type=std_logic lab=vcm}
+C {capa.sym} 4185 -1835 2 1 {name=C3
+m=1
+value=cu
+footprint=1206
+device="ceramic capacitor"}
+C {capa.sym} 4230 -1010 2 1 {name=C4
+m=1
+value=cu
+footprint=1206
+device="ceramic capacitor"}
+C {lab_pin.sym} 3055 -880 3 0 {name=p42 sig_type=std_logic lab=vdacp2}
+C {lab_pin.sym} 3075 -1640 3 0 {name=p43 sig_type=std_logic lab=vdacn2}

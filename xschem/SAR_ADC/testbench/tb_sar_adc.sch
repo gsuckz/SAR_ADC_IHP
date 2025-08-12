@@ -10,15 +10,15 @@ N -240 -330 -215 -330 {
 lab=vinp}
 N -520 -340 -400 -340 {lab=#net1}
 C {SAR_ADC/sar.sym} -120 -290 0 0 {name=x1}
-C {devices/code_shown.sym} 300 -660 0 0 {name=NGSPICE
+C {devices/code_shown.sym} 305 -660 0 0 {name=NGSPICE
 only_toplevel=false
 value="
 .param period=1n
 .param stoptime=\{100*period\}
 *.param stoptime=.2u
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
-vclk clk 0 PULSE(0 3.3 \{0*period\} \{period*0.05\} \{period*0.05\} \{period/2\} \{period\})
-vr  rst 0 PULSE(0 3.3 \{0*period\}  \{period*0.05\} \{period*0.05\} \{period/2\} \{period\} 1)
+*vclk clk 0 PULSE(0 3.3 \{0*period\} \{period*0.05\} \{period*0.05\} \{period/2\} \{period\})
+*vr  rst 0 PULSE(0 3.3 \{0*period\}  \{period*0.05\} \{period*0.05\} \{period/2\} \{period\} 1)
 
 .tran \{0.01*period\} \{stoptime\} 
 
@@ -46,9 +46,9 @@ plot \{d0\} \{d1 + 4\} \{d2 + 8\} \{d3 + 12\} \{d4 + 16\} \{d5 + 20\} \{d6 + 24\
 *plot compout
 .endc
 "}
-C {devices/vsource.sym} -520 -370 0 1 {name=VIN value=100m}
+C {devices/vsource.sym} -520 -370 0 1 {name=VI value=100m}
 C {devices/lab_pin.sym} 220 -350 0 1 {name=p3 lab=d0}
-C {devices/vsource.sym} -330 -160 0 1 {name=VIN1 value=1.8}
+C {devices/vsource.sym} -330 -160 0 1 {name=V1 value=1.8}
 C {devices/lab_pin.sym} -330 -190 1 0 {name=l1 lab=vdd}
 C {devices/lab_pin.sym} -60 -410 1 0 {name=l3 lab=vdd}
 C {devices/lab_pin.sym} 220 -340 0 1 {name=p4 lab=d1}
@@ -72,7 +72,7 @@ C {devices/gnd.sym} -460 -280 0 0 {name=l7 lab=GND}
 C {devices/gnd.sym} 70 -410 0 0 {name=l2 lab=GND}
 C {devices/vsource.sym} -460 -310 0 1 {name=VIN2 value=0.9}
 C {devices/lab_pin.sym} -400 -400 2 1 {name=l4 lab=vinn}
-C {code_shown.sym} -795 -275 0 0 {
+C {code_shown.sym} -540 -640 0 0 {
 name=TT_MODELS
 only_toplevel=true
 value="
@@ -89,4 +89,7 @@ C {devices/vsource.sym} -400 -370 2 1 {name=VIN3 value=100m}
 C {devices/lab_pin.sym} -240 -270 2 1 {name=l8 lab=vinn}
 C {devices/lab_pin.sym} -240 -330 0 0 {name=l9 lab=vinp}
 C {devices/gnd.sym} -120 -410 0 0 {name=l10 lab=GND}
+C {devices/vsource.sym} -510 -160 0 1 {name=V2 value="PULSE(0 1.8 0 10p 10p 5n 6n 1)"}
+C {devices/lab_pin.sym} -510 -190 1 0 {name=l12 lab=rst}
+C {devices/gnd.sym} -510 -130 0 0 {name=l13 lab=GND}
 C {devices/lab_pin.sym} 145 -410 1 0 {name=l11 lab=rst}

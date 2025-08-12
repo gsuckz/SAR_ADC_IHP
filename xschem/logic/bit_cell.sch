@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 N 190 -80 190 -40 {lab=#net1}
 N 190 0 190 40 {lab=#net2}
@@ -15,7 +14,7 @@ C {comparator/SR_latch/SR_latch.sym} 250 -20 0 0 {name=x1 W_P_SR=1.0u L_P_SR=0.1
 C {sg13g2_stdcells/sg13g2_and2_1.sym} 130 -80 0 0 {name=x23 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {sg13g2_stdcells/sg13g2_and2_1.sym} 130 40 0 0 {name=x14 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {sg13g2_stdcells/sg13g2_inv_2.sym} 30 -100 0 0 {name=x30 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {sg13g2_stdcells/sg13g2_dfrbp_1.sym} 170 -230 0 0 {name=x53 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {sg13g2_stdcells/sg13g2_dfrbp_1.sym} 170 -230 0 0 {name=x53 VDD=VDD VSS=VSS prefix=sg13g2_}
 C {lab_pin.sym} 70 -20 0 0 {name=p1 sig_type=std_logic lab=n_dec
 }
 C {lab_pin.sym} 260 -230 2 0 {name=p2 sig_type=std_logic lab=n_dec

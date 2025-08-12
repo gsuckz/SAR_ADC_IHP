@@ -4,7 +4,6 @@ K {}
 V {}
 S {}
 E {}
-N -310 380 -230 380 {lab=VDD}
 N 70 380 150 380 {lab=d0}
 N 450 380 530 380 {lab=d1}
 N 830 380 910 380 {lab=d2}
@@ -17,18 +16,25 @@ N 3110 380 3190 380 {lab=d8}
 N 3490 380 3570 380 {lab=d9}
 N 3870 380 3950 380 {lab=d10}
 N 4250 380 4330 380 {lab=d11}
-N 4630 380 4710 380 {lab=#net1}
-N 5010 380 5090 380 {lab=#net2}
+N 4675 380 4710 380 {lab=smp}
+N 5010 380 5090 380 {lab=rst_reg}
+N -365 380 -230 380 {lab=#net1}
+N -550 205 -550 385 {lab=#net1}
+N -550 385 -365 385 {lab=#net1}
+N -365 380 -365 385 {lab=#net1}
+N -360 585 -360 590 {lab=rst}
+N 4675 315 4675 380 {lab=smp}
+N 4630 380 4675 380 {lab=smp}
 C {lab_pin.sym} -230 460 0 0 {name=p1 sig_type=std_logic lab=clk}
 C {lab_pin.sym} -20 500 0 0 {name=p2 sig_type=std_logic lab=rst}
 C {lab_pin.sym} -230 420 0 0 {name=p4 sig_type=std_logic lab=comp_in}
 C {lab_pin.sym} -170 320 0 0 {name=p26 sig_type=std_logic lab=VDD}
 C {logic/bit_cell.sym} -80 410 0 0 {name=x1}
 C {lab_pin.sym} -90 500 0 0 {name=p27 sig_type=std_logic lab=VSS}
-C {iopin.sym} -410 370 0 1 {name=p28 lab=VDD}
-C {iopin.sym} -410 400 0 1 {name=p29 lab=VSS}
-C {ipin.sym} -410 430 0 0 {name=p30 lab=clk}
-C {ipin.sym} -410 460 0 0 {name=p31 lab=comp_in}
+C {iopin.sym} -405 -115 0 1 {name=p28 lab=VDD}
+C {iopin.sym} -405 -85 0 1 {name=p29 lab=VSS}
+C {ipin.sym} -405 -55 0 0 {name=p30 lab=clk}
+C {ipin.sym} -405 -25 0 0 {name=p31 lab=comp_in}
 C {opin.sym} -20 320 1 1 {name=p32 lab=b0}
 C {opin.sym} 70 380 1 1 {name=p33 lab=d0}
 C {lab_pin.sym} 150 460 0 0 {name=p34 sig_type=std_logic lab=clk}
@@ -119,7 +125,6 @@ C {logic/bit_cell.sym} 4100 410 0 0 {name=x24}
 C {lab_pin.sym} 4090 500 0 0 {name=p108 sig_type=std_logic lab=VSS}
 C {opin.sym} 4160 320 1 1 {name=p109 lab=b11}
 C {opin.sym} 4250 380 1 1 {name=p110 lab=d11}
-C {lab_pin.sym} -310 380 0 0 {name=p111 sig_type=std_logic lab=VDD}
 C {ipin.sym} -480 570 0 0 {name=p3 lab=rst_pin}
 C {sg13g2_stdcells/sg13g2_nor2_2.sym} -420 590 0 0 {name=x3 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {lab_pin.sym} -360 590 0 1 {name=p5 sig_type=std_logic lab=rst}
@@ -136,12 +141,23 @@ C {lab_pin.sym} 4770 320 0 0 {name=p16 sig_type=std_logic lab=VDD}
 C {logic/bit_cell.sym} 4860 410 0 0 {name=x5}
 C {lab_pin.sym} 4850 500 0 0 {name=p17 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 4710 420 0 0 {name=p20 sig_type=std_logic lab=VDD}
-C {lab_pin.sym} 5390 380 0 1 {name=p12 sig_type=std_logic lab=rst_reg}
-C {opin.sym} 4920 320 1 1 {name=p13 lab=sample}
-C {lab_pin.sym} 5090 460 0 0 {name=p18 sig_type=std_logic lab=clk}
-C {lab_pin.sym} 5300 500 0 0 {name=p19 sig_type=std_logic lab=rst}
-C {lab_pin.sym} 5150 320 0 0 {name=p21 sig_type=std_logic lab=VDD}
-C {logic/bit_cell.sym} 5240 410 0 0 {name=x6}
-C {lab_pin.sym} 5230 500 0 0 {name=p22 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} 5090 420 0 0 {name=p23 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} 5090 380 0 1 {name=p12 sig_type=std_logic lab=rst_reg}
 C {opin.sym} 4540 320 1 1 {name=p24 lab=eoc}
+C {lab_pin.sym} -850 285 0 0 {name=p25 sig_type=std_logic lab=clk}
+C {lab_pin.sym} -640 325 0 0 {name=p112 sig_type=std_logic lab=rst}
+C {lab_pin.sym} -790 145 0 0 {name=p113 sig_type=std_logic lab=VDD}
+C {logic/bit_cell.sym} -700 235 0 0 {name=x2}
+C {lab_pin.sym} -710 325 0 0 {name=p114 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} -850 205 0 0 {name=p115 sig_type=std_logic lab=VDD}
+C {buffer/buffer_lv.sym} -335 160 0 0 {name=x6 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u}
+C {opin.sym} -155 160 1 1 {name=p18 lab=sample}
+C {lab_pin.sym} -335 120 0 0 {name=p19 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -335 200 0 0 {name=p21 sig_type=std_logic lab=VSS}
+C {buffer/buffer_lv.sym} -215 160 0 0 {name=x7 W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u}
+C {lab_pin.sym} -215 120 0 0 {name=p22 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -215 200 0 0 {name=p23 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} -850 245 0 0 {name=p13 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} 4675 315 0 0 {name=p111 sig_type=std_logic lab=smp}
+C {lab_pin.sym} -515 140 0 0 {name=p116 sig_type=std_logic lab=smp}
+C {sg13g2_stdcells/sg13g2_or2_2.sym} -455 160 0 0 {name=x8 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {lab_pin.sym} -515 180 0 0 {name=p117 sig_type=std_logic lab=rst_pin}

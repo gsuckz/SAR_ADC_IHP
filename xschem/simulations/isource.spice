@@ -1,0 +1,24 @@
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/isource.sch
+**.subckt isource p m value
+
+R1 v1 GND 1k m=1
+**** begin user architecture code
+
+
+.param temp=27
+*.options savecurrents reltol=1e-3 abstol=1e-12 gmin=1e-15
+.control
+save all
+
+tran 40p 450n
+
+* Plotting
+plot v1
+
+
+.endc
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

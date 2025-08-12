@@ -22,29 +22,31 @@
 *.opin compout
 *.opin eoc
 *.ipin rst
-x1 VDD compp compout compn clk VSS net1 DT_comparator
-x2 compn vcm b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 VSS VDD sample compp vinp vinn d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 dac cu=5u
-x3 b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 VSS VDD sample d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 compout net1 rst eoc logic
+x1 VDD compp compout compn net1 VSS comp_clk DT_comparator
+x2 compn vcm b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 VSS VDD sample compp vinp vinn d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 dac cu=10f
+x3 b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 VSS VDD sample d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 compout comp_clk rst eoc logic
 V1 vcm VSS 0.9
+* noconn #net2
+x6 rst VDD VSS net1 sg13g2_inv_2
 **.ends
 
 * expanding   symbol:  comparator/discrete_time/DT_comparator.sym # of pins=7
 ** sym_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/discrete_time/DT_comparator.sym
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/discrete_time/DT_comparator.sch
-.subckt DT_comparator VDD vinp vout vinn di_clk VSS PULSE
+.subckt DT_comparator VDD vinp vout vinn en VSS PULSE
 *.iopin VDD
 *.opin vout
 *.iopin VSS
 *.ipin vinp
 *.ipin vinn
-*.ipin di_clk
+*.ipin en
 *.iopin PULSE
 x2 VDD voutp_comp voutp_buf VSS buffer_lv W_P_INV=1.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
 x3 VDD voutn_comp voutn_buf VSS buffer_lv W_P_INV=1.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
-x5 VDD PULSEN PULSE VSS inverter_lv W_P=2.0u L_P=0.13u W_N=2.0u L_N=0.13u
+x5 VDD PULSEN PULSE VSS inverter_lv W_P=2.0u L_P=0.13u W_N=2.0u L_N=0.13u n=1
 * noconn #net1
 x4 VDD voutp_buf net1 VSS vout voutn_buf SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
-x6 VDD voutn_comp VSS voutp_comp PULSEN net2 pgen
+x6 VDD voutn_comp VSS voutp_comp PULSEN net2 en pgen
 V1 VDD net2 1
 x1 PULSE PULSEN VDD voutp_comp vinp VSS voutn_comp vinn dynamic_biasing_comparator
 .ends
@@ -53,8 +55,8 @@ x1 PULSE PULSEN VDD voutp_comp vinp VSS voutn_comp vinn dynamic_biasing_comparat
 * expanding   symbol:  dac_icms_cell/dac.sym # of pins=32
 ** sym_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/dac.sym
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/dac.sch
-.subckt dac vdacn vcm b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 VSS VDD sample vdacp vinp vinn D9 D7 D0 D11 D3 D4 D2 D1 D8 D6 D5 D10
-+  cu=5u
+.subckt dac vdacn vcm b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 VSS VDD sample_pin vdacp vinp vinn D9 D7 D0 D11 D3 D4 D2 D1 D8 D6 D5
++ D10  cu=5u
 *.ipin D0
 *.ipin b0
 *.ipin D1
@@ -81,51 +83,58 @@ x1 PULSE PULSEN VDD voutp_comp vinp VSS voutn_comp vinn dynamic_biasing_comparat
 *.ipin b11
 *.iopin vinp
 *.iopin vcm
-*.ipin sample
+*.ipin sample_pin
 *.iopin vinn
 *.iopin vdacp
 *.iopin vdacn
 *.iopin VSS
 *.iopin VDD
-x14 b0 net1 VSS D0 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=2048
-x15 b1 net1 VSS D1 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=1024
-x16 b2 net1 VSS D2 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=512
-x1 b3 net1 VSS D3 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=256
-x2 b4 net1 VSS D4 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=128
-x3 b5 net1 VSS D5 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=64
-x4 b6 net1 VSS D6 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=32
-x5 b7 net1 VSS D7 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=16
-x6 b8 net1 VSS D8 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=8
-x7 b9 net1 VSS D9 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=4
-x8 b10 net1 VSS D10 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=2
-x9 b11 net1 VSS D11 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=1
-x10 b0 net1 VSS VSS VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=1
-x11 VDD sample VSS vdacp vcm sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
-+ W_N_D=1.0u L_N_D=0.13u
-x12 VDD sample VSS net1 vinp sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
-+ W_N_D=1.0u L_N_D=0.13u
-x13 VDD sample_n VSS net1 vcm sample transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
-+ W_N_D=1.0u L_N_D=0.13u
-x17 VDD sample sample_n VSS inverter_lv W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u
-x18 b0 net2 VSS D0 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-x19 b1 net2 VSS D1 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-x20 b2 net2 VSS D2 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-x21 b3 net2 VSS D3 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-x22 b4 net2 VSS D4 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-x23 b5 net2 VSS D5 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-x24 b6 net2 VSS D6 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-x25 b7 net2 VSS D7 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-x26 b8 net2 VSS D8 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-x27 b9 net2 VSS D9 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-x28 b10 net2 VSS D10 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-x29 b11 net2 VSS D11 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-x30 b0 net2 VSS VSS VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-x31 VDD sample VSS vdacn vcm sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
-+ W_N_D=1.0u L_N_D=0.13u
-x32 VDD sample VSS net2 vinn sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
-+ W_N_D=1.0u L_N_D=0.13u
-x33 VDD sample_n VSS net2 vcm sample transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
-+ W_N_D=1.0u L_N_D=0.13u
+x14 b0 a_rail_p VSS D0 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
+x15 b1 a_rail_p VSS D1 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
+x16 b2 a_rail_p VSS D2 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8
+x1 b3 a_rail_p VSS D3 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4
+x2 b4 a_rail_p VSS D4 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2
+x3 b5 a_rail_p VSS D5 VDD vdacn unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
+x4 b6 a_rail_p VSS D6 VDD vdacn2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
+x5 b7 a_rail_p VSS D7 VDD vdacn2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
+x6 b8 a_rail_p VSS D8 VDD vdacn2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8
+x7 b9 a_rail_p VSS D9 VDD vdacn2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4
+x8 b10 a_rail_p VSS D10 VDD vdacn2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2
+x9 b11 a_rail_p VSS D11 VDD vdacn2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
+x11 VDD sample VSS vdacn vcm sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
++ W_N_D=1.0u L_N_D=0.13u n=64
+x12 VDD sample VSS a_rail_p vinp sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u
++ L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=64
+x13 VDD sample_n VSS a_rail_p vcm sample transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
++ W_N_D=1.0u L_N_D=0.13u n=64
+x17 VDD sample_n sample VSS inverter_lv W_P=10.0u L_P=0.13u W_N=10.0u L_N=0.13u n=10
+x18 b0 a_rail_n VSS D0 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
+x19 b1 a_rail_n VSS D1 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
+x20 b2 a_rail_n VSS D2 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8
+x21 b3 a_rail_n VSS D3 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4
+x22 b4 a_rail_n VSS D4 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2
+x23 b5 a_rail_n VSS D5 VDD vdacp unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
+x24 b6 a_rail_n VSS D6 VDD vdacp2 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
+x25 b7 a_rail_n VSS D7 VDD vdacp2 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
+x26 b8 a_rail_n VSS D8 VDD vdacp2 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8
+x27 b9 a_rail_n VSS D9 VDD vdacp2 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4
+x28 b10 a_rail_n VSS D10 VDD vdacp2 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2
+x29 b11 a_rail_n VSS D11 VDD vdacp2 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1
+x31 VDD sample VSS vdacp vcm sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
++ W_N_D=1.0u L_N_D=0.13u n=64
+x32 VDD sample VSS a_rail_n vinn sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u
++ L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=64
+x33 VDD sample_n VSS a_rail_n vcm sample transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
++ W_N_D=1.0u L_N_D=0.13u n=64
+x34 VDD sample_pin sample_n VSS inverter_lv W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=10
+C1 vdacn2 vdacn cu m=1
+C2 vdacp2 vdacp cu m=1
+x35 VDD sample VSS vdacn2 vcm sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
++ W_N_D=1.0u L_N_D=0.13u n=64
+x36 VDD sample VSS vdacp2 vcm sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
++ W_N_D=1.0u L_N_D=0.13u n=64
+C3 vdacn2 a_rail_p cu m=1
+C4 vdacp2 a_rail_n cu m=1
 .ends
 
 
@@ -162,9 +171,9 @@ x33 VDD sample_n VSS net2 vcm sample transmission_gate_lv_w_dummy W_P=1.0u L_P=0
 *.opin b11
 *.opin d11
 *.ipin rst_pin
-*.opin sample
 *.opin eoc
-x1 clk VDD rst comp_in VDD b0 VSS d0 bit_cell
+*.opin sample
+x1 clk net1 rst comp_in VDD b0 VSS d0 bit_cell
 x14 clk d0 rst comp_in VDD b1 VSS d1 bit_cell
 x15 clk d1 rst comp_in VDD b2 VSS d2 bit_cell
 x16 clk d2 rst comp_in VDD b3 VSS d3 bit_cell
@@ -176,10 +185,12 @@ x21 clk d7 rst comp_in VDD b8 VSS d8 bit_cell
 x22 clk d8 rst comp_in VDD b9 VSS d9 bit_cell
 x23 clk d9 rst comp_in VDD b10 VSS d10 bit_cell
 x24 clk d10 rst comp_in VDD b11 VSS d11 bit_cell
-x3 rst_pin rst_reg VDD VSS rst sg13g2_or2_1
-x4 clk d11 rst VDD VDD eoc VSS net1 bit_cell
-x5 clk net1 rst VDD VDD sample VSS net2 bit_cell
-x6 clk net2 rst VDD VDD net3 VSS rst_reg bit_cell
+x3 rst_pin rst_reg VDD VSS rst sg13g2_nor2_2
+x4 clk d11 rst VDD VDD eoc VSS smp bit_cell
+x5 clk smp rst VDD VDD net3 VSS rst_reg bit_cell
+x2 clk VDD rst VDD VDD net4 VSS net1 bit_cell
+x6 VDD smp net5 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+x7 VDD net5 sample VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u
 .ends
 
 
@@ -191,21 +202,21 @@ x6 clk net2 rst VDD VDD net3 VSS rst_reg bit_cell
 *.iopin VDD
 *.iopin VSS
 *.opin vout
-x1 VDD vin net1 VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV
-x2 VDD net1 vout VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV
+x1 VDD vin net1 VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
+x2 VDD net1 vout VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
 .ends
 
 
 * expanding   symbol:  inverter/inverter_lv.sym # of pins=4
 ** sym_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sym
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sch
-.subckt inverter_lv VDD vin vout VSS  W_P=3.0u L_P=0.13u W_N=1.0u L_N=0.13u
+.subckt inverter_lv VDD vin vout VSS  W_P=3.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1
 *.ipin vin
 *.iopin VDD
 *.iopin VSS
 *.opin vout
-XM1 vout vin VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
-XM2 vout vin VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=1
+XM1 vout vin VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
+XM2 vout vin VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
 .ends
 
 
@@ -224,24 +235,25 @@ x2 VDD Qn Q S VSS NOR_gate W_P=W_P_SR L_P=L_P_SR W_N=W_N_SR L_N=L_N_SR
 .ends
 
 
-* expanding   symbol:  comparator/pulse_gen/pgen.sym # of pins=6
+* expanding   symbol:  comparator/pulse_gen/pgen.sym # of pins=7
 ** sym_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/pulse_gen/pgen.sym
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/pulse_gen/pgen.sch
-.subckt pgen VDD in2 VSS in1 PULSE_n VTUNE
+.subckt pgen VDD in2 VSS in1 PULSE_n VTUNE en
 *.iopin VDD
 *.iopin in2
 *.iopin in1
 *.iopin VSS
 *.iopin VTUNE
 *.iopin PULSE_n
-XM1 READY in1 VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
+*.iopin en
+XM1 READY in1 VSS VSS sg13_lv_nmos w=.15u l=0.13u ng=1 m=1
 XM2 READY vx_n VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
-XM4 vx PULSE_n net5 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
-x46 vxs net1 VDD VSS PULSE_n sg13g2_or2_1
+XM4 vx net1 net5 VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
+x46 vxs READY VDD VSS net1 sg13g2_or2_2
 x6 vxs VDD VSS vx_n sg13g2_inv_2
-XM3 READY in2 VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
-XM5 vx net1 VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
-XM7 net5 VTUNE VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM3 READY in2 VSS VSS sg13_lv_nmos w=.15u l=0.13u ng=1 m=1
+XM5 vx READY VSS VSS sg13_lv_nmos w=1u l=0.13u ng=1 m=1
+XM7 net5 VTUNE VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
 XM6 net4 vx VDD VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
 XM8 net3 vx net2 VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
 XM9 net3 vx net4 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
@@ -249,8 +261,8 @@ XM10 net2 vx VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
 XM11 VDD net3 net2 VDD sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
 XM12 VSS net3 net4 VSS sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
 x1 net3 VDD VSS vxs sg13g2_inv_2
-x2 READY VDD VSS net6 sg13g2_inv_2
-x3 net6 VDD VSS net1 sg13g2_inv_2
+x2 net1 en VDD VSS PULSE_n sg13g2_and2_2
+XM13 READY en VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
 .ends
 
 
@@ -269,8 +281,8 @@ x3 net6 VDD VSS net1 sg13g2_inv_2
 XM3a vs di_clk vctail VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
 XM12 voutp di_clk_n VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
 XM8 net1 voutn VDD VDD sg13_lv_pmos w=2.0u l=0.13u ng=2 m=1
-XM10 voutp voutn VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
-XM11 voutn voutp VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+XM10 voutp voutn VSS VSS sg13_lv_nmos w=2.0u l=0.13u ng=1 m=1
+XM11 voutn voutp VSS VSS sg13_lv_nmos w=2.0u l=0.13u ng=1 m=1
 XM13 voutn di_clk_n VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
 CPn vcpn VSS 300f m=1
 CPp vcpp VSS 300f m=1
@@ -286,6 +298,39 @@ XM5 vcpp di_clk VDD VDD sg13_lv_pmos w=1.0u l=0.13u ng=1 m=1
 .ends
 
 
+* expanding   symbol:  dac_icms_cell/unit_cell_n.sym # of pins=6
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/unit_cell_n.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/unit_cell_n.sch
+.subckt unit_cell_n B A VSS D VDD vtop  W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=1
+*.iopin VSS
+*.iopin A
+*.iopin VDD
+*.ipin D
+*.iopin B
+*.iopin vtop
+x1 VDD D VSS net1 B A dac_switch_n W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u n=n
+C1 net1 vtop cu m=n
+.ends
+
+
+* expanding   symbol:  transmission_gate/transmission_gate_lv_w_dummy.sym # of pins=6
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_w_dummy.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_w_dummy.sch
+.subckt transmission_gate_lv_w_dummy VDD di_tg_ctrl VSS v_b v_a di_tg_ctrl_n  W_P=2.0u L_P=0.13u W_N=2.0u L_N=0.13u W_P_D=1.0u
++ L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=1
+*.iopin v_a
+*.iopin v_b
+*.iopin VDD
+*.iopin VSS
+*.ipin di_tg_ctrl
+*.ipin di_tg_ctrl_n
+XM1 v_a di_tg_ctrl v_b VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
+XM2 v_a di_tg_ctrl_n v_b VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
+XMdummy2 v_b di_tg_ctrl v_b VDD sg13_lv_pmos w=W_P_D l=L_P_D ng=1 m=n
+XMdummy1 v_b di_tg_ctrl_n v_b VSS sg13_lv_nmos w=W_N_D l=L_N_D ng=1 m=n
+.ends
+
+
 * expanding   symbol:  dac_icms_cell/unit_cell.sym # of pins=6
 ** sym_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/unit_cell.sym
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/unit_cell.sch
@@ -296,41 +341,8 @@ XM5 vcpp di_clk VDD VDD sg13_lv_pmos w=1.0u l=0.13u ng=1 m=1
 *.ipin D
 *.iopin B
 *.iopin vtop
-x1 VDD D VSS net1 B A dac_switch W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u
-C1 net1 vtop cu m=n
-.ends
-
-
-* expanding   symbol:  transmission_gate/transmission_gate_lv_w_dummy.sym # of pins=6
-** sym_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_w_dummy.sym
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_w_dummy.sch
-.subckt transmission_gate_lv_w_dummy VDD di_tg_ctrl VSS v_b v_a di_tg_ctrl_n  W_P=2.0u L_P=0.13u W_N=2.0u L_N=0.13u W_P_D=1.0u
-+ L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u
-*.iopin v_a
-*.iopin v_b
-*.iopin VDD
-*.iopin VSS
-*.ipin di_tg_ctrl
-*.ipin di_tg_ctrl_n
-XM1 v_a di_tg_ctrl v_b VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=1
-XM2 v_a di_tg_ctrl_n v_b VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
-XMdummy2 v_b di_tg_ctrl v_b VDD sg13_lv_pmos w=W_P_D l=L_P_D ng=1 m=1
-XMdummy1 v_b di_tg_ctrl_n v_b VSS sg13_lv_nmos w=W_N_D l=L_N_D ng=1 m=1
-.ends
-
-
-* expanding   symbol:  dac_icms_cell/unit_cell_n.sym # of pins=6
-** sym_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/unit_cell_n.sym
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/unit_cell_n.sch
-.subckt unit_cell_n B A VSS D VDD vtop  W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f
-*.iopin VSS
-*.iopin A
-*.iopin VDD
-*.ipin D
-*.iopin B
-*.iopin vtop
-x1 VDD D VSS net1 B A dac_switch_n W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u
-C1 net1 vtop 1p m=n
+x1 VDD D VSS vcap B A dac_switch W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u n=n
+C1 vcap vtop Cu m=n
 .ends
 
 
@@ -346,11 +358,16 @@ C1 net1 vtop 1p m=n
 *.iopin VSS
 *.iopin bit
 *.iopin dec
-x1 VDD net2 net3 VSS bit net1 SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
-x23 net4 n_dec VDD VSS net1 sg13g2_and2_1
+x1 VDD net2 net4 VSS net5 net1 SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
+x23 net6 n_dec VDD VSS net1 sg13g2_and2_1
 x14 n_dec comp_in VDD VSS net2 sg13g2_and2_1
-x30 comp_in VDD VSS net4 sg13g2_inv_2
-x53 clk p_bit_dec dec n_dec reset VDD VSS sg13g2_dfrbp_1
+x30 comp_in VDD VSS net6 sg13g2_inv_2
+x53 clk p_bit_dec net3 n_dec reset VDD VSS sg13g2_dfrbp_1
+* noconn #net4
+x2 VDD net5 net7 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+x3 VDD net3 net8 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
+x4 VDD net8 dec VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u
+x5 VDD net7 bit VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u
 .ends
 
 
@@ -372,44 +389,46 @@ XM6 net2 B VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
 .ends
 
 
-* expanding   symbol:  dac_icms_cell/dac_switch.sym # of pins=6
-** sym_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/dac_switch.sym
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/dac_switch.sch
-.subckt dac_switch VDD di_spdt_ctrl VSS v_c v_b v_a  W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u
-*.iopin v_a
-*.iopin v_c
-*.iopin VDD
-*.iopin VSS
-*.ipin di_spdt_ctrl
-*.iopin v_b
-x1 VDD di_spdt_ctrl VSS v_c v_a di_spdt_ctrl_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u
-+ L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u
-x8 VDD di_spdt_ctrl di_spdt_ctrl_n VSS inverter_lv W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
-XM1 net1 v_b VSS VSS sg13_lv_nmos w=0.5u l=0.2u ng=1 m=1
-XM3 net1 v_b VDD VDD sg13_lv_pmos w=1u l=0.2u ng=1 m=1
-x2 VDD di_spdt_ctrl_n VSS net1 v_c di_spdt_ctrl transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
-+ W_P_D=1.0u L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u
-.ends
-
-
 * expanding   symbol:  dac_icms_cell/dac_switch_n.sym # of pins=6
 ** sym_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/dac_switch_n.sym
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/dac_switch_n.sch
-.subckt dac_switch_n VDD di_spdt_ctrl VSS v_c v_b v_a  W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u
+.subckt dac_switch_n VDD di_spdt_ctrl VSS v_c v_b v_a  W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u n=1
 *.iopin v_a
 *.iopin v_c
 *.iopin VDD
 *.iopin VSS
 *.ipin di_spdt_ctrl
 *.iopin v_b
-x1 VDD di_spdt_ctrl VSS v_c v_a di_spdt_ctrl_n transmission_gate_lv_wo_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
-x8 VDD di_spdt_ctrl di_spdt_ctrl_n VSS inverter_lv W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
-XM1 v_c net3 net1 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
-XM2 v_c net3 net2 VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=1
-XM3 net1 di_spdt_ctrl VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
-XM4 net2 di_spdt_ctrl_n VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=1
-XM5 net3 v_b VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
-XM6 net3 v_b VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=1
+x1 VDD di_spdt_ctrl_n VSS v_c v_a di_spdt_ctrl transmission_gate_lv_wo_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
+x8 VDD di_spdt_ctrl di_spdt_ctrl_n VSS inverter_lv W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG n=n
+XM1 net1 net2 VSS VSS sg13_lv_nmos w=0.5u l=0.2u ng=1 m=n
+XM3 net1 net2 VDD VDD sg13_lv_pmos w=1u l=0.2u ng=1 m=n
+x2 VDD di_spdt_ctrl VSS v_c net1 di_spdt_ctrl_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
++ W_P_D=1.0u L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=n
+XM2 net2 v_b VSS VSS sg13_lv_nmos w=0.5u l=0.2u ng=1 m=10
+XM4 net2 v_b VDD VDD sg13_lv_pmos w=1u l=0.2u ng=1 m=10
+.ends
+
+
+* expanding   symbol:  dac_icms_cell/dac_switch.sym # of pins=6
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/dac_switch.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/dac_switch.sch
+.subckt dac_switch VDD di_spdt_ctrl VSS v_c v_b v_a  W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u n=1
+*.iopin v_a
+*.iopin v_c
+*.iopin VDD
+*.iopin VSS
+*.ipin di_spdt_ctrl
+*.iopin v_b
+x1 VDD di_spdt_ctrl_n VSS net2 v_a di_spdt_ctrl transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
++ W_P_D=1.0u L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=n
+x8 VDD di_spdt_ctrl di_spdt_ctrl_n VSS inverter_lv W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG n=n
+XM1 net1 v_b VSS VSS sg13_lv_nmos w=0.5u l=0.2u ng=1 m=n
+XM3 net1 v_b VDD VDD sg13_lv_pmos w=1u l=0.2u ng=1 m=n
+x2 VDD di_spdt_ctrl VSS net3 net1 di_spdt_ctrl_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
++ W_P_D=1.0u L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=n
+V1 v_c net2 0
+V2 v_c net3 0
 .ends
 
 
