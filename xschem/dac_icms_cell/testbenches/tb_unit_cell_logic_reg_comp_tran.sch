@@ -100,7 +100,7 @@ C {lab_pin.sym} 1055 -200 0 1 {name=p7 sig_type=std_logic lab=d
 }
 C {lab_pin.sym} -100 -80 0 0 {name=p8 sig_type=std_logic lab=d
 }
-C {devices/code_shown.sym} 245 -660 0 0 {name=NGSPICE
+C {devices/code_shown.sym} 265 -670 0 0 {name=NGSPICE
 simulator=ngspice
 only_toplevel=false 
 value="

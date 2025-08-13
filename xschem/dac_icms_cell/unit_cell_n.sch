@@ -24,7 +24,7 @@ C {devices/iopin.sym} 1500 -880 1 0 {name=p20 lab=VDD}
 C {devices/ipin.sym} 1325 -935 0 0 {name=p14 lab=D}
 C {devices/iopin.sym} 1410 -1265 2 0 {name=p3 lab=B}
 C {devices/iopin.sym} 1460 -790 1 0 {name=p6 lab=vtop}
-C {dac_icms_cell/dac_switch_n.sym} 1460 -940 2 0 {name=x1 W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u n=n}
+C {dac_icms_cell/dac_switch_n.sym} 1460 -940 2 0 {name=x1 W_P_TG=6.0u L_P_TG=0.13u W_N_TG=2.0u L_N_TG=0.13u n=n}
 C {capa.sym} 1460 -820 0 0 {name=C1
 m=n
 value=cu

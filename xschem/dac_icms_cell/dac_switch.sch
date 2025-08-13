@@ -80,7 +80,7 @@ C {devices/lab_pin.sym} 1730 -480 3 0 {name=p7 sig_type=std_logic lab=VSS}
 C {devices/iopin.sym} 1770 -600 0 0 {name=p17 lab=v_b}
 C {sg13g2_pr/sg13_lv_nmos.sym} 1750 -540 0 1 {name=M1
 l=0.2u
-w=0.5u
+w=1u
 ng=1
 m=n
 model=sg13_lv_nmos
@@ -88,7 +88,7 @@ spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} 1750 -660 0 1 {name=M3
 l=0.2u
-w=1u
+w=2u
 ng=1
 m=n
 model=sg13_lv_pmos

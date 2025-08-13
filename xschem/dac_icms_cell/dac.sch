@@ -58,7 +58,7 @@ N 0 -2140 150 -2140 {lab=a_rail_p}
 N -40 -1640 190 -1640 {lab=vdacn}
 N -50 -2140 0 -2140 {lab=a_rail_p}
 N -210 -1640 -200 -1640 {lab=vcm}
-N -620 -1980 -540 -1980 {lab=sample}
+N -565 -1980 -540 -1980 {lab=sample}
 N -700 -1940 -700 -1920 {lab=VSS}
 N -700 -2040 -700 -2020 {lab=VDD}
 N -50 -1870 0 -1870 {lab=a_rail_p}
@@ -78,11 +78,11 @@ N 870 -1380 1230 -1380 {lab=a_rail_n}
 N 1580 -1380 1580 -1190 {lab=a_rail_n}
 N 1920 -1380 1920 -1190 {lab=a_rail_n}
 N 1230 -1380 1580 -1380 {lab=a_rail_n}
-N 2190 -1380 2190 -1190 {lab=a_rail_n}
+N 2190 -1375 2190 -1190 {lab=a_rail_n}
 N 1920 -1380 2190 -1380 {lab=a_rail_n}
 N 1580 -1380 1920 -1380 {lab=a_rail_n}
-N 2540 -1380 2540 -1180 {lab=a_rail_n}
-N 2190 -1380 2540 -1380 {lab=a_rail_n}
+N 2540 -1375 2540 -1180 {lab=a_rail_n}
+N 2190 -1375 2540 -1375 {lab=a_rail_n}
 N 3590 -1380 3930 -1380 {lab=a_rail_n}
 N 3240 -1380 3590 -1380 {lab=a_rail_n}
 N 2880 -1380 3240 -1380 {lab=a_rail_n}
@@ -121,7 +121,6 @@ N 30 -1380 30 -1110 {lab=a_rail_n}
 N -180 -1110 -180 -880 {lab=vcm}
 N -420 -1640 -420 -1110 {lab=vcm}
 N -420 -1110 -180 -1110 {lab=vcm}
-N -1135 -1980 -1055 -1980 {lab=sample_pin}
 N -995 -1940 -995 -1920 {lab=VSS}
 N -995 -2040 -995 -2020 {lab=VDD}
 N -915 -1980 -760 -1980 {lab=sample_n}
@@ -149,6 +148,18 @@ N 3930 -1380 4230 -1380 {lab=a_rail_n}
 N 235 -880 235 -865 {lab=vdacp}
 N 220 -880 235 -880 {lab=vdacp}
 N 540 -1640 540 -1625 {lab=vdacn}
+N -650 -1730 -570 -1730 {lab=sample_d}
+N -730 -1690 -730 -1670 {lab=VSS}
+N -730 -1790 -730 -1770 {lab=VDD}
+N -1025 -1690 -1025 -1670 {lab=VSS}
+N -1025 -1790 -1025 -1770 {lab=VDD}
+N -945 -1730 -790 -1730 {lab=sample_n_d}
+N -1165 -1900 -565 -1900 {lab=sample}
+N -1135 -1980 -1055 -1980 {lab=sample_pin}
+N -565 -1980 -565 -1900 {lab=sample}
+N -620 -1980 -565 -1980 {lab=sample}
+N 2190 -1380 2190 -1375 {lab=a_rail_n}
+N 2540 -1380 2540 -1375 {lab=a_rail_n}
 C {dac_icms_cell/unit_cell_n.sym} 190 -1820 0 0 {name=x14 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
 n=32}
 C {devices/ipin.sym} 110 -1900 0 0 {name=p15 lab=D0}
@@ -243,8 +254,8 @@ C {lab_pin.sym} -120 -1680 3 1 {name=p58 sig_type=std_logic lab=sample}
 C {devices/ipin.sym} -1135 -1980 0 0 {name=p59 lab=sample_pin}
 C {lab_pin.sym} -130 -2100 1 1 {name=p53 sig_type=std_logic lab=sample_n}
 C {lab_pin.sym} -130 -2180 3 1 {name=p60 sig_type=std_logic lab=sample}
-C {lab_pin.sym} -130 -1910 1 0 {name=p61 sig_type=std_logic lab=sample_n}
-C {lab_pin.sym} -130 -1830 3 0 {name=p62 sig_type=std_logic lab=sample}
+C {lab_pin.sym} -130 -1910 1 0 {name=p61 sig_type=std_logic lab=sample_n_d}
+C {lab_pin.sym} -130 -1830 3 0 {name=p62 sig_type=std_logic lab=sample_d}
 C {lab_pin.sym} -150 -2180 1 0 {name=p63 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -150 -2100 3 0 {name=p64 sig_type=std_logic lab=VSS}
 C {dac_icms_cell/unit_cell.sym} 220 -1060 0 0 {name=x18 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
@@ -334,8 +345,8 @@ C {lab_pin.sym} -90 -840 1 1 {name=p128 sig_type=std_logic lab=sample_n}
 C {lab_pin.sym} -90 -920 3 1 {name=p129 sig_type=std_logic lab=sample}
 C {lab_pin.sym} -100 -1340 1 1 {name=p130 sig_type=std_logic lab=sample_n}
 C {lab_pin.sym} -100 -1420 3 1 {name=p131 sig_type=std_logic lab=sample}
-C {lab_pin.sym} -100 -1150 1 0 {name=p132 sig_type=std_logic lab=sample_n}
-C {lab_pin.sym} -100 -1070 3 0 {name=p133 sig_type=std_logic lab=sample}
+C {lab_pin.sym} -100 -1150 1 0 {name=p132 sig_type=std_logic lab=sample_n_d}
+C {lab_pin.sym} -100 -1070 3 0 {name=p133 sig_type=std_logic lab=sample_d}
 C {lab_pin.sym} -120 -1420 1 0 {name=p134 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -120 -1340 3 0 {name=p135 sig_type=std_logic lab=VSS}
 C {devices/iopin.sym} 235 -869 1 0 {name=p137 lab=vdacp}
@@ -385,3 +396,15 @@ footprint=1206
 device="ceramic capacitor"}
 C {lab_pin.sym} 3055 -880 3 0 {name=p42 sig_type=std_logic lab=vdacp2}
 C {lab_pin.sym} 3075 -1640 3 0 {name=p43 sig_type=std_logic lab=vdacn2}
+C {lab_pin.sym} -570 -1730 0 1 {name=p44 sig_type=std_logic lab=sample_d}
+C {inverter/inverter_lv.sym} -730 -1730 0 0 {name=x10 W_P=10.0u L_P=0.13u W_N=10.0u L_N=0.13u n=10
+}
+C {lab_pin.sym} -730 -1670 3 0 {name=p45 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} -730 -1790 1 0 {name=p119 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -875 -1730 1 0 {name=p120 sig_type=std_logic lab=sample_n_d}
+C {inverter/inverter_lv.sym} -1025 -1730 0 0 {name=x30 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=10
+}
+C {lab_pin.sym} -1025 -1670 3 0 {name=p121 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} -1025 -1790 1 0 {name=p136 sig_type=std_logic lab=VDD}
+C {sg13g2_stdcells/sg13g2_dlygate4sd3_1.sym} -1125 -1730 0 0 {name=x37 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {lab_pin.sym} -1165 -1730 1 0 {name=p155 sig_type=std_logic lab=VDD}

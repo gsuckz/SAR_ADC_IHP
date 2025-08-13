@@ -34,16 +34,12 @@ lab=v_b}
 N 1340 -780 1460 -780 {
 lab=v_b}
 N 1260 -840 1270 -840 {
-lab=v_b}
-N 1260 -840 1260 -780 {
-lab=v_b}
-N 1200 -780 1260 -780 {
+lab=#net1}
+N 1200 -780 1340 -780 {
 lab=v_b}
 N 1330 -840 1340 -840 {
 lab=v_b}
 N 1340 -840 1340 -780 {
-lab=v_b}
-N 1260 -780 1340 -780 {
 lab=v_b}
 N 1300 -920 1300 -880 {
 lab=di_tg_ctrl}
@@ -60,10 +56,8 @@ lab=v_a}
 N 1000 -620 1120 -620 {
 lab=v_a}
 N 1260 -560 1270 -560 {
-lab=v_b}
-N 1260 -620 1260 -560 {
-lab=v_b}
-N 1200 -620 1260 -620 {
+lab=#net2}
+N 1200 -620 1340 -620 {
 lab=v_b}
 N 1200 -620 1200 -560 {
 lab=v_b}
@@ -107,8 +101,6 @@ N 1460 -780 1460 -700 {
 lab=v_b}
 N 1330 -560 1340 -560 {lab=v_b}
 N 1340 -620 1340 -560 {lab=v_b}
-N 1260 -620 1340 -620 {
-lab=v_b}
 C {devices/title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
 C {devices/iopin.sym} 960 -700 0 1 {name=p2 lab=v_a}
 C {devices/iopin.sym} 1500 -700 0 0 {name=p4 lab=v_b}

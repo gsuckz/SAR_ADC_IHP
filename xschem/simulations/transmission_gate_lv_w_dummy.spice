@@ -1,0 +1,14 @@
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_w_dummy.sch
+**.subckt transmission_gate_lv_w_dummy VDD di_tg_ctrl VSS v_b v_a di_tg_ctrl_n
+*.iopin v_a
+*.iopin v_b
+*.iopin VDD
+*.iopin VSS
+*.ipin di_tg_ctrl
+*.ipin di_tg_ctrl_n
+XM1 v_a di_tg_ctrl v_b VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=10
+XM2 v_a di_tg_ctrl_n v_b VDD sg13_lv_pmos w=1.0u l=0.13u ng=1 m=10
+XMdummy2 net1 di_tg_ctrl v_b VDD sg13_lv_pmos w=W_P_D l=L_P_D ng=1 m=10
+XMdummy1 net2 di_tg_ctrl_n v_b VSS sg13_lv_nmos w=W_N_D l=L_N_D ng=1 m=10
+**.ends
+.end

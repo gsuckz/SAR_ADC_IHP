@@ -14,7 +14,7 @@ C {devices/code_shown.sym} 305 -660 0 0 {name=NGSPICE
 only_toplevel=false
 value="
 .param period=1n
-.param stoptime=\{100*period\}
+.param stoptime=\{50*period\}
 *.param stoptime=.2u
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
 *vclk clk 0 PULSE(0 3.3 \{0*period\} \{period*0.05\} \{period*0.05\} \{period/2\} \{period\})
@@ -46,7 +46,7 @@ plot \{d0\} \{d1 + 4\} \{d2 + 8\} \{d3 + 12\} \{d4 + 16\} \{d5 + 20\} \{d6 + 24\
 *plot compout
 .endc
 "}
-C {devices/vsource.sym} -520 -370 0 1 {name=VI value=100m}
+C {devices/vsource.sym} -520 -370 0 1 {name=VI value=500m}
 C {devices/lab_pin.sym} 220 -350 0 1 {name=p3 lab=d0}
 C {devices/vsource.sym} -330 -160 0 1 {name=V1 value=1.8}
 C {devices/lab_pin.sym} -330 -190 1 0 {name=l1 lab=vdd}
@@ -62,7 +62,7 @@ C {devices/lab_pin.sym} 220 -270 0 1 {name=p11 lab=d8}
 C {devices/lab_pin.sym} 220 -260 0 1 {name=p12 lab=d9}
 C {devices/lab_pin.sym} 220 -250 0 1 {name=p13 lab=d10}
 C {devices/lab_pin.sym} 220 -240 0 1 {name=p14 lab=d11}
-C {devices/lab_pin.sym} -520 -400 0 0 {name=l5 lab=vinp}
+C {devices/lab_pin.sym} -395 -400 0 1 {name=l5 lab=vinp}
 C {devices/lab_pin.sym} -140 -190 3 0 {name=p15 lab=compn}
 C {devices/lab_pin.sym} -85 -190 3 0 {name=p16 lab=compp}
 C {devices/lab_pin.sym} -30 -190 3 0 {name=p17 lab=compout}
@@ -71,7 +71,7 @@ C {devices/gnd.sym} -330 -130 0 0 {name=l6 lab=GND}
 C {devices/gnd.sym} -460 -280 0 0 {name=l7 lab=GND}
 C {devices/gnd.sym} 70 -410 0 0 {name=l2 lab=GND}
 C {devices/vsource.sym} -460 -310 0 1 {name=VIN2 value=0.9}
-C {devices/lab_pin.sym} -400 -400 2 1 {name=l4 lab=vinn}
+C {devices/lab_pin.sym} -520 -400 2 1 {name=l4 lab=vinn}
 C {code_shown.sym} -540 -640 0 0 {
 name=TT_MODELS
 only_toplevel=true
@@ -85,7 +85,7 @@ value="
 "
 spice_ignore=false
       }
-C {devices/vsource.sym} -400 -370 2 1 {name=VIN3 value=100m}
+C {devices/vsource.sym} -395 -370 2 1 {name=VIN3 value=500m}
 C {devices/lab_pin.sym} -240 -270 2 1 {name=l8 lab=vinn}
 C {devices/lab_pin.sym} -240 -330 0 0 {name=l9 lab=vinp}
 C {devices/gnd.sym} -120 -410 0 0 {name=l10 lab=GND}

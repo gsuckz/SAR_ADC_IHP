@@ -37,7 +37,7 @@ set appendwrite
 
 * Transient Analysis
 * tran 4p 20n
-tran 40p 100n
+tran 40p 20n
 *write DT_comparator_tb_tran.raw
 
 * Measure vcpp_min & vcpn_min
@@ -194,11 +194,11 @@ XM13 READY en VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
 *.ipin vinn
 *.ipin di_clk
 XM3a vs di_clk vctail VSS sg13_lv_nmos w=2.0u l=0.13u ng=1 m=1
-XM12 voutp di_clk_n VSS VSS sg13_lv_nmos w=3.0u l=0.13u ng=1 m=1
+XM12 voutp di_clk_n VSS VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
 XM8 net1 voutn VDD VDD sg13_lv_pmos w=8.0u l=0.13u ng=2 m=1
 XM10 voutp voutn VSS VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
 XM11 voutn voutp VSS VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
-XM13 voutn di_clk_n VSS VSS sg13_lv_nmos w=3.0u l=0.13u ng=1 m=1
+XM13 voutn di_clk_n VSS VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
 CPn vcpn VSS 100f m=1
 CPp vcpp VSS 100f m=1
 XM9 net2 voutp VDD VDD sg13_lv_pmos w=8.0u l=0.13u ng=2 m=1

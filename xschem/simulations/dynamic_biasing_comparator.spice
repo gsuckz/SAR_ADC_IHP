@@ -1,0 +1,29 @@
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/comparator/discrete_time/Dynamic-biasing/dynamic_biasing_comparator.sch
+**.subckt dynamic_biasing_comparator di_clk_n di_clk VDD voutp vinp VSS voutn vinn
+*.iopin VDD
+*.opin voutp
+*.opin voutn
+*.ipin di_clk_n
+*.iopin VSS
+*.ipin vinp
+*.ipin vinn
+*.ipin di_clk
+XM3a vs di_clk VSS VSS sg13_lv_nmos w=2.0u l=0.13u ng=1 m=1
+XM12 voutp di_clk_n VSS VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
+XM8 net1 voutn VDD VDD sg13_lv_pmos w=8.0u l=0.13u ng=2 m=1
+XM10 voutp voutn VSS VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
+XM11 voutn voutp VSS VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
+XM13 voutn di_clk_n VSS VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
+CPn vcpn VSS 100f m=1
+CPp vcpp VSS 100f m=1
+XM9 net2 voutp VDD VDD sg13_lv_pmos w=8.0u l=0.13u ng=2 m=1
+XM6 voutp vcpn net1 VDD sg13_lv_pmos w=10.0u l=0.13u ng=2 m=1
+XM7 voutn vcpp net2 VDD sg13_lv_pmos w=10.0u l=0.13u ng=2 m=1
+CTAIL VSS VSS 600f m=1
+XM3b VSS di_clk_n VSS VSS sg13_lv_nmos w=2.0u l=0.13u ng=1 m=1
+XM1 vcpn vinp vs VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
+XM2 vcpp vinn vs VSS sg13_lv_nmos w=4.0u l=0.13u ng=1 m=1
+XM4 vcpn di_clk VDD VDD sg13_lv_pmos w=2.0u l=0.13u ng=1 m=1
+XM5 vcpp di_clk VDD VDD sg13_lv_pmos w=2.0u l=0.13u ng=1 m=1
+**.ends
+.end

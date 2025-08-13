@@ -79,5 +79,6 @@ C {lab_pin.sym} -460 -470 1 0 {name=p42 lab=vcm}
 C {vsource.sym} -390 -310 0 0 {name=V1 value=0.9 savecurrent=false}
 C {lab_pin.sym} 200 85 0 1 {name=p10 lab=comp_clk}
 C {noconn.sym} -460 80 0 1 {name=l2}
-C {lab_pin.sym} -50 70 2 1 {name=p28 lab=rst}
+C {lab_pin.sym} -130 70 2 1 {name=p28 lab=rst}
 C {sg13g2_stdcells/sg13g2_inv_2.sym} -10 70 0 0 {name=x6 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {sg13g2_stdcells/sg13g2_dlygate4sd1_1.sym} -90 70 0 0 {name=x4 VDD=VDD VSS=VSS prefix=sg13g2_ }

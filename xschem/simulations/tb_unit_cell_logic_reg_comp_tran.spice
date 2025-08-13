@@ -95,7 +95,7 @@ plot top top_n
 *.ipin D
 *.iopin B
 *.iopin vtop
-x1 VDD D VSS vcap B A dac_switch W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u n=n
+x1 VDD D VSS vcap B A dac_switch W_P_TG=6.0u L_P_TG=0.13u W_N_TG=2.0u L_N_TG=0.13u n=n
 C1 vcap vtop Cu m=n
 .ends
 
@@ -135,7 +135,7 @@ x5 VDD net7 bit VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=
 *.ipin D
 *.iopin B
 *.iopin vtop
-x1 VDD D VSS net1 B A dac_switch_n W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u n=n
+x1 VDD D VSS net1 B A dac_switch_n W_P_TG=6.0u L_P_TG=0.13u W_N_TG=2.0u L_N_TG=0.13u n=n
 C1 net1 vtop cu m=n
 .ends
 
@@ -176,8 +176,8 @@ x7 VDD net3 vout VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=3.0u L_N_INV=0
 x1 VDD di_spdt_ctrl_n VSS net2 v_a di_spdt_ctrl transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
 + W_P_D=1.0u L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=n
 x8 VDD di_spdt_ctrl di_spdt_ctrl_n VSS inverter_lv W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG n=n
-XM1 net1 v_b VSS VSS sg13_lv_nmos w=0.5u l=0.2u ng=1 m=n
-XM3 net1 v_b VDD VDD sg13_lv_pmos w=1u l=0.2u ng=1 m=n
+XM1 net1 v_b VSS VSS sg13_lv_nmos w=1u l=0.2u ng=1 m=n
+XM3 net1 v_b VDD VDD sg13_lv_pmos w=2u l=0.2u ng=1 m=n
 x2 VDD di_spdt_ctrl VSS net3 net1 di_spdt_ctrl_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
 + W_P_D=1.0u L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=n
 V1 v_c net2 0
@@ -225,12 +225,12 @@ x2 VDD net1 vout VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV
 *.iopin v_b
 x1 VDD di_spdt_ctrl_n VSS v_c v_a di_spdt_ctrl transmission_gate_lv_wo_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
 x8 VDD di_spdt_ctrl di_spdt_ctrl_n VSS inverter_lv W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG n=n
-XM1 net1 net2 VSS VSS sg13_lv_nmos w=0.5u l=0.2u ng=1 m=n
-XM3 net1 net2 VDD VDD sg13_lv_pmos w=1u l=0.2u ng=1 m=n
+XM1 net1 net2 VSS VSS sg13_lv_nmos w=1u l=0.2u ng=1 m=n
+XM3 net1 net2 VDD VDD sg13_lv_pmos w=2u l=0.2u ng=1 m=n
 x2 VDD di_spdt_ctrl VSS v_c net1 di_spdt_ctrl_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG
 + W_P_D=1.0u L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=n
-XM2 net2 v_b VSS VSS sg13_lv_nmos w=0.5u l=0.2u ng=1 m=10
-XM4 net2 v_b VDD VDD sg13_lv_pmos w=1u l=0.2u ng=1 m=10
+XM2 net2 v_b VSS VSS sg13_lv_nmos w=0.5u l=0.2u ng=1 m=n
+XM4 net2 v_b VDD VDD sg13_lv_pmos w=1u l=0.2u ng=1 m=n
 .ends
 
 

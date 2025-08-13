@@ -1,0 +1,89 @@
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/testbenches/tb_capacitor.sch
+**.subckt tb_capacitor
+x11 VDD sample GND vcbot vin sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
++ W_N_D=1.0u L_N_D=0.13u n=10
+V7 sample GND PULSE( 0 1.8 0 1p 1p 5n 10n 1)
+x10 VDD sample sample_n GND inverter_lv W_P=10.0u L_P=0.13u W_N=10.0u L_N=0.13u n=10
+x1 VDD sample_n_d sample_d VSS inverter_lv W_P=10.0u L_P=0.13u W_N=10.0u L_N=0.13u n=10
+x30 VDD net1 sample_n_d VSS inverter_lv W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=10
+x37 sample VDD VSS net1 sg13g2_dlygate4sd3_1
+x2 VDD sample_n_d GND vj vcm sample_d transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
++ W_N_D=1.0u L_N_D=0.13u n=10
+V2 vin GND 0.5
+V3 vcm GND 0.9
+V4 VDD GND 1.8
+C1 net2 net3 20f m=64
+x3 VDD sample GND vctop vcm sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
++ W_N_D=1.0u L_N_D=0.13u n=10
+V1 net2 vcbot 0
+V5 vctop net3 0
+**** begin user architecture code
+
+
+.param temp=27
+.param W_P = 1.0u
+.param L_P = 0.13u
+.param W_N = 1.0u
+.param L_N = 0.13u
+.options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-10
+.control
+
+* Transient Analysis
+tran 100p 20n
+
+*plot {d0} {d1 + 4} {d2 + 8} {d3 + 12} {d4 + 16} {d5 + 20} {d6 + 24} {d7 + 28} {d8 + 32} {d9 + 36} {d10 + 40} {d11 + 44}
+*plot {b0} {b1 + 4} {b2 + 8} {b3 + 12} {b4 + 16} {b5 + 20} {b6 + 24} {b7 + 28} {b8 + 32} {b9 + 36} {b10 + 40} {b11 + 44}
+*plot {clk} {comp_in + 2} {sample + 4}
+plot vctop vcbot sample
+plot {vctop-vcbot} sample
+plot i(v1) i(v5)
+*plot x3.x14.net1-vctop x3.x18.vcap-vcbot
+
+.endc
+
+
+
+
+** IHP models
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerHBT.lib hbt_typ
+.lib cornerRES.lib res_typ
+.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  transmission_gate/transmission_gate_lv_w_dummy.sym # of pins=6
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_w_dummy.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_w_dummy.sch
+.subckt transmission_gate_lv_w_dummy VDD di_tg_ctrl VSS v_b v_a di_tg_ctrl_n  W_P=2.0u L_P=0.13u W_N=2.0u L_N=0.13u W_P_D=1.0u
++ L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=1
+*.iopin v_a
+*.iopin v_b
+*.iopin VDD
+*.iopin VSS
+*.ipin di_tg_ctrl
+*.ipin di_tg_ctrl_n
+XM1 v_a di_tg_ctrl v_b VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
+XM2 v_a di_tg_ctrl_n v_b VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
+XMdummy2 net1 di_tg_ctrl v_b VDD sg13_lv_pmos w=W_P_D l=L_P_D ng=1 m=n
+XMdummy1 net2 di_tg_ctrl_n v_b VSS sg13_lv_nmos w=W_N_D l=L_N_D ng=1 m=n
+.ends
+
+
+* expanding   symbol:  inverter/inverter_lv.sym # of pins=4
+** sym_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sym
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sch
+.subckt inverter_lv VDD vin vout VSS  W_P=3.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1
+*.ipin vin
+*.iopin VDD
+*.iopin VSS
+*.opin vout
+XM1 vout vin VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
+XM2 vout vin VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
+.ends
+
+.GLOBAL GND
+.end
