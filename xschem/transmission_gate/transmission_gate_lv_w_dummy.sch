@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Parameterizable LV Transmission Gate with Dummies} 580 -1690 0 0 1 1 {}
 T {-) In most cases, equal W/L ratios for both p- and n-MOSFETs are used.
@@ -34,8 +35,8 @@ lab=v_b}
 N 1340 -780 1460 -780 {
 lab=v_b}
 N 1260 -840 1270 -840 {
-lab=#net1}
-N 1200 -780 1340 -780 {
+lab=v_b}
+N 1260 -780 1340 -780 {
 lab=v_b}
 N 1330 -840 1340 -840 {
 lab=v_b}
@@ -56,8 +57,8 @@ lab=v_a}
 N 1000 -620 1120 -620 {
 lab=v_a}
 N 1260 -560 1270 -560 {
-lab=#net2}
-N 1200 -620 1340 -620 {
+lab=v_b}
+N 1260 -620 1340 -620 {
 lab=v_b}
 N 1200 -620 1200 -560 {
 lab=v_b}
@@ -101,6 +102,12 @@ N 1460 -780 1460 -700 {
 lab=v_b}
 N 1330 -560 1340 -560 {lab=v_b}
 N 1340 -620 1340 -560 {lab=v_b}
+N 1260 -620 1260 -560 {lab=v_b}
+N 1200 -620 1260 -620 {
+lab=v_b}
+N 1260 -840 1260 -780 {lab=v_b}
+N 1200 -780 1260 -780 {
+lab=v_b}
 C {devices/title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
 C {devices/iopin.sym} 960 -700 0 1 {name=p2 lab=v_a}
 C {devices/iopin.sym} 1500 -700 0 0 {name=p4 lab=v_b}
@@ -124,7 +131,7 @@ C {sg13g2_pr/sg13_lv_pmos.sym} 1300 -860 1 0 {name=Mdummy2
 l=L_P_D
 w=W_P_D
 ng=1
-m=n
+m=\{n/2\}
 model=sg13_lv_pmos
 spiceprefix=X
 }
@@ -132,7 +139,7 @@ C {sg13g2_pr/sg13_lv_nmos.sym} 1300 -540 3 0 {name=Mdummy1
 l=L_N_D
 w=W_N_D
 ng=1
-m=n
+m=\{n/2\}
 model=sg13_lv_nmos
 spiceprefix=X
 }

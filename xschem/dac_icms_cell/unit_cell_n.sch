@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Cell for thermometer code including unit capacitor and SPDT switch with high-Z} 220 -1720 0 0 1 1 {}
 T {v0, if di_clk = 0
@@ -24,7 +25,7 @@ C {devices/iopin.sym} 1500 -880 1 0 {name=p20 lab=VDD}
 C {devices/ipin.sym} 1325 -935 0 0 {name=p14 lab=D}
 C {devices/iopin.sym} 1410 -1265 2 0 {name=p3 lab=B}
 C {devices/iopin.sym} 1460 -790 1 0 {name=p6 lab=vtop}
-C {dac_icms_cell/dac_switch_n.sym} 1460 -940 2 0 {name=x1 W_P_TG=6.0u L_P_TG=0.13u W_N_TG=2.0u L_N_TG=0.13u n=n}
+C {dac_icms_cell/dac_switch_n.sym} 1460 -940 2 0 {name=x1 W_P_TG=0.15u L_P_TG=0.13u W_N_TG=0.15u L_N_TG=0.13u n=n}
 C {capa.sym} 1460 -820 0 0 {name=C1
 m=n
 value=cu

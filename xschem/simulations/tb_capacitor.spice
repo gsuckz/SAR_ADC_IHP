@@ -1,22 +1,31 @@
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/testbenches/tb_capacitor.sch
 **.subckt tb_capacitor
-x11 VDD sample GND vcbot vin sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
-+ W_N_D=1.0u L_N_D=0.13u n=10
-V7 sample GND PULSE( 0 1.8 0 1p 1p 5n 10n 1)
-x10 VDD sample sample_n GND inverter_lv W_P=10.0u L_P=0.13u W_N=10.0u L_N=0.13u n=10
-x1 VDD sample_n_d sample_d VSS inverter_lv W_P=10.0u L_P=0.13u W_N=10.0u L_N=0.13u n=10
-x30 VDD net1 sample_n_d VSS inverter_lv W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=10
-x37 sample VDD VSS net1 sg13g2_dlygate4sd3_1
-x2 VDD sample_n_d GND vj vcm sample_d transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
-+ W_N_D=1.0u L_N_D=0.13u n=10
-V2 vin GND 0.5
+V7 sample GND PULSE( 0 1.8 0 10p 10p 5n 10n 1)
+x10 VDD sample net1 GND inverter_lv W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=16
+V2 vin GND 1.7
 V3 vcm GND 0.9
 V4 VDD GND 1.8
-C1 net2 net3 20f m=64
-x3 VDD sample GND vctop vcm sample_n transmission_gate_lv_w_dummy W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u
-+ W_N_D=1.0u L_N_D=0.13u n=10
-V1 net2 vcbot 0
-V5 vctop net3 0
+C1 vcbot vctop 20f m=64
+V1 vcbot net4 0
+V5 vcbot net5 0
+V6 sample_n net1 0
+V8 sample net11 0
+XM1 vin sample_s net3 GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=64
+XM2 vin sample_n net2 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=64
+XM3 net3 sample_n net3 GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=32
+XM4 net2 sample_s net2 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=32
+x1 VDD net1 sample_s GND inverter_lv W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=16
+V9 net10 vcm 0
+XM5 net2 GND net4 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=32
+XM6 net3 VDD net5 GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=32
+V10 vctop net8 0
+V11 vctop net9 0
+XM7 vcm sample_s net7 GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=64
+XM8 vcm sample_n net6 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=64
+XM9 net7 sample_n net7 GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=32
+XM10 net6 sample_s net6 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=32
+XM11 net6 GND net8 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=32
+XM12 net7 VDD net9 GND sg13_lv_nmos w=0.15u l=0.13u ng=1 m=32
 **** begin user architecture code
 
 
@@ -54,24 +63,6 @@ plot i(v1) i(v5)
 
 **** end user architecture code
 **.ends
-
-* expanding   symbol:  transmission_gate/transmission_gate_lv_w_dummy.sym # of pins=6
-** sym_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_w_dummy.sym
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_w_dummy.sch
-.subckt transmission_gate_lv_w_dummy VDD di_tg_ctrl VSS v_b v_a di_tg_ctrl_n  W_P=2.0u L_P=0.13u W_N=2.0u L_N=0.13u W_P_D=1.0u
-+ L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=1
-*.iopin v_a
-*.iopin v_b
-*.iopin VDD
-*.iopin VSS
-*.ipin di_tg_ctrl
-*.ipin di_tg_ctrl_n
-XM1 v_a di_tg_ctrl v_b VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
-XM2 v_a di_tg_ctrl_n v_b VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
-XMdummy2 net1 di_tg_ctrl v_b VDD sg13_lv_pmos w=W_P_D l=L_P_D ng=1 m=n
-XMdummy1 net2 di_tg_ctrl_n v_b VSS sg13_lv_nmos w=W_N_D l=L_N_D ng=1 m=n
-.ends
-
 
 * expanding   symbol:  inverter/inverter_lv.sym # of pins=4
 ** sym_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sym
