@@ -1,6 +1,7 @@
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/testbenches/tb_dac_only.sch
 **.subckt tb_dac_only
-x3 vdacp vcm b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 GND VDD sample vdacn vinp vinn d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 dac cu=20f
+x3 vdacp vcm b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 GND VDD sample vdacn vinp vinn d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 dac
++ cu=100f
 V1 vdd GND 1.8
 V2 vcm GND .9
 V3 vinp vcm 500m

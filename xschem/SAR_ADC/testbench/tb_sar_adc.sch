@@ -1,14 +1,15 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N -240 -270 -215 -270 {
 lab=vinn}
 N -240 -330 -215 -330 {
 lab=vinp}
-N -520 -340 -400 -340 {lab=#net1}
+N -520 -340 -395 -340 {lab=#net1}
 C {SAR_ADC/sar.sym} -120 -290 0 0 {name=x1}
 C {devices/code_shown.sym} 305 -660 0 0 {name=NGSPICE
 only_toplevel=false
@@ -46,7 +47,7 @@ plot \{d0\} \{d1 + 4\} \{d2 + 8\} \{d3 + 12\} \{d4 + 16\} \{d5 + 20\} \{d6 + 24\
 *plot compout
 .endc
 "}
-C {devices/vsource.sym} -520 -370 0 1 {name=VI value=500m}
+C {devices/vsource.sym} -520 -370 0 1 {name=VI value=250m}
 C {devices/lab_pin.sym} 220 -350 0 1 {name=p3 lab=d0}
 C {devices/vsource.sym} -330 -160 0 1 {name=V1 value=1.8}
 C {devices/lab_pin.sym} -330 -190 1 0 {name=l1 lab=vdd}
@@ -85,7 +86,7 @@ value="
 "
 spice_ignore=false
       }
-C {devices/vsource.sym} -395 -370 2 1 {name=VIN3 value=500m}
+C {devices/vsource.sym} -395 -370 2 1 {name=VIN3 value=250m}
 C {devices/lab_pin.sym} -240 -270 2 1 {name=l8 lab=vinn}
 C {devices/lab_pin.sym} -240 -330 0 0 {name=l9 lab=vinp}
 C {devices/gnd.sym} -120 -410 0 0 {name=l10 lab=GND}

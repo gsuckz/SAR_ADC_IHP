@@ -37,7 +37,7 @@ set appendwrite
 
 * Transient Analysis
 * tran 4p 20n
-tran 40p 20n
+tran 40p 100n
 *write DT_comparator_tb_tran.raw
 
 * Measure vcpp_min & vcpn_min
@@ -103,7 +103,7 @@ x5 VDD PULSEN PULSE VSS inverter_lv W_P=2.0u L_P=0.13u W_N=2.0u L_N=0.13u n=1
 * noconn #net1
 x4 VDD voutp_buf net1 VSS net3 voutn_buf SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
 x6 VDD voutp_buf VSS voutn_buf PULSEN net2 en pgen
-V1 VDD net2 1
+V1 VDD net2 1.8
 x1 PULSE PULSEN VDD voutp_comp vinp VSS voutn_comp vinn dynamic_biasing_comparator
 x7 VDD net3 vout VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=3.0u L_N_INV=0.13u
 .ends
@@ -164,8 +164,8 @@ x2 VDD Qn Q S VSS NOR_gate W_P=W_P_SR L_P=L_P_SR W_N=W_N_SR L_N=L_N_SR
 XM1 READY in1 VSS VSS sg13_lv_nmos w=.15u l=0.13u ng=1 m=1
 XM2 READY vx_n VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
 XM4 vx net1 net5 VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
-x46 vxs READY VDD VSS net1 sg13g2_or2_2
-x6 vxs VDD VSS vx_n sg13g2_inv_2
+x46 net1 vxs READY VDD VSS sg13g2_or2_2
+x6 vx_n vxs VDD VSS sg13g2_inv_2
 XM3 READY in2 VSS VSS sg13_lv_nmos w=.15u l=0.13u ng=1 m=1
 XM5 vx READY VSS VSS sg13_lv_nmos w=1u l=0.13u ng=1 m=1
 XM7 net5 VTUNE VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
@@ -175,8 +175,8 @@ XM9 net3 vx net4 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
 XM10 net2 vx VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
 XM11 VDD net3 net2 VDD sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
 XM12 VSS net3 net4 VSS sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
-x1 net3 VDD VSS vxs sg13g2_inv_2
-x2 net1 en VDD VSS PULSE_n sg13g2_and2_2
+x1 vxs net3 VDD VSS sg13g2_inv_2
+x2 PULSE_n net1 en VDD VSS sg13g2_and2_2
 XM13 READY en VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
 .ends
 

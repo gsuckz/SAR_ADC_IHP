@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N -420 10 -360 10 {lab=vinn}
 N -420 70 -360 70 {lab=vinp}
@@ -15,7 +16,7 @@ N -420 340 -280 340 {lab=vcm}
 N -280 330 -280 340 {lab=vcm}
 N -420 340 -420 360 {lab=vcm}
 N -540 340 -420 340 {lab=vcm}
-C {dac_icms_cell/dac.sym} -500 590 2 1 {name=x3 cu=20f}
+C {dac_icms_cell/dac.sym} -500 590 2 1 {name=x3 cu=100f}
 C {lab_pin.sym} -330 -70 1 0 {name=p2 lab=b11}
 C {lab_pin.sym} -110 190 0 0 {name=p7 lab=VDD}
 C {lab_pin.sym} 180 10 0 1 {name=p10 lab=vdacp}

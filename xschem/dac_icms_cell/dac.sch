@@ -155,12 +155,16 @@ N -730 -1790 -730 -1770 {lab=VDD}
 N -1025 -1690 -1025 -1670 {lab=VSS}
 N -1025 -1790 -1025 -1770 {lab=VDD}
 N -945 -1730 -790 -1730 {lab=sample_n_d}
-N -1165 -1900 -565 -1900 {lab=sample}
+N -1160 -1900 -565 -1900 {lab=sample}
 N -1135 -1980 -1055 -1980 {lab=sample_pin}
 N -565 -1980 -565 -1900 {lab=sample}
 N -620 -1980 -565 -1980 {lab=sample}
 N 2190 -1380 2190 -1375 {lab=a_rail_n}
 N 2540 -1380 2540 -1375 {lab=a_rail_n}
+N -1165 -1900 -1160 -1900 {lab=sample}
+N -1165 -1745 -1165 -1730 {lab=sample}
+N -1165 -1745 -1160 -1745 {lab=sample}
+N -1160 -1900 -1160 -1745 {lab=sample}
 C {dac_icms_cell/unit_cell_n.sym} 190 -1820 0 0 {name=x14 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
 n=32}
 C {devices/ipin.sym} 110 -1900 0 0 {name=p15 lab=D0}
@@ -233,7 +237,7 @@ C {devices/ipin.sym} 3860 -1840 0 0 {name=p36 lab=D11}
 C {devices/ipin.sym} 3960 -1920 1 0 {name=p37 lab=b11}
 C {lab_pin.sym} 3980 -1740 3 0 {name=p38 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 3980 -1920 1 0 {name=p39 sig_type=std_logic lab=VDD}
-C {transmission_gate/transmission_gate_lv_w_dummy.sym} -120 -1640 0 0 {name=x11 W_P=0.15u L_P=0.13u W_N=0.15u L_N=0.13u
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} -120 -1640 0 0 {name=x11 W_P=1.2u L_P=0.13u W_N=1u L_N=0.13u
 n=64}
 C {lab_pin.sym} -140 -1680 1 0 {name=p46 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -140 -1600 3 0 {name=p47 sig_type=std_logic lab=VSS}
@@ -331,14 +335,14 @@ C {devices/lab_pin.sym} 3890 -1080 0 0 {name=p115 lab=D11}
 C {devices/lab_pin.sym} 3990 -1160 1 0 {name=p116 lab=b11}
 C {lab_pin.sym} 4010 -980 3 0 {name=p117 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 4010 -1160 1 0 {name=p118 sig_type=std_logic lab=VDD}
-C {transmission_gate/transmission_gate_lv_w_dummy.sym} -90 -880 0 0 {name=x31 W_P=0.15u L_P=0.13u W_N=0.15u L_N=0.13u
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} -90 -880 0 0 {name=x31 W_P=1.2u L_P=0.13u W_N=1u L_N=0.13u
 n=64}
 C {lab_pin.sym} -110 -920 1 0 {name=p122 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -110 -840 3 0 {name=p123 sig_type=std_logic lab=VSS}
-C {transmission_gate/transmission_gate_lv_w_dummy.sym} -100 -1380 0 0 {name=x32 W_P=0.15u L_P=0.13u W_N=0.15u L_N=0.13u
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} -100 -1380 0 0 {name=x32 W_P=1.2u L_P=0.13u W_N=1u L_N=0.13u
 n=64}
 C {devices/iopin.sym} -180 -1380 0 0 {name=p124 lab=vinn}
-C {transmission_gate/transmission_gate_lv_w_dummy.sym} -100 -1110 0 0 {name=x33 W_P=0.15u L_P=0.13u W_N=0.15u L_N=0.13u
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} -100 -1110 0 0 {name=x33 W_P=1.2u L_P=0.13u W_N=1u L_N=0.13u
 n=64}
 C {lab_pin.sym} -120 -1150 1 0 {name=p125 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -120 -1070 3 0 {name=p126 sig_type=std_logic lab=VSS}
@@ -371,13 +375,13 @@ m=1
 value=cu
 footprint=1206
 device="ceramic capacitor"}
-C {transmission_gate/transmission_gate_lv_w_dummy.sym} 4530 -1695 0 0 {name=x35 W_P=0.15u L_P=0.13u W_N=0.15u L_N=0.13u
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} 4530 -1695 0 0 {name=x35 W_P=1.2u L_P=0.13u W_N=1u L_N=0.13u
 n=64}
 C {lab_pin.sym} 4510 -1735 1 0 {name=p145 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 4510 -1655 3 0 {name=p146 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 4530 -1655 1 1 {name=p147 sig_type=std_logic lab=sample_n}
 C {lab_pin.sym} 4530 -1735 3 1 {name=p148 sig_type=std_logic lab=sample}
-C {transmission_gate/transmission_gate_lv_w_dummy.sym} 2685 -700 0 0 {name=x36 W_P=0.15u L_P=0.13u W_N=0.15u L_N=0.13u
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} 2685 -700 0 0 {name=x36 W_P=1.2u L_P=0.13u W_N=1u L_N=0.13u
 n=64}
 C {lab_pin.sym} 2665 -740 1 0 {name=p149 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 2665 -660 3 0 {name=p150 sig_type=std_logic lab=VSS}
@@ -408,4 +412,3 @@ C {inverter/inverter_lv.sym} -1025 -1730 0 0 {name=x30 W_P=1.0u L_P=0.13u W_N=1.
 C {lab_pin.sym} -1025 -1670 3 0 {name=p121 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -1025 -1790 1 0 {name=p136 sig_type=std_logic lab=VDD}
 C {sg13g2_stdcells/sg13g2_dlygate4sd3_1.sym} -1125 -1730 0 0 {name=x37 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {lab_pin.sym} -1165 -1730 1 0 {name=p155 sig_type=std_logic lab=VDD}
