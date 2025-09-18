@@ -1,10 +1,10 @@
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/testbenches/tb_capacitor.sch
-**.subckt tb_capacitor
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/testbenches/tb_capacitor_tgate_time.sch
+**.subckt tb_capacitor_tgate_time
 V7 sample_s GND PULSE( 0 1.8 {delay_1 + delay_s} {rise_t} {fall_t} {period/2} {period} 1)
 V2 vin GND 1.7
 V3 vcm GND 0.9
 V4 VDD GND 1.8
-C1 vcbot vctop 20f m=64
+C1 vcbot vctop 20f m=128
 V1 vcbot net1 0
 V5 vcbot net2 0
 XM1 vin sample_s net2 GND sg13_lv_nmos w={wn} l=0.13u ng=1 m=64
@@ -30,7 +30,7 @@ V12 sample_n2 GND PULSE( 1.8 0 {delay_n + delay_2} {rise_t} {fall_t} {period/2} 
 .param rise_t = period*0.1
 .param fall_t = period*0.1
 .param delay_n = 0
-.param delay_s = 10p
+.param delay_s = 0
 .param delay_2 = period*0.2
 .param delay_1 = 0
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-10

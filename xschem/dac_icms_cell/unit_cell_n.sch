@@ -28,6 +28,6 @@ C {devices/iopin.sym} 1460 -790 1 0 {name=p6 lab=vtop}
 C {dac_icms_cell/dac_switch_n.sym} 1460 -940 2 0 {name=x1 W_P_TG=0.15u L_P_TG=0.13u W_N_TG=0.15u L_N_TG=0.13u n=n}
 C {capa.sym} 1460 -820 0 0 {name=C1
 m=n
-value=cu
+value=Cu
 footprint=1206
 device="ceramic capacitor"}

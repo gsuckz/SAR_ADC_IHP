@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Switch para celda unitaria DAC} 900 -1500 0 0 1 1 {}
 T {di_spdt_ctrl = 1, di_spdt_ctrl_n = 0: v_c connected to v_a, v_b = HIGH-Z
@@ -83,8 +84,6 @@ C {devices/iopin.sym} 1280 -720 3 0 {name=p1 lab=v_c}
 C {devices/title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
 C {devices/iopin.sym} 1280 -1160 3 0 {name=p10 lab=VDD}
 C {devices/iopin.sym} 1280 -1040 1 0 {name=p11 lab=VSS}
-C {transmission_gate/transmission_gate_lv_wo_dummy.sym} 1080 -620 0 0 {name=x1 W_P=W_P_TG L_P=L_P_TG  W_N=W_N_TG L_N=L_N_TG
-n=n}
 C {lab_pin.sym} 1440 -1100 2 0 {name=p27 sig_type=std_logic lab=di_spdt_ctrl_n}
 C {inverter/inverter_lv.sym} 1280 -1100 0 0 {name=x8 W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG n=n}
 C {devices/ipin.sym} 1140 -1100 0 0 {name=p3 lab=di_spdt_ctrl}
@@ -105,14 +104,13 @@ spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} 1880 -660 0 1 {name=M3
 l=0.2u
-w=2u
+w=1.2u
 ng=1
 m=n
 model=sg13_lv_pmos
 spiceprefix=X
 }
-C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1580 -620 0 1 {name=x2 W_P=W_P_TG L_P=L_P_TG  W_N=W_N_TG L_N=L_N_TG
-n=n}
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1580 -620 0 1 {name=x2 W_P=W_P_TG L_P=L_P_TG  W_N=W_N_TG L_N=L_N_TG n=n}
 C {devices/lab_pin.sym} 1600 -740 1 0 {name=p14 sig_type=std_logic lab=di_spdt_ctrl}
 C {devices/lab_pin.sym} 1600 -580 3 0 {name=p15 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 1600 -660 1 0 {name=p16 sig_type=std_logic lab=VDD}
@@ -120,7 +118,7 @@ C {devices/lab_pin.sym} 1600 -500 3 0 {name=p18 sig_type=std_logic lab=di_spdt_c
 C {devices/lab_pin.sym} 2010 -710 1 0 {name=p4 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 2010 -500 3 0 {name=p13 sig_type=std_logic lab=VSS}
 C {sg13g2_pr/sg13_lv_nmos.sym} 2030 -560 0 1 {name=M2
-l=0.2u
+l=0.13u
 w=0.5u
 ng=1
 m=n
@@ -128,10 +126,11 @@ model=sg13_lv_nmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} 2030 -680 0 1 {name=M4
-l=0.2u
-w=1u
+l=0.13u
+w=0.5u
 ng=1
 m=n
 model=sg13_lv_pmos
 spiceprefix=X
 }
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1080 -620 0 0 {name=x1 W_P=W_P_TG L_P=L_P_TG  W_N=W_N_TG L_N=L_N_TG n=n}

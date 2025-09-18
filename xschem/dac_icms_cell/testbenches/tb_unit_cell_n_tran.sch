@@ -16,7 +16,7 @@ N -20 80 -10 80 {lab=top}
 N -110 -160 -60 -160 {lab=#net3}
 N -110 -160 -110 -130 {lab=#net3}
 N -180 -130 -110 -130 {lab=#net3}
-C {dac_icms_cell/unit_cell.sym} -20 0 0 0 {name=x1 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=32}
+C {dac_icms_cell/unit_cell_n.sym} -20 0 0 0 {name=x1 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=32}
 C {vsource.sym} -340 60 0 0 {name=V1 value=1.8 savecurrent=false}
 C {lab_pin.sym} -340 30 0 0 {name=p1 sig_type=std_logic lab=vdd}
 C {gnd.sym} -340 90 0 0 {name=l1 lab=GND}

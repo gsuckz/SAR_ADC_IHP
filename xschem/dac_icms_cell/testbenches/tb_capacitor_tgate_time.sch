@@ -174,18 +174,18 @@ N 1170 -500 1175 -500 {lab=#net4}
 N 1190 -660 1190 -655 {lab=#net3}
 N 1190 -660 1260 -660 {lab=#net3}
 N 1010 -660 1190 -660 {lab=#net3}
-C {devices/code_shown.sym} -1270 400 0 0 {name=NGSPICE
+C {devices/code_shown.sym} -1270 390 0 0 {name=NGSPICE
 simulator=ngspice
 only_toplevel=false 
 value="
 .param temp=27
-.param period = 2n
-.param wp = 1.5u
-.param wn = 0.5u
+.param period = 1n
+.param wp = 1.2u
+.param wn = 0.4u
 .param rise_t = period*0.1
 .param fall_t = period*0.1
 .param delay_n = 0
-.param delay_s = 10p
+.param delay_s = 0
 .param delay_2 = period*0.2
 .param delay_1 = 0
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-10
@@ -234,7 +234,7 @@ C {lab_pin.sym} 130 460 0 0 {name=p14 sig_type=std_logic lab=VDD}
 C {gnd.sym} 130 520 0 0 {name=l7 lab=GND}
 C {lab_pin.sym} -395 -325 0 0 {name=p16 sig_type=std_logic lab=vin}
 C {capa.sym} 610 20 3 0 {name=C1
-m=64
+m=128
 value=20f
 footprint=1206
 device="ceramic capacitor"}

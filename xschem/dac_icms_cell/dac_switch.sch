@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Switch para celda unitaria DAC} 900 -1500 0 0 1 1 {}
 T {di_spdt_ctrl = 1, di_spdt_ctrl_n = 0: v_c connected to v_a, v_b = HIGH-Z
@@ -58,10 +59,8 @@ N 1670 -540 1670 -480 {lab=VSS}
 N 1700 -660 1730 -660 {lab=VDD}
 N 1700 -690 1700 -660 {lab=VDD}
 N 1700 -690 1730 -690 {lab=VDD}
-N 1280 -620 1300 -620 {lab=v_c}
-N 1260 -620 1280 -620 {lab=v_c}
-N 1160 -620 1200 -620 {lab=#net2}
-N 1360 -620 1370 -620 {lab=#net3}
+N 1280 -620 1370 -620 {lab=v_c}
+N 1160 -620 1280 -620 {lab=v_c}
 C {devices/iopin.sym} 880 -620 0 1 {name=p2 lab=v_a}
 C {devices/iopin.sym} 1280 -720 3 0 {name=p1 lab=v_c}
 C {devices/title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
@@ -99,5 +98,3 @@ C {devices/lab_pin.sym} 1470 -740 1 0 {name=p14 sig_type=std_logic lab=di_spdt_c
 C {devices/lab_pin.sym} 1470 -580 3 0 {name=p15 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 1470 -660 1 0 {name=p16 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 1470 -500 3 0 {name=p18 sig_type=std_logic lab=di_spdt_ctrl_n}
-C {vsource.sym} 1230 -620 1 0 {name=V1 value=0 savecurrent=false}
-C {vsource.sym} 1330 -620 3 0 {name=V2 value=0 savecurrent=false}
