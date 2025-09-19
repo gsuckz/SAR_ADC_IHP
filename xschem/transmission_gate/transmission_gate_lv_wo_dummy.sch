@@ -1,8 +1,9 @@
-v {xschem version=3.4.6 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Parameterizable LV Transmission Gate without Dummies} 540 -1690 0 0 1 1 {}
 T {-) In most cases, equal W/L ratios for both p- and n-MOSFETs are used.
@@ -76,18 +77,18 @@ C {devices/title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true
 C {devices/iopin.sym} 1000 -720 0 1 {name=p2 lab=v_a}
 C {devices/iopin.sym} 1500 -720 0 0 {name=p4 lab=v_b}
 C {sg13g2_pr/sg13_lv_nmos.sym} 1200 -560 3 0 {name=M1
-l=L_N
-w=W_N
+l=L_N_TG
+w=W_N_TG
 ng=1
-m=1
+m=n
 model=sg13_lv_nmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} 1200 -880 1 0 {name=M2
-l=L_P
-w=W_P
+l=L_P_TG
+w=W_P_TG
 ng=1
-m=1
+m=n
 model=sg13_lv_pmos
 spiceprefix=X
 }

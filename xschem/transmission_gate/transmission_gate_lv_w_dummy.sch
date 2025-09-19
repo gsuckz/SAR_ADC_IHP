@@ -128,16 +128,16 @@ model=sg13_lv_pmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} 1300 -860 1 0 {name=Mdummy2
-l=L_P_D
-w=W_P_D
+l=L_P
+w=W_P
 ng=1
 m=\{n/2\}
 model=sg13_lv_pmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_nmos.sym} 1300 -540 3 0 {name=Mdummy1
-l=L_N_D
-w=W_N_D
+l=L_N
+w=W_N
 ng=1
 m=\{n/2\}
 model=sg13_lv_nmos

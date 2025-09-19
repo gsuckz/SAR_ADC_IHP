@@ -1,8 +1,9 @@
-v {xschem version=3.4.6 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Parameterizable HV Transmission Gate without Dummies} 540 -1690 0 0 1 1 {}
 T {-) In most cases, equal W/L ratios for both p- and n-MOSFETs are used.
@@ -80,18 +81,18 @@ C {devices/iopin.sym} 1340 -500 1 0 {name=p7 lab=VSS}
 C {devices/ipin.sym} 1200 -500 3 0 {name=p8 lab=di_tg_ctrl}
 C {devices/ipin.sym} 1200 -940 1 0 {name=p9 lab=di_tg_ctrl_n}
 C {sg13g2_pr/sg13_hv_nmos.sym} 1200 -560 3 0 {name=M1
-l=L_N
-w=W_N
+l=L_N_TG
+w=W_N_TG
 ng=1
-m=1
+m=n
 model=sg13_hv_nmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_hv_pmos.sym} 1200 -880 1 0 {name=M2
-l=L_P
-w=W_P
+l=L_P_TG
+w=W_P_TG
 ng=1
-m=1
+m=n
 model=sg13_hv_pmos
 spiceprefix=X
 }
