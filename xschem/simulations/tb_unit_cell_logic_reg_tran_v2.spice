@@ -1,19 +1,19 @@
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/testbenches/tb_unit_cell_logic_reg_tran_v2.sch
 **.subckt tb_unit_cell_logic_reg_tran_v2
-x1 bit bot GND d vdd top unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=32
+x1 bit bot GND d vdd top unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
 V1 vdd GND 1.8
 V2 clk GND PULSE( 0 1.8 6n 10p 10p 1n 2n)
 V4 comp_in GND 0
 x18 clk p_dec vdd comp_in vdd bit GND d bit_cell
 V7 p_dec GND PULSE(1.8 0 0 10p 10p 5n 20n 1)
-x2 bit bot_n GND d vdd top_n unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=32
+x2 bit bot_n GND d vdd top_n unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
 x3 clk d vdd comp_in vdd bit2 GND d2 bit_cell
-x4 bit2 bot GND d2 vdd top unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=16
-x5 bit2 bot_n GND d2 vdd top_n unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=16
-x6 bit3 bot GND d3 vdd top2 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=32
-x7 bit3 bot_n GND d3 vdd top_n2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=32
-x8 bit4 bot GND d4 vdd top2 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=16
-x9 bit4 bot_n GND d4 vdd top_n2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=16
+x4 bit2 bot GND d2 vdd top unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
+x5 bit2 bot_n GND d2 vdd top_n unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
+x6 bit3 bot GND d3 vdd top2 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
+x7 bit3 bot_n GND d3 vdd top_n2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32
+x8 bit4 bot GND d4 vdd top2 unit_cell W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
+x9 bit4 bot_n GND d4 vdd top_n2 unit_cell_n W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16
 C1 top2 top 20f m=22
 C2 top_n2 top_n 20f m=22
 x10 clk d2 vdd comp_in vdd bit3 GND d3 bit_cell
@@ -21,10 +21,10 @@ x11 clk d3 vdd comp_in vdd bit4 GND d4 bit_cell
 x12 VDD A GND net3 vinn A_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u L_P_D=0.13u
 + W_N_D=1.0u L_N_D=0.13u n=n
 V6 vcm GND 0.9
-V8 vinp vcm 0
+V8 vinp vcm -0.5
 x13 VDD A GND net4 vinp A_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u L_P_D=0.13u
 + W_N_D=1.0u L_N_D=0.13u n=n
-V9 vcm vinn 0
+V9 vcm vinn -0.5
 x14 VDD B GND net5 vcm b_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u L_P_D=0.13u
 + W_N_D=1.0u L_N_D=0.13u n=n
 x15 VDD B GND net6 vcm b_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u L_P_D=0.13u
@@ -66,6 +66,7 @@ V18 bot net4 0
 **** begin user architecture code
 
 
+.param cu = 100f
 .param temp=27
 .param W_P = 1.0u
 .param L_P = 0.13u
@@ -82,7 +83,7 @@ V18 bot net4 0
 .control
 
 * Transient Analysis
-tran 1p 5n
+tran 1p 3n
 
 
 plot i(V2) i(V3) i(V6)
@@ -175,10 +176,18 @@ C1 net1 vtop Cu m=n
 *.iopin VSS
 *.ipin di_tg_ctrl
 *.ipin di_tg_ctrl_n
-XM1 v_a di_tg_ctrl v_b VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
-XM2 v_a di_tg_ctrl_n v_b VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
-XMdummy2 v_b di_tg_ctrl v_b VDD sg13_lv_pmos w=W_P l=L_P ng=1 m={n/2}
-XMdummy1 v_b di_tg_ctrl_n v_b VSS sg13_lv_nmos w=W_N l=L_N ng=1 m={n/2}
+XM1 net3 net5 net4 VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
+XM2 net2 net6 net1 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
+XMdummy2 net1 net7 net1 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m={n/2}
+XMdummy1 net4 net8 net4 VSS sg13_lv_nmos w=W_N l=L_N ng=1 m={n/2}
+Vig1 di_tg_ctrl net5 0
+Vig2 di_tg_ctrl_n net6 0
+Vig1d di_tg_ctrl_n net8 0
+Vig2d di_tg_ctrl net7 0
+Vid2 v_a net2 0
+Vid1 v_a net3 0
+Vis2 v_b net1 0
+Vis1 v_b net4 0
 .ends
 
 

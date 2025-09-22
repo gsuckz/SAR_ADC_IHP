@@ -24,49 +24,49 @@ Accordingly, larger switches are not always the solution. Alternatively, one can
 -) If available, minimum-sized thick-oxide MOSFETs decrease leakage currents and charge injection simultaneously [Fath].} 300 -1560 0 0 0.5 0.5 {}
 T {di_tg_ctrl = 1, di_tg_ctrl_n = 0: v_a connected to v_b
 di_tg_ctrl = 0, di_tg_ctrl_n = 1: v_a = X, v_b = HIGH-Z} 880 -320 0 0 0.5 0.5 {}
-N 1160 -520 1160 -480 {
+N 1160 -420 1160 -380 {
 lab=di_tg_ctrl}
-N 1160 -920 1160 -880 {
+N 1160 -1020 1160 -980 {
 lab=di_tg_ctrl_n}
 N 1190 -840 1200 -840 {
-lab=v_b}
+lab=#net1}
 N 1200 -840 1200 -780 {
-lab=v_b}
+lab=#net1}
 N 1340 -780 1460 -780 {
-lab=v_b}
+lab=#net1}
 N 1260 -840 1270 -840 {
-lab=v_b}
+lab=#net1}
 N 1260 -780 1340 -780 {
-lab=v_b}
+lab=#net1}
 N 1330 -840 1340 -840 {
-lab=v_b}
+lab=#net1}
 N 1340 -840 1340 -780 {
-lab=v_b}
-N 1300 -920 1300 -880 {
+lab=#net1}
+N 1300 -1020 1300 -980 {
 lab=di_tg_ctrl}
 N 1120 -840 1130 -840 {
-lab=v_a}
+lab=#net2}
 N 1120 -840 1120 -780 {
-lab=v_a}
+lab=#net2}
 N 1000 -780 1120 -780 {
-lab=v_a}
+lab=#net2}
 N 1120 -560 1130 -560 {
-lab=v_a}
+lab=#net3}
 N 1120 -620 1120 -560 {
-lab=v_a}
+lab=#net3}
 N 1000 -620 1120 -620 {
-lab=v_a}
+lab=#net3}
 N 1260 -560 1270 -560 {
-lab=v_b}
+lab=#net4}
 N 1260 -620 1340 -620 {
-lab=v_b}
+lab=#net4}
 N 1200 -620 1200 -560 {
-lab=v_b}
+lab=#net4}
 N 1190 -560 1200 -560 {
-lab=v_b}
+lab=#net4}
 N 1340 -620 1460 -620 {
-lab=v_b}
-N 1300 -520 1300 -480 {
+lab=#net4}
+N 1300 -420 1300 -380 {
 lab=di_tg_ctrl_n}
 N 1160 -840 1160 -740 {
 lab=VDD}
@@ -88,26 +88,26 @@ N 1300 -660 1300 -560 {
 lab=VSS}
 N 1160 -660 1300 -660 {
 lab=VSS}
-N 1000 -700 1000 -620 {
-lab=v_a}
 N 960 -700 1000 -700 {
 lab=v_a}
-N 1000 -780 1000 -700 {
-lab=v_a}
-N 1460 -700 1460 -620 {
-lab=v_b}
 N 1460 -700 1500 -700 {
 lab=v_b}
-N 1460 -780 1460 -700 {
-lab=v_b}
-N 1330 -560 1340 -560 {lab=v_b}
-N 1340 -620 1340 -560 {lab=v_b}
-N 1260 -620 1260 -560 {lab=v_b}
+N 1330 -560 1340 -560 {lab=#net4}
+N 1340 -620 1340 -560 {lab=#net4}
+N 1260 -620 1260 -560 {lab=#net4}
 N 1200 -620 1260 -620 {
-lab=v_b}
-N 1260 -840 1260 -780 {lab=v_b}
+lab=#net4}
+N 1260 -840 1260 -780 {lab=#net1}
 N 1200 -780 1260 -780 {
-lab=v_b}
+lab=#net1}
+N 1160 -520 1160 -480 {lab=#net5}
+N 1160 -920 1160 -880 {lab=#net6}
+N 1300 -920 1300 -880 {lab=#net7}
+N 1300 -520 1300 -480 {lab=#net8}
+N 1000 -720 1000 -700 {lab=v_a}
+N 1000 -700 1000 -680 {lab=v_a}
+N 1460 -700 1460 -680 {lab=v_b}
+N 1460 -720 1460 -700 {lab=v_b}
 C {devices/title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
 C {devices/iopin.sym} 960 -700 0 1 {name=p2 lab=v_a}
 C {devices/iopin.sym} 1500 -700 0 0 {name=p4 lab=v_b}
@@ -143,9 +143,17 @@ m=\{n/2\}
 model=sg13_lv_nmos
 spiceprefix=X
 }
-C {devices/lab_pin.sym} 1300 -920 1 0 {name=p12 sig_type=std_logic lab=di_tg_ctrl}
-C {devices/lab_pin.sym} 1300 -480 3 0 {name=p13 sig_type=std_logic lab=di_tg_ctrl_n}
+C {devices/lab_pin.sym} 1300 -1020 1 0 {name=p12 sig_type=std_logic lab=di_tg_ctrl}
+C {devices/lab_pin.sym} 1300 -380 3 0 {name=p13 sig_type=std_logic lab=di_tg_ctrl_n}
 C {devices/iopin.sym} 1400 -920 3 0 {name=p3 lab=VDD}
 C {devices/iopin.sym} 1400 -480 1 0 {name=p7 lab=VSS}
-C {devices/ipin.sym} 1160 -480 3 0 {name=p8 lab=di_tg_ctrl}
-C {devices/ipin.sym} 1160 -920 1 0 {name=p9 lab=di_tg_ctrl_n}
+C {devices/ipin.sym} 1160 -380 3 0 {name=p8 lab=di_tg_ctrl}
+C {devices/ipin.sym} 1160 -1020 1 0 {name=p9 lab=di_tg_ctrl_n}
+C {vsource.sym} 1160 -450 2 1 {name=Vig1 value=0 savecurrent=false}
+C {vsource.sym} 1160 -950 0 0 {name=Vig2 value=0 savecurrent=false}
+C {vsource.sym} 1300 -450 2 1 {name=Vig1d value=0 savecurrent=false}
+C {vsource.sym} 1300 -950 0 0 {name=Vig2d value=0 savecurrent=false}
+C {vsource.sym} 1000 -750 2 1 {name=Vid2 value=0 savecurrent=false}
+C {vsource.sym} 1000 -650 0 0 {name=Vid1 value=0 savecurrent=false}
+C {vsource.sym} 1460 -750 2 1 {name=Vis2 value=0 savecurrent=false}
+C {vsource.sym} 1460 -650 0 0 {name=Vis1 value=0 savecurrent=false}

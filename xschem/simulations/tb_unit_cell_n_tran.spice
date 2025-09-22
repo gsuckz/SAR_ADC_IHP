@@ -117,8 +117,8 @@ XM2 vout vin VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
 *.ipin di_tg_ctrl_n
 XM1 v_a di_tg_ctrl v_b VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
 XM2 v_a di_tg_ctrl_n v_b VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
-XMdummy2 v_b di_tg_ctrl v_b VDD sg13_lv_pmos w=W_P_D l=L_P_D ng=1 m={n/2}
-XMdummy1 v_b di_tg_ctrl_n v_b VSS sg13_lv_nmos w=W_N_D l=L_N_D ng=1 m={n/2}
+XMdummy2 v_b di_tg_ctrl v_b VDD sg13_lv_pmos w=W_P l=L_P ng=1 m={n/2}
+XMdummy1 v_b di_tg_ctrl_n v_b VSS sg13_lv_nmos w=W_N l=L_N ng=1 m={n/2}
 .ends
 
 .GLOBAL GND

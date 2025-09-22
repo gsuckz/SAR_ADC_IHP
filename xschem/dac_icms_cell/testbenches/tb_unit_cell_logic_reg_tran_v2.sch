@@ -57,7 +57,7 @@ N 2575 615 2575 705 {lab=start}
 N 2465 575 2545 575 {lab=#net1}
 N 2465 575 2465 645 {lab=#net1}
 N 2400 515 2575 515 {lab=#net2}
-C {dac_icms_cell/unit_cell.sym} -20 0 0 0 {name=x1 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=32}
+C {dac_icms_cell/unit_cell.sym} -20 0 0 0 {name=x1 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32}
 C {vsource.sym} -280 -580 0 0 {name=V1 value=1.8 savecurrent=false}
 C {lab_pin.sym} -280 -610 0 0 {name=p1 sig_type=std_logic lab=vdd}
 C {gnd.sym} -280 -550 0 0 {name=l1 lab=GND}
@@ -75,10 +75,11 @@ C {lab_pin.sym} 1055 -200 0 1 {name=p7 sig_type=std_logic lab=d
 C {gnd.sym} 385 25 0 0 {name=l5 lab=GND}
 C {lab_pin.sym} -100 -80 0 0 {name=p8 sig_type=std_logic lab=d
 }
-C {devices/code_shown.sym} 245 -660 0 0 {name=NGSPICE
+C {devices/code_shown.sym} 275 -860 0 0 {name=NGSPICE
 simulator=ngspice
 only_toplevel=false 
 value="
+.param cu = 100f
 .param temp=27
 .param W_P = 1.0u
 .param L_P = 0.13u
@@ -95,7 +96,7 @@ value="
 .control
 
 * Transient Analysis
-tran 1p 5n
+tran 1p 3n
 
 
 plot i(V2) i(V3) i(V6)
@@ -133,7 +134,7 @@ C {lab_pin.sym} 965 -80 0 1 {name=p15 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} 665 -95 0 0 {name=p16 sig_type=std_logic lab=clk}
 C {lab_pin.sym} 325 -200 0 0 {name=p18 sig_type=std_logic lab=p_dec}
 C {lab_pin.sym} 385 -140 0 0 {name=p19 sig_type=std_logic lab=comp_in}
-C {dac_icms_cell/unit_cell_n.sym} -470 -10 0 0 {name=x2 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=32}
+C {dac_icms_cell/unit_cell_n.sym} -470 -10 0 0 {name=x2 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32}
 C {gnd.sym} -430 10 0 0 {name=l12 lab=GND}
 C {lab_pin.sym} -430 -170 0 1 {name=p20 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} -450 -170 0 0 {name=p21 sig_type=std_logic lab=bit
@@ -152,7 +153,7 @@ C {gnd.sym} 1245 -80 0 0 {name=l18 lab=GND}
 C {lab_pin.sym} 1315 -80 0 1 {name=p32 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} 1105 -160 0 0 {name=p33 sig_type=std_logic lab=comp_in}
 C {lab_pin.sym} 1105 -120 0 0 {name=p34 sig_type=std_logic lab=clk}
-C {dac_icms_cell/unit_cell.sym} -30 320 0 0 {name=x4 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=16}
+C {dac_icms_cell/unit_cell.sym} -30 320 0 0 {name=x4 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16}
 C {gnd.sym} 10 340 0 0 {name=l19 lab=GND}
 C {lab_pin.sym} 10 160 0 1 {name=p35 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} -10 160 0 0 {name=p36 sig_type=std_logic lab=bit2
@@ -162,7 +163,7 @@ C {lab_pin.sym} -110 240 0 0 {name=p37 sig_type=std_logic lab=d2
 C {lab_pin.sym} -30 340 0 0 {name=p38 sig_type=std_logic lab=top
 
 }
-C {dac_icms_cell/unit_cell_n.sym} -470 330 0 0 {name=x5 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=16}
+C {dac_icms_cell/unit_cell_n.sym} -470 330 0 0 {name=x5 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16}
 C {gnd.sym} -430 350 0 0 {name=l24 lab=GND}
 C {lab_pin.sym} -430 170 0 1 {name=p44 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} -450 170 0 0 {name=p45 sig_type=std_logic lab=bit2
@@ -171,7 +172,7 @@ C {lab_pin.sym} -550 250 0 0 {name=p46 sig_type=std_logic lab=d2}
 C {lab_pin.sym} -470 350 0 0 {name=p47 sig_type=std_logic lab=top_n
 
 }
-C {dac_icms_cell/unit_cell.sym} -20 695 0 0 {name=x6 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=32}
+C {dac_icms_cell/unit_cell.sym} -20 695 0 0 {name=x6 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32}
 C {gnd.sym} 20 715 0 0 {name=l29 lab=GND}
 C {lab_pin.sym} 20 535 0 1 {name=p53 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} 0 535 0 0 {name=p54 sig_type=std_logic lab=bit3
@@ -179,7 +180,7 @@ C {lab_pin.sym} 0 535 0 0 {name=p54 sig_type=std_logic lab=bit3
 C {lab_pin.sym} -100 615 0 0 {name=p55 sig_type=std_logic lab=d3
 }
 C {lab_pin.sym} -20 715 0 0 {name=p56 sig_type=std_logic lab=top2}
-C {dac_icms_cell/unit_cell_n.sym} -470 695 0 0 {name=x7 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=32}
+C {dac_icms_cell/unit_cell_n.sym} -470 695 0 0 {name=x7 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32}
 C {gnd.sym} -430 715 0 0 {name=l34 lab=GND}
 C {lab_pin.sym} -430 535 0 1 {name=p62 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} -450 535 0 0 {name=p63 sig_type=std_logic lab=bit3
@@ -189,7 +190,7 @@ C {lab_pin.sym} -550 615 0 0 {name=p64 sig_type=std_logic lab=d3
 C {lab_pin.sym} -470 715 0 0 {name=p65 sig_type=std_logic lab=top_n2
 
 }
-C {dac_icms_cell/unit_cell.sym} -30 1045 0 0 {name=x8 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=16}
+C {dac_icms_cell/unit_cell.sym} -30 1045 0 0 {name=x8 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16}
 C {gnd.sym} 10 1065 0 0 {name=l39 lab=GND}
 C {lab_pin.sym} 10 885 0 1 {name=p71 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} -10 885 0 0 {name=p72 sig_type=std_logic lab=bit4
@@ -199,7 +200,7 @@ C {lab_pin.sym} -110 965 0 0 {name=p73 sig_type=std_logic lab=d4
 C {lab_pin.sym} -30 1065 0 0 {name=p74 sig_type=std_logic lab=top2
 
 }
-C {dac_icms_cell/unit_cell_n.sym} -490 1055 0 0 {name=x9 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=20f n=16}
+C {dac_icms_cell/unit_cell_n.sym} -490 1055 0 0 {name=x9 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16}
 C {gnd.sym} -450 1075 0 0 {name=l44 lab=GND}
 C {lab_pin.sym} -450 895 0 1 {name=p80 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} -470 895 0 0 {name=p81 sig_type=std_logic lab=bit4
@@ -279,7 +280,7 @@ C {lab_pin.sym} 715 270 1 1 {name=p41 sig_type=std_logic lab=A_n
 }
 C {vsource.sym} 380 330 0 0 {name=V6 value=0.9 savecurrent=false}
 C {gnd.sym} 380 360 0 0 {name=l8 lab=GND}
-C {vsource.sym} 480 260 0 0 {name=V8 value=0 savecurrent=false}
+C {vsource.sym} 480 260 0 0 {name=V8 value=-0.5 savecurrent=false}
 C {lab_pin.sym} 480 200 3 1 {name=p42 sig_type=std_logic lab=vinp
 
 }
@@ -301,7 +302,7 @@ C {lab_pin.sym} 1090 270 1 1 {name=p51 sig_type=std_logic lab=A_n
 C {lab_pin.sym} 1010 230 0 0 {name=p52 sig_type=std_logic lab=vinp
 
 }
-C {vsource.sym} 480 320 0 0 {name=V9 value=0 savecurrent=false}
+C {vsource.sym} 480 320 0 0 {name=V9 value=-0.5 savecurrent=false}
 C {lab_pin.sym} 795 170 0 1 {name=p57 sig_type=std_logic lab=bot_n
 
 }
