@@ -25,9 +25,8 @@ N 2605 410 2620 410 {lab=vgate}
 N 2515 380 2515 410 {lab=vbootstrap}
 N 2485 380 2515 380 {lab=vbootstrap}
 N 2485 380 2485 410 {lab=vbootstrap}
-N 2355 410 2485 410 {lab=vbootstrap}
 N 2325 400 2325 410 {lab=vbootstrap}
-N 2325 370 2355 370 {lab=vbootstrap}
+N 2325 370 2355 370 {lab=VSS}
 N 2325 340 2355 340 {lab=VDD}
 N 2355 335 2355 340 {lab=VDD}
 N 2650 335 2650 370 {lab=VDD}
@@ -40,8 +39,7 @@ N 2650 450 2795 450 {lab=VSS}
 N 2395 585 2395 595 {lab=#net1}
 N 2395 515 2415 515 {lab=VDD}
 N 2415 515 2415 545 {lab=VDD}
-N 2395 655 2460 655 {lab=Y}
-N 2460 655 2515 655 {lab=Y}
+N 2395 655 2515 655 {lab=VSS}
 N 2515 585 2515 595 {lab=#net1}
 N 2395 585 2515 585 {lab=#net1}
 N 2395 575 2395 585 {lab=#net1}
@@ -60,7 +58,6 @@ N 2205 410 2205 590 {lab=vbootstrap}
 N 2200 410 2205 410 {lab=vbootstrap}
 N 2460 700 2640 700 {lab=Y}
 N 2640 655 2640 700 {lab=Y}
-N 2460 655 2460 700 {lab=Y}
 N 2205 700 2460 700 {lab=Y}
 N 2670 655 2670 735 {lab=VSS}
 N 2855 615 2855 640 {lab=vgate}
@@ -86,8 +83,7 @@ N 2390 625 2515 625 {lab=VSS}
 N 2425 725 2460 725 {lab=Y}
 N 2460 700 2460 725 {lab=Y}
 N 2355 545 2355 630 {lab=clk}
-N 2355 370 2355 410 {lab=vbootstrap}
-N 2325 410 2355 410 {lab=vbootstrap}
+N 2325 410 2485 410 {lab=vbootstrap}
 C {devices/code_shown.sym} 2620 1085 0 0 {name=NGSPICE
 simulator=ngspice
 only_toplevel=false 
@@ -269,13 +265,15 @@ C {lab_pin.sym} 2830 570 0 0 {name=p28 sig_type=std_logic lab=vgate}
 C {lab_pin.sym} 2935 685 0 1 {name=p29 sig_type=std_logic lab=vc}
 C {lab_pin.sym} 2730 355 0 0 {name=p13 sig_type=std_logic lab=vgate_ground}
 C {lab_pin.sym} 2205 410 0 0 {name=p30 sig_type=std_logic lab=vbootstrap}
-C {lab_pin.sym} 2515 450 0 0 {name=p31 sig_type=std_logic lab=clk_n}
+C {lab_pin.sym} 2515 450 0 0 {name=p31 sig_type=std_logic lab=clk}
 C {lab_pin.sym} 2425 725 0 0 {name=p32 sig_type=std_logic lab=Y}
-C {sg13g2_pr/sg13_hv_pmos.sym} 2305 370 0 0 {name=M2
-l=0.4u
-w=2u
+C {sg13g2_pr/sg13_hv_nmos.sym} 2305 370 0 0 {name=M2
+l=0.45u
+w=20u
 ng=1
 m=1
-model=sg13_hv_pmos
+model=sg13_hv_nmos
 spiceprefix=X
 }
+C {lab_pin.sym} 2450 655 3 0 {name=p2 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} 2355 370 3 0 {name=p4 sig_type=std_logic lab=VSS}
