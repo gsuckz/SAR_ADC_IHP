@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 N 480 345 480 380 {lab=vinn}
 N 480 200 480 230 {lab=vinp}
@@ -48,7 +47,7 @@ simulator=ngspice
 only_toplevel=false 
 value="
 .param temp=27
-.param pon = 20
+.param pon = 1
 .param W_P = pon*1.0u
 .param L_P = 0.13u
 .param W_N = 1.0u
@@ -127,7 +126,7 @@ C {lab_pin.sym} 1090 525 1 1 {name=p69 sig_type=std_logic lab=b_n
 C {lab_pin.sym} 1010 485 0 0 {name=p70 sig_type=std_logic lab=vcm
 
 }
-C {lab_pin.sym} 1170 425 0 1 {name=p76 sig_type=std_logic lab=botx
+C {lab_pin.sym} 1170 425 0 1 {name=p76 sig_type=std_logic lab=bot
 
 }
 C {lab_pin.sym} 380 300 0 0 {name=p77 sig_type=std_logic lab=vcm
@@ -192,9 +191,9 @@ C {lab_pin.sym} 2450 85 0 1 {name=p131 sig_type=std_logic lab=a_n_ctrl}
 C {lab_pin.sym} 1755 270 0 1 {name=p132 sig_type=std_logic lab=b_ctrl}
 C {lab_pin.sym} 1685 100 0 1 {name=p133 sig_type=std_logic lab=b_n_ctrl}
 C {lab_pin.sym} 2170 500 0 1 {name=p134 sig_type=std_logic lab=start}
-C {gnd.sym} 1855 520 0 0 {name=l7 lab=GND}
-C {vsource.sym} 1855 490 0 0 {name=V5 value=0 savecurrent=false}
-C {lab_pin.sym} 1855 460 0 0 {name=p137 sig_type=std_logic lab=VSS}
+C {gnd.sym} 1345 130 0 0 {name=l7 lab=GND}
+C {vsource.sym} 1345 100 0 0 {name=V5 value=0 savecurrent=false}
+C {lab_pin.sym} 1345 70 0 0 {name=p137 sig_type=std_logic lab=VSS}
 C {sg13g2_stdcells/sg13g2_nand2_2.sym} 2340 535 0 0 {name=x33 VDD=VDD VSS=GND prefix=sg13g2_ }
 C {sg13g2_stdcells/sg13g2_nor2_2.sym} 2340 645 0 0 {name=x34 VDD=VDD VSS=GND prefix=sg13g2_ }
 C {sg13g2_stdcells/sg13g2_inv_1.sym} 2240 555 0 0 {name=x35 VDD=VDD VSS=VSS prefix=sg13g2_ }

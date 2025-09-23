@@ -19,16 +19,16 @@ x25 VDD a_n_ctrl net8 GND inverter_lv W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1
 x26 VDD net8 A_n GND inverter_lv W_P=20.0u L_P=0.13u W_N=10.0u L_N=0.13u n=1
 x27 VDD a_ctrl net9 GND inverter_lv W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1
 x28 VDD net9 A GND inverter_lv W_P=20.0u L_P=0.13u W_N=10.0u L_N=0.13u n=1
-x29 b_ctrl start net2 VDD GND sg13g2_nor2_2
-x30 a_n_ctrl net1 start VDD GND sg13g2_nand2_2
-x31 b_n_ctrl b_ctrl VDD GND sg13g2_inv_2
-x32 a_ctrl a_n_ctrl VDD GND sg13g2_inv_2
+x29 start net2 VDD GND b_ctrl sg13g2_nor2_2
+x30 net1 start VDD GND a_n_ctrl sg13g2_nand2_2
+x31 b_ctrl VDD GND b_n_ctrl sg13g2_inv_2
+x32 a_n_ctrl VDD GND a_ctrl sg13g2_inv_2
 V5 VSS GND 0
-x33 net2 A_n net10 VDD GND sg13g2_nand2_2
-x34 net1 B net11 VDD GND sg13g2_nor2_2
-x35 net10 A VDD VSS sg13g2_inv_1
-x36 net11 b_n VDD VSS sg13g2_inv_1
-V13 botx net4 0
+x33 A_n net10 VDD GND net2 sg13g2_nand2_2
+x34 B net11 VDD GND net1 sg13g2_nor2_2
+x35 A VDD VSS net10 sg13g2_inv_1
+x36 b_n VDD VSS net11 sg13g2_inv_1
+V13 bot net4 0
 V14 top net5 0
 V18 bot net3 0
 C3 top bot 20f m=64
@@ -36,7 +36,7 @@ C3 top bot 20f m=64
 
 
 .param temp=27
-.param pon = 20
+.param pon = 1
 .param W_P = pon*1.0u
 .param L_P = 0.13u
 .param W_N = 1.0u
@@ -89,18 +89,18 @@ plot bot top start
 *.iopin VSS
 *.ipin di_tg_ctrl
 *.ipin di_tg_ctrl_n
-XM1 net3 net5 net4 VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
-XM2 net2 net6 net1 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
-XMdummy2 net1 net7 net1 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m={n/2}
-XMdummy1 net4 net8 net4 VSS sg13_lv_nmos w=W_N l=L_N ng=1 m={n/2}
-Vig1 di_tg_ctrl net5 0
-Vig2 di_tg_ctrl_n net6 0
-Vig1d di_tg_ctrl_n net8 0
-Vig2d di_tg_ctrl net7 0
+XM1 net3 net4 net1 VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
+XM2 net2 net5 net1 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
+XMdummy2 net1 net6 net1 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m={n/2}
+XMdummy1 net1 net7 net1 VSS sg13_lv_nmos w=W_N l=L_N ng=1 m={n/2}
+Vig1 di_tg_ctrl net4 0
+Vig2 di_tg_ctrl_n net5 0
+Vig1d di_tg_ctrl_n net7 0
+Vig2d di_tg_ctrl net6 0
 Vid2 v_a net2 0
 Vid1 v_a net3 0
 Vis2 v_b net1 0
-Vis1 v_b net4 0
+Vis1 v_b net1 0
 .ends
 
 

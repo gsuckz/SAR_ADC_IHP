@@ -1,24 +1,23 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 N 575 10 580 20 {lab=vcbot}
 N 805 20 805 25 {lab=vctop}
 N -165 -465 -155 -465 {
-lab=#net1}
+lab=vcbot}
 N -155 -465 -155 -405 {
-lab=#net1}
+lab=vcbot}
 N -95 -465 -85 -465 {
-lab=#net1}
+lab=vcbot}
 N -95 -405 -15 -405 {
-lab=#net1}
+lab=vcbot}
 N -25 -465 -15 -465 {
-lab=#net1}
+lab=vcbot}
 N -15 -430 -15 -405 {
-lab=#net1}
+lab=vcbot}
 N -235 -465 -225 -465 {
 lab=vin}
 N -235 -465 -235 -405 {
@@ -32,13 +31,13 @@ lab=vin}
 N -355 -245 -235 -245 {
 lab=vin}
 N -95 -185 -85 -185 {
-lab=#net2}
+lab=vcbot}
 N -95 -245 -15 -245 {
-lab=#net2}
+lab=vcbot}
 N -155 -245 -155 -185 {
-lab=#net2}
+lab=vcbot}
 N -165 -185 -155 -185 {
-lab=#net2}
+lab=vcbot}
 N -195 -465 -195 -365 {
 lab=VDD}
 N -55 -365 45 -365 {
@@ -53,14 +52,10 @@ N -395 -325 -355 -325 {
 lab=vin}
 N -355 -405 -355 -325 {
 lab=vin}
-N -25 -185 -15 -185 {lab=#net2}
-N -15 -245 -15 -185 {lab=#net2}
-N -95 -245 -95 -185 {lab=#net2}
-N -155 -245 -95 -245 {
-lab=#net2}
-N -95 -465 -95 -405 {lab=#net1}
-N -155 -405 -95 -405 {
-lab=#net1}
+N -25 -185 -15 -185 {lab=vcbot}
+N -15 -245 -15 -185 {lab=vcbot}
+N -95 -245 -95 -185 {lab=vcbot}
+N -95 -465 -95 -405 {lab=vcbot}
 N -195 -545 -195 -505 {
 lab=sample_n}
 N -55 -545 -55 -505 {
@@ -75,25 +70,25 @@ lab=GND}
 N -195 -365 -55 -365 {
 lab=VDD}
 N -55 -470 -55 -365 {lab=VDD}
-N 295 -405 295 10 {lab=vcbot}
+N 295 -250 295 10 {lab=vcbot}
 N -15 -465 -15 -430 {
-lab=#net1}
-N 235 -430 235 -405 {lab=#net1}
+lab=vcbot}
+N 235 -430 235 -405 {lab=vcbot}
 N 45 -545 45 -365 {
 lab=VDD}
 N 45 -285 45 -105 {
 lab=GND}
 N 295 10 575 10 {lab=vcbot}
 N 860 -720 870 -720 {
-lab=#net3}
+lab=vctop}
 N 870 -720 870 -660 {
-lab=#net3}
+lab=vctop}
 N 930 -720 940 -720 {
-lab=#net3}
+lab=vctop}
 N 930 -660 1010 -660 {
-lab=#net3}
+lab=vctop}
 N 1000 -720 1010 -720 {
-lab=#net3}
+lab=vctop}
 N 790 -720 800 -720 {
 lab=vcm}
 N 790 -720 790 -660 {
@@ -107,13 +102,13 @@ lab=vcm}
 N 670 -500 790 -500 {
 lab=vcm}
 N 930 -440 940 -440 {
-lab=#net4}
+lab=vctop}
 N 930 -500 1010 -500 {
-lab=#net4}
+lab=vctop}
 N 870 -500 870 -440 {
-lab=#net4}
+lab=vctop}
 N 860 -440 870 -440 {
-lab=#net4}
+lab=vctop}
 N 830 -720 830 -620 {
 lab=VDD}
 N 970 -620 1070 -620 {
@@ -128,14 +123,14 @@ N 630 -580 670 -580 {
 lab=vcm}
 N 670 -660 670 -580 {
 lab=vcm}
-N 1000 -440 1010 -440 {lab=#net4}
-N 1010 -500 1010 -440 {lab=#net4}
-N 930 -500 930 -440 {lab=#net4}
+N 1000 -440 1010 -440 {lab=vctop}
+N 1010 -500 1010 -440 {lab=vctop}
+N 930 -500 930 -440 {lab=vctop}
 N 870 -500 930 -500 {
-lab=#net4}
-N 930 -720 930 -660 {lab=#net3}
+lab=vctop}
+N 930 -720 930 -660 {lab=vctop}
 N 870 -660 930 -660 {
-lab=#net3}
+lab=vctop}
 N 830 -800 830 -760 {
 lab=sample_n2}
 N 970 -800 970 -760 {
@@ -152,38 +147,46 @@ lab=VDD}
 N 970 -725 970 -620 {lab=VDD}
 N 1320 -255 1320 -245 {lab=vctop}
 N 1010 -720 1010 -660 {
-lab=#net3}
+lab=vctop}
 N 1070 -800 1070 -620 {
 lab=VDD}
 N 1010 -500 1170 -500 {
-lab=#net4}
+lab=vctop}
 N 1070 -540 1070 -360 {
 lab=GND}
 N 930 25 1320 -255 {lab=vctop}
 N 805 25 930 25 {lab=vctop}
-N 1320 -660 1320 -255 {lab=vctop}
+N 1320 -505 1320 -255 {lab=vctop}
 N 640 20 805 20 {lab=vctop}
-N -15 -430 235 -430 {lab=#net1}
-N 150 -250 235 -250 {lab=#net2}
-N 150 -245 150 -240 {lab=#net2}
-N 150 -250 150 -245 {lab=#net2}
+N -15 -430 235 -430 {lab=vcbot}
+N 150 -250 295 -250 {lab=vcbot}
+N 150 -245 150 -240 {lab=vcbot}
+N 150 -250 150 -245 {lab=vcbot}
 N -15 -245 150 -245 {
-lab=#net2}
-N 1170 -500 1260 -505 {lab=#net4}
-N 1170 -500 1175 -500 {lab=#net4}
-N 1190 -660 1190 -655 {lab=#net3}
-N 1190 -660 1260 -660 {lab=#net3}
-N 1010 -660 1190 -660 {lab=#net3}
+lab=vcbot}
+N 1170 -500 1260 -505 {lab=vctop}
+N 1170 -500 1175 -500 {lab=vctop}
+N 1190 -660 1190 -655 {lab=vctop}
+N 1010 -660 1190 -660 {lab=vctop}
+N -155 -405 -95 -405 {
+lab=vcbot}
+N -155 -245 -95 -245 {
+lab=vcbot}
+N 235 -405 295 -405 {lab=vcbot}
+N 295 -405 295 -250 {lab=vcbot}
+N 1190 -660 1320 -660 {lab=vctop}
+N 1260 -505 1320 -505 {lab=vctop}
+N 1320 -660 1320 -505 {lab=vctop}
 C {devices/code_shown.sym} -1270 390 0 0 {name=NGSPICE
 simulator=ngspice
 only_toplevel=false 
 value="
 .param temp=27
 .param period = 1n
-.param wp = 1.2u
-.param wn = 0.4u
-.param rise_t = period*0.1
-.param fall_t = period*0.1
+.param wp = 1u
+.param wn = 1u
+.param rise_t = period*0.05
+.param fall_t = period*0.05
 .param delay_n = 0
 .param delay_s = 0
 .param delay_2 = period*0.2
@@ -241,8 +244,6 @@ device="ceramic capacitor"}
 C {lab_pin.sym} 630 -580 0 0 {name=p20 sig_type=std_logic lab=vcm}
 C {lab_pin.sym} 925 25 1 0 {name=p21 sig_type=std_logic lab=vctop}
 C {lab_pin.sym} 295 -45 2 0 {name=p22 sig_type=std_logic lab=vcbot}
-C {vsource.sym} 265 -405 1 0 {name=V1 value=0 savecurrent=false}
-C {vsource.sym} 265 -250 1 0 {name=V5 value=0 savecurrent=false}
 C {sg13g2_pr/sg13_lv_nmos.sym} -195 -165 3 0 {name=M1
 l=0.13u
 w=\{wn\}
@@ -281,8 +282,6 @@ spiceprefix=X
 C {gnd.sym} 1070 -365 0 0 {name=l9 lab=GND}
 C {lab_pin.sym} 830 -360 1 1 {name=p10 sig_type=std_logic lab=sample_s2}
 C {lab_pin.sym} 970 -360 1 1 {name=p15 sig_type=std_logic lab=sample_n2}
-C {vsource.sym} 1290 -660 1 0 {name=V10 value=0 savecurrent=false}
-C {vsource.sym} 1290 -505 1 0 {name=V11 value=0 savecurrent=false}
 C {sg13g2_pr/sg13_lv_nmos.sym} 830 -420 3 0 {name=M7
 l=0.13u
 w=\{wn\}
