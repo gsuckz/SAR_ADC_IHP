@@ -1,6 +1,6 @@
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/testbenches/tb_capacitor.sch
 **.subckt tb_capacitor
-V7 sample_s GND PULSE( 0 1.8 {delay_1 + delay_s} {rise_t} {fall_t} {period/2} {period} 1)
+V7 sample_s GND PULSE( 0 1.8 {delay_1 + delay_s} {rise_t} {fall_t} {a*period/2} {a*period} 1)
 V2 vin GND 1.7
 V3 vcm GND 0.9
 V4 VDD GND 1.8
@@ -18,15 +18,16 @@ XM8 vcm sample_n2 net3 VDD sg13_lv_pmos w={wp} l=0.13u ng=1 m=64
 XM9 net4 sample_n2 net4 GND sg13_lv_nmos w={wn} l=0.13u ng=1 m=32
 XM10 net3 sample_s2 net3 VDD sg13_lv_pmos w={wp} l=0.13u ng=1 m=32
 V8 sample_s2 GND PULSE( 0 1.8 {delay_2 + delay_s} {rise_t} {fall_t} {period/2} {period} 1)
-V9 sample_n GND PULSE( 1.8 0 {delay_n} {rise_t} {fall_t} {period/2} {period} 1)
+V9 sample_n GND PULSE( 1.8 0 {delay_n} {rise_t} {fall_t} {a*period/2} {a*period} 1)
 V12 sample_n2 GND PULSE( 1.8 0 {delay_n + delay_2} {rise_t} {fall_t} {period/2} {period} 1)
 **** begin user architecture code
 
 
 .param temp=27
-.param period = 1n
-.param wp = 1.2u
-.param wn = 0.4u
+.param period = 1.5n
+.param wp = 1.5u
+.param a = 1.8
+.param wn = 0.5u
 .param rise_t = period*0.1
 .param fall_t = period*0.1
 .param delay_n = 0

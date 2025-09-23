@@ -1,0 +1,62 @@
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/bootstrap/tb_bootstrap.sch
+**.subckt tb_bootstrap
+V2 vin GND SIN(1 0.5 50meg)
+V4 VDD GND 1.8
+C1 vpump clk_n 1p m=1
+C2 vpump2 clk 1p m=1
+XM6 vgate clk vbootstrap vbootstrap sg13_hv_pmos w=2u l=0.4u ng=1 m=1
+XM8 net1 clk VSS VSS sg13_hv_nmos w=2u l=0.45u ng=1 m=1
+XM9 net1 clk VDD VDD sg13_hv_pmos w=2u l=0.4u ng=1 m=1
+XM10 net1 vgate VSS VSS sg13_hv_nmos w=2u l=0.45u ng=1 m=1
+XM11 Y vgate vin VSS sg13_hv_nmos w=5u l=0.45u ng=1 m=1
+C3 vbootstrap Y 20f m=1
+XM12 Y clk_n VSS VSS sg13_hv_nmos w=20u l=0.45u ng=1 m=1
+XM13 vgate VDD vgate_ground VSS sg13_hv_nmos w=10u l=0.45u ng=1 m=1
+XM3 vgate_ground clk_n VSS VSS sg13_hv_nmos w=10u l=0.45u ng=1 m=1
+XM4 VDD vpump2 vpump VSS sg13_hv_nmos w=10u l=0.45u ng=1 m=1
+XM5 VDD vpump vpump2 VSS sg13_hv_nmos w=10u l=0.45u ng=1 m=1
+XM1 vc vgate vin VSS sg13_hv_nmos w=1u l=0.45u ng=2 m=64
+V1 clk GND PULSE( 1.8 0 {delay_n} {rise_t} {fall_t} {a*period/2} {a*period} )
+V5 clk_n GND PULSE( 0 1.8 {delay_n} {rise_t} {fall_t} {a*period/2} {a*period} )
+C4 vc GND 1.2p m=1
+XM2 VDD vpump vbootstrap VSS sg13_hv_nmos w=20u l=0.45u ng=1 m=1
+**** begin user architecture code
+
+
+.param temp=27
+.param period = 1.5n
+.param wp = 1.5u
+.param a = 1.8
+.param wn = 0.5u
+.param rise_t = period*0.1
+.param fall_t = period*0.1
+.param delay_n = 0
+.param delay_s = 10p
+.param delay_2 = period*0.2
+.param delay_1 = 0
+.options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-10
+.control
+
+* Transient Analysis
+tran 1p 10n
+
+plot clk clk_n vpump vpump2
+plot vin vgate vc
+plot vbootstrap vgate_ground  vgate Y clk clk_n
+.endc
+
+
+
+
+** IHP models
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerHBT.lib hbt_typ
+.lib cornerRES.lib res_typ
+.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end
