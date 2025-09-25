@@ -1,6 +1,6 @@
 ** sch_path: /foss/pdks/ihp-sg13g2/libs.tech/xschem/sg13g2_tests/dc_lv_nmos.sch
 **.subckt dc_lv_nmos
-Vgs G GND 1.2
+Vgs G GND 1.8
 Vds D GND 1.5
 Vd D net1 0
 .save i(vd)

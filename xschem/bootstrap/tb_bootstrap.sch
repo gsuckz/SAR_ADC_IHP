@@ -36,13 +36,13 @@ N 2650 450 2650 490 {lab=VSS}
 N 2825 410 2825 450 {lab=VSS}
 N 2795 450 2825 450 {lab=VSS}
 N 2650 450 2795 450 {lab=VSS}
-N 2395 585 2395 595 {lab=#net1}
+N 2395 585 2395 595 {lab=clk_n2}
 N 2395 515 2415 515 {lab=VDD}
 N 2415 515 2415 545 {lab=VDD}
-N 2395 655 2515 655 {lab=VSS}
-N 2515 585 2515 595 {lab=#net1}
-N 2395 585 2515 585 {lab=#net1}
-N 2395 575 2395 585 {lab=#net1}
+N 2460 655 2515 655 {lab=Y}
+N 2515 585 2515 595 {lab=clk_n2}
+N 2485 585 2515 585 {lab=clk_n2}
+N 2395 575 2395 585 {lab=clk_n2}
 N 2605 615 2605 625 {lab=vgate}
 N 2545 410 2605 410 {lab=vgate}
 N 2555 625 2605 625 {lab=vgate}
@@ -81,15 +81,20 @@ N 2730 355 2730 410 {lab=vgate_ground}
 N 2680 410 2730 410 {lab=vgate_ground}
 N 2390 625 2515 625 {lab=VSS}
 N 2425 725 2460 725 {lab=Y}
-N 2460 700 2460 725 {lab=Y}
 N 2355 545 2355 630 {lab=clk}
 N 2325 410 2485 410 {lab=vbootstrap}
+N 2485 450 2515 450 {lab=clk_n2}
+N 2485 450 2485 585 {lab=clk_n2}
+N 2395 585 2485 585 {lab=clk_n2}
+N 2460 700 2460 725 {lab=Y}
+N 2460 655 2460 700 {lab=Y}
+N 2395 655 2460 655 {lab=Y}
 C {devices/code_shown.sym} 2620 1085 0 0 {name=NGSPICE
 simulator=ngspice
 only_toplevel=false 
 value="
 .param temp=27
-.param period = 1.5n
+.param period = 1n
 .param wp = 1.5u
 .param a = 1.8
 .param wn = 0.5u
@@ -107,7 +112,7 @@ tran 1p 10n
 
 plot clk clk_n vpump vpump2
 plot vin vgate vc
-plot vbootstrap vgate_ground  vgate Y clk clk_n
+plot vbootstrap vgate_ground  vgate Y clk clk_n clk_n2
 .endc 
 "}
 C {code_shown.sym} 1575 1025 0 0 {
@@ -123,7 +128,7 @@ value="
 "
 spice_ignore=false
       }
-C {vsource.sym} 2765 805 0 0 {name=V2 value="SIN(1 0.5 50meg)" savecurrent=false}
+C {vsource.sym} 2765 805 0 0 {name=V2 value="SIN(1 0.5 \{1/(2*period)\})" savecurrent=false}
 C {lab_pin.sym} 2765 775 0 0 {name=p12 sig_type=std_logic lab=vin}
 C {gnd.sym} 2765 835 0 0 {name=l5 lab=GND}
 C {vsource.sym} 1790 825 0 0 {name=V4 value=1.8 savecurrent=false}
@@ -132,12 +137,12 @@ C {gnd.sym} 1790 855 0 0 {name=l7 lab=GND}
 C {lab_pin.sym} 1735 255 0 0 {name=p1 sig_type=std_logic lab=VDD}
 C {capa.sym} 1625 410 0 0 {name=C1
 m=1
-value=1p
+value=20f
 footprint=1206
 device="ceramic capacitor"}
 C {capa.sym} 1855 410 0 0 {name=C2
 m=1
-value=1p
+value=20f
 footprint=1206
 device="ceramic capacitor"}
 C {lab_pin.sym} 1855 460 0 1 {name=p10 sig_type=std_logic lab=clk}
@@ -201,19 +206,19 @@ model=sg13_hv_nmos
 spiceprefix=X
 }
 C {lab_pin.sym} 2215 765 3 0 {name=p21 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} 2285 370 0 0 {name=p22 sig_type=std_logic lab=vpump}
+C {lab_pin.sym} 2285 370 0 0 {name=p22 sig_type=std_logic lab=vpump2}
 C {sg13g2_pr/sg13_hv_nmos.sym} 2650 390 3 1 {name=M13
 l=0.45u
-w=10u
-ng=1
+w=1u
+ng=2
 m=1
 model=sg13_hv_nmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_hv_nmos.sym} 2795 390 3 1 {name=M3
 l=0.45u
-w=10u
-ng=1
+w=1u
+ng=2
 m=1
 model=sg13_hv_nmos
 spiceprefix=X
@@ -264,16 +269,18 @@ C {lab_pin.sym} 1855 365 0 1 {name=p27 sig_type=std_logic lab=vpump2}
 C {lab_pin.sym} 2830 570 0 0 {name=p28 sig_type=std_logic lab=vgate}
 C {lab_pin.sym} 2935 685 0 1 {name=p29 sig_type=std_logic lab=vc}
 C {lab_pin.sym} 2730 355 0 0 {name=p13 sig_type=std_logic lab=vgate_ground}
-C {lab_pin.sym} 2205 410 0 0 {name=p30 sig_type=std_logic lab=vbootstrap}
-C {lab_pin.sym} 2515 450 0 0 {name=p31 sig_type=std_logic lab=clk}
 C {lab_pin.sym} 2425 725 0 0 {name=p32 sig_type=std_logic lab=Y}
+C {lab_pin.sym} 2355 370 3 0 {name=p4 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} 2205 410 0 0 {name=p2 sig_type=std_logic lab=vbootstrap}
+C {lab_pin.sym} 2485 470 0 0 {name=p5 sig_type=std_logic lab=clk_n2}
+C {lab_pin.sym} 2010 790 0 0 {name=p6 sig_type=std_logic lab=VSS}
+C {vsource.sym} 2010 820 0 0 {name=V3 value=0 savecurrent=false}
+C {gnd.sym} 2010 850 0 0 {name=l3 lab=GND}
 C {sg13g2_pr/sg13_hv_nmos.sym} 2305 370 0 0 {name=M2
 l=0.45u
-w=20u
+w=5u
 ng=1
 m=1
 model=sg13_hv_nmos
 spiceprefix=X
 }
-C {lab_pin.sym} 2450 655 3 0 {name=p2 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} 2355 370 3 0 {name=p4 sig_type=std_logic lab=VSS}
