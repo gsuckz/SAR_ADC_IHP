@@ -1,21 +1,21 @@
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/bootstrap/tb_bootstrap.sch
-**.subckt tb_bootstrap
-V2 vin GND SIN(1 0.5 {1/(4*period)})
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/bootstrap/tb_bootstrap_pulse.sch
+**.subckt tb_bootstrap_pulse
+V2 vin GND PULSE(0 1.8 2n 10p 10p 4n 8n)
 V4 VDD GND 1.8
-C1 vpump clk_n 2p m=1
-C2 vpump2 clk 2p m=1
-XM6 vgate clk_n2 vbootstrap vbootstrap sg13_hv_pmos w=10u l=0.4u ng=5 m=5
+C1 vpump clk_n 200f m=1
+C2 vpump2 clk 200f m=1
+XM6 vgate clk_n2 vbootstrap vbootstrap sg13_hv_pmos w=5u l=0.4u ng=5 m=4
 XM8 clk_n2 clk Y VSS sg13_hv_nmos w=5u l=0.45u ng=1 m=5
 XM9 clk_n2 clk VDD VDD sg13_hv_pmos w=15u l=0.4u ng=5 m=5
 XM10 clk_n2 vgate Y VSS sg13_hv_nmos w=5u l=0.45u ng=1 m=5
-XM11 Y vgate vin VSS sg13_hv_nmos w=5u l=0.45u ng=10 m=5
-C3 vbootstrap Y 8p m=1
+XM11 Y vgate vin VSS sg13_hv_nmos w=5u l=0.45u ng=10 m=4
+C3 vbootstrap Y 40f m=64
 XM12 Y clk_n VSS VSS sg13_hv_nmos w=10u l=0.45u ng=1 m=2
 XM13 vgate VDD vgate_ground VSS sg13_hv_nmos w=7u l=0.45u ng=2 m=4
 XM3 vgate_ground clk_n VSS VSS sg13_hv_nmos w=7u l=0.45u ng=2 m=4
 XM4 VDD vpump2 vpump VSS sg13_hv_nmos w=10u l=0.45u ng=1 m=1
 XM5 VDD vpump vpump2 VSS sg13_hv_nmos w=10u l=0.45u ng=1 m=1
-XM1 vc vgate vin VSS sg13_hv_nmos w=10u l=0.45u ng=10 m=64
+XM1 vc vgate vin VSS sg13_hv_nmos w=1u l=0.45u ng=2 m=64
 V1 clk_n GND PULSE( 1.8 0 {delay_n} {rise_t} {fall_t} {ts} {period} )
 V5 clk GND PULSE( 0 1.8 {delay_n} {rise_t} {fall_t} {ts} {period} )
 C4 vc GND 20f m=64
@@ -26,7 +26,7 @@ XM2 VDD vpump vbootstrap VSS sg13_hv_nmos w=10u l=0.45u ng=1 m=2
 
 .param temp=27
 .param ts=1n
-.param period = 12*ts
+.param period = 3*ts
 .param wp = 1.5u
 .param a = 1.8
 .param wn = 0.5u
@@ -40,7 +40,7 @@ XM2 VDD vpump vbootstrap VSS sg13_hv_nmos w=10u l=0.45u ng=1 m=2
 .control
 
 * Transient Analysis
-tran 1p 240n
+tran 1p 20n
 
 plot clk clk_n vpump vpump2
 plot vin vgate vc

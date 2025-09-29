@@ -99,7 +99,7 @@ only_toplevel=false
 value="
 .param temp=27
 .param ts=1n
-.param period = 12*ts
+.param period = 5*ts
 .param wp = 1.5u
 .param a = 1.8
 .param wn = 0.5u
@@ -113,7 +113,7 @@ value="
 .control
 
 * Transient Analysis
-tran 1p 240n
+tran 1p 20n
 
 plot clk clk_n vpump vpump2
 plot vin vgate vc
@@ -142,12 +142,12 @@ C {gnd.sym} 1790 855 0 0 {name=l7 lab=GND}
 C {lab_pin.sym} 1735 255 0 0 {name=p1 sig_type=std_logic lab=VDD}
 C {capa.sym} 1625 410 0 0 {name=C1
 m=1
-value=2p
+value=200f
 footprint=1206
 device="ceramic capacitor"}
 C {capa.sym} 1855 410 0 0 {name=C2
 m=1
-value=2p
+value=200f
 footprint=1206
 device="ceramic capacitor"}
 C {lab_pin.sym} 1855 460 0 1 {name=p10 sig_type=std_logic lab=clk}
@@ -155,9 +155,9 @@ C {lab_pin.sym} 1625 455 0 0 {name=p15 sig_type=std_logic lab=clk_n}
 C {lab_pin.sym} 1510 365 0 0 {name=p16 sig_type=std_logic lab=vpump}
 C {sg13g2_pr/sg13_hv_pmos.sym} 2515 430 3 0 {name=M6
 l=0.4u
-w=10u
+w=5u
 ng=5
-m=5
+m=4
 model=sg13_hv_pmos
 spiceprefix=X
 }
@@ -193,13 +193,13 @@ C {sg13g2_pr/sg13_hv_nmos.sym} 2670 635 3 1 {name=M11
 l=0.45u
 w=5u
 ng=10
-m=5
+m=4
 model=sg13_hv_nmos
 spiceprefix=X
 }
 C {capa.sym} 2205 620 0 0 {name=C3
-m=1
-value=8p
+m=64
+value=20f
 footprint=1206
 device="ceramic capacitor"}
 C {sg13g2_pr/sg13_hv_nmos.sym} 2185 730 0 0 {name=M12
@@ -246,8 +246,8 @@ spiceprefix=X
 C {lab_pin.sym} 2670 735 3 0 {name=p23 sig_type=std_logic lab=VSS}
 C {sg13g2_pr/sg13_hv_nmos.sym} 2855 660 1 0 {name=M1
 l=0.45u
-w=10u
-ng=10
+w=1u
+ng=2
 m=64
 model=sg13_hv_nmos
 spiceprefix=X
