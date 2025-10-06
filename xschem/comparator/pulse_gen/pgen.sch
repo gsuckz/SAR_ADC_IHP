@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N -200 -70 -200 -60 {lab=VDD}
 N 170 -30 190 -30 {lab=VDD}
@@ -120,7 +121,7 @@ C {lab_pin.sym} -220 150 0 0 {name=p8 sig_type=std_logic lab=VSS}
 C {iopin.sym} -870 -10 0 0 {name=p9 lab=VSS}
 C {sg13g2_pr/sg13_lv_pmos.sym} 210 -30 0 1 {name=M4
 l=0.13u
-w=2u
+w=1u
 ng=1
 m=1
 model=sg13_lv_pmos
@@ -150,8 +151,8 @@ model=sg13_lv_nmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} 210 -90 0 1 {name=M7
-l=0.13u
-w=2u
+l=5u
+w=1u
 ng=1
 m=1
 model=sg13_lv_pmos

@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Switch para celda unitaria DAC} 900 -1500 0 0 1 1 {}
 T {di_spdt_ctrl = 1, di_spdt_ctrl_n = 0: v_c connected to v_a, v_b = HIGH-Z
@@ -47,9 +48,7 @@ N 1380 -440 1380 -410 {lab=VDD}
 N 1380 -440 1410 -440 {lab=VDD}
 N 1580 -690 1580 -660 {lab=#net2}
 N 2090 -400 2090 -320 {lab=d}
-N 2090 -440 2170 -440 {lab=bit}
-N 2170 -440 2170 -280 {lab=bit}
-N 2090 -280 2170 -280 {lab=bit}
+N 2090 -440 2250 -440 {lab=bit}
 N 1380 -290 1410 -290 {lab=VSS}
 N 1380 -290 1380 -260 {lab=VSS}
 N 1380 -260 1410 -260 {lab=VSS}
@@ -75,6 +74,9 @@ N 2060 -590 2240 -590 {lab=#net8}
 N 2060 -590 2060 -540 {lab=#net8}
 N 1580 -690 1940 -690 {lab=#net2}
 N 1580 -540 1940 -540 {lab=#net1}
+N 2250 -440 2250 -280 {lab=bit}
+N 2090 -280 2150 -280 {lab=#net9}
+N 2230 -280 2250 -280 {lab=bit}
 C {devices/iopin.sym} 880 -620 0 1 {name=p2 lab=v_in}
 C {devices/iopin.sym} 1280 -720 3 0 {name=p1 lab=v_cap}
 C {devices/title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
@@ -108,7 +110,7 @@ C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1580 -620 0 1 {name=x2 W_
 C {devices/lab_pin.sym} 1600 -580 3 0 {name=p15 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 1600 -660 1 0 {name=p16 sig_type=std_logic lab=VDD}
 C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1080 -620 0 0 {name=x1 W_P=W_P_TG L_P=L_P_TG  W_N=W_N_TG L_N=L_N_TG n=n}
-C {devices/ipin.sym} 2170 -360 0 0 {name=p19 lab=bit}
+C {devices/ipin.sym} 2250 -380 0 1 {name=p19 lab=bit}
 C {sg13g2_stdcells/sg13g2_nand2_1.sym} 2030 -420 0 1 {name=x23 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {sg13g2_stdcells/sg13g2_and2_1.sym} 2030 -300 2 0 {name=x46 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {devices/ipin.sym} 1100 -740 1 0 {name=p21 lab=sample}
@@ -130,3 +132,4 @@ C {buffer/buffer_lv.sym} 2000 -540 0 1 {name=x9 W_P_INV=3.0u L_P_INV=0.13u W_N_I
 C {devices/lab_pin.sym} 2000 -580 1 0 {name=p18 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 2000 -500 3 0 {name=p20 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 2440 -730 1 0 {name=p5 sig_type=std_logic lab=d}
+C {sg13g2_stdcells/sg13g2_inv_1.sym} 2190 -280 2 0 {name=x32 VDD=VDD VSS=VSS prefix=sg13g2_ }

@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N -400 10 -360 10 {lab=#net1}
 N 950 10 1000 10 {lab=GND}
@@ -47,7 +48,7 @@ simulator=ngspice
 only_toplevel=false 
 value="
 .param temp=27
-.param period = 1n
+.param period = 5n
 .param stop=\{20*period\}
 .param ro = 500
 .param W_P = 1.0u

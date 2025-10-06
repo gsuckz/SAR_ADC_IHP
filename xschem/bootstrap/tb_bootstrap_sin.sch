@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N 1735 295 1855 295 {lab=VDD}
 N 1735 255 1735 295 {lab=VDD}
@@ -98,7 +99,7 @@ simulator=ngspice
 only_toplevel=false 
 value="
 .param temp=27
-.param ts=1n
+.param ts=10n
 .param period = 5*ts
 .param wp = 1.5u
 .param a = 1.8
@@ -113,7 +114,7 @@ value="
 .control
 
 * Transient Analysis
-tran 1p 20n
+tran 1p 200n
 
 plot clk clk_n vpump vpump2
 plot vin vgate vc

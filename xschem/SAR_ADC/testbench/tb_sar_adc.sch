@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N -240 -270 -215 -270 {
 lab=vinn}
@@ -13,8 +14,8 @@ C {SAR_ADC/sar.sym} -120 -290 0 0 {name=x1}
 C {devices/code_shown.sym} 305 -660 0 0 {name=NGSPICE
 only_toplevel=false
 value="
-.param period=1n
-.param stoptime=\{50*period\}
+.param period=5n
+.param stoptime=\{18*period\}
 .param ro = 300
 *.param stoptime=.2u
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
