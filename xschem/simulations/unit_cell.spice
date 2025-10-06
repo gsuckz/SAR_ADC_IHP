@@ -2,97 +2,26 @@
 **.subckt unit_cell VDD d VSS v_top bit v_cm v_in a_sample a_sample_n b_sample b_sample_n
 *.iopin VSS
 *.iopin v_in
-*.iopin VDD
 *.ipin d
 *.ipin bit
 *.iopin v_top
 *.iopin v_cm
-*.ipin a_sample_n
 *.ipin a_sample
+*.ipin a_sample_n
 *.ipin b_sample
 *.ipin b_sample_n
-x1 VDD d VSS net1 bit v_cm v_in a_sample a_sample_n dac_switch W_P_TG=0.15u L_P_TG=0.13u W_N_TG=0.15u L_N_TG=0.13u n=32
-C1 net1 v_top cu m=32
-x2 VDD b_sample VSS v_cm v_top b_sample_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u
-+ L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=32
+*.iopin VDD
+S1 net2 net1 d VSS SW1
+C2 net1 v_top cu m=32
+S2 v_cm net1 a_sample_n a_sample SW1
+S3 v_in net1 a_sample a_sample_n SW1
+S4 v_top v_cm b_sample b_sample_n SW1
+S5 VDD net2 bit VSS SW1
+S6 net2 VSS VSS bit SW1
 **.ends
-
-* expanding   symbol:  dac_icms_cell/dac_switch.sym # of pins=9
-** sym_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/dac_switch.sym
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/dac_switch.sch
-.subckt dac_switch VDD d VSS v_cap bit v_cm v_in sample sample_n  W_P_TG=3.0u L_P_TG=0.13u W_N_TG=1.0u L_N_TG=0.13u n=1
-*.iopin v_in
-*.iopin v_cap
-*.iopin VDD
-*.iopin VSS
-*.ipin d
-*.iopin v_cm
-*.ipin bit
-*.ipin sample
-*.ipin sample_n
-x8 VDD d d_n VSS inverter_lv W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG n=n
-XM1 v_cap net1 VSS VSS sg13_lv_nmos w=1u l=0.2u ng=1 m=n
-XM3 v_cap net2 VDD VDD sg13_lv_pmos w=1.2u l=0.2u ng=1 m=n
-x2 VDD d_n VSS v_cap v_cm d transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u L_P_D=0.13u
-+ W_N_D=1.0u L_N_D=0.13u n=n
-x1 VDD sample VSS v_cap v_in sample_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u
-+ L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=n
-x23 bit d VDD VSS net3 sg13g2_and2_1
-x46 bit d VDD VSS net4 sg13g2_nand2_1
-x4 VDD net3 net2 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
-x5 VDD net4 net1 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
-.ends
-
-
-* expanding   symbol:  transmission_gate/transmission_gate_lv_w_dummy.sym # of pins=6
-** sym_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_w_dummy.sym
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/transmission_gate/transmission_gate_lv_w_dummy.sch
-.subckt transmission_gate_lv_w_dummy VDD di_tg_ctrl VSS v_b v_a di_tg_ctrl_n  W_P=2.0u L_P=0.13u W_N=2.0u L_N=0.13u W_P_D=1.0u
-+ L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=1
-*.iopin v_a
-*.iopin v_b
-*.iopin VDD
-*.iopin VSS
-*.ipin di_tg_ctrl
-*.ipin di_tg_ctrl_n
-XM1 net3 net5 net4 VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
-XM2 net2 net6 net1 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
-XMdummy2 net1 net7 net1 VDD sg13_lv_pmos w=W_P l=L_P ng=1 m={n/2}
-XMdummy1 net4 net8 net4 VSS sg13_lv_nmos w=W_N l=L_N ng=1 m={n/2}
-Vig1 di_tg_ctrl net5 0
-Vig2 di_tg_ctrl_n net6 0
-Vig1d di_tg_ctrl_n net8 0
-Vig2d di_tg_ctrl net7 0
-Vid2 v_a net2 0
-Vid1 v_a net3 0
-Vis2 v_b net1 0
-Vis1 v_b net4 0
-.ends
-
-
-* expanding   symbol:  inverter/inverter_lv.sym # of pins=4
-** sym_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sym
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/inverter/inverter_lv.sch
-.subckt inverter_lv VDD vin vout VSS  W_P=3.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1
-*.ipin vin
-*.iopin VDD
-*.iopin VSS
-*.opin vout
-XM1 vout vin VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=n
-XM2 vout vin VSS VSS sg13_lv_nmos w=W_N l=L_N ng=1 m=n
-.ends
-
-
-* expanding   symbol:  buffer/buffer_lv.sym # of pins=4
-** sym_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sym
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/buffer/buffer_lv.sch
-.subckt buffer_lv VDD vin vout VSS  W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
-*.ipin vin
-*.iopin VDD
-*.iopin VSS
-*.opin vout
-x1 VDD vin net1 VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
-x2 VDD net1 vout VSS inverter_lv W_P=W_P_INV L_P=L_P_INV W_N=W_N_INV L_N=L_N_INV n=1
-.ends
-
+**** begin user architecture code
+.MODEL SW1 SW
++ VT=0.9 VH=0.01
++ RON=0.01 ROFF=10G
+**** end user architecture code
 .end

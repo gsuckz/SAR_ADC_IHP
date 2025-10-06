@@ -98,7 +98,7 @@ simulator=ngspice
 only_toplevel=false 
 value="
 .param temp=27
-.param ts=1n
+.param ts=2n
 .param period = 3*ts
 .param wp = 1.5u
 .param a = 1.8
@@ -113,7 +113,7 @@ value="
 .control
 
 * Transient Analysis
-tran 1p 20n
+tran 1p 40n
 
 plot clk clk_n vpump vpump2
 plot vin vgate vc

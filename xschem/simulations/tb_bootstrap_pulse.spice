@@ -25,7 +25,7 @@ XM2 VDD vpump vbootstrap VSS sg13_hv_nmos w=10u l=0.45u ng=1 m=2
 
 
 .param temp=27
-.param ts=1n
+.param ts=2n
 .param period = 3*ts
 .param wp = 1.5u
 .param a = 1.8
@@ -40,7 +40,7 @@ XM2 VDD vpump vbootstrap VSS sg13_hv_nmos w=10u l=0.45u ng=1 m=2
 .control
 
 * Transient Analysis
-tran 1p 20n
+tran 1p 40n
 
 plot clk clk_n vpump vpump2
 plot vin vgate vc

@@ -1,6 +1,6 @@
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/bootstrap/tb_bootstrap_sin.sch
 **.subckt tb_bootstrap_sin
-V2 vin GND PULSE(0 1.8 2n 10p 10p 4n 8n)
+V2 vin GND SIN(1 0.5 {1/(4*period)})
 V4 VDD GND 1.8
 C1 vpump clk_n 200f m=1
 C2 vpump2 clk 200f m=1
@@ -26,7 +26,7 @@ XM2 VDD vpump vbootstrap VSS sg13_hv_nmos w=10u l=0.45u ng=1 m=2
 
 .param temp=27
 .param ts=1n
-.param period = 3*ts
+.param period = 5*ts
 .param wp = 1.5u
 .param a = 1.8
 .param wn = 0.5u

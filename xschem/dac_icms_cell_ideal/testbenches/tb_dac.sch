@@ -4,17 +4,12 @@ K {}
 V {}
 S {}
 E {}
-N -400 10 -360 10 {lab=#net1}
+N -420 10 -360 10 {lab=#net1}
+N -420 70 -360 70 {lab=GND}
 N 950 10 1000 10 {lab=GND}
 N 130 270 190 270 {lab=GND}
 N 220 260 280 260 {lab=GND}
-N -400 -30 -400 10 {lab=#net1}
-N -420 10 -400 10 {lab=#net1}
-N -430 30 -430 70 {lab=#net2}
-N -430 70 -360 70 {lab=#net2}
-N -560 30 -430 30 {lab=#net2}
-N -560 -30 -400 -30 {lab=#net1}
-C {dac_icms_cell/dac.sym} -500 590 2 1 {name=x3 cu=40f}
+C {dac_icms_cell/dac.sym} -500 590 2 1 {name=x3 cu=20f}
 C {lab_pin.sym} -330 -70 1 0 {name=p2 lab=b11}
 C {lab_pin.sym} -110 190 0 0 {name=p7 lab=VDD}
 C {lab_pin.sym} 180 10 0 1 {name=p10 lab=vdacp}
@@ -47,9 +42,6 @@ simulator=ngspice
 only_toplevel=false 
 value="
 .param temp=27
-.param period = 5n
-.param stop=\{20*period\}
-.param ro = 500
 .param W_P = 1.0u
 .param L_P = 0.13u
 .param W_N = 1.0u
@@ -58,7 +50,7 @@ value="
 .control
 
 * Transient Analysis
-tran 100p 50n
+tran 100p 20n
 
 plot \{d0\} \{d1 + 4\} \{d2 + 8\} \{d3 + 12\} \{d4 + 16\} \{d5 + 20\} \{d6 + 24\} \{d7 + 28\} \{d8 + 32\} \{d9 + 36\} \{d10 + 40\} \{d11 + 44\}
 plot \{b0\} \{b1 + 4\} \{b2 + 8\} \{b3 + 12\} \{b4 + 16\} \{b5 + 20\} \{b6 + 24\} \{b7 + 28\} \{b8 + 32\} \{b9 + 36\} \{b10 + 40\} \{b11 + 44\}
@@ -120,10 +112,10 @@ C {lab_pin.sym} 900 -60 1 0 {name=p61 lab=d1}
 C {lab_pin.sym} 920 -60 1 0 {name=p62 lab=d0}
 C {lab_pin.sym} 950 80 0 1 {name=p64 lab=eoc}
 C {gnd.sym} 700 200 0 0 {name=l7 lab=GND}
-C {vsource.sym} -560 0 0 0 {name=V3 value=0.4 savecurrent=false}
-C {gnd.sym} -510 90 0 0 {name=l3 lab=GND}
+C {vsource.sym} -420 40 0 0 {name=V3 value=1 savecurrent=false}
+C {gnd.sym} -420 70 0 0 {name=l3 lab=GND}
 C {lab_pin.sym} 180 70 0 1 {name=p4 lab=vdacn}
-C {vsource.sym} 55 -300 0 0 {name=V4 value="PULSE( 0 1.8 7n 10p 10p \{period/2\} \{period\})" savecurrent=false}
+C {vsource.sym} 55 -300 0 0 {name=V4 value="PULSE( 0 1.8 7n 10p 10p 1n 2n)" savecurrent=false}
 C {gnd.sym} 55 -270 0 0 {name=l4 lab=GND}
 C {lab_pin.sym} 580 -320 0 1 {name=p27 sig_type=std_logic lab=comp_in
 }
@@ -159,4 +151,3 @@ m=1
 model=sg13_lv_nmos
 spiceprefix=X
 }
-C {vsource.sym} -510 60 0 0 {name=V8 value=0.7 savecurrent=false}

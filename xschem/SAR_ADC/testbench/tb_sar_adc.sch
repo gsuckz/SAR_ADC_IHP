@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 N -240 -270 -215 -270 {
 lab=vinn}
@@ -16,6 +15,7 @@ only_toplevel=false
 value="
 .param period=1n
 .param stoptime=\{50*period\}
+.param ro = 500
 *.param stoptime=.2u
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
 *vclk clk 0 PULSE(0 3.3 \{0*period\} \{period*0.05\} \{period*0.05\} \{period/2\} \{period\})
