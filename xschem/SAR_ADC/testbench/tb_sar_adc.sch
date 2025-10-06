@@ -15,7 +15,7 @@ only_toplevel=false
 value="
 .param period=1n
 .param stoptime=\{50*period\}
-.param ro = 500
+.param ro = 300
 *.param stoptime=.2u
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
 *vclk clk 0 PULSE(0 3.3 \{0*period\} \{period*0.05\} \{period*0.05\} \{period/2\} \{period\})

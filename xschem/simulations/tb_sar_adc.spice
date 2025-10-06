@@ -11,7 +11,7 @@ V2 rst GND PULSE(0 1.8 0 10p 10p 5n 6n 1)
 
 .param period=1n
 .param stoptime={50*period}
-.param ro = 500
+.param ro = 300
 *.param stoptime=.2u
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
 *vclk clk 0 PULSE(0 3.3 {0*period} {period*0.05} {period*0.05} {period/2} {period})
@@ -84,7 +84,7 @@ plot {d0} {d1 + 4} {d2 + 8} {d3 + 12} {d4 + 16} {d5 + 20} {d6 + 24} {d7 + 28} {d
 *.opin eoc
 *.ipin rst
 x1 VDD compp compout compn net1 VSS comp_clk DT_comparator
-x2 compn vcm b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 VSS VDD sample compp vinp vinn d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 dac cu=20f
+x2 compn vcm b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 VSS VDD sample compp vinp vinn d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 dac cu=10f
 x3 b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 VSS VDD sample d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 compout comp_clk rst eoc logic
 V1 vcm VSS 0.9
 x6 net2 VDD VSS net1 sg13g2_inv_2
@@ -493,6 +493,6 @@ XM6 net2 B VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
 **** begin user architecture code
 .MODEL SW1 SW
 + VT=0.9 VH=0.01
-+ RON=ro ROFF=10G
++ RON={ro/2} ROFF=10G
 **** end user architecture code
 .end

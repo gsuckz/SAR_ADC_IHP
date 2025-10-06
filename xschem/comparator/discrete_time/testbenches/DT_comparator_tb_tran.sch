@@ -132,7 +132,7 @@ set appendwrite
 
 * Transient Analysis
 * tran 4p 20n
-tran 40p 100n
+tran 40p 16n
 *write DT_comparator_tb_tran.raw
 
 * Measure vcpp_min & vcpn_min

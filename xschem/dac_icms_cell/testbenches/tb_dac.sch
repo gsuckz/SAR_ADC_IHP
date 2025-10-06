@@ -14,7 +14,7 @@ N -430 30 -430 70 {lab=#net2}
 N -430 70 -360 70 {lab=#net2}
 N -560 30 -430 30 {lab=#net2}
 N -560 -30 -400 -30 {lab=#net1}
-C {dac_icms_cell/dac.sym} -500 590 2 1 {name=x3 cu=40f}
+C {dac_icms_cell/dac.sym} -500 590 2 1 {name=x3 cu=10f}
 C {lab_pin.sym} -330 -70 1 0 {name=p2 lab=b11}
 C {lab_pin.sym} -110 190 0 0 {name=p7 lab=VDD}
 C {lab_pin.sym} 180 10 0 1 {name=p10 lab=vdacp}
@@ -47,7 +47,7 @@ simulator=ngspice
 only_toplevel=false 
 value="
 .param temp=27
-.param period = 5n
+.param period = 1n
 .param stop=\{20*period\}
 .param ro = 500
 .param W_P = 1.0u

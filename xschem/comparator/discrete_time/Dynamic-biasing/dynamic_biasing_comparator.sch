@@ -160,7 +160,7 @@ C {ipin.sym} 980 -790 2 0 {name=p10 lab=vinn}
 C {ipin.sym} 420 -670 0 0 {name=p12 lab=di_clk}
 C {sg13g2_pr/sg13_lv_nmos.sym} 680 -670 0 0 {name=M3a
 l=0.13u
-w=2.0u
+w=4.0u
 ng=1
 m=1
 model=sg13_lv_nmos
@@ -212,12 +212,12 @@ C {lab_wire.sym} 1100 -480 3 0 {name=p16 sig_type=std_logic lab=VSS}
 C {lab_wire.sym} 2200 -480 3 0 {name=p17 sig_type=std_logic lab=VSS}
 C {capa.sym} 1100 -530 0 0 {name=CPn
 m=1
-value=100f
+value=80f
 footprint=1206
 device="ceramic capacitor"}
 C {capa.sym} 2200 -530 0 0 {name=CPp
 m=1
-value=100f
+value=80f
 footprint=1206
 device="ceramic capacitor"}
 C {sg13g2_pr/sg13_lv_pmos.sym} 1820 -970 0 0 {name=M9
@@ -264,7 +264,7 @@ spiceprefix=X
 C {lab_wire.sym} 1240 -590 0 0 {name=p23 sig_type=std_logic lab=di_clk_n}
 C {sg13g2_pr/sg13_lv_nmos.sym} 520 -790 0 0 {name=M1
 l=0.13u
-w=4.0u
+w=6.0u
 ng=1
 m=1
 model=sg13_lv_nmos
@@ -272,7 +272,7 @@ spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_nmos.sym} 880 -790 0 1 {name=M2
 l=0.13u
-w=4.0u
+w=6.0u
 ng=1
 m=1
 model=sg13_lv_nmos

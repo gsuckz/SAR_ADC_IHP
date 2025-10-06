@@ -46,7 +46,7 @@ C {devices/ipin.sym} 1235 -960 1 1 {name=p32 lab=a_sample_n}
 C {switch_ngspice.sym} 1155 -1215 0 0 {name=S7 model=SW1
 device_model=".MODEL SW1 SW 
 + VT=0.9 VH=0.01
-+ RON=ro ROFF=10G "}
++ RON=\{ro/4\} ROFF=10G "}
 C {capa.sym} 1275 -1080 0 0 {name=C1
 m=n
 value=Cu
@@ -55,7 +55,7 @@ device="ceramic capacitor"}
 C {switch_ngspice.sym} 1275 -1215 0 0 {name=S9 model=SW1
 device_model=".MODEL SW1 SW 
 + VT=0.9 VH=0.01
-+ RON=ro ROFF=10G "}
++ RON=\{ro/2\} ROFF=10G "}
 C {switch_ngspice.sym} 1405 -1215 0 0 {name=S10 model=SW1
 device_model=".MODEL SW1 SW 
 + VT=0.9 VH=0.01
@@ -68,11 +68,11 @@ C {devices/iopin.sym} 1160 -1405 3 0 {name=p33 lab=VDD}
 C {switch_ngspice.sym} 1080 -1375 0 0 {name=S12 model=SW1
 device_model=".MODEL SW1 SW 
 + VT=0.9 VH=0.01
-+ RON=ro ROFF=10G "}
++ RON=\{ro/4\} ROFF=10G "}
 C {switch_ngspice.sym} 1160 -1375 2 0 {name=S13 model=SW1
 device_model=".MODEL SW1 SW 
 + VT=0.9 VH=0.01
-+ RON=ro ROFF=10G "}
++ RON=\{ro/4\} ROFF=10G "}
 C {devices/lab_pin.sym} 1040 -1375 0 0 {name=p34 lab=bit}
 C {devices/lab_pin.sym} 1040 -1355 0 0 {name=p35 lab=VSS}
 C {devices/lab_pin.sym} 1200 -1395 2 0 {name=p36 lab=VSS}
@@ -82,7 +82,7 @@ C {devices/lab_pin.sym} 1235 -1195 1 1 {name=p39 lab=b_sample_n}
 C {switch_ngspice.sym} 1305 -1295 2 1 {name=S14 model=SW1
 device_model=".MODEL SW1 SW 
 + VT=0.9 VH=0.01
-+ RON=ro ROFF=10G "}
++ RON=\{ro/2\} ROFF=10G "}
 C {devices/lab_pin.sym} 1115 -1215 0 0 {name=p40 lab=d}
 C {devices/lab_pin.sym} 1265 -1315 0 0 {name=p41 lab=VSS}
 C {inverter/inverter_lv.sym} 700 -1330 0 0 {name=x8 W_P=W_P_SPDT L_P=L_P_SPDT W_N=W_N_SPDT L_N=L_N_SPDT n=n}

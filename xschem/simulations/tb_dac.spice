@@ -1,6 +1,6 @@
 ** sch_path: /foss/designs/SAR_ADC_IHP/xschem/dac_icms_cell/testbenches/tb_dac.sch
 **.subckt tb_dac
-x3 vdacp vcm b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 GND VDD sample vdacn net2 net1 d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 dac cu=40f
+x3 vdacp vcm b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 GND VDD sample vdacn net2 net1 d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 dac cu=10f
 V1 vdd GND 1.8
 V2 vcm GND .9
 x2 b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 GND VDD sample d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 GND clk rst eoc logic
@@ -16,7 +16,7 @@ V8 net2 GND 0.7
 
 
 .param temp=27
-.param period = 2n
+.param period = 1n
 .param stop={20*period}
 .param ro = 500
 .param W_P = 1.0u
@@ -366,6 +366,6 @@ XM6 net2 B VDD VDD sg13_lv_pmos w=W_P l=L_P ng=1 m=1
 **** begin user architecture code
 .MODEL SW1 SW
 + VT=0.9 VH=0.01
-+ RON=ro ROFF=10G
++ RON={ro/2} ROFF=10G
 **** end user architecture code
 .end
