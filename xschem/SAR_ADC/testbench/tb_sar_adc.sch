@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 N -240 -270 -215 -270 {
 lab=vinn}
@@ -17,10 +16,9 @@ value="
 .param period=5n
 .param stoptime=\{18*period\}
 .param ro = 300
-*.param stoptime=.2u
+
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
-*vclk clk 0 PULSE(0 3.3 \{0*period\} \{period*0.05\} \{period*0.05\} \{period/2\} \{period\})
-*vr  rst 0 PULSE(0 3.3 \{0*period\}  \{period*0.05\} \{period*0.05\} \{period/2\} \{period\} 1)
+
 
 .tran \{0.01*period\} \{stoptime\} 
 
@@ -33,22 +31,12 @@ plot \{(-V(d0)*2048 + V(d1)*1024 + V(d2)*512 + V(d3)*256 + V(d4)*128 + V(d5)*64 
 plot compp compn \{compout + 4\}
 plot \{d0\} \{d1 + 4\} \{d2 + 8\} \{d3 + 12\} \{d4 + 16\} \{d5 + 20\} \{d6 + 24\} \{d7 + 28\} \{d8 + 32\} \{d9 + 36\} \{d10 + 40\} \{d11 + 44\} \{x1.comp_clk + 50\} \{compout + 55\} \{eoc + 60\}  \{compp - compn - 2\}
 
-*plot d0
-*plot d1 
-*plot d2 
-*plot d3 
-*plot d4 
-*plot d5 
-*plot d6 
-*plot d7 
-*plot d8 
-*plot d9 
-*plot d10 
-*plot d11 
-*plot compout
+wrdata adc_signals.csv time V(d0) V(d1) V(d2) V(d3) V(d4) V(d5) V(d6) V(d7) V(d8) V(d9) V(d10) V(d11) vinp vinn eoc rst compout compp compn x1.comp_clk
+write adc_signals.raw time V(d0) V(d1) V(d2) V(d3) V(d4) V(d5) V(d6) V(d7) V(d8) V(d9) V(d10) V(d11) vinp vinn eoc rst compout compp compn x1.comp_clk
+
 .endc
 "}
-C {devices/vsource.sym} -520 -370 0 1 {name=VI value=250m}
+C {devices/vsource.sym} -520 -370 0 1 {name=VI value=100m}
 C {devices/lab_pin.sym} 220 -350 0 1 {name=p3 lab=d0}
 C {devices/vsource.sym} -330 -160 0 1 {name=V1 value=1.8}
 C {devices/lab_pin.sym} -330 -190 1 0 {name=l1 lab=vdd}
@@ -87,7 +75,7 @@ value="
 "
 spice_ignore=false
       }
-C {devices/vsource.sym} -395 -370 2 1 {name=VIN3 value=250m}
+C {devices/vsource.sym} -395 -370 2 1 {name=VIN3 value=100m}
 C {devices/lab_pin.sym} -240 -270 2 1 {name=l8 lab=vinn}
 C {devices/lab_pin.sym} -240 -330 0 0 {name=l9 lab=vinp}
 C {devices/gnd.sym} -120 -410 0 0 {name=l10 lab=GND}

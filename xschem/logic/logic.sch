@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 N 70 380 150 380 {lab=d0}
 N 450 380 530 380 {lab=d1}
@@ -17,9 +16,7 @@ N 3110 380 3190 380 {lab=d8}
 N 3490 380 3570 380 {lab=d9}
 N 3870 380 3950 380 {lab=d10}
 N 4250 380 4330 380 {lab=d11}
-N -365 380 -230 380 {lab=VDD}
-N -550 385 -365 385 {lab=VDD}
-N -365 380 -365 385 {lab=VDD}
+N -460 380 -230 380 {lab=#net1}
 C {lab_pin.sym} -230 460 0 0 {name=p1 sig_type=std_logic lab=clk}
 C {lab_pin.sym} -20 500 0 0 {name=p2 sig_type=std_logic lab=rst}
 C {lab_pin.sym} -230 420 0 0 {name=p4 sig_type=std_logic lab=comp_in}
@@ -137,5 +134,11 @@ C {buffer/buffer_lv.sym} 275 720 0 0 {name=x7 W_P_INV=10.0u L_P_INV=0.13u W_N_IN
 C {lab_pin.sym} 275 680 0 0 {name=p22 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 275 760 0 0 {name=p23 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 95 720 0 0 {name=p117 sig_type=std_logic lab=rst_pin}
-C {lab_pin.sym} -550 385 0 0 {name=p118 sig_type=std_logic lab=VDD}
 C {sg13g2_stdcells/sg13g2_inv_2.sym} -270 700 0 0 {name=x30 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {lab_pin.sym} -760 460 0 0 {name=p7 sig_type=std_logic lab=clk}
+C {lab_pin.sym} -550 500 0 0 {name=p12 sig_type=std_logic lab=rst}
+C {lab_pin.sym} -760 420 0 0 {name=p13 sig_type=std_logic lab=comp_in}
+C {lab_pin.sym} -700 320 0 0 {name=p14 sig_type=std_logic lab=VDD}
+C {logic/bit_cell.sym} -610 410 0 0 {name=x3}
+C {lab_pin.sym} -620 500 0 0 {name=p15 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} -760 380 0 0 {name=p17 sig_type=std_logic lab=VDD}
