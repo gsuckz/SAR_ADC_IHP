@@ -59,7 +59,6 @@ N 2935 -2155 3255 -2155 {lab=vinn}
 N 2895 -2100 3215 -2100 {lab=vcm}
 N 4945 -2100 5240 -2100 {lab=vcm}
 N 4495 -2100 4945 -2100 {lab=vcm}
-N 5240 -1890 5240 -1800 {lab=vdacp2}
 N 5240 -2100 5240 -1950 {lab=vcm}
 N 130 -1515 130 -1350 {lab=vinp}
 N 170 -1515 170 -1380 {lab=vcm}
@@ -136,6 +135,7 @@ N -1290 -1645 -1290 -1415 {lab=sample_pin}
 N -1290 -1415 -675 -1415 {lab=sample_pin}
 N -1105 -1605 -970 -1605 {lab=a_sample_n}
 N -1105 -1455 -1050 -1455 {lab=b_sample_n}
+N 5240 -1895 5240 -1800 {lab=vdacp2}
 C {dac_icms_cell/unit_cell_n.sym} 195 -1820 0 0 {name=x14 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32}
 C {devices/ipin.sym} 100 -1890 0 0 {name=p15 lab=D0}
 C {devices/ipin.sym} 130 -1990 1 0 {name=p16 lab=b0}
@@ -154,16 +154,6 @@ C {devices/iopin.sym} -61 -1705 2 0 {name=p137 lab=vdacp}
 C {devices/iopin.sym} -61 -1800 2 0 {name=p138 lab=vdacn}
 C {iopin.sym} 1335 -2355 3 0 {name=p127 sig_type=std_logic lab=VSS}
 C {iopin.sym} 1335 -2335 1 0 {name=p139 sig_type=std_logic lab=VDD}
-C {capa.sym} 2610 -1800 1 1 {name=C1
-m=1
-value=cu
-footprint=1206
-device="ceramic capacitor"}
-C {capa.sym} 5240 -1920 2 1 {name=C4
-m=1
-value=cu
-footprint=1206
-device="ceramic capacitor"}
 C {devices/lab_pin.sym} 210 -1515 2 0 {name=p46 lab=b0}
 C {devices/lab_pin.sym} 90 -1595 0 0 {name=p47 lab=a_sample_n}
 C {lab_pin.sym} 90 -1845 0 0 {name=p50 sig_type=std_logic lab=VSS}
@@ -287,11 +277,6 @@ C {lab_pin.sym} 2400 -1660 2 0 {name=p131 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 2240 -1660 0 0 {name=p132 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 2360 -1515 2 0 {name=p133 lab=b5}
 C {devices/lab_pin.sym} 2240 -1595 0 0 {name=p134 lab=a_sample_n}
-C {capa.sym} 2615 -1705 1 1 {name=C3
-m=1
-value=cu
-footprint=1206
-device="ceramic capacitor"}
 C {dac_icms_cell/unit_cell.sym} 2970 -1505 0 0 {name=x21 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
 n=32}
 C {devices/lab_pin.sym} 2970 -1615 2 0 {name=p135 lab=D6}
@@ -340,11 +325,6 @@ C {lab_pin.sym} 5130 -1660 2 0 {name=p174 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 4970 -1660 0 0 {name=p175 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 5090 -1515 2 0 {name=p176 lab=b11}
 C {devices/lab_pin.sym} 4970 -1595 0 0 {name=p177 lab=a_sample_n}
-C {capa.sym} 5240 -1625 2 1 {name=C5
-m=1
-value=cu
-footprint=1206
-device="ceramic capacitor"}
 C {devices/lab_pin.sym} 5240 -1800 0 1 {name=p178 lab=vdacp2}
 C {devices/lab_pin.sym} 5240 -1705 0 1 {name=p179 lab=vdacn2}
 C {lab_pin.sym} 90 -1680 0 0 {name=p3 sig_type=std_logic lab=b_sample}
@@ -443,3 +423,27 @@ C {lab_pin.sym} -675 -1775 0 0 {name=p56 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -670 -1920 0 0 {name=p119 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -530 -1920 0 0 {name=p120 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -535 -1775 0 0 {name=p121 sig_type=std_logic lab=VSS}
+C {sg13g2_pr/cap_cmim.sym} 2615 -1705 3 0 {name=C1
+model=cap_cmim
+w=2.6e-6
+l=2.6e-6
+m=1
+spiceprefix=X}
+C {sg13g2_pr/cap_cmim.sym} 2615 -1800 3 0 {name=C2
+model=cap_cmim
+w=2.6e-6
+l=2.6e-6
+m=1
+spiceprefix=X}
+C {sg13g2_pr/cap_cmim.sym} 5240 -1925 0 0 {name=C3
+model=cap_cmim
+w=2.6e-6
+l=2.6e-6
+m=1
+spiceprefix=X}
+C {sg13g2_pr/cap_cmim.sym} 5240 -1625 2 0 {name=C4
+model=cap_cmim
+w=2.6e-6
+l=2.6e-6
+m=1
+spiceprefix=X}

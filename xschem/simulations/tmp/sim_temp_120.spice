@@ -1,35 +1,72 @@
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/SAR_ADC/testbench/tb_sar_adc.sch
-**.subckt tb_sar_adc
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/SAR_ADC/testbench/tb_sar_adc_param.sch
+**.subckt tb_sar_adc_param
 x1 vinp rst GND vinn GND vdd compn compp compout eoc d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 sar
-VI vinn net1 100m
+VI vinn net1 {vdiff/2}
 V1 vdd GND 1.8
 VIN2 net1 GND 0.9
-VIN3 net1 vinp 100m
+VIN3 net1 vinp {vdiff/2}
 V2 rst GND PULSE(0 1.8 0 10p 10p 5n 6n 1)
 **** begin user architecture code
 
-
+.param POINT = 120
+.param vcm = 0.9
+.param step = 439u
+.param vdiff = {step*POINT}
 .param period=5n
-.param stoptime={18*period}
+*.param stoptime={18*period}
+.param stoptime=1n
 .param ro = 300
 
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
 
-
 .tran {0.01*period} {stoptime}
 
 .control
-save all
-run
+    * Configurar para modo batch
+    set hcopydevtype=postscript
 
-plot {(V(d11)*2+V(d10)*4+V(d9)*8+V(d8)*16+V(d7)*32+V(d6)*64+V(d5)*128+V(d4)*256+V(d3)*512+V(d2)*1024+V(d1)*2048)/4095} {2*rst} eoc {vinp - vinn}
-plot {(-V(d0)*2048 + V(d1)*1024 + V(d2)*512 + V(d3)*256 + V(d4)*128 + V(d5)*64 + V(d6)*32 + V(d7)*16 + V(d8)*8 + V(d9)*4 + V(d10)*2 + V(d11))/2048}
-plot compp compn {compout + 4}
-plot {d0} {d1 + 4} {d2 + 8} {d3 + 12} {d4 + 16} {d5 + 20} {d6 + 24} {d7 + 28} {d8 + 32} {d9 + 36} {d10 + 40} {d11 + 44} {x1.comp_clk + 50} {compout + 55} {eoc + 60}  {compp - compn - 2}
+    * Establecer breakpoint cuando eoc alcance 1.2V
+    stop when v(eoc) >= 1.2
 
-wrdata adc_signals.csv time V(d0) V(d1) V(d2) V(d3) V(d4) V(d5) V(d6) V(d7) V(d8) V(d9) V(d10) V(d11) vinp vinn eoc rst compout compp compn x1.comp_clk
-write adc_signals.raw time V(d0) V(d1) V(d2) V(d3) V(d4) V(d5) V(d6) V(d7) V(d8) V(d9) V(d10) V(d11) vinp vinn eoc rst compout compp compn x1.comp_clk
+    * Ejecutar la simulación
+    run
 
+    * Al detenerse, verificar si fue por el breakpoint
+    let eoc_val = v(eoc)
+    let current_time = time
+
+    * Verificar si eoc alcanzó el umbral
+        echo EOC alcanzó 1.2V en t = $&current_time s
+        echo
+        echo Valores de las señales digitales:
+        echo =================================
+
+        * Guardar en archivo
+        echo PUNTO = $POINT > resultado_sim_punto.txt
+        echo Tiempo (s): $&current_time >> resultado_sim_punto.txt
+        echo EOC (V): $&eoc_val >> resultado_sim_punto.txt
+        echo >> resultado_sim_punto.txt
+        echo Señal - Voltaje (V) >> resultado_sim_punto.txt
+        echo ------------------ >> resultado_sim_punto.txt
+
+        * Imprimir valores en consola y archivo
+        echo d0  = $&v(d0) V | tee -a resultado_sim_punto.txt
+        echo d1  = $&v(d1) V | tee -a resultado_sim_punto.txt
+        echo d2  = $&v(d2) V | tee -a resultado_sim_punto.txt
+        echo d3  = $&v(d3) V | tee -a resultado_sim_punto.txt
+        echo d4  = $&v(d4) V | tee -a resultado_sim_punto.txt
+        echo d5  = $&v(d5) V | tee -a resultado_sim_punto.txt
+        echo d6  = $&v(d6) V | tee -a resultado_sim_punto.txt
+        echo d7  = $&v(d7) V | tee -a resultado_sim_punto.txt
+        echo d8  = $&v(d8) V | tee -a resultado_sim_punto.txt
+        echo d9  = $&v(d9) V | tee -a resultado_sim_punto.txt
+        echo d10 = $&v(d10) V | tee -a resultado_sim_punto.txt
+        echo d11 = $&v(d11) V | tee -a resultado_sim_punto.txt
+        echo
+        echo Resultados guardados en resultado_sim_punto.txt
+
+
+    quit
 .endc
 
 

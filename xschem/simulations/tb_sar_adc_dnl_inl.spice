@@ -175,8 +175,8 @@ x1 VDD compp compout compn net1 VSS comp_clk DT_comparator
 x2 compn vcm b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 VSS VDD sample compp vinp vinn d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 dac cu=10f
 x3 b9 b7 b0 b11 b3 b4 b2 b1 b8 b6 b5 b10 VSS VDD sample d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 compout comp_clk rst eoc logic
 V1 vcm VSS 0.9
-x6 net2 VDD VSS net1 sg13g2_inv_2
-x4 rst VDD VSS net2 sg13g2_dlygate4sd1_1
+x6 net1 net2 VDD VSS sg13g2_inv_2
+x4 net2 rst VDD VSS sg13g2_dlygate4sd1_1
 .ends
 
 
@@ -300,14 +300,14 @@ x32 VDD a_n_ctrl net5 VSS inverter_lv W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1
 x33 VDD net5 a_sample_n VSS inverter_lv W_P=20.0u L_P=0.13u W_N=10.0u L_N=0.13u n=1
 x35 VDD a_ctrl net6 VSS inverter_lv W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1
 x36 VDD net6 a_sample VSS inverter_lv W_P=20.0u L_P=0.13u W_N=10.0u L_N=0.13u n=1
-x38 sample_pin net2 VDD VSS b_ctrl sg13g2_nor2_2
-x39 net1 sample_pin VDD VSS a_n_ctrl sg13g2_nand2_2
-x40 b_ctrl VDD VSS b_n_ctrl sg13g2_inv_2
-x41 a_n_ctrl VDD VSS a_ctrl sg13g2_inv_2
-x42 a_sample_n net7 VDD VSS net2 sg13g2_nand2_2
-x43 b_sample net8 VDD VSS net1 sg13g2_nor2_2
-x44 a_sample VDD VSS net7 sg13g2_inv_1
-x45 b_sample_n VDD VSS net8 sg13g2_inv_1
+x38 b_ctrl sample_pin net2 VDD VSS sg13g2_nor2_2
+x39 a_n_ctrl net1 sample_pin VDD VSS sg13g2_nand2_2
+x40 b_n_ctrl b_ctrl VDD VSS sg13g2_inv_2
+x41 a_ctrl a_n_ctrl VDD VSS sg13g2_inv_2
+x42 net2 a_sample_n net7 VDD VSS sg13g2_nand2_2
+x43 net1 b_sample net8 VDD VSS sg13g2_nor2_2
+x44 net7 a_sample VDD VSS sg13g2_inv_1
+x45 net8 b_sample_n VDD VSS sg13g2_inv_1
 .ends
 
 
@@ -361,7 +361,7 @@ x24 clk d10 rst comp_in VDD b11 VSS d11 bit_cell
 x4 clk d11 rst VDD VDD net2 VSS eoc bit_cell
 x6 VDD rst_pin net3 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
 x7 VDD net3 sample VSS buffer_lv W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u
-x30 rst_pin VDD VSS rst sg13g2_inv_2
+x30 rst rst_pin VDD VSS sg13g2_inv_2
 x3 clk VDD rst comp_in VDD net4 VSS net1 bit_cell
 .ends
 
@@ -421,8 +421,8 @@ x2 VDD Qn Q S VSS NOR_gate W_P=W_P_SR L_P=L_P_SR W_N=W_N_SR L_N=L_N_SR
 XM1 READY in1 VSS VSS sg13_lv_nmos w=.15u l=0.13u ng=1 m=1
 XM2 READY vx_n VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
 XM4 vx net1 net5 VDD sg13_lv_pmos w=1u l=0.13u ng=1 m=1
-x46 vxs READY VDD VSS net1 sg13g2_or2_2
-x6 vxs VDD VSS vx_n sg13g2_inv_2
+x46 net1 vxs READY VDD VSS sg13g2_or2_2
+x6 vx_n vxs VDD VSS sg13g2_inv_2
 XM3 READY in2 VSS VSS sg13_lv_nmos w=.15u l=0.13u ng=1 m=1
 XM5 vx READY VSS VSS sg13_lv_nmos w=1u l=0.13u ng=1 m=1
 XM7 net5 VTUNE VDD VDD sg13_lv_pmos w=1u l=5u ng=1 m=1
@@ -432,8 +432,8 @@ XM9 net3 vx net4 VDD sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
 XM10 net2 vx VSS VSS sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
 XM11 VDD net3 net2 VDD sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
 XM12 VSS net3 net4 VSS sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
-x1 net3 VDD VSS vxs sg13g2_inv_2
-x2 net1 en VDD VSS PULSE_n sg13g2_and2_2
+x1 vxs net3 VDD VSS sg13g2_inv_2
+x2 PULSE_n net1 en VDD VSS sg13g2_and2_2
 XM13 READY en VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
 .ends
 
@@ -529,10 +529,10 @@ x2 VDD a_sample_n VSS v_cm v_top a_sample transmission_gate_lv_w_dummy W_P=W_P_S
 *.iopin bit
 *.iopin dec
 x1 VDD net2 net4 VSS net5 net1 SR_latch W_P_SR=1.0u L_P_SR=0.13u W_N_SR=1.0u L_N_SR=0.13u
-x23 net6 n_dec VDD VSS net1 sg13g2_and2_1
-x14 n_dec comp_in VDD VSS net2 sg13g2_and2_1
-x30 comp_in VDD VSS net6 sg13g2_inv_2
-x53 clk p_bit_dec net3 n_dec reset VDD VSS sg13g2_dfrbp_1
+x23 net1 net6 n_dec VDD VSS sg13g2_and2_1
+x14 net2 n_dec comp_in VDD VSS sg13g2_and2_1
+x30 net6 comp_in VDD VSS sg13g2_inv_2
+x53 net3 n_dec clk p_bit_dec reset VDD VSS sg13g2_dfrbp_1
 * noconn #net4
 x2 VDD net5 net7 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
 x3 VDD net3 net8 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
@@ -579,15 +579,15 @@ x2 VDD net2 VSS v_cap v_cm net1 transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_
 + W_N_D=1.0u L_N_D=0.13u n=n
 x1 VDD sample VSS v_cap v_in sample_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u
 + L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=n
-x23 bit d VDD VSS net5 sg13g2_nand2_1
-x46 net9 d VDD VSS net6 sg13g2_and2_1
+x23 net5 bit d VDD VSS sg13g2_nand2_1
+x46 net6 net9 d VDD VSS sg13g2_and2_1
 x4 VDD net5 net4 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
 x5 VDD net6 net3 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
-x3 d sample VDD VSS net7 sg13g2_nor2_1
-x6 d sample VDD VSS net8 sg13g2_or2_1
+x3 net7 d sample VDD VSS sg13g2_nor2_1
+x6 net8 d sample VDD VSS sg13g2_or2_1
 x7 VDD net7 net2 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
 x9 VDD net8 net1 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
-x32 bit VDD VSS net9 sg13g2_inv_1
+x32 net9 bit VDD VSS sg13g2_inv_1
 .ends
 
 
@@ -635,15 +635,15 @@ XM1 v_cap net1 VSS VSS sg13_lv_nmos w=1u l=0.13u ng=1 m=n
 XM3 v_cap net2 VDD VDD sg13_lv_pmos w=1.2u l=0.2u ng=1 m=n
 x1 VDD sample VSS v_cap v_in sample_n transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u
 + L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=n
-x23 net9 d VDD VSS net3 sg13g2_nand2_1
-x46 bit d VDD VSS net4 sg13g2_and2_1
+x23 net3 net9 d VDD VSS sg13g2_nand2_1
+x46 net4 bit d VDD VSS sg13g2_and2_1
 x4 VDD net3 net2 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
 x5 VDD net4 net1 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
-x32 bit VDD VSS net9 sg13g2_inv_1
+x32 net9 bit VDD VSS sg13g2_inv_1
 x3 VDD net6 VSS v_cap v_cm net5 transmission_gate_lv_w_dummy W_P=W_P_TG L_P=L_P_TG W_N=W_N_TG L_N=L_N_TG W_P_D=1.0u L_P_D=0.13u
 + W_N_D=1.0u L_N_D=0.13u n=n
-x6 d sample VDD VSS net7 sg13g2_nor2_1
-x7 d sample VDD VSS net8 sg13g2_or2_1
+x6 net7 d sample VDD VSS sg13g2_nor2_1
+x7 net8 d sample VDD VSS sg13g2_or2_1
 x9 VDD net7 net6 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
 x10 VDD net8 net5 VSS buffer_lv W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u
 .ends

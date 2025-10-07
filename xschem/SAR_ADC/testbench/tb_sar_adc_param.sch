@@ -13,31 +13,68 @@ N -520 -340 -395 -340 {lab=#net1}
 C {SAR_ADC/sar.sym} -120 -290 0 0 {name=x1}
 C {devices/code_shown.sym} 305 -660 0 0 {name=NGSPICE
 only_toplevel=false
-value="
+value=".param POINT = 0
+.param vcm = 0.9
+.param step = 439u
+.param vdiff = \{step*POINT\}
 .param period=5n
-.param stoptime=\{18*period\}
+*.param stoptime=\{18*period\}
+.param stoptime=1n
 .param ro = 300
 
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
 
-
-.tran \{0.01*period\} \{stoptime\} 
+.tran \{0.01*period\} \{stoptime\}
 
 .control
-save all
-run
+    * Configurar para modo batch
+    set hcopydevtype=postscript
+    
+    * Establecer breakpoint cuando eoc alcance 1.2V
+    stop when v(eoc) >= 1.2
+    
+    * Ejecutar la simulación
+    run
+    
+    * Al detenerse, verificar si fue por el breakpoint
+    let eoc_val = v(eoc)
+    let current_time = time
+    
+    * Verificar si eoc alcanzó el umbral
+        echo EOC alcanzó 1.2V en t = $&current_time s
+        echo
+        echo Valores de las señales digitales:
+        echo =================================
+        
+        * Guardar en archivo
+        echo PUNTO = $POINT > resultado_sim_punto.txt
+        echo Tiempo (s): $&current_time >> resultado_sim_punto.txt
+        echo EOC (V): $&eoc_val >> resultado_sim_punto.txt
+        echo >> resultado_sim_punto.txt
+        echo Señal - Voltaje (V) >> resultado_sim_punto.txt
+        echo ------------------ >> resultado_sim_punto.txt
+        
+        * Imprimir valores en consola y archivo
+        echo d0  = $&v(d0) V | tee -a resultado_sim_punto.txt
+        echo d1  = $&v(d1) V | tee -a resultado_sim_punto.txt
+        echo d2  = $&v(d2) V | tee -a resultado_sim_punto.txt
+        echo d3  = $&v(d3) V | tee -a resultado_sim_punto.txt
+        echo d4  = $&v(d4) V | tee -a resultado_sim_punto.txt
+        echo d5  = $&v(d5) V | tee -a resultado_sim_punto.txt
+        echo d6  = $&v(d6) V | tee -a resultado_sim_punto.txt
+        echo d7  = $&v(d7) V | tee -a resultado_sim_punto.txt
+        echo d8  = $&v(d8) V | tee -a resultado_sim_punto.txt
+        echo d9  = $&v(d9) V | tee -a resultado_sim_punto.txt
+        echo d10 = $&v(d10) V | tee -a resultado_sim_punto.txt
+        echo d11 = $&v(d11) V | tee -a resultado_sim_punto.txt
+        echo
+        echo Resultados guardados en resultado_sim_punto.txt
 
-plot \{(V(d11)*2+V(d10)*4+V(d9)*8+V(d8)*16+V(d7)*32+V(d6)*64+V(d5)*128+V(d4)*256+V(d3)*512+V(d2)*1024+V(d1)*2048)/4095\} \{2*rst\} eoc \{vinp - vinn\}
-plot \{(-V(d0)*2048 + V(d1)*1024 + V(d2)*512 + V(d3)*256 + V(d4)*128 + V(d5)*64 + V(d6)*32 + V(d7)*16 + V(d8)*8 + V(d9)*4 + V(d10)*2 + V(d11))/2048\}
-plot compp compn \{compout + 4\}
-plot \{d0\} \{d1 + 4\} \{d2 + 8\} \{d3 + 12\} \{d4 + 16\} \{d5 + 20\} \{d6 + 24\} \{d7 + 28\} \{d8 + 32\} \{d9 + 36\} \{d10 + 40\} \{d11 + 44\} \{x1.comp_clk + 50\} \{compout + 55\} \{eoc + 60\}  \{compp - compn - 2\}
-
-wrdata adc_signals.csv time V(d0) V(d1) V(d2) V(d3) V(d4) V(d5) V(d6) V(d7) V(d8) V(d9) V(d10) V(d11) vinp vinn eoc rst compout compp compn x1.comp_clk
-write adc_signals.raw time V(d0) V(d1) V(d2) V(d3) V(d4) V(d5) V(d6) V(d7) V(d8) V(d9) V(d10) V(d11) vinp vinn eoc rst compout compp compn x1.comp_clk
-
+    
+    quit
 .endc
 "}
-C {devices/vsource.sym} -520 -370 0 1 {name=VI value=100m}
+C {devices/vsource.sym} -520 -370 0 1 {name=VI value=\{vdiff/2\}}
 C {devices/lab_pin.sym} 220 -350 0 1 {name=p3 lab=d0}
 C {devices/vsource.sym} -330 -160 0 1 {name=V1 value=1.8}
 C {devices/lab_pin.sym} -330 -190 1 0 {name=l1 lab=vdd}
@@ -77,7 +114,7 @@ value="
 "
 spice_ignore=false
       }
-C {devices/vsource.sym} -395 -370 2 1 {name=VIN3 value=100m}
+C {devices/vsource.sym} -395 -370 2 1 {name=VIN3 value=\{vdiff/2\}}
 C {devices/lab_pin.sym} -240 -270 2 1 {name=l8 lab=vinn}
 C {devices/lab_pin.sym} -240 -330 0 0 {name=l9 lab=vinp}
 C {devices/gnd.sym} -120 -410 0 0 {name=l10 lab=GND}

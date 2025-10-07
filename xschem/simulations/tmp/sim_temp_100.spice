@@ -1,35 +1,87 @@
-** sch_path: /foss/designs/SAR_ADC_IHP/xschem/SAR_ADC/testbench/tb_sar_adc.sch
-**.subckt tb_sar_adc
+** sch_path: /foss/designs/SAR_ADC_IHP/xschem/SAR_ADC/testbench/tb_sar_adc_param.sch
+**.subckt tb_sar_adc_param
 x1 vinp rst GND vinn GND vdd compn compp compout eoc d9 d7 d0 d11 d3 d4 d2 d1 d8 d6 d5 d10 sar
-VI vinn net1 100m
+VI vinn net1 {vdiff/2}
 V1 vdd GND 1.8
 VIN2 net1 GND 0.9
-VIN3 net1 vinp 100m
+VIN3 net1 vinp {vdiff/2}
 V2 rst GND PULSE(0 1.8 0 10p 10p 5n 6n 1)
 **** begin user architecture code
 
 
+.param POINT = 100
+.param vcm = 0.9
+.param step = 439u
+.param vdiff = {step*POINT}
 .param period=5n
 .param stoptime={18*period}
 .param ro = 300
 
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
 
-
 .tran {0.01*period} {stoptime}
 
 .control
-save all
-run
-
-plot {(V(d11)*2+V(d10)*4+V(d9)*8+V(d8)*16+V(d7)*32+V(d6)*64+V(d5)*128+V(d4)*256+V(d3)*512+V(d2)*1024+V(d1)*2048)/4095} {2*rst} eoc {vinp - vinn}
-plot {(-V(d0)*2048 + V(d1)*1024 + V(d2)*512 + V(d3)*256 + V(d4)*128 + V(d5)*64 + V(d6)*32 + V(d7)*16 + V(d8)*8 + V(d9)*4 + V(d10)*2 + V(d11))/2048}
-plot compp compn {compout + 4}
-plot {d0} {d1 + 4} {d2 + 8} {d3 + 12} {d4 + 16} {d5 + 20} {d6 + 24} {d7 + 28} {d8 + 32} {d9 + 36} {d10 + 40} {d11 + 44} {x1.comp_clk + 50} {compout + 55} {eoc + 60}  {compp - compn - 2}
-
-wrdata adc_signals.csv time V(d0) V(d1) V(d2) V(d3) V(d4) V(d5) V(d6) V(d7) V(d8) V(d9) V(d10) V(d11) vinp vinn eoc rst compout compp compn x1.comp_clk
-write adc_signals.raw time V(d0) V(d1) V(d2) V(d3) V(d4) V(d5) V(d6) V(d7) V(d8) V(d9) V(d10) V(d11) vinp vinn eoc rst compout compp compn x1.comp_clk
-
+    * Configurar para modo batch
+    set hcopydevtype=postscript
+    
+    * Ejecutar la simulación
+    run
+    
+    * Buscar el momento cuando eoc cruza 1.8V
+    let eoc_threshold = 1.8
+    let time_vec = time
+    let eoc_vec = v(eoc)
+    
+    * Encontrar el índice donde eoc supera el umbral
+    let idx = 0
+    let found = 0
+    
+    * Buscar el primer cruce ascendente
+    while idx < (length(eoc_vec) - 1)
+        if (eoc_vec[idx] < eoc_threshold) & (eoc_vec[idx+1] >= eoc_threshold)
+            let found = 1
+            let crossing_idx = idx + 1
+            break
+        end
+        let idx = idx + 1
+    end
+    
+    * Si se encontró el cruce, imprimir valores
+    if found = 1
+        echo EOC alcanzó 1.8V en t = $&time_vec[crossing_idx] s
+        echo
+        echo Valores de las señales digitales:
+        echo =================================
+        
+        * Guardar en archivo
+        echo PUNTO = $POINT > results/results_100.txt
+        echo Tiempo (s): $&time_vec[crossing_idx] >> results/results_100.txt
+        echo >> results/results_100.txt
+        echo Señal - Voltaje (V) >> results/results_100.txt
+        echo ------------------ >> results/results_100.txt
+        
+        * Imprimir valores en consola y archivo
+        echo d0  = $&v(d0)[crossing_idx] V | tee -a results/results_100.txt
+        echo d1  = $&v(d1)[crossing_idx] V | tee -a results/results_100.txt
+        echo d2  = $&v(d2)[crossing_idx] V | tee -a results/results_100.txt
+        echo d3  = $&v(d3)[crossing_idx] V | tee -a results/results_100.txt
+        echo d4  = $&v(d4)[crossing_idx] V | tee -a results/results_100.txt
+        echo d5  = $&v(d5)[crossing_idx] V | tee -a results/results_100.txt
+        echo d6  = $&v(d6)[crossing_idx] V | tee -a results/results_100.txt
+        echo d7  = $&v(d7)[crossing_idx] V | tee -a results/results_100.txt
+        echo d8  = $&v(d8)[crossing_idx] V | tee -a results/results_100.txt
+        echo d9  = $&v(d9)[crossing_idx] V | tee -a results/results_100.txt
+        echo d10 = $&v(d10)[crossing_idx] V | tee -a results/results_100.txt
+        echo d11 = $&v(d11)[crossing_idx] V | tee -a results/results_100.txt
+        echo
+        echo Resultados guardados en results.txt
+    else
+        echo ERROR: EOC no alcanzó 1.8V durante la simulación
+        echo Valor máximo de EOC: $&maximum(eoc_vec) V
+    end
+    
+    quit
 .endc
 
 
