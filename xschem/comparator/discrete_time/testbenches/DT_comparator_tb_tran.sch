@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 B 2 1660 -760 2460 -360 {flags=graph
 y1=-0.00111
@@ -129,17 +130,17 @@ save all
 * Operating Point Analysis
 op
 remzerovec
-write DT_comparator_tb_tran.raw
+write DT_comparator_tb_tran.raw 
 set appendwrite
 
 * Transient Analysis
 * tran 4p 20n
 tran 1p 10n
-write DT_comparator_tb_tran.raw
+write DT_comparator_tb_tran.raw v(vinp) v(vinn) v(vout)
 
 * Measure vcpp_min & vcpn_min
 *let tmeas = 1/fclk
-*meas tran vcpp_min FIND v(x1.x1.vcpp) at=tmeas
+*meas tran vcpp_min FIND qv(x1.x1.vcpp) at=tmeas
 *meas tran vcpn_min FIND v(x1.x1.vcpn) at=tmeas
 
 * Measure Propagation Delay
@@ -175,6 +176,7 @@ echo Tiempo de espera $&t_reset3 s
 plot i(VDD)
 plot v(x1.voutp_buf) \{v(x1.voutn_buf)\} \{v(x1.x6.vx_n) + 4\}  \{v(pulse) + 8\} \{v(x1.x6.READY) + 10\}
 plot v(x1.voutp_comp) \{v(x1.voutn_comp)\} \{v(x1.x6.vx_n) + 4\}  \{v(x1.x6.vx) + 8\} \{v(x1.x6.vxs) + 10\}
+plot x1.voutp_comp pulse x1.voutp_buf x1.x6.ready
 * Writing Data
 set wr_singlescale
 set wr_vecnames
