@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 T {Discrete-time comparator with NOR-based SR-Latch} 600 -1700 0 0 1 1 {}
 T {The differential output of the DT comparator is buffered and latched into a NOR-based SR-latch [Schmickl] [Razavi]. 
@@ -91,7 +90,7 @@ C {lab_wire.sym} 1480 -520 3 1 {name=p25 sig_type=std_logic lab=VDD}
 C {devices/iopin.sym} 800 -600 3 1 {name=p26 lab=PULSE}
 C {lab_wire.sym} 370 -720 2 1 {name=p6 sig_type=std_logic lab=voutp_buf}
 C {lab_wire.sym} 370 -680 2 1 {name=p27 sig_type=std_logic lab=voutn_buf}
-C {vsource.sym} 1480 -490 0 0 {name=V1 value=0.7 savecurrent=false}
+C {vsource.sym} 1480 -490 0 0 {name=V1 value=0.9 savecurrent=false}
 C {lab_wire.sym} 650 -380 2 1 {name=p29 sig_type=std_logic lab=PULSEN}
 C {comparator/discrete_time/Dynamic-biasing/dynamic_biasing_comparator.sym} 820 -940 0 0 {name=x1}
 C {buffer/buffer_lv.sym} 1920 -960 0 0 {name=x7 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=3.0u L_N_INV=0.13u}

@@ -12,8 +12,8 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=-3.75e-08
-x2=1.125e-07
+x1=1.6543612e-24
+x2=1.5e-07
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -36,8 +36,8 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=-3.75e-08
-x2=1.125e-07
+x1=1.6543612e-24
+x2=1.5e-07
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -73,27 +73,30 @@ lab=clk}
 N 1440 -600 1440 -560 {lab=GND}
 N 920 -760 1120 -760 {lab=vinp}
 N 900 -760 920 -760 {lab=vinp}
-N 1040 -720 1120 -720 {lab=vinn}
-N 1040 -720 1040 -660 {lab=vinn}
-N 1020 -720 1040 -720 {lab=vinn}
+N 1020 -720 1120 -720 {lab=vinn}
 N 1300 -660 1300 -620 {lab=clk}
 N 1180 -660 1180 -560 {lab=GND}
 N 1360 -740 1440 -740 {lab=vout}
 N 1440 -740 1440 -660 {lab=vout}
 N 1440 -740 1520 -740 {lab=vout}
-N 1040 -600 1040 -560 {lab=GND}
-N 920 -760 920 -660 {lab=vinp}
-N 920 -600 920 -560 {lab=GND}
-C {devices/vsource.sym} 1180 -1050 0 0 {name=VDD value="1.5"}
+N 920 -590 920 -560 {lab=GND}
+N 800 -590 920 -590 {lab=GND}
+N 920 -600 920 -590 {lab=GND}
+N 800 -710 920 -710 {lab=vinp}
+N 920 -760 920 -710 {lab=vinp}
+N 800 -650 1020 -650 {lab=vinn}
+N 1020 -720 1020 -650 {lab=vinn}
+C {devices/vsource.sym} 1180 -1050 0 0 {name=VDD value="\{VDD\}"}
 C {devices/gnd.sym} 1180 -980 0 0 {name=l6 lab=GND}
 C {devices/vdd.sym} 1180 -1120 0 0 {name=l8 lab=VDD}
-C {devices/title-3.sym} 0 0 0 0 {name=l3 author="Simon Dorrer" rev=1.0 lock=true}
+C {devices/title-3.sym} 0 0 0 0 {name=l3 author="Jesus Avila" rev=1.0 lock=true}
 C {devices/code_shown.sym} 40 -1510 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
 value="
 .lib cornerMOSlv.lib mos_tt
 .lib cornerMOShv.lib mos_tt
 .lib cornerRES.lib res_typ
+.lib cornerCAP.lib cap_typ
 .include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
 "}
 C {devices/launcher.sym} 1720 -1360 0 0 {name=h2
@@ -108,21 +111,20 @@ C {devices/launcher.sym} 1720 -1300 0 0 {name=h3
 descr="Annotate OP" 
 tclcommand="set show_hidden_texts 1; xschem annotate_op"
 }
-C {code_shown.sym} 60 -1310 0 0 {name=NGSPICE
+C {code_shown.sym} 60 -1320 0 0 {name=NGSPICE
 only_toplevel=true
 value="
+.param vdd=1.8
 .param temp=27
-.param fclk=8000000
-.param fphi=62500
 .param tstart=2n
-.param delta_vin = 400u
+.param vindiff = 300u
 .param Vcm=0.75
-.csparam fclk=fclk
-.csparam tstart=tstart
+
 .options savecurrents reltol=1e-3 abstol=1e-12 gmin=1e-15
 .ic v(vout) = 0
 .control
 save all
+
 
 * Operating Point Analysis
 op
@@ -132,8 +134,8 @@ set appendwrite
 
 * Transient Analysis
 * tran 4p 20n
-tran 40p 16n
-*write DT_comparator_tb_tran.raw
+tran 1p 10n
+write DT_comparator_tb_tran.raw
 
 * Measure vcpp_min & vcpn_min
 *let tmeas = 1/fclk
@@ -142,16 +144,26 @@ tran 40p 16n
 
 * Measure Propagation Delay
 * Time from clock rising edge to 90% VDD of vout
-*let vout_limit = 0.9 * 1.5
-*meas tran tcross WHEN v(vout)=vout_limit CROSS=1
-*let tpd = tcross - tstart
-*echo Propagation Delay $&tpd s
+
+meas tran t_dec1 TRIG v(x1.voutp_buf) VAL=1.62 RISE=1 TARG v(pulse) VAL=0.18 FALL=1
+meas tran t_dec2 TRIG v(x1.voutp_buf) VAL=1.62 RISE=2 TARG v(pulse) VAL=0.18 FALL=2
+meas tran t_dec3 TRIG v(x1.voutp_buf) VAL=1.62 RISE=3 TARG v(pulse) VAL=0.18 FALL=3
+
+meas tran t_reset1 TRIG pulse VAL=1.62 RISE=2 TARG pulse VAL=0.18 FALL=2
+meas tran t_reset2 TRIG pulse VAL=1.62 RISE=3 TARG pulse VAL=0.18 FALL=3
+meas tran t_reset3 TRIG pulse VAL=1.62 RISE=4 TARG pulse VAL=0.18 FALL=4
+
+echo Primer tiempo de decision $&t_dec1 s
+echo Segundo tiempo de decison $&t_dec3 s
+
+
+echo Tiempo de espera $&t_reset3 s
 
 * Calculate Energy / Conversion
 * i_int in As
 * energy_conv in Ws = J
 *let N = 1
-*let t_conv = 150n
+**let t_conv = tstart + t_dec
 *meas tran i_int INTEG i(VDD) from=tstart to=t_conv
 *let energy_conv = 1.5 * i_int / N
 
@@ -159,38 +171,34 @@ tran 40p 16n
 *echo Energy / Conversion $&energy_conv_femto fJ/conv
 
 * Plotting
-*plot v(clk) v(vinp) v(vinn)   v(x1.voutp_comp) v(x1.voutn_comp) v(vout)
-*plot v(clk)  v(x1.voutp_comp) v(x1.voutn_comp) v(vout)
-*plot i(VDD)
-*plot v(clk)  \{v(x1.x6.vx_n) +2\} \{v(vout) + 4\} \{v(x1.pulsen) + 6\} \{v(x1.x6.vx) + 8\}  \{v(x1.x6.READY) + 10\}
-plot v(x1.voutp_buf) \{v(x1.voutn_buf)  + 2\} \{v(x1.x6.vx_n) + 4\}  \{v(pulse) + 8\} \{v(x1.x6.READY) + 10\}
-plot v(x1.voutp_comp) \{v(x1.voutn_comp)  + 2\} \{v(x1.x6.vx_n) + 4\}  \{v(x1.x6.vx) + 8\} \{v(x1.x6.vxs) + 10\}
+
+plot i(VDD)
+plot v(x1.voutp_buf) \{v(x1.voutn_buf)\} \{v(x1.x6.vx_n) + 4\}  \{v(pulse) + 8\} \{v(x1.x6.READY) + 10\}
+plot v(x1.voutp_comp) \{v(x1.voutn_comp)\} \{v(x1.x6.vx_n) + 4\}  \{v(x1.x6.vx) + 8\} \{v(x1.x6.vxs) + 10\}
 * Writing Data
-*set wr_singlescale
-*set wr_vecnames
-*let vs=x1.x1.vs
-*let vcpp=x1.x1.vcpp
-*let vcpn=x1.x1.vcpn
-*let voutp_comp=x1.voutp_comp
-*let voutn_comp=x1.voutn_comp
-*wrdata /foss/designs/SG13G2_ATBS-ADC-main/python/plot_simulations/data/DT_comparator_tb_tran.txt v(clk) v(vinp) v(vinn) v(vs) v(vcpp) v(vcpn) v(voutp_comp) v(voutn_comp) v(vout)
+set wr_singlescale
+set wr_vecnames
+let vs=x1.x1.vs
+let vcpp=x1.x1.vcpp
+let vcpn=x1.x1.vcpn
+let voutp_comp=x1.voutp_comp
+let voutn_comp=x1.voutn_comp
+wrdata ./../../DT_comparator_tb_tran.txt v(clk) v(vinp) v(vinn) v(vs) v(vcpp) v(vcpn) v(voutp_comp) v(voutn_comp) v(vout)
 
 *quit
 .endc"}
-C {devices/vsource.sym} 840 -1050 0 0 {name=V1 value="pulse(1.5 0 \{tstart\} 10p 10p 3n 6n 1)"}
+C {devices/vsource.sym} 840 -1050 0 0 {name=V1 value="pulse(\{VDD\} 0 0 10p 10p \{tstart\} 6n 1)"}
 C {devices/vdd.sym} 1180 -860 0 0 {name=l1 lab=VDD}
 C {devices/gnd.sym} 1180 -560 0 0 {name=l2 lab=GND}
 C {devices/lab_wire.sym} 1300 -620 2 0 {name=l4 sig_type=std_logic lab=clk}
 C {devices/lab_wire.sym} 1520 -740 0 1 {name=l10 sig_type=std_logic lab=vout}
-C {devices/vsource.sym} 1040 -630 0 0 {name=vinn value=\{Vcm\}}
-C {devices/gnd.sym} 1040 -560 0 0 {name=l11 lab=GND}
 C {devices/gnd.sym} 920 -560 0 0 {name=l12 lab=GND}
-C {devices/vsource.sym} 920 -630 0 1 {name=vinp value="\{0.75 + \{delta_vin\}\}"}
+C {devices/vsource.sym} 800 -680 0 1 {name=vinp value="\{vindiff\}"}
 C {devices/gnd.sym} 840 -980 0 0 {name=l13 lab=GND}
 C {devices/lab_wire.sym} 840 -1120 0 1 {name=l14 sig_type=std_logic lab=clk}
 C {capa.sym} 1440 -630 0 0 {name=C2
 m=1
-value=10f
+value=100f
 footprint=1206
 device="ceramic capacitor"}
 C {devices/gnd.sym} 1440 -560 0 0 {name=l17 lab=GND}
@@ -201,3 +209,4 @@ C {devices/lab_wire.sym} 1410 -810 0 1 {name=l7 sig_type=std_logic lab=pulse}
 C {devices/vsource.sym} 690 -850 0 0 {name=VDD3 value=0}
 C {devices/gnd.sym} 690 -820 0 0 {name=l16 lab=GND}
 C {devices/lab_wire.sym} 690 -880 0 1 {name=l5 sig_type=std_logic lab=VSS}
+C {devices/vsource.sym} 800 -620 0 1 {name=vinp1 value="\{vcm\}"}

@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 T {Cell for thermometer code including unit capacitor and SPDT switch with high-Z} 220 -1720 0 0 1 1 {}
 T {v0, if di_clk = 0
@@ -36,7 +35,7 @@ C {devices/ipin.sym} 1560 -935 0 1 {name=p13 lab=b_sample}
 C {devices/ipin.sym} 1560 -920 0 1 {name=p15 lab=b_sample_n}
 C {sg13g2_pr/cap_cmim.sym} 1480 -830 0 0 {name=C1
 model=cap_cmim
-w=2.6e-6
-l=2.6e-6
+w=3e-6
+l=3e-6
 m=n
 spiceprefix=X}

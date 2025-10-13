@@ -16,7 +16,9 @@ N 3110 380 3190 380 {lab=d8}
 N 3490 380 3570 380 {lab=d9}
 N 3870 380 3950 380 {lab=d10}
 N 4250 380 4330 380 {lab=d11}
-N -460 380 -230 380 {lab=#net1}
+N -330 380 -230 380 {lab=start}
+N -330 300 -330 380 {lab=start}
+N -460 380 -330 380 {lab=start}
 C {lab_pin.sym} -230 460 0 0 {name=p1 sig_type=std_logic lab=clk}
 C {lab_pin.sym} -20 500 0 0 {name=p2 sig_type=std_logic lab=rst}
 C {lab_pin.sym} -230 420 0 0 {name=p4 sig_type=std_logic lab=comp_in}
@@ -142,3 +144,4 @@ C {lab_pin.sym} -700 320 0 0 {name=p14 sig_type=std_logic lab=VDD}
 C {logic/bit_cell.sym} -610 410 0 0 {name=x3}
 C {lab_pin.sym} -620 500 0 0 {name=p15 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -760 380 0 0 {name=p17 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} -330 300 0 1 {name=p16 sig_type=std_logic lab=start}

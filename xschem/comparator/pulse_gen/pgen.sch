@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 N -200 -70 -200 -60 {lab=VDD}
 N 170 -30 190 -30 {lab=VDD}
@@ -29,7 +28,6 @@ N -210 90 -130 90 {lab=VSS}
 N -210 90 -210 120 {lab=VSS}
 N -310 90 -210 90 {lab=VSS}
 N -200 60 -130 60 {lab=READY}
-N -310 60 -200 60 {lab=READY}
 N 190 0 190 110 {lab=vx}
 N 190 -130 280 -130 {lab=VDD}
 N 190 -130 190 -120 {lab=VDD}
@@ -87,13 +85,14 @@ N 530 120 790 120 {lab=READY}
 N 790 120 790 180 {lab=READY}
 N 780 180 790 180 {lab=READY}
 N -200 -0 -200 60 {lab=READY}
-N -470 120 -210 120 {lab=VSS}
 N 590 -60 590 -10 {lab=#net1}
 N -360 -30 -340 -30 {lab=VDD}
 N -340 -60 -340 -30 {lab=VDD}
 N -340 -60 -200 -60 {lab=VDD}
 N -360 -60 -340 -60 {lab=VDD}
 N -360 -0 -200 -0 {lab=READY}
+N -470 120 -210 120 {lab=VSS}
+N -460 60 -200 60 {lab=READY}
 C {sg13g2_pr/sg13_lv_nmos.sym} -330 90 0 0 {name=M1
 l=0.13u
 w=.15u
@@ -121,7 +120,7 @@ C {lab_pin.sym} -220 150 0 0 {name=p8 sig_type=std_logic lab=VSS}
 C {iopin.sym} -870 -10 0 0 {name=p9 lab=VSS}
 C {sg13g2_pr/sg13_lv_pmos.sym} 210 -30 0 1 {name=M4
 l=0.13u
-w=1u
+w=2u
 ng=1
 m=1
 model=sg13_lv_pmos
@@ -151,8 +150,8 @@ model=sg13_lv_nmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} 210 -90 0 1 {name=M7
-l=5u
-w=1u
+l=1u
+w=2u
 ng=1
 m=1
 model=sg13_lv_pmos
@@ -221,14 +220,14 @@ C {lab_pin.sym} 890 -200 0 0 {name=p20 sig_type=std_logic lab=vx}
 C {sg13g2_stdcells/sg13g2_inv_2.sym} 1230 -180 0 0 {name=x1 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {iopin.sym} 590 30 0 1 {name=p21 lab=en}
 C {sg13g2_stdcells/sg13g2_and2_2.sym} 650 10 0 0 {name=x2 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {sg13g2_pr/sg13_lv_pmos.sym} -380 -30 0 0 {name=M13
+C {lab_pin.sym} -400 -30 0 0 {name=p22 sig_type=std_logic lab=en
+
+}
+C {sg13g2_pr/sg13_lv_pmos.sym} -380 -30 0 0 {name=M14
 l=0.13u
 w=2u
 ng=1
 m=1
 model=sg13_lv_pmos
 spiceprefix=X
-}
-C {lab_pin.sym} -400 -30 0 0 {name=p22 sig_type=std_logic lab=en
-
 }

@@ -87,10 +87,10 @@ N 1440 -830 1520 -830 {lab=VDD}
 N 1800 -830 1880 -830 {lab=VDD}
 N 1240 -590 1280 -590 {lab=di_clk_n}
 N 2040 -590 2080 -590 {lab=di_clk_n}
-N 700 -620 700 -600 {lab=vctail}
+N 700 -620 700 -600 {lab=#net3}
 N 700 -520 700 -480 {lab=VSS}
-N 700 -640 700 -620 {lab=vctail}
-N 580 -620 580 -600 {lab=vctail}
+N 700 -640 700 -620 {lab=#net3}
+N 580 -620 580 -600 {lab=#net3}
 N 420 -670 660 -670 {lab=di_clk}
 N 420 -570 540 -570 {lab=di_clk_n}
 N 580 -570 640 -570 {lab=VSS}
@@ -145,10 +145,9 @@ N 1900 -1060 1900 -970 {lab=VDD}
 N 1840 -1060 1840 -1000 {lab=VDD}
 N 700 -740 700 -720 {lab=vs}
 N 1320 -590 1380 -590 {lab=VSS}
-N 580 -620 700 -620 {lab=vctail}
-N 640 -520 700 -520 {lab=VSS}
 N 700 -670 760 -670 {lab=VSS}
-N 700 -620 800 -620 {lab=vctail}
+N 580 -620 700 -620 {lab=#net3}
+N 640 -520 700 -520 {lab=VSS}
 C {title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
 C {devices/iopin.sym} 700 -1100 3 0 {name=p11 lab=VDD}
 C {devices/opin.sym} 1240 -740 2 0 {name=p2 lab=voutp}
@@ -160,9 +159,9 @@ C {ipin.sym} 980 -790 2 0 {name=p10 lab=vinn}
 C {ipin.sym} 420 -670 0 0 {name=p12 lab=di_clk}
 C {sg13g2_pr/sg13_lv_nmos.sym} 680 -670 0 0 {name=M3a
 l=0.13u
-w=4.0u
+w=6.0u
 ng=1
-m=1
+m=2
 model=sg13_lv_nmos
 spiceprefix=X
 }
@@ -176,7 +175,7 @@ spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} 1500 -970 0 1 {name=M8
 l=0.13u
-w=8.0u
+w=2.0u
 ng=2
 m=1
 model=sg13_lv_pmos
@@ -210,19 +209,9 @@ C {lab_wire.sym} 1660 -480 3 0 {name=p5 sig_type=std_logic lab=VSS}
 C {lab_wire.sym} 1480 -1100 3 1 {name=p7 sig_type=std_logic lab=VDD}
 C {lab_wire.sym} 1100 -480 3 0 {name=p16 sig_type=std_logic lab=VSS}
 C {lab_wire.sym} 2200 -480 3 0 {name=p17 sig_type=std_logic lab=VSS}
-C {capa.sym} 1100 -530 0 0 {name=CPn
-m=1
-value=80f
-footprint=1206
-device="ceramic capacitor"}
-C {capa.sym} 2200 -530 0 0 {name=CPp
-m=1
-value=80f
-footprint=1206
-device="ceramic capacitor"}
 C {sg13g2_pr/sg13_lv_pmos.sym} 1820 -970 0 0 {name=M9
 l=0.13u
-w=8.0u
+w=2.0u
 ng=2
 m=1
 model=sg13_lv_pmos
@@ -248,11 +237,6 @@ spiceprefix=X
 C {lab_wire.sym} 1520 -830 2 0 {name=p19 sig_type=std_logic lab=VDD}
 C {lab_wire.sym} 1800 -830 2 1 {name=p20 sig_type=std_logic lab=VDD}
 C {lab_wire.sym} 2080 -590 0 1 {name=p21 sig_type=std_logic lab=di_clk_n}
-C {capa.sym} 700 -570 0 0 {name=CTAIL
-m=1
-value=600f
-footprint=1206
-device="ceramic capacitor"}
 C {sg13g2_pr/sg13_lv_nmos.sym} 560 -570 0 0 {name=M3b
 l=0.13u
 w=2.0u
@@ -264,7 +248,7 @@ spiceprefix=X
 C {lab_wire.sym} 1240 -590 0 0 {name=p23 sig_type=std_logic lab=di_clk_n}
 C {sg13g2_pr/sg13_lv_nmos.sym} 520 -790 0 0 {name=M1
 l=0.13u
-w=6.0u
+w=10.0u
 ng=1
 m=1
 model=sg13_lv_nmos
@@ -272,7 +256,7 @@ spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_nmos.sym} 880 -790 0 1 {name=M2
 l=0.13u
-w=6.0u
+w=10.0u
 ng=1
 m=1
 model=sg13_lv_nmos
@@ -282,7 +266,7 @@ C {lab_wire.sym} 620 -790 2 0 {name=p13 sig_type=std_logic lab=VSS}
 C {lab_wire.sym} 780 -790 2 1 {name=p14 sig_type=std_logic lab=VSS}
 C {sg13g2_pr/sg13_lv_pmos.sym} 560 -970 0 1 {name=M4
 l=0.13u
-w=2.0u
+w=3.0u
 ng=1
 m=1
 model=sg13_lv_pmos
@@ -290,7 +274,7 @@ spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} 840 -970 0 0 {name=M5
 l=0.13u
-w=2.0u
+w=3.0u
 ng=1
 m=1
 model=sg13_lv_pmos
@@ -300,4 +284,21 @@ C {lab_wire.sym} 700 -1000 0 0 {name=p15 sig_type=std_logic lab=di_clk}
 C {lab_wire.sym} 840 -900 0 0 {name=p1 sig_type=std_logic lab=vcpp}
 C {lab_wire.sym} 520 -860 2 1 {name=p4 sig_type=std_logic lab=vcpn}
 C {lab_wire.sym} 700 -740 0 1 {name=p22 sig_type=std_logic lab=vs}
-C {lab_wire.sym} 800 -620 0 1 {name=p24 sig_type=std_logic lab=vctail}
+C {sg13g2_pr/cap_cmim.sym} 700 -570 0 0 {name=C1
+model=cap_cmim
+w=20.0e-6
+l=20.0e-6
+m=1
+spiceprefix=X}
+C {sg13g2_pr/cap_cmim.sym} 1100 -530 0 0 {name=C2
+model=cap_cmim
+w=7.0e-6
+l=7.0e-6
+m=1
+spiceprefix=X}
+C {sg13g2_pr/cap_cmim.sym} 2200 -530 0 0 {name=C3
+model=cap_cmim
+w=7.0e-6
+l=7.0e-6
+m=1
+spiceprefix=X}

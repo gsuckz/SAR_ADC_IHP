@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 T {CDAC full Diferencial 12 Bits } 230 -2380 0 0 1.2 1.2 {}
 T {Agregar NOL en Vin/Vcm
@@ -425,25 +424,25 @@ C {lab_pin.sym} -530 -1920 0 0 {name=p120 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -535 -1775 0 0 {name=p121 sig_type=std_logic lab=VSS}
 C {sg13g2_pr/cap_cmim.sym} 2615 -1705 3 0 {name=C1
 model=cap_cmim
-w=2.6e-6
-l=2.6e-6
+w=3e-6
+l=3e-6
 m=1
 spiceprefix=X}
 C {sg13g2_pr/cap_cmim.sym} 2615 -1800 3 0 {name=C2
 model=cap_cmim
-w=2.6e-6
-l=2.6e-6
+w=3e-6
+l=3e-6
 m=1
 spiceprefix=X}
 C {sg13g2_pr/cap_cmim.sym} 5240 -1925 0 0 {name=C3
 model=cap_cmim
-w=2.6e-6
-l=2.6e-6
+w=3e-6
+l=3e-6
 m=1
 spiceprefix=X}
 C {sg13g2_pr/cap_cmim.sym} 5240 -1625 2 0 {name=C4
 model=cap_cmim
-w=2.6e-6
-l=2.6e-6
+w=3e-6
+l=3e-6
 m=1
 spiceprefix=X}

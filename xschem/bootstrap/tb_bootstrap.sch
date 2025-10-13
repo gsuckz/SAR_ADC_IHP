@@ -199,7 +199,7 @@ spiceprefix=X
 }
 C {capa.sym} 2205 620 0 0 {name=C3
 m=1
-value=8p
+value=1p
 footprint=1206
 device="ceramic capacitor"}
 C {sg13g2_pr/sg13_hv_nmos.sym} 2185 730 0 0 {name=M12
