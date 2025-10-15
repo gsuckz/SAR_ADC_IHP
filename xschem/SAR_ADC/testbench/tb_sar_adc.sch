@@ -1,14 +1,18 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N -240 -270 -215 -270 {
 lab=vinn}
 N -240 -330 -215 -330 {
 lab=vinp}
 N -520 -340 -395 -340 {lab=#net1}
+N -520 -440 -520 -400 {lab=#net2}
+N -395 -440 -395 -400 {lab=#net3}
+N -395 -440 -390 -440 {lab=#net3}
 C {SAR_ADC/sar.sym} -120 -290 0 0 {name=x1}
 C {devices/code_shown.sym} 305 -660 0 0 {name=NGSPICE
 only_toplevel=false
@@ -40,7 +44,7 @@ plot compp-compn x1.comp_clk compout
 *quit
 .endc
 "}
-C {devices/vsource.sym} -520 -370 0 1 {name=VI value=250u}
+C {devices/vsource.sym} -520 -370 0 1 {name=VI value=250m}
 C {devices/lab_pin.sym} 220 -350 0 1 {name=p3 lab=d0}
 C {devices/vsource.sym} -330 -160 0 1 {name=V1 value=1.8}
 C {devices/lab_pin.sym} -330 -190 1 0 {name=l1 lab=vdd}
@@ -56,7 +60,7 @@ C {devices/lab_pin.sym} 220 -270 0 1 {name=p11 lab=d8}
 C {devices/lab_pin.sym} 220 -260 0 1 {name=p12 lab=d9}
 C {devices/lab_pin.sym} 220 -250 0 1 {name=p13 lab=d10}
 C {devices/lab_pin.sym} 220 -240 0 1 {name=p14 lab=d11}
-C {devices/lab_pin.sym} -520 -400 0 0 {name=l5 lab=vinp}
+C {devices/lab_pin.sym} -580 -440 0 0 {name=l5 lab=vinp}
 C {devices/lab_pin.sym} -140 -190 3 0 {name=p15 lab=compn}
 C {devices/lab_pin.sym} -85 -190 3 0 {name=p16 lab=compp}
 C {devices/lab_pin.sym} -30 -190 3 0 {name=p17 lab=compout}
@@ -65,7 +69,7 @@ C {devices/gnd.sym} -330 -130 0 0 {name=l6 lab=GND}
 C {devices/gnd.sym} -460 -280 0 0 {name=l7 lab=GND}
 C {devices/gnd.sym} 70 -410 0 0 {name=l2 lab=GND}
 C {devices/vsource.sym} -460 -310 0 1 {name=VIN2 value=0.9}
-C {devices/lab_pin.sym} -395 -400 0 1 {name=l4 lab=vinn}
+C {devices/lab_pin.sym} -330 -440 0 1 {name=l4 lab=vinn}
 C {code_shown.sym} -540 -640 0 0 {
 name=TT_MODELS
 only_toplevel=true
@@ -80,7 +84,7 @@ value="
 "
 spice_ignore=false
       }
-C {devices/vsource.sym} -395 -370 2 1 {name=VIN3 value=250u}
+C {devices/vsource.sym} -395 -370 2 1 {name=VIN3 value=250m}
 C {devices/lab_pin.sym} -240 -270 2 1 {name=l8 lab=vinn}
 C {devices/lab_pin.sym} -240 -330 0 0 {name=l9 lab=vinp}
 C {devices/gnd.sym} -120 -410 0 0 {name=l10 lab=GND}
@@ -88,3 +92,13 @@ C {devices/vsource.sym} -510 -160 0 1 {name=V2 value="PULSE(0 1.8 0 10p 10p 2n 3
 C {devices/lab_pin.sym} -510 -190 1 0 {name=l12 lab=rst}
 C {devices/gnd.sym} -510 -130 0 0 {name=l13 lab=GND}
 C {devices/lab_pin.sym} 145 -410 1 0 {name=l11 lab=rst}
+C {res.sym} -550 -440 1 0 {name=R2
+value=0.001
+footprint=1206
+device=resistor
+m=1}
+C {res.sym} -360 -440 1 0 {name=R1
+value=0.001
+footprint=1206
+device=resistor
+m=1}

@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Switch para celda unitaria DAC} 900 -1500 0 0 1 1 {}
 T {di_spdt_ctrl = 1, di_spdt_ctrl_n = 0: v_c connected to v_a, v_b = HIGH-Z
@@ -102,7 +103,7 @@ m=n
 model=sg13_lv_pmos
 spiceprefix=X
 }
-C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1080 -620 0 0 {name=x1 W_P=W_P_TG L_P=L_P_TG  W_N=W_N_TG L_N=L_N_TG n=n}
+C {transmission_gate/transmission_gate_lv_wo_dummy.sym} 1080 -620 0 0 {name=x1 W_P=W_P_TG L_P=L_P_TG  W_N=W_N_TG L_N=L_N_TG n=n}
 C {devices/ipin.sym} 2170 -360 0 0 {name=p19 lab=bit}
 C {sg13g2_stdcells/sg13g2_nand2_1.sym} 2030 -420 0 1 {name=x23 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {sg13g2_stdcells/sg13g2_and2_1.sym} 2030 -300 2 0 {name=x46 VDD=VDD VSS=VSS prefix=sg13g2_ }
@@ -117,7 +118,7 @@ C {devices/lab_pin.sym} 1730 -210 3 0 {name=p26 sig_type=std_logic lab=VSS}
 C {devices/ipin.sym} 1100 -500 3 0 {name=p4 lab=sample_n}
 C {sg13g2_stdcells/sg13g2_inv_1.sym} 2130 -440 0 1 {name=x32 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {devices/iopin.sym} 1860 -620 0 0 {name=p13 lab=v_cm}
-C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1580 -620 0 1 {name=x3 W_P=W_P_TG L_P=L_P_TG  W_N=W_N_TG L_N=L_N_TG n=n}
+C {transmission_gate/transmission_gate_lv_wo_dummy.sym} 1580 -620 0 1 {name=x3 W_P=W_P_TG L_P=L_P_TG  W_N=W_N_TG L_N=L_N_TG n=n}
 C {devices/lab_pin.sym} 1600 -580 3 0 {name=p14 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 1600 -660 1 0 {name=p18 sig_type=std_logic lab=VDD}
 C {sg13g2_stdcells/sg13g2_nor2_1.sym} 2300 -710 0 1 {name=x6 VDD=VDD VSS=VSS prefix=sg13g2_ }

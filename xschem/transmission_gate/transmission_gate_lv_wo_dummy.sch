@@ -27,9 +27,9 @@ lab=di_tg_ctrl}
 N 1200 -940 1200 -900 {
 lab=di_tg_ctrl_n}
 N 1230 -860 1240 -860 {
-lab=v_b}
+lab=#net1}
 N 1240 -860 1240 -800 {
-lab=v_b}
+lab=#net1}
 N 1160 -860 1170 -860 {
 lab=v_a}
 N 1160 -860 1160 -800 {
@@ -43,9 +43,9 @@ lab=v_a}
 N 1040 -640 1160 -640 {
 lab=v_a}
 N 1240 -640 1240 -580 {
-lab=v_b}
+lab=#net2}
 N 1230 -580 1240 -580 {
-lab=v_b}
+lab=#net2}
 N 1200 -860 1200 -760 {
 lab=VDD}
 N 1200 -760 1340 -760 {
@@ -69,24 +69,24 @@ lab=v_b}
 N 1460 -800 1460 -720 {
 lab=v_b}
 N 1340 -940 1340 -760 {lab=VDD}
-N 1240 -640 1460 -640 {
-lab=v_b}
-N 1240 -800 1460 -800 {
-lab=v_b}
+N 1240 -800 1310 -800 {lab=#net1}
+N 1370 -800 1460 -800 {lab=v_b}
+N 1240 -640 1310 -640 {lab=#net2}
+N 1370 -640 1460 -640 {lab=v_b}
 C {devices/title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
 C {devices/iopin.sym} 1000 -720 0 1 {name=p2 lab=v_a}
 C {devices/iopin.sym} 1500 -720 0 0 {name=p4 lab=v_b}
 C {sg13g2_pr/sg13_lv_nmos.sym} 1200 -560 3 0 {name=M1
-l=L_N_TG
-w=W_N_TG
+l=L_N
+w=W_N
 ng=1
 m=n
 model=sg13_lv_nmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} 1200 -880 1 0 {name=M2
-l=L_P_TG
-w=W_P_TG
+l=L_P
+w=W_P
 ng=1
 m=n
 model=sg13_lv_pmos
@@ -96,3 +96,13 @@ C {devices/iopin.sym} 1340 -940 3 0 {name=p3 lab=VDD}
 C {devices/iopin.sym} 1340 -500 1 0 {name=p7 lab=VSS}
 C {devices/ipin.sym} 1200 -500 3 0 {name=p8 lab=di_tg_ctrl}
 C {devices/ipin.sym} 1200 -940 1 0 {name=p9 lab=di_tg_ctrl_n}
+C {res.sym} 1340 -800 1 0 {name=R1
+value=0.001
+footprint=1206
+device=resistor
+m=1}
+C {res.sym} 1340 -640 1 0 {name=R2
+value=0.001
+footprint=1206
+device=resistor
+m=1}
