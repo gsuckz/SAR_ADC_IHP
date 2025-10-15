@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 N -240 -270 -215 -270 {
 lab=vinn}
@@ -14,7 +13,7 @@ C {SAR_ADC/sar.sym} -120 -290 0 0 {name=x1}
 C {devices/code_shown.sym} 305 -660 0 0 {name=NGSPICE
 only_toplevel=false
 value="
-.param periodclk=2n
+.param periodclk=1n
 .param periodconv=30n
 .param stoptime=1*periodconv
 .param ro = 300
@@ -28,17 +27,17 @@ value="
 save all
 run
 
-*plot \{(V(d11)*2+V(d10)*4+V(d9)*8+V(d8)*16+V(d7)*32+V(d6)*64+V(d5)*128+V(d4)*256+V(d3)*512+V(d2)*1024+V(d1)*2048)/4096\} \{2*rst\} eoc \{vinp - vinn\}
-*plot \{(V(d11)*2+V(d10)*4+V(d9)*8+V(d8)*16+V(d7)*32+V(d6)*64+V(d5)*128+V(d4)*256+V(d3)*512+V(d2)*1024+V(d1)*2048-V(d0)*4096)/4096\} \{2*rst\} eoc \{vinp - vinn\}
-*plot \{(-V(d0)*2048 + V(d1)*1024 + V(d2)*512 + V(d3)*256 + V(d4)*128 + V(d5)*64 + V(d6)*32 + V(d7)*16 + V(d8)*8 + V(d9)*4 + V(d10)*2 + V(d11))/2048\}
-*plot \{((V(d0)-1.8)*2048 + V(d1)*1024 + V(d2)*512 + V(d3)*256 + V(d4)*128 + V(d5)*64 + V(d6)*32 + V(d7)*16 + V(d8)*8 + V(d9)*4 + V(d10)*2 + V(d11))/2048\} rst eoc vinp-vinn
-*plot compp compn \{compout + 4\}
-*plot \{d0\} \{d1 + 4\} \{d2 + 8\} \{d3 + 12\} \{d4 + 16\} \{d5 + 20\} \{d6 + 24\} \{d7 + 28\} \{d8 + 32\} \{d9 + 36\} \{d10 + 40\} \{d11 + 44\} \{x1.comp_clk + 50\} \{compout + 55\} \{eoc + 60\}  \{compp - compn - 2\}
-*plot compp-compn x1.comp_clk compout
+plot \{(V(d11)*2+V(d10)*4+V(d9)*8+V(d8)*16+V(d7)*32+V(d6)*64+V(d5)*128+V(d4)*256+V(d3)*512+V(d2)*1024+V(d1)*2048)/4096\} \{2*rst\} eoc \{vinp - vinn\}
+plot \{(V(d11)*2+V(d10)*4+V(d9)*8+V(d8)*16+V(d7)*32+V(d6)*64+V(d5)*128+V(d4)*256+V(d3)*512+V(d2)*1024+V(d1)*2048-V(d0)*4096)/4096\} \{2*rst\} eoc \{vinp - vinn\}
+plot \{(-V(d0)*2048 + V(d1)*1024 + V(d2)*512 + V(d3)*256 + V(d4)*128 + V(d5)*64 + V(d6)*32 + V(d7)*16 + V(d8)*8 + V(d9)*4 + V(d10)*2 + V(d11))/2048\}
+plot \{((V(d0)-1.8)*2048 + V(d1)*1024 + V(d2)*512 + V(d3)*256 + V(d4)*128 + V(d5)*64 + V(d6)*32 + V(d7)*16 + V(d8)*8 + V(d9)*4 + V(d10)*2 + V(d11))/2048\} rst eoc vinp-vinn
+plot compp compn \{compout + 4\}
+plot \{d0\} \{d1 + 4\} \{d2 + 8\} \{d3 + 12\} \{d4 + 16\} \{d5 + 20\} \{d6 + 24\} \{d7 + 28\} \{d8 + 32\} \{d9 + 36\} \{d10 + 40\} \{d11 + 44\} \{x1.comp_clk + 50\} \{compout + 55\} \{eoc + 60\}  \{compp - compn - 2\}
+plot compp-compn x1.comp_clk compout
 
 *wrdata adc_signals.csv time V(d0) V(d1) V(d2) V(d3) V(d4) V(d5) V(d6) V(d7) V(d8) V(d9) V(d10) V(d11) vinp vinn eoc rst compout compp compn x1.comp_clk
 *write adc_signals.raw time V(d0) V(d1) V(d2) V(d3) V(d4) V(d5) V(d6) V(d7) V(d8) V(d9) V(d10) V(d11) vinp vinn eoc rst compout compp compn x1.comp_clk
-quit
+*quit
 .endc
 "}
 C {devices/vsource.sym} -520 -370 0 1 {name=VI value=250u}

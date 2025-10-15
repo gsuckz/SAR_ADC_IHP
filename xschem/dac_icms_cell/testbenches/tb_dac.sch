@@ -213,7 +213,6 @@ meas tran t_sett_11_n trig clk val=1.62 rise=11 targ vdacn val=$&sigvalor11n cro
 
 
 
-
 plot \{d0\} \{d1 + 4\} \{d2 + 8\} \{d3 + 12\} \{d4 + 16\} \{d5 + 20\} \{d6 + 24\} \{d7 + 28\} \{d8 + 32\} \{d9 + 36\} \{d10 + 40\} \{d11 + 44\}
 plot \{b0\} \{b1 + 4\} \{b2 + 8\} \{b3 + 12\} \{b4 + 16\} \{b5 + 20\} \{b6 + 24\} \{b7 + 28\} \{b8 + 32\} \{b9 + 36\} \{b10 + 40\} \{b11 + 44\}
 plot \{clk\} \{comp_in + 2\} \{sample + 4\}
@@ -291,8 +290,8 @@ C {devices/gnd.sym} -540 410 0 0 {name=l14 lab=GND}
 C {devices/lab_pin.sym} 410 50 1 0 {name=l5 lab=rst}
 C {sg13g2_pr/sg13_lv_nmos.sym} 160 250 3 1 {name=M2
 l=0.13u
-w=4.0u
-ng=1
+w=30.0u
+ng=5
 m=1
 model=sg13_lv_nmos
 spiceprefix=X
@@ -300,8 +299,8 @@ spiceprefix=X
 C {gnd.sym} 290 270 0 0 {name=l15 lab=GND}
 C {sg13g2_pr/sg13_lv_nmos.sym} 290 250 3 1 {name=M1
 l=0.13u
-w=4.0u
-ng=1
+w=30.0u
+ng=5
 m=1
 model=sg13_lv_nmos
 spiceprefix=X

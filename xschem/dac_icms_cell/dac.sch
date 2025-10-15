@@ -36,7 +36,7 @@ N 2935 -2155 2935 -1990 {lab=vinn}
 N 2895 -2100 2895 -1990 {lab=vcm}
 N 2365 -2155 2935 -2155 {lab=vinn}
 N 2325 -2100 2895 -2100 {lab=vcm}
-N 2640 -1800 5240 -1800 {lab=vdacp2}
+N 5220 -1800 5240 -1800 {lab=vdacp2}
 N 3255 -2155 3255 -1990 {lab=vinn}
 N 3215 -2100 3215 -1990 {lab=vcm}
 N 3690 -2155 3690 -1990 {lab=vinn}
@@ -56,9 +56,7 @@ N 4945 -2100 4945 -1990 {lab=vcm}
 N 4535 -2155 4985 -2155 {lab=vinn}
 N 2935 -2155 3255 -2155 {lab=vinn}
 N 2895 -2100 3215 -2100 {lab=vcm}
-N 4945 -2100 5240 -2100 {lab=vcm}
 N 4495 -2100 4945 -2100 {lab=vcm}
-N 5240 -2100 5240 -1950 {lab=vcm}
 N 130 -1515 130 -1350 {lab=vinp}
 N 170 -1515 170 -1380 {lab=vcm}
 N -50 -1350 130 -1350 {lab=vinp}
@@ -105,14 +103,12 @@ N 4155 -1350 4570 -1350 {lab=vinp}
 N 4195 -1380 4610 -1380 {lab=vcm}
 N 5010 -1515 5010 -1350 {lab=vinp}
 N 5050 -1515 5050 -1380 {lab=vcm}
-N 4570 -1350 5010 -1350 {lab=vinp}
+N 5005 -1350 5010 -1350 {lab=vinp}
 N 2280 -1350 2860 -1350 {lab=vinp}
 N 2320 -1380 2900 -1380 {lab=vcm}
-N 5240 -1705 5240 -1655 {lab=vdacn2}
-N 5240 -1595 5240 -1380 {lab=vcm}
 N 5050 -1380 5240 -1380 {lab=vcm}
 N -65 -1800 2585 -1800 {lab=vdacn}
-N 2645 -1705 5240 -1705 {lab=vdacn2}
+N 5175 -1705 5240 -1705 {lab=vdacn2}
 N -525 -1625 -495 -1625 {lab=b_ctrl}
 N -530 -1525 -495 -1525 {lab=a_n_ctrl}
 N -415 -1525 -375 -1525 {lab=a_ctrl}
@@ -134,7 +130,26 @@ N -1290 -1645 -1290 -1415 {lab=sample_pin}
 N -1290 -1415 -675 -1415 {lab=sample_pin}
 N -1105 -1605 -970 -1605 {lab=a_sample_n}
 N -1105 -1455 -1050 -1455 {lab=b_sample_n}
-N 5240 -1895 5240 -1800 {lab=vdacp2}
+N 5495 -1525 5495 -1340 {lab=vinp}
+N 5535 -1395 5535 -1390 {lab=vcm}
+N 4945 -2100 5240 -2100 {lab=vcm}
+N 5640 -2160 5640 -1995 {lab=vinn}
+N 4985 -2155 5640 -2160 {lab=vinn}
+N 5005 -1340 5495 -1340 {lab=vinp}
+N 5005 -1350 5005 -1340 {lab=vinp}
+N 4570 -1350 5005 -1350 {lab=vinp}
+N 5240 -1395 5535 -1395 {lab=vcm}
+N 5535 -1525 5535 -1395 {lab=vcm}
+N 5600 -1805 5600 -1790 {lab=vdacp2}
+N 5220 -1790 5600 -1790 {lab=vdacp2}
+N 5220 -1800 5220 -1790 {lab=vdacp2}
+N 2640 -1800 5220 -1800 {lab=vdacp2}
+N 5175 -1715 5535 -1715 {lab=vdacn2}
+N 5175 -1715 5175 -1705 {lab=vdacn2}
+N 2645 -1705 5175 -1705 {lab=vdacn2}
+N 5240 -1395 5240 -1380 {lab=vcm}
+N 5600 -2125 5600 -1995 {lab=vcm}
+N 5240 -2100 5600 -2125 {lab=vcm}
 C {dac_icms_cell/unit_cell_n.sym} 195 -1820 0 0 {name=x14 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32}
 C {devices/ipin.sym} 100 -1890 0 0 {name=p15 lab=D0}
 C {devices/ipin.sym} 130 -1990 1 0 {name=p16 lab=b0}
@@ -424,25 +439,32 @@ C {lab_pin.sym} -530 -1920 0 0 {name=p120 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -535 -1775 0 0 {name=p121 sig_type=std_logic lab=VSS}
 C {sg13g2_pr/cap_cmim.sym} 2615 -1705 3 0 {name=C1
 model=cap_cmim
-w=3e-6
-l=3e-6
+w=3.02e-6
+l=3.02e-6
 m=1
 spiceprefix=X}
 C {sg13g2_pr/cap_cmim.sym} 2615 -1800 3 0 {name=C2
 model=cap_cmim
-w=3e-6
-l=3e-6
+w=3.02e-6
+l=3.02e-6
 m=1
 spiceprefix=X}
-C {sg13g2_pr/cap_cmim.sym} 5240 -1925 0 0 {name=C3
-model=cap_cmim
-w=3e-6
-l=3e-6
-m=1
-spiceprefix=X}
-C {sg13g2_pr/cap_cmim.sym} 5240 -1625 2 0 {name=C4
-model=cap_cmim
-w=3e-6
-l=3e-6
-m=1
-spiceprefix=X}
+C {dac_icms_cell/unit_cell.sym} 5605 -1515 0 0 {name=x10 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
+n=1}
+C {devices/lab_pin.sym} 5455 -1640 0 0 {name=p140 lab=a_sample}
+C {lab_pin.sym} 5615 -1670 2 0 {name=p141 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} 5455 -1670 0 0 {name=p142 sig_type=std_logic lab=VDD}
+C {devices/lab_pin.sym} 5455 -1605 0 0 {name=p241 lab=a_sample_n}
+C {lab_pin.sym} 5455 -1690 0 0 {name=p242 sig_type=std_logic lab=b_sample}
+C {lab_pin.sym} 5615 -1690 0 1 {name=p243 sig_type=std_logic lab=b_sample_n}
+C {dac_icms_cell/unit_cell_n.sym} 5625 -1825 0 0 {name=x17 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1}
+C {lab_pin.sym} 5680 -1850 2 0 {name=p246 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} 5520 -1850 0 0 {name=p247 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 5680 -1915 0 1 {name=p248 lab=a_sample}
+C {devices/lab_pin.sym} 5680 -1880 0 1 {name=p249 lab=a_sample_n}
+C {lab_pin.sym} 5680 -1830 0 1 {name=p250 sig_type=std_logic lab=b_sample}
+C {lab_pin.sym} 5520 -1830 0 0 {name=p251 sig_type=std_logic lab=b_sample_n}
+C {lab_pin.sym} 5605 -1625 2 0 {name=p136 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} 5530 -1895 2 1 {name=p244 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} 5575 -1525 2 0 {name=p236 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} 5560 -1995 2 1 {name=p245 sig_type=std_logic lab=VSS}
