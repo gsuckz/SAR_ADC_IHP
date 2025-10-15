@@ -27,9 +27,9 @@ C {dac_icms_cell/dac_switch_n.sym} 1460 -940 2 0 {name=x1 W_P=W_P_SPDT L_P=L_P_S
 C {devices/iopin.sym} 1480 -1000 3 0 {name=p1 lab=v_cm}
 C {devices/ipin.sym} 1625 -785 3 1 {name=p4 lab=a_sample}
 C {devices/ipin.sym} 1625 -705 1 1 {name=p7 lab=a_sample_n}
-C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1625 -745 0 1 {name=x2 W_P=W_P_SPDT L_P=L_P_SPDT  W_N=W_N_SPDT L_N=L_N_SPDT n=n}
-C {devices/lab_pin.sym} 1645 -785 1 0 {name=p8 lab=VDD}
-C {devices/lab_pin.sym} 1645 -705 3 0 {name=p9 lab=VSS}
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1625 -745 0 0 {name=x2 W_P=W_P_SPDT L_P=L_P_SPDT  W_N=W_N_SPDT L_N=L_N_SPDT n=n}
+C {devices/lab_pin.sym} 1605 -785 3 1 {name=p8 lab=VDD}
+C {devices/lab_pin.sym} 1605 -705 1 1 {name=p9 lab=VSS}
 C {devices/lab_pin.sym} 1705 -745 2 0 {name=p11 lab=v_cm}
 C {devices/ipin.sym} 1560 -935 0 1 {name=p13 lab=b_sample}
 C {devices/ipin.sym} 1560 -920 0 1 {name=p15 lab=b_sample_n}
