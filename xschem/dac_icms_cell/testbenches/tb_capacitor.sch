@@ -36,9 +36,9 @@ lab=#net2}
 N -95 -245 -15 -245 {
 lab=#net2}
 N -155 -245 -155 -185 {
-lab=#net2}
+lab=#net3}
 N -165 -185 -155 -185 {
-lab=#net2}
+lab=#net3}
 N -195 -465 -195 -365 {
 lab=VDD}
 N -55 -365 45 -365 {
@@ -56,8 +56,6 @@ lab=vin}
 N -25 -185 -15 -185 {lab=#net2}
 N -15 -245 -15 -185 {lab=#net2}
 N -95 -245 -95 -185 {lab=#net2}
-N -155 -245 -95 -245 {
-lab=#net2}
 N -95 -465 -95 -405 {lab=#net1}
 N -155 -405 -95 -405 {
 lab=#net1}
@@ -75,7 +73,7 @@ lab=GND}
 N -195 -365 -55 -365 {
 lab=VDD}
 N -55 -470 -55 -365 {lab=VDD}
-N 295 -405 295 10 {lab=vcbot}
+N 295 -405 295 10 {lab=#net4}
 N -15 -465 -15 -430 {
 lab=#net1}
 N 235 -430 235 -405 {lab=#net1}
@@ -83,37 +81,32 @@ N 45 -545 45 -365 {
 lab=VDD}
 N 45 -285 45 -105 {
 lab=GND}
-N 295 10 575 10 {lab=vcbot}
 N 860 -720 870 -720 {
-lab=#net3}
+lab=#net5}
 N 870 -720 870 -660 {
-lab=#net3}
+lab=#net5}
 N 930 -720 940 -720 {
-lab=#net3}
+lab=#net6}
 N 930 -660 1010 -660 {
-lab=#net3}
+lab=#net6}
 N 1000 -720 1010 -720 {
-lab=#net3}
+lab=#net6}
 N 790 -720 800 -720 {
-lab=vcm}
+lab=#net7}
 N 790 -720 790 -660 {
-lab=vcm}
-N 670 -660 790 -660 {
-lab=vcm}
+lab=#net7}
 N 790 -440 800 -440 {
-lab=vcm}
+lab=#net8}
 N 790 -500 790 -440 {
-lab=vcm}
-N 670 -500 790 -500 {
-lab=vcm}
+lab=#net8}
 N 930 -440 940 -440 {
-lab=#net4}
+lab=#net9}
 N 930 -500 1010 -500 {
-lab=#net4}
+lab=#net9}
 N 870 -500 870 -440 {
-lab=#net4}
+lab=#net10}
 N 860 -440 870 -440 {
-lab=#net4}
+lab=#net10}
 N 830 -720 830 -620 {
 lab=VDD}
 N 970 -620 1070 -620 {
@@ -128,14 +121,10 @@ N 630 -580 670 -580 {
 lab=vcm}
 N 670 -660 670 -580 {
 lab=vcm}
-N 1000 -440 1010 -440 {lab=#net4}
-N 1010 -500 1010 -440 {lab=#net4}
-N 930 -500 930 -440 {lab=#net4}
-N 870 -500 930 -500 {
-lab=#net4}
-N 930 -720 930 -660 {lab=#net3}
-N 870 -660 930 -660 {
-lab=#net3}
+N 1000 -440 1010 -440 {lab=#net9}
+N 1010 -500 1010 -440 {lab=#net9}
+N 930 -500 930 -440 {lab=#net9}
+N 930 -720 930 -660 {lab=#net6}
 N 830 -800 830 -760 {
 lab=sample_n2}
 N 970 -800 970 -760 {
@@ -152,11 +141,11 @@ lab=VDD}
 N 970 -725 970 -620 {lab=VDD}
 N 1320 -255 1320 -245 {lab=vctop}
 N 1010 -720 1010 -660 {
-lab=#net3}
+lab=#net6}
 N 1070 -800 1070 -620 {
 lab=VDD}
 N 1010 -500 1170 -500 {
-lab=#net4}
+lab=#net9}
 N 1070 -540 1070 -360 {
 lab=GND}
 N 930 25 1320 -255 {lab=vctop}
@@ -169,11 +158,15 @@ N 150 -245 150 -240 {lab=#net2}
 N 150 -250 150 -245 {lab=#net2}
 N -15 -245 150 -245 {
 lab=#net2}
-N 1170 -500 1260 -505 {lab=#net4}
-N 1170 -500 1175 -500 {lab=#net4}
-N 1190 -660 1190 -655 {lab=#net3}
-N 1190 -660 1260 -660 {lab=#net3}
-N 1010 -660 1190 -660 {lab=#net3}
+N 1170 -500 1260 -505 {lab=#net9}
+N 1170 -500 1175 -500 {lab=#net9}
+N 1190 -660 1190 -655 {lab=#net6}
+N 1190 -660 1260 -660 {lab=#net6}
+N 1010 -660 1190 -660 {lab=#net6}
+N 730 -500 790 -500 {lab=#net8}
+N 730 -660 790 -660 {lab=#net7}
+N 575 10 580 10 {lab=vcbot}
+N 355 10 575 10 {lab=vcbot}
 C {devices/code_shown.sym} -1270 400 0 0 {name=NGSPICE
 simulator=ngspice
 only_toplevel=false 
@@ -202,6 +195,10 @@ plot \{vctop-vcbot\} sample_s
 plot i(v1) i(v5)
 *plot x3.x14.net1-vctop x3.x18.vcap-vcbot
 plot sample_s sample_n sample_s2+2 sample_n2+2
+
+plot i(v11) i(v13)
+plot i(v11)-i(v13) i(v13)
+plot i(v14) i(v15)
 .endc
 "}
 C {code_shown.sym} -875 195 0 0 {
@@ -240,7 +237,7 @@ footprint=1206
 device="ceramic capacitor"}
 C {lab_pin.sym} 630 -580 0 0 {name=p20 sig_type=std_logic lab=vcm}
 C {lab_pin.sym} 925 25 1 0 {name=p21 sig_type=std_logic lab=vctop}
-C {lab_pin.sym} 295 -45 2 0 {name=p22 sig_type=std_logic lab=vcbot}
+C {lab_pin.sym} 405 10 2 0 {name=p22 sig_type=std_logic lab=vcbot}
 C {vsource.sym} 265 -405 1 0 {name=V1 value=0 savecurrent=false}
 C {vsource.sym} 265 -250 1 0 {name=V5 value=0 savecurrent=false}
 C {sg13g2_pr/sg13_lv_nmos.sym} -195 -165 3 0 {name=M1
@@ -327,3 +324,9 @@ C {vsource.sym} -15 890 0 0 {name=V9 value="PULSE( 1.8 0 \{delay_n\} \{rise_t\} 
 C {lab_pin.sym} -15 860 0 1 {name=p9 sig_type=std_logic lab=sample_n}
 C {gnd.sym} 255 930 0 0 {name=l10 lab=GND}
 C {vsource.sym} 255 900 0 0 {name=V12 value="PULSE( 1.8 0 \{delay_n + delay_2\} \{rise_t\} \{fall_t\} \{period/2\} \{period\} 1)" savecurrent=false}
+C {vsource.sym} 900 -660 1 0 {name=V6 value=0 savecurrent=false}
+C {vsource.sym} 900 -500 1 0 {name=V13 value=0 savecurrent=false}
+C {vsource.sym} 700 -500 1 0 {name=V14 value=0 savecurrent=false}
+C {vsource.sym} 700 -660 1 0 {name=V15 value=0 savecurrent=false}
+C {vsource.sym} 325 10 1 0 {name=V16 value=0 savecurrent=false}
+C {vsource.sym} -125 -210 1 0 {name=V17 value=0 savecurrent=false}
