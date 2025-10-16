@@ -38,8 +38,6 @@ N 860 -1030 860 -1010 {lab=VSS}
 N 860 -1130 860 -1110 {lab=VDD}
 N 1410 -260 1410 -230 {
 lab=VSS}
-N 1410 -340 1410 -320 {
-lab=v_cap}
 N 1380 -410 1410 -410 {lab=VDD}
 N 1380 -440 1380 -410 {lab=VDD}
 N 1380 -440 1410 -440 {lab=VDD}
@@ -49,8 +47,7 @@ N 1380 -290 1410 -290 {lab=VSS}
 N 1380 -290 1380 -260 {lab=VSS}
 N 1380 -260 1410 -260 {lab=VSS}
 N 1280 -620 1280 -340 {lab=v_cap}
-N 1280 -340 1410 -340 {lab=v_cap}
-N 1410 -380 1410 -340 {
+N 1410 -340 1410 -320 {
 lab=v_cap}
 N 1450 -290 1450 -250 {lab=#net1}
 N 1450 -250 1670 -250 {lab=#net1}
@@ -75,6 +72,9 @@ N 2060 -590 2240 -590 {lab=#net8}
 N 2060 -590 2060 -540 {lab=#net8}
 N 1580 -690 1940 -690 {lab=#net6}
 N 1580 -540 1940 -540 {lab=#net5}
+N 1280 -340 1410 -340 {lab=v_cap}
+N 1410 -380 1410 -340 {
+lab=v_cap}
 C {devices/iopin.sym} 880 -620 0 1 {name=p2 lab=v_in}
 C {devices/iopin.sym} 1280 -720 3 0 {name=p1 lab=v_cap}
 C {devices/title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
@@ -96,14 +96,14 @@ model=sg13_lv_nmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} 1430 -410 0 1 {name=M3
-l=0.2u
-w=1.2u
+l=0.13u
+w=1u
 ng=1
 m=n
 model=sg13_lv_pmos
 spiceprefix=X
 }
-C {transmission_gate/transmission_gate_lv_wo_dummy.sym} 1080 -620 0 0 {name=x1 W_P=W_P_TG L_P=L_P_TG  W_N=W_N_TG L_N=L_N_TG n=n}
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1080 -620 0 0 {name=x1 W_P=W_P L_P=L_P_TG  W_N=W_N L_N=L_N_TG n=n}
 C {devices/ipin.sym} 2170 -360 0 0 {name=p19 lab=bit}
 C {sg13g2_stdcells/sg13g2_nand2_1.sym} 2030 -420 0 1 {name=x23 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {sg13g2_stdcells/sg13g2_and2_1.sym} 2030 -300 2 0 {name=x46 VDD=VDD VSS=VSS prefix=sg13g2_ }
@@ -118,7 +118,7 @@ C {devices/lab_pin.sym} 1730 -210 3 0 {name=p26 sig_type=std_logic lab=VSS}
 C {devices/ipin.sym} 1100 -500 3 0 {name=p4 lab=sample_n}
 C {sg13g2_stdcells/sg13g2_inv_1.sym} 2130 -440 0 1 {name=x32 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {devices/iopin.sym} 1860 -620 0 0 {name=p13 lab=v_cm}
-C {transmission_gate/transmission_gate_lv_wo_dummy.sym} 1580 -620 0 1 {name=x3 W_P=W_P_TG L_P=L_P_TG  W_N=W_N_TG L_N=L_N_TG n=n}
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1580 -620 0 1 {name=x3 W_P=W_P L_P=L_P_TG  W_N=W_N L_N=L_N_TG n=n}
 C {devices/lab_pin.sym} 1600 -580 3 0 {name=p14 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 1600 -660 1 0 {name=p18 sig_type=std_logic lab=VDD}
 C {sg13g2_stdcells/sg13g2_nor2_1.sym} 2300 -710 0 1 {name=x6 VDD=VDD VSS=VSS prefix=sg13g2_ }

@@ -185,7 +185,7 @@ value="
 .control
 
 * Transient Analysis
-tran 1p 2n
+tran 1p 20n
 
 *plot \{d0\} \{d1 + 4\} \{d2 + 8\} \{d3 + 12\} \{d4 + 16\} \{d5 + 20\} \{d6 + 24\} \{d7 + 28\} \{d8 + 32\} \{d9 + 36\} \{d10 + 40\} \{d11 + 44\}
 *plot \{b0\} \{b1 + 4\} \{b2 + 8\} \{b3 + 12\} \{b4 + 16\} \{b5 + 20\} \{b6 + 24\} \{b7 + 28\} \{b8 + 32\} \{b9 + 36\} \{b10 + 40\} \{b11 + 44\}
@@ -217,7 +217,7 @@ spice_ignore=false
 C {gnd.sym} 45 -110 0 0 {name=l2 lab=GND}
 C {lab_pin.sym} 160 1015 0 1 {name=p66 sig_type=std_logic lab=sample_s2}
 C {gnd.sym} 0 1065 0 0 {name=l13 lab=GND}
-C {vsource.sym} 0 1035 0 1 {name=V7 value="PULSE( 0 1.8 \{delay_1 + delay_s\} \{rise_t\} \{fall_t\}  \{period/2\} \{period\} 1)" savecurrent=false}
+C {vsource.sym} 0 1035 0 1 {name=V7 value="PULSE( 0 1.8 \{delay_1 + delay_s\} \{rise_t\} \{fall_t\}  \{period/2\} \{period\} )" savecurrent=false}
 C {lab_pin.sym} -195 -105 1 1 {name=p1 sig_type=std_logic lab=sample_s}
 C {lab_pin.sym} -55 -105 1 1 {name=p6 sig_type=std_logic lab=sample_n}
 C {vsource.sym} 245 490 0 0 {name=V2 value=1.7 savecurrent=false}
@@ -263,7 +263,7 @@ C {sg13g2_pr/sg13_lv_nmos.sym} -55 -165 3 0 {name=M3
 l=0.13u
 w=\{wn\}
 ng=1
-m=32
+m=18
 model=sg13_lv_nmos
 spiceprefix=X
 }
@@ -271,7 +271,7 @@ C {sg13g2_pr/sg13_lv_pmos.sym} -55 -485 1 0 {name=M4
 l=0.13u
 w=\{wp\}
 ng=1
-m=32
+m=18
 model=sg13_lv_pmos
 spiceprefix=X
 }
@@ -303,7 +303,7 @@ C {sg13g2_pr/sg13_lv_nmos.sym} 970 -420 3 0 {name=M9
 l=0.13u
 w=\{wn\}
 ng=1
-m=32
+m=18
 model=sg13_lv_nmos
 spiceprefix=X
 }
@@ -311,7 +311,7 @@ C {sg13g2_pr/sg13_lv_pmos.sym} 970 -740 1 0 {name=M10
 l=0.13u
 w=\{wp\}
 ng=1
-m=32
+m=18
 model=sg13_lv_pmos
 spiceprefix=X
 }
@@ -320,7 +320,7 @@ C {gnd.sym} 160 1075 0 0 {name=l8 lab=GND}
 C {vsource.sym} 160 1045 0 0 {name=V8 value="PULSE( 0 1.8 \{delay_2 + delay_s\} \{rise_t\} \{fall_t\}  \{period/2\} \{period\}  1)" savecurrent=false}
 C {lab_pin.sym} 255 870 0 1 {name=p8 sig_type=std_logic lab=sample_n2}
 C {gnd.sym} -15 920 0 0 {name=l4 lab=GND}
-C {vsource.sym} -15 890 0 0 {name=V9 value="PULSE( 1.8 0 \{delay_n\} \{rise_t\} \{fall_t\} \{period/2\} \{period\} 1)" savecurrent=false}
+C {vsource.sym} -15 890 0 0 {name=V9 value="PULSE( 1.8 0 \{delay_n\} \{rise_t\} \{fall_t\} \{period/2\} \{period\} )" savecurrent=false}
 C {lab_pin.sym} -15 860 0 1 {name=p9 sig_type=std_logic lab=sample_n}
 C {gnd.sym} 255 930 0 0 {name=l10 lab=GND}
 C {vsource.sym} 255 900 0 0 {name=V12 value="PULSE( 1.8 0 \{delay_n + delay_2\} \{rise_t\} \{fall_t\} \{period/2\} \{period\} 1)" savecurrent=false}

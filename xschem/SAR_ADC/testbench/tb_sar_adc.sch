@@ -28,7 +28,7 @@ value="
 .tran \{0.01*periodclk\} \{stoptime\} 
 
 .control
-save all
+
 run
 
 plot \{(V(d11)*2+V(d10)*4+V(d9)*8+V(d8)*16+V(d7)*32+V(d6)*64+V(d5)*128+V(d4)*256+V(d3)*512+V(d2)*1024+V(d1)*2048)/4096\} \{2*rst\} eoc \{vinp - vinn\}

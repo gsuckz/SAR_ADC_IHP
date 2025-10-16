@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N -400 10 -360 10 {lab=#net1}
 N 950 10 1000 10 {lab=GND}
@@ -290,7 +291,7 @@ C {devices/gnd.sym} -540 410 0 0 {name=l14 lab=GND}
 C {devices/lab_pin.sym} 410 50 1 0 {name=l5 lab=rst}
 C {sg13g2_pr/sg13_lv_nmos.sym} 160 250 3 1 {name=M2
 l=0.13u
-w=30.0u
+w=4.0u
 ng=5
 m=1
 model=sg13_lv_nmos
@@ -299,7 +300,7 @@ spiceprefix=X
 C {gnd.sym} 290 270 0 0 {name=l15 lab=GND}
 C {sg13g2_pr/sg13_lv_nmos.sym} 290 250 3 1 {name=M1
 l=0.13u
-w=30.0u
+w=4.0u
 ng=5
 m=1
 model=sg13_lv_nmos

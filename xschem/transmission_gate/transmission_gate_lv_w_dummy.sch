@@ -107,17 +107,17 @@ C {devices/iopin.sym} 960 -700 0 1 {name=p2 lab=v_a}
 C {devices/iopin.sym} 1500 -700 0 0 {name=p4 lab=v_b}
 C {sg13g2_pr/sg13_lv_nmos.sym} 1160 -540 3 0 {name=M1
 l=L_N
-w=W_N
+w=\{W_N\}
 ng=1
-m=n
+m=\{3*n\}
 model=sg13_lv_nmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} 1160 -860 1 0 {name=M2
 l=L_P
-w=W_P
+w=\{W_P\}
 ng=1
-m=n
+m=\{3*n\}
 model=sg13_lv_pmos
 spiceprefix=X
 }
@@ -125,7 +125,7 @@ C {sg13g2_pr/sg13_lv_pmos.sym} 1300 -860 1 0 {name=Mdummy2
 l=L_P
 w=W_P
 ng=1
-m=\{n/2\}
+m=n
 model=sg13_lv_pmos
 spiceprefix=X
 }
@@ -133,7 +133,7 @@ C {sg13g2_pr/sg13_lv_nmos.sym} 1300 -540 3 0 {name=Mdummy1
 l=L_N
 w=W_N
 ng=1
-m=\{n/2\}
+m=n
 model=sg13_lv_nmos
 spiceprefix=X
 }

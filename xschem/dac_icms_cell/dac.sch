@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {CDAC full Diferencial 12 Bits } 230 -2380 0 0 1.2 1.2 {}
 T {Agregar NOL en Vin/Vcm
