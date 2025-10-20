@@ -1,7 +1,7 @@
 v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {type=subcircuit
-format="@name @pinlist @symname W_P_SPDT=@W_P_SPDT L_P_SPDT=@L_P_SPDT W_N_SPDT=@W_N_SPDT L_N_SPDT=@L_N_SPDT Cu=@Cu n=@n"
+format="@name @pinlist @symname W_P=@W_P L_P_SPDT=@L_P_SPDT W_N=@W_N L_N_SPDT=@L_N_SPDT Cu=@Cu n=@n"
 template="name=x1 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=1"
 }
 V {}

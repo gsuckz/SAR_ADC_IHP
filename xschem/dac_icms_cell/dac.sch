@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 T {CDAC full Diferencial 12 Bits } 230 -2380 0 0 1.2 1.2 {}
 T {Agregar NOL en Vin/Vcm
@@ -195,7 +194,7 @@ C {lab_pin.sym} 1535 -1845 2 0 {name=p21 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 1375 -1845 0 0 {name=p22 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 1535 -1910 0 1 {name=p23 lab=a_sample}
 C {devices/lab_pin.sym} 1535 -1875 0 1 {name=p24 lab=a_sample_n}
-C {dac_icms_cell/unit_cell_n.sym} 1900 -1820 0 0 {name=x4 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2}
+C {dac_icms_cell/unit_cell_n.sym} 1900 -1820 0 0 {name=x4 W_P=1.0u L_P_SPDT=0.13u W_N=1.0u L_N_SPDT=0.13u Cu=cu n=2}
 C {devices/ipin.sym} 1805 -1890 0 0 {name=p25 lab=D4}
 C {devices/ipin.sym} 1835 -1990 1 0 {name=p26 lab=b4}
 C {lab_pin.sym} 1955 -1845 2 0 {name=p28 sig_type=std_logic lab=VDD}
@@ -276,7 +275,7 @@ C {lab_pin.sym} 1545 -1660 2 0 {name=p114 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 1385 -1660 0 0 {name=p115 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 1505 -1515 2 0 {name=p116 lab=b3}
 C {devices/lab_pin.sym} 1385 -1595 0 0 {name=p117 lab=a_sample_n}
-C {dac_icms_cell/unit_cell.sym} 1950 -1505 0 0 {name=x19 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
+C {dac_icms_cell/unit_cell.sym} 1950 -1505 0 0 {name=x19 W_P=1.0u L_P_SPDT=0.13u W_N=1.0u L_N_SPDT=0.13u Cu=cu
 n=2}
 C {devices/lab_pin.sym} 1950 -1615 2 0 {name=p118 lab=D4}
 C {devices/lab_pin.sym} 1800 -1630 0 0 {name=p122 lab=a_sample}
@@ -440,14 +439,14 @@ C {lab_pin.sym} -530 -1920 0 0 {name=p120 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -535 -1775 0 0 {name=p121 sig_type=std_logic lab=VSS}
 C {sg13g2_pr/cap_cmim.sym} 2615 -1705 3 0 {name=C1
 model=cap_cmim
-w=3.02e-6
-l=3.02e-6
+w=3.38e-6
+l=3e-6
 m=1
 spiceprefix=X}
 C {sg13g2_pr/cap_cmim.sym} 2615 -1800 3 0 {name=C2
 model=cap_cmim
-w=3.02e-6
-l=3.02e-6
+w=3.38e-6
+l=3e-6
 m=1
 spiceprefix=X}
 C {dac_icms_cell/unit_cell.sym} 5605 -1515 0 0 {name=x10 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu

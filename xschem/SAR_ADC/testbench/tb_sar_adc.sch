@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 N -240 -270 -215 -270 {
 lab=vinn}
@@ -21,6 +20,11 @@ value="
 .param periodconv=30n
 .param stoptime=1*periodconv
 .param ro = 300
+
+.param W_P = 1.0u
+.param L_P = 0.13u
+.param W_N = 1.0u
+.param L_N = 0.13u
 
 .options klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
 
