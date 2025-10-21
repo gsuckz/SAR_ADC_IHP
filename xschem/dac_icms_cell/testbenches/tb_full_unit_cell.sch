@@ -140,23 +140,32 @@ N 2190 -205 2190 -175 {lab=GND}
 N 2190 -175 2220 -175 {lab=GND}
 N 2260 -205 2260 -150 {lab=GND}
 N 2220 -260 2220 -235 {
-lab=#net11}
+lab=#net2}
 N 2260 -360 2260 -315 {lab=VDD}
 N 2220 -360 2260 -360 {lab=VDD}
 N 2220 -360 2220 -355 {lab=VDD}
 N 2220 -150 2260 -150 {lab=GND}
 N 2220 -175 2220 -150 {
 lab=GND}
-N 2100 -260 2220 -260 {lab=#net11}
+N 2100 -260 2220 -260 {lab=#net2}
 N 2220 -295 2220 -260 {
-lab=#net11}
-N 2100 -265 2100 -260 {lab=#net11}
-N 1985 -265 2100 -265 {lab=#net11}
+lab=#net2}
+N 2100 -265 2100 -260 {lab=#net2}
+N 2015 -265 2100 -265 {lab=#net2}
 N 1910 -395 1910 -370 {lab=conv_s}
 N 1880 40 1985 40 {lab=#net2}
 N 1930 -125 1985 -125 {lab=#net2}
-N 1985 -125 1985 40 {lab=#net2}
+N 1985 -120 1985 40 {lab=#net2}
 N 2185 60 2185 220 {lab=#net10}
+N 1985 -120 1990 -120 {lab=#net2}
+N 1985 -125 1985 -120 {lab=#net2}
+N 1990 -225 2015 -225 {lab=#net2}
+N 1990 -235 1990 -225 {lab=#net2}
+N 2015 -265 2015 -225 {lab=#net2}
+N 1985 -265 2015 -265 {lab=#net2}
+N 1985 -235 1985 -125 {lab=#net2}
+N 1985 -235 1990 -235 {lab=#net2}
+N 1990 -330 1990 -235 {lab=#net2}
 C {simulator_commands_shown.sym} -150 -60 0 0 {
 name=Libs_Ngspice
 simulator=ngspice
@@ -182,8 +191,8 @@ value="
 .param fall_t = period*0.01
 .param delay_n = 0
 .param delay_s = 0
-.param delay_2 = 0
-.param delay_1 = 0
+.param delay_2 = period*0.2
+.param delay_1 = period*0
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-10
 .tran 1p \{period + 5n\}
 .control
@@ -245,7 +254,7 @@ ng=1
 model=sg13_lv_pmos
 spiceprefix=X
 m=32}
-C {vsource.sym} 1295 490 0 0 {name=V4 value=1 savecurrent=false}
+C {vsource.sym} 1295 490 0 0 {name=V4 value=1.1 savecurrent=false}
 C {lab_pin.sym} 1295 460 0 0 {name=p12 sig_type=std_logic lab=vin}
 C {gnd.sym} 1295 520 0 0 {name=l5 lab=GND}
 C {vsource.sym} 1395 490 0 0 {name=V5 value=0.9 savecurrent=false}
@@ -272,18 +281,18 @@ C {sg13g2_pr/cap_cmim.sym} 2145 60 3 0 {name=C1
 model=cap_cmim
 w=3.0e-6
 l=3.0e-6
-m=64
+m=128
 spiceprefix=X}
 C {lab_pin.sym} 2595 225 0 1 {name=p7 sig_type=std_logic lab=vcm}
 C {sg13g2_pr/cap_cmim.sym} 2110 220 3 0 {name=C3
 model=cap_cmim
 w=3.0e-6
 l=3.0e-6
-m=64
+m=128
 spiceprefix=X}
 C {lab_pin.sym} 2095 -25 0 0 {name=p8 sig_type=std_logic lab=vcap2}
-C {lab_pin.sym} 2495 385 3 0 {name=p2 sig_type=std_logic lab=sample_s}
-C {lab_pin.sym} 2355 385 3 0 {name=p10 sig_type=std_logic lab=sample_n}
+C {lab_pin.sym} 2495 385 3 0 {name=p2 sig_type=std_logic lab=sample_s2}
+C {lab_pin.sym} 2355 385 3 0 {name=p10 sig_type=std_logic lab=sample_n2}
 C {sg13g2_pr/sg13_hv_nmos.sym} 2495 305 1 1 {name=M5
 l=0.13u
 w=\{wn\}
@@ -300,8 +309,8 @@ m=64
 model=sg13_lv_pmos
 spiceprefix=X
 }
-C {lab_pin.sym} 2355 -105 1 0 {name=p15 sig_type=std_logic lab=sample_s}
-C {lab_pin.sym} 2495 -95 1 0 {name=p16 sig_type=std_logic lab=sample_n}
+C {lab_pin.sym} 2355 -105 1 0 {name=p15 sig_type=std_logic lab=sample_s2}
+C {lab_pin.sym} 2495 -95 1 0 {name=p16 sig_type=std_logic lab=sample_n2}
 C {sg13g2_pr/sg13_hv_nmos.sym} 2355 305 1 1 {name=M7
 l=0.13u
 w=\{wn\}
@@ -367,3 +376,9 @@ C {lab_pin.sym} 1890 -155 0 0 {name=p30 sig_type=std_logic lab=conv_s}
 C {lab_pin.sym} 1890 -135 0 0 {name=p31 sig_type=std_logic lab=conv_n}
 C {vsource.sym} 2565 60 3 1 {name=V24 value=0 savecurrent=false}
 C {vsource.sym} 2565 225 3 1 {name=V25 value=0 savecurrent=false}
+C {lab_pin.sym} 2795 -70 0 1 {name=p66 sig_type=std_logic lab=sample_s2}
+C {gnd.sym} 2795 -10 0 0 {name=l9 lab=GND}
+C {vsource.sym} 2795 -40 0 0 {name=V26 value="PULSE( 0 1.8 \{delay_2 + delay_s\} \{rise_t\} \{fall_t\}  \{period/2\} \{period\}  1)" savecurrent=false}
+C {lab_pin.sym} 2890 -215 0 1 {name=p32 sig_type=std_logic lab=sample_n2}
+C {gnd.sym} 2890 -155 0 0 {name=l12 lab=GND}
+C {vsource.sym} 2890 -185 0 0 {name=V27 value="PULSE( 1.8 0 \{delay_n + delay_2\} \{rise_t\} \{fall_t\} \{period/2\} \{period\} 1)" savecurrent=false}

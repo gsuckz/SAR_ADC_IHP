@@ -15,7 +15,7 @@ N 2730 380 2810 380 {lab=d7}
 N 3110 380 3190 380 {lab=d8}
 N 3490 380 3570 380 {lab=d9}
 N 3870 380 3950 380 {lab=d10}
-N 4250 380 4330 380 {lab=d11}
+N 4250 380 4330 380 {lab=eoc}
 N -330 380 -230 380 {lab=start}
 N -330 300 -330 380 {lab=start}
 N -460 380 -330 380 {lab=start}
@@ -118,7 +118,7 @@ C {lab_pin.sym} 4010 320 0 0 {name=p107 sig_type=std_logic lab=VDD}
 C {logic/bit_cell.sym} 4100 410 0 0 {name=x24}
 C {lab_pin.sym} 4090 500 0 0 {name=p108 sig_type=std_logic lab=VSS}
 C {opin.sym} 4160 320 1 1 {name=p109 lab=b11}
-C {opin.sym} 4250 380 1 1 {name=p110 lab=d11}
+C {opin.sym} 1880 700 1 1 {name=p110 lab=d11}
 C {ipin.sym} -310 700 0 0 {name=p3 lab=rst_pin}
 C {lab_pin.sym} -230 700 0 1 {name=p5 sig_type=std_logic lab=rst}
 C {lab_pin.sym} 4330 460 0 0 {name=p6 sig_type=std_logic lab=clk}
@@ -127,7 +127,7 @@ C {lab_pin.sym} 4390 320 0 0 {name=p10 sig_type=std_logic lab=VDD}
 C {logic/bit_cell.sym} 4480 410 0 0 {name=x4}
 C {lab_pin.sym} 4470 500 0 0 {name=p11 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 4330 420 0 0 {name=p9 sig_type=std_logic lab=VDD}
-C {opin.sym} 4630 380 1 1 {name=p24 lab=eoc}
+C {opin.sym} 4280 380 1 1 {name=p24 lab=eoc}
 C {buffer/buffer_lv.sym} 155 720 0 0 {name=x6 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u}
 C {opin.sym} 335 720 1 1 {name=p18 lab=sample}
 C {lab_pin.sym} 155 680 0 0 {name=p19 sig_type=std_logic lab=VDD}
@@ -145,3 +145,4 @@ C {logic/bit_cell.sym} -610 410 0 0 {name=x3}
 C {lab_pin.sym} -620 500 0 0 {name=p15 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -760 380 0 0 {name=p17 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -330 300 0 1 {name=p16 sig_type=std_logic lab=start}
+C {noconn.sym} 1880 700 0 0 {name=l1}

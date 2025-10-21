@@ -5,7 +5,7 @@ V {}
 S {}
 E {}
 N -400 10 -360 10 {lab=#net1}
-N 950 10 1000 10 {lab=GND}
+N 950 10 1030 10 {lab=clk}
 N 130 270 190 270 {lab=GND}
 N 260 270 320 270 {lab=GND}
 N -400 -30 -400 10 {lab=#net1}
@@ -54,7 +54,7 @@ value="
 .param L_P = 0.13u
 .param W_N = 1.0u
 .param L_N = 0.13u
-.options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-10
+.options savecurrents klu method=gear reltol=1e-2 abstol=1e-10 gmin=1e-10
 .control
 
 * Transient Analysis
@@ -218,6 +218,7 @@ plot \{b0\} \{b1 + 4\} \{b2 + 8\} \{b3 + 12\} \{b4 + 16\} \{b5 + 20\} \{b6 + 24\
 plot \{clk\} \{comp_in + 2\} \{sample + 4\}
 plot vdacp vdacn
 plot \{vdacp-vdacn\}
+plot x3.vdacp2 x3.vdacn2
 
 .endc
 "}
@@ -232,7 +233,7 @@ name=TT_MODELS
 only_toplevel=true
 value="
 ** IHP models
-.lib cornerMOSlv.lib mos_tt
+.lib cornerMOSlv.lib mos_ss
 .lib cornerMOShv.lib mos_tt
 .lib cornerHBT.lib hbt_typ
 .lib cornerRES.lib res_typ
@@ -274,7 +275,7 @@ C {lab_pin.sym} 900 -60 1 0 {name=p61 lab=d1}
 C {lab_pin.sym} 920 -60 1 0 {name=p62 lab=d0}
 C {lab_pin.sym} 950 80 0 1 {name=p64 lab=eoc}
 C {gnd.sym} 700 200 0 0 {name=l7 lab=GND}
-C {vsource.sym} -560 0 2 0 {name=V3 value=0.9 savecurrent=false}
+C {vsource.sym} -560 0 2 0 {name=V3 value=0.5 savecurrent=false}
 C {gnd.sym} -510 90 0 0 {name=l3 lab=GND}
 C {lab_pin.sym} 180 70 0 1 {name=p4 lab=vdacn}
 C {vsource.sym} -545 490 0 0 {name=V4 value="PULSE( 0 1.8 0 10p 10p \{period/2\} \{period\})" savecurrent=false}
@@ -282,7 +283,6 @@ C {gnd.sym} -545 520 0 0 {name=l4 lab=GND}
 C {lab_pin.sym} 160 230 0 0 {name=p63 lab=vdacp}
 C {lab_pin.sym} 290 230 0 1 {name=p65 lab=vdacn}
 C {gnd.sym} 160 270 0 0 {name=l11 lab=GND}
-C {gnd.sym} 1000 10 0 0 {name=l10 lab=GND}
 C {lab_pin.sym} 680 -60 1 0 {name=p3 lab=sample}
 C {devices/vsource.sym} -540 380 0 1 {name=V5 value="PULSE(0 1.8 0 10p 10p 3n 5n 1)"}
 C {devices/lab_pin.sym} -540 350 1 0 {name=l9 lab=rst}
@@ -306,4 +306,8 @@ model=sg13_lv_nmos
 spiceprefix=X
 }
 C {vsource.sym} -510 60 0 0 {name=V8 value=0.9 savecurrent=false}
-C {vsource.sym} -430 40 2 0 {name=V9 value=0.9 savecurrent=false}
+C {vsource.sym} -430 40 2 0 {name=V9 value=0.5 savecurrent=false}
+C {lab_pin.sym} 1030 10 0 1 {name=p8 sig_type=std_logic lab=clk
+}
+C {vsource.sym} 1030 40 0 0 {name=V6 value="PULSE( 0 1.8 17n 10p 10p 20n 40n 1)" savecurrent=false}
+C {gnd.sym} 1030 70 0 0 {name=l8 lab=GND}

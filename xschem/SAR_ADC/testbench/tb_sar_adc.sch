@@ -48,7 +48,7 @@ plot compp-compn x1.comp_clk compout
 *quit
 .endc
 "}
-C {devices/vsource.sym} -520 -370 0 1 {name=VI value=250m}
+C {devices/vsource.sym} -520 -370 2 1 {name=VI value="pulse(0 0.9 0 100p 100p 4n 5n 1)"}
 C {devices/lab_pin.sym} 220 -350 0 1 {name=p3 lab=d0}
 C {devices/vsource.sym} -330 -160 0 1 {name=V1 value=1.8}
 C {devices/lab_pin.sym} -330 -190 1 0 {name=l1 lab=vdd}
@@ -88,7 +88,7 @@ value="
 "
 spice_ignore=false
       }
-C {devices/vsource.sym} -395 -370 2 1 {name=VIN3 value=250m}
+C {devices/vsource.sym} -395 -370 0 1 {name=VIN3 value="pulse(0 0.9 0 100p 100p 4n 5n 1)"}
 C {devices/lab_pin.sym} -240 -270 2 1 {name=l8 lab=vinn}
 C {devices/lab_pin.sym} -240 -330 0 0 {name=l9 lab=vinp}
 C {devices/gnd.sym} -120 -410 0 0 {name=l10 lab=GND}
