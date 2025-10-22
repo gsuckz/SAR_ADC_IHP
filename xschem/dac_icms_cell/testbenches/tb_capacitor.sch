@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 N 575 10 580 20 {lab=vcbot}
 N 805 20 805 25 {lab=vctop}
@@ -175,12 +174,12 @@ value="
 .param period = 2n
 .param wp = 1.5u
 .param wn = 0.5u
-.param rise_t = period*0.1
-.param fall_t = period*0.1
+.param rise_t = period*0.01
+.param fall_t = period*0.01
 .param delay_n = 0
-.param delay_s = 10p
+.param delay_s = 0
 .param delay_2 = period*0.2
-.param delay_1 = 0
+.param delay_1 = period*0
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-10
 .control
 
@@ -217,7 +216,7 @@ spice_ignore=false
 C {gnd.sym} 45 -110 0 0 {name=l2 lab=GND}
 C {lab_pin.sym} 160 1015 0 1 {name=p66 sig_type=std_logic lab=sample_s2}
 C {gnd.sym} 0 1065 0 0 {name=l13 lab=GND}
-C {vsource.sym} 0 1035 0 1 {name=V7 value="PULSE( 0 1.8 \{delay_1 + delay_s\} \{rise_t\} \{fall_t\}  \{period/2\} \{period\} )" savecurrent=false}
+C {vsource.sym} 0 1035 0 1 {name=V7 value="PULSE( 0 1.8 \{delay_1 + delay_s\} \{rise_t\} \{fall_t\}  \{period/2\} \{period\} 1)" savecurrent=false}
 C {lab_pin.sym} -195 -105 1 1 {name=p1 sig_type=std_logic lab=sample_s}
 C {lab_pin.sym} -55 -105 1 1 {name=p6 sig_type=std_logic lab=sample_n}
 C {vsource.sym} 245 490 0 0 {name=V2 value=1.7 savecurrent=false}
@@ -320,7 +319,7 @@ C {gnd.sym} 160 1075 0 0 {name=l8 lab=GND}
 C {vsource.sym} 160 1045 0 0 {name=V8 value="PULSE( 0 1.8 \{delay_2 + delay_s\} \{rise_t\} \{fall_t\}  \{period/2\} \{period\}  1)" savecurrent=false}
 C {lab_pin.sym} 255 870 0 1 {name=p8 sig_type=std_logic lab=sample_n2}
 C {gnd.sym} -15 920 0 0 {name=l4 lab=GND}
-C {vsource.sym} -15 890 0 0 {name=V9 value="PULSE( 1.8 0 \{delay_n\} \{rise_t\} \{fall_t\} \{period/2\} \{period\} )" savecurrent=false}
+C {vsource.sym} -15 890 0 0 {name=V9 value="PULSE( 1.8 0 \{delay_n\} \{rise_t\} \{fall_t\} \{period/2\} \{period\} 1)" savecurrent=false}
 C {lab_pin.sym} -15 860 0 1 {name=p9 sig_type=std_logic lab=sample_n}
 C {gnd.sym} 255 930 0 0 {name=l10 lab=GND}
 C {vsource.sym} 255 900 0 0 {name=V12 value="PULSE( 1.8 0 \{delay_n + delay_2\} \{rise_t\} \{fall_t\} \{period/2\} \{period\} 1)" savecurrent=false}
