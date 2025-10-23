@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 T {Parameterizable LV Transmission Gate without Dummies} 540 -1690 0 0 1 1 {}
 T {-) In most cases, equal W/L ratios for both p- and n-MOSFETs are used.
@@ -27,9 +26,9 @@ lab=di_tg_ctrl}
 N 1200 -940 1200 -900 {
 lab=di_tg_ctrl_n}
 N 1230 -860 1240 -860 {
-lab=#net1}
+lab=v_b}
 N 1240 -860 1240 -800 {
-lab=#net1}
+lab=v_b}
 N 1160 -860 1170 -860 {
 lab=v_a}
 N 1160 -860 1160 -800 {
@@ -43,9 +42,9 @@ lab=v_a}
 N 1040 -640 1160 -640 {
 lab=v_a}
 N 1240 -640 1240 -580 {
-lab=#net2}
+lab=v_b}
 N 1230 -580 1240 -580 {
-lab=#net2}
+lab=v_b}
 N 1200 -860 1200 -760 {
 lab=VDD}
 N 1200 -760 1340 -760 {
@@ -69,10 +68,8 @@ lab=v_b}
 N 1460 -800 1460 -720 {
 lab=v_b}
 N 1340 -940 1340 -760 {lab=VDD}
-N 1240 -800 1310 -800 {lab=#net1}
-N 1370 -800 1460 -800 {lab=v_b}
-N 1240 -640 1310 -640 {lab=#net2}
-N 1370 -640 1460 -640 {lab=v_b}
+N 1240 -800 1460 -800 {lab=v_b}
+N 1240 -640 1460 -640 {lab=v_b}
 C {devices/title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
 C {devices/iopin.sym} 1000 -720 0 1 {name=p2 lab=v_a}
 C {devices/iopin.sym} 1500 -720 0 0 {name=p4 lab=v_b}
@@ -96,13 +93,3 @@ C {devices/iopin.sym} 1340 -940 3 0 {name=p3 lab=VDD}
 C {devices/iopin.sym} 1340 -500 1 0 {name=p7 lab=VSS}
 C {devices/ipin.sym} 1200 -500 3 0 {name=p8 lab=di_tg_ctrl}
 C {devices/ipin.sym} 1200 -940 1 0 {name=p9 lab=di_tg_ctrl_n}
-C {res.sym} 1340 -800 1 0 {name=R1
-value=0.001
-footprint=1206
-device=resistor
-m=1}
-C {res.sym} 1340 -640 1 0 {name=R2
-value=0.001
-footprint=1206
-device=resistor
-m=1}

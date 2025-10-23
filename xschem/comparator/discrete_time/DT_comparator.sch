@@ -1,9 +1,8 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.7 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 T {Discrete-time comparator with NOR-based SR-Latch} 600 -1700 0 0 1 1 {}
 T {The differential output of the DT comparator is buffered and latched into a NOR-based SR-latch [Schmickl] [Razavi]. 
@@ -46,23 +45,20 @@ N 800 -1080 800 -1060 {lab=VDD}
 N 1320 -1120 1320 -1100 {lab=VDD}
 N 1340 -480 1370 -480 {lab=PULSEN}
 N 1370 -480 1370 -380 {lab=PULSEN}
-N 1480 -460 1480 -440 {lab=#net2}
-N 1450 -440 1480 -440 {lab=#net2}
-N 1450 -460 1450 -440 {lab=#net2}
-N 1340 -460 1450 -460 {lab=#net2}
-N 1740 -960 1860 -960 {lab=#net3}
+N 1340 -460 1450 -460 {lab=vcm}
+N 1740 -960 1860 -960 {lab=#net2}
 N 1920 -1020 1920 -1000 {lab=VDD}
 N 1920 -920 1920 -900 {lab=VSS}
 N 490 -600 490 -380 {lab=PULSEN}
 N 490 -380 1370 -380 {lab=PULSEN}
 N 630 -600 660 -600 {lab=PULSE}
-N 860 -600 900 -600 {lab=#net4}
-N 860 -820 860 -600 {lab=#net4}
+N 860 -600 900 -600 {lab=#net3}
+N 860 -820 860 -600 {lab=#net3}
 N 630 -735 630 -600 {lab=PULSE}
 N 630 -735 900 -735 {lab=PULSE}
 N 630 -750 630 -735 {lab=PULSE}
 N 900 -820 900 -735 {lab=PULSE}
-N 800 -600 860 -600 {lab=#net4}
+N 800 -600 860 -600 {lab=#net3}
 C {title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
 C {devices/iopin.sym} 800 -1080 3 0 {name=p11 lab=VDD}
 C {devices/opin.sym} 1980 -960 2 1 {name=p2 lab=vout}
@@ -90,11 +86,9 @@ C {lab_wire.sym} 1500 -800 1 1 {name=p19 sig_type=std_logic lab=voutn_buf}
 C {comparator/pulse_gen/pgen.sym} 1190 -520 0 0 {name=x6}
 C {lab_wire.sym} 1340 -520 2 0 {name=p22 sig_type=std_logic lab=VSS}
 C {lab_wire.sym} 1340 -560 2 0 {name=p23 sig_type=std_logic lab=VDD}
-C {lab_wire.sym} 1480 -520 3 1 {name=p25 sig_type=std_logic lab=VDD}
 C {devices/iopin.sym} 630 -600 3 1 {name=p26 lab=PULSE}
 C {lab_wire.sym} 370 -720 2 1 {name=p6 sig_type=std_logic lab=voutp_buf}
 C {lab_wire.sym} 370 -680 2 1 {name=p27 sig_type=std_logic lab=voutn_buf}
-C {vsource.sym} 1480 -490 0 0 {name=V1 value=0.9 savecurrent=false}
 C {lab_wire.sym} 490 -465 2 1 {name=p29 sig_type=std_logic lab=PULSEN}
 C {comparator/discrete_time/Dynamic-biasing/dynamic_biasing_comparator.sym} 820 -940 0 0 {name=x1}
 C {buffer/buffer_lv.sym} 1920 -960 0 0 {name=x7 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=3.0u L_N_INV=0.13u}
@@ -105,3 +99,4 @@ C {lab_wire.sym} 1340 -540 2 0 {name=p28 sig_type=std_logic lab=voutp_buf}
 C {inverter/inverter_lv.sym} 550 -600 0 0 {name=x8 W_P=3.0u L_P=0.13u W_N=3.0u L_N=0.13u}
 C {lab_wire.sym} 550 -640 3 1 {name=p30 sig_type=std_logic lab=VDD}
 C {lab_wire.sym} 550 -560 3 0 {name=p31 sig_type=std_logic lab=VSS}
+C {devices/iopin.sym} 1450 -460 3 0 {name=p25 lab=vcm}
