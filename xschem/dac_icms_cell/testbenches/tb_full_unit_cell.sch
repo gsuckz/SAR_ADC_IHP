@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.2}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N 1585 5 1595 5 {
 lab=#net1}
@@ -130,22 +131,16 @@ N 1735 40 1880 40 {lab=#net2}
 N 1735 225 1880 225 {
 lab=#net2}
 N 2175 60 2185 60 {lab=#net10}
-N 2220 -150 2220 -145 {
-lab=GND}
 N 2190 -325 2220 -325 {lab=VDD}
 N 2190 -355 2190 -325 {lab=VDD}
 N 2190 -355 2220 -355 {lab=VDD}
 N 2190 -205 2220 -205 {lab=GND}
 N 2190 -205 2190 -175 {lab=GND}
 N 2190 -175 2220 -175 {lab=GND}
-N 2260 -205 2260 -150 {lab=GND}
 N 2220 -260 2220 -235 {
 lab=#net2}
-N 2260 -360 2260 -315 {lab=VDD}
-N 2220 -360 2260 -360 {lab=VDD}
 N 2220 -360 2220 -355 {lab=VDD}
-N 2220 -150 2260 -150 {lab=GND}
-N 2220 -175 2220 -150 {
+N 2220 -175 2220 -145 {
 lab=GND}
 N 2100 -260 2220 -260 {lab=#net2}
 N 2220 -295 2220 -260 {
@@ -382,3 +377,11 @@ C {vsource.sym} 2795 -40 0 0 {name=V26 value="PULSE( 0 1.8 \{delay_2 + delay_s\}
 C {lab_pin.sym} 2890 -215 0 1 {name=p32 sig_type=std_logic lab=sample_n2}
 C {gnd.sym} 2890 -155 0 0 {name=l12 lab=GND}
 C {vsource.sym} 2890 -185 0 0 {name=V27 value="PULSE( 1.8 0 \{delay_n + delay_2\} \{rise_t\} \{fall_t\} \{period/2\} \{period\} 1)" savecurrent=false}
+C {lab_pin.sym} 2585 -350 0 1 {name=p33 sig_type=std_logic lab=pmos}
+C {gnd.sym} 2585 -290 0 0 {name=l14 lab=GND}
+C {vsource.sym} 2585 -320 0 0 {name=V28 value="PULSE( 1.8 0 \{delay_bits\} \{rise_t\} \{fall_t\}  \{period/4\} \{period/2\}  )" savecurrent=false}
+C {lab_pin.sym} 2680 -495 0 1 {name=p34 sig_type=std_logic lab=nmos}
+C {gnd.sym} 2680 -435 0 0 {name=l15 lab=GND}
+C {vsource.sym} 2680 -465 0 0 {name=V29 value="PULSE( 0 1.8 \{delay_bit\} \{rise_t\} \{fall_t\} \{period/4\} \{period/2\} )" savecurrent=false}
+C {lab_pin.sym} 2260 -325 0 1 {name=p35 sig_type=std_logic lab=pmos}
+C {lab_pin.sym} 2260 -205 0 1 {name=p36 sig_type=std_logic lab=nmos}
