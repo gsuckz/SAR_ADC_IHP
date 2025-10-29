@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Cell for thermometer code including unit capacitor and SPDT switch with high-Z} 220 -1720 0 0 1 1 {}
 T {v0, if di_clk = 0
@@ -39,3 +40,4 @@ w=3e-6
 l=3e-6
 m=n
 spiceprefix=X}
+C {devices/ipin.sym} 1350 -910 0 0 {name=p40 lab=inv_vcm}

@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N 90 -60 90 120 {lab=compout}
 N -190 120 90 120 {lab=compout}
@@ -25,6 +26,7 @@ N -190 -40 -150 -40 {lab=compn}
 N -190 -40 -190 -30 {lab=compn}
 N -460 -10 -460 50 {lab=sample}
 N 30 20 30 70 {lab=comp_en}
+N -730 -15 -730 125 {lab=inv_vcm}
 C {comparator/discrete_time/DT_comparator.sym} -30 -60 0 0 {name=x1}
 C {dac_icms_cell/dac.sym} -870 -610 0 0 {name=x2 cu=10}
 C {logic/logic.sym} -870 710 2 1 {name=x3 }
@@ -74,3 +76,4 @@ C {lab_pin.sym} 30 40 2 1 {name=p43 lab=comp_en}
 C {iopin.sym} -460 -340 0 1 {name=p4 lab=vcm}
 C {lab_pin.sym} -730 210 0 0 {name=p42 lab=comp_clk}
 C {lab_pin.sym} 20 -140 3 1 {name=p44 lab=vcm}
+C {lab_pin.sym} -730 45 2 1 {name=p45 lab=inv_vcm}

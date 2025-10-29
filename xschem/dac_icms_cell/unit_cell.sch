@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Cell for thermometer code including unit capacitor and SPDT switch with high-Z} 220 -1720 0 0 1 1 {}
 T {v0, if di_clk = 0
@@ -14,6 +15,7 @@ T {Asample alrteves} 1235 -720 0 0 0.2 0.2 {}
 N 1480 -745 1550 -745 {lab=v_top}
 N 1480 -745 1480 -680 {lab=v_top}
 N 1480 -800 1480 -745 {lab=v_top}
+N 1560 -935 1600 -935 {lab=b_sample}
 C {devices/title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
 C {devices/iopin.sym} 1400 -890 2 0 {name=p5 lab=VSS}
 C {devices/iopin.sym} 1520 -1000 3 0 {name=p2 lab=v_in}
@@ -30,7 +32,7 @@ C {transmission_gate/transmission_gate_lv_wo_dummy.sym} 1630 -745 0 1 {name=x2 W
 C {devices/lab_pin.sym} 1650 -785 0 1 {name=p8 lab=VDD}
 C {devices/lab_pin.sym} 1650 -705 0 1 {name=p9 lab=VSS}
 C {devices/lab_pin.sym} 1710 -745 2 0 {name=p11 lab=v_cm}
-C {devices/ipin.sym} 1560 -935 0 1 {name=p13 lab=b_sample}
+C {devices/ipin.sym} 1600 -935 0 1 {name=p13 lab=b_sample}
 C {devices/ipin.sym} 1560 -920 0 1 {name=p15 lab=b_sample_n}
 C {sg13g2_pr/cap_cmim.sym} 1480 -830 0 0 {name=C1
 model=cap_cmim
@@ -38,3 +40,4 @@ w=3e-6
 l=3e-6
 m=n
 spiceprefix=X}
+C {devices/ipin.sym} 1350 -900 0 0 {name=p40 lab=inv_vcm}

@@ -1,19 +1,21 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
-N -400 10 -360 10 {lab=#net1}
 N 950 10 1030 10 {lab=compout}
 N 130 270 190 270 {lab=GND}
 N 260 270 320 270 {lab=GND}
-N -400 -30 -400 10 {lab=#net1}
-N -430 70 -360 70 {lab=#net2}
-N -560 -30 -400 -30 {lab=#net1}
-N -510 10 -430 10 {lab=#net3}
-N -510 10 -510 30 {lab=#net3}
-N -560 30 -510 30 {lab=#net3}
+N -430 130 -360 130 {lab=#net1}
+N -560 30 -400 30 {lab=#net2}
+N -510 70 -430 70 {lab=#net3}
+N -510 70 -510 90 {lab=#net3}
+N -560 90 -510 90 {lab=#net3}
+N -400 10 -360 10 {lab=#net2}
+N -400 10 -400 30 {lab=#net2}
+N -360 70 -360 130 {lab=#net1}
 C {dac_icms_cell/dac.sym} -500 590 2 1 {name=x3 cu=10f}
 C {lab_pin.sym} -330 -70 1 0 {name=p2 lab=b11}
 C {lab_pin.sym} -110 190 0 0 {name=p7 lab=VDD}
@@ -222,9 +224,6 @@ plot x3.vdacp2 x3.vdacn2 compout
 
 .endc
 "}
-C {vsource.sym} -540 250 0 0 {name=V1 value=1.8 savecurrent=false}
-C {lab_pin.sym} -540 220 0 0 {name=p5 sig_type=std_logic lab=vdd}
-C {gnd.sym} -540 280 0 0 {name=l1 lab=GND}
 C {lab_pin.sym} -545 460 0 1 {name=p6 sig_type=std_logic lab=clk
 }
 C {gnd.sym} -70 190 0 0 {name=l2 lab=GND}
@@ -275,8 +274,7 @@ C {lab_pin.sym} 900 -60 1 0 {name=p61 lab=d1}
 C {lab_pin.sym} 920 -60 1 0 {name=p62 lab=d0}
 C {lab_pin.sym} 950 80 0 1 {name=p64 lab=eoc}
 C {gnd.sym} 700 200 0 0 {name=l7 lab=GND}
-C {vsource.sym} -560 0 2 0 {name=V3 value=0.5 savecurrent=false}
-C {gnd.sym} -510 90 0 0 {name=l3 lab=GND}
+C {gnd.sym} -510 150 0 0 {name=l3 lab=GND}
 C {lab_pin.sym} 180 70 0 1 {name=p4 lab=vdacn}
 C {vsource.sym} -545 490 0 0 {name=V4 value="PULSE( 0 1.8 0 10p 10p \{period/2\} \{period\})" savecurrent=false}
 C {gnd.sym} -545 520 0 0 {name=l4 lab=GND}
@@ -284,7 +282,7 @@ C {lab_pin.sym} 160 230 0 0 {name=p63 lab=vdacp}
 C {lab_pin.sym} 290 230 0 1 {name=p65 lab=vdacn}
 C {gnd.sym} 160 270 0 0 {name=l11 lab=GND}
 C {lab_pin.sym} 680 -60 1 0 {name=p3 lab=sample}
-C {devices/vsource.sym} -540 380 0 1 {name=V5 value="PULSE(0 1.8 0 10p 10p 3n 5n 1)"}
+C {devices/vsource.sym} -540 380 0 1 {name=V5 value="PULSE(0 1.8 0.1n 10p 10p 3n 5n 1)"}
 C {devices/lab_pin.sym} -540 350 1 0 {name=l9 lab=rst}
 C {devices/gnd.sym} -540 410 0 0 {name=l14 lab=GND}
 C {devices/lab_pin.sym} 410 50 1 0 {name=l5 lab=rst}
@@ -305,9 +303,15 @@ m=1
 model=sg13_lv_nmos
 spiceprefix=X
 }
-C {vsource.sym} -510 60 0 0 {name=V8 value=0.9 savecurrent=false}
-C {vsource.sym} -430 40 2 0 {name=V9 value=0.5 savecurrent=false}
 C {lab_pin.sym} 1030 10 0 1 {name=p8 sig_type=std_logic lab=compout
 }
 C {vsource.sym} 1030 40 0 0 {name=V6 value="PULSE( 0 1.8 17n 10p 10p 20n 40n 1)" savecurrent=false}
 C {gnd.sym} 1030 70 0 0 {name=l8 lab=GND}
+C {lab_pin.sym} -360 -5 0 0 {name=p9 lab=inv_vcm}
+C {lab_pin.sym} 410 15 0 0 {name=p27 lab=inv_vcm}
+C {devices/lab_pin.sym} -635 215 1 0 {name=l1 lab=vdd}
+C {devices/gnd.sym} -635 275 0 0 {name=l10 lab=GND}
+C {devices/vsource.sym} -635 245 0 0 {name=V1 value="PULSE(0 1.8 0.1n 100p 100p 1 2 )"}
+C {devices/vsource.sym} -510 120 0 0 {name=V7 value="PULSE(0 0.9 0.1n 100p 100p 1 2 )"}
+C {devices/vsource.sym} -560 60 0 0 {name=V3 value="PULSE(0 0.5 0.1n 100p 100p 1 2 )"}
+C {devices/vsource.sym} -430 100 0 0 {name=V8 value="PULSE(0 0.5 0.1n 100p 100p 1 2 )"}

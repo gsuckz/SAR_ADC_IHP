@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {CDAC full Diferencial 12 Bits } 230 -2380 0 0 1.2 1.2 {}
 T {Vinp y Vinn están cruzadas porque se invierte la señal despues de samplear} 1970 -2560 0 0 1.2 1.2 {}
@@ -454,3 +455,28 @@ spiceprefix=X}
 C {devices/ipin.sym} 2255 -1890 0 0 {name=p99 lab=D6}
 C {noconn.sym} 90 -2350 0 0 {name=l1}
 C {noconn.sym} 70 -2320 0 0 {name=l2}
+C {devices/ipin.sym} 80 -2280 0 0 {name=p39 lab=inv_vcm}
+C {lab_pin.sym} 100 -1915 0 0 {name=p100 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 525 -1915 0 0 {name=p101 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 960 -1915 0 0 {name=p102 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 1385 -1915 0 0 {name=p172 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 1805 -1915 0 0 {name=p173 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 2255 -1915 0 0 {name=p175 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 2825 -1915 0 0 {name=p176 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 3580 -1915 0 0 {name=p177 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 4005 -1915 0 0 {name=p190 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 4425 -1915 0 0 {name=p191 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 5530 -1920 0 0 {name=p192 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 5605 -1590 0 1 {name=p193 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 4680 -1580 0 1 {name=p252 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 4265 -1580 0 1 {name=p253 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 3825 -1580 0 1 {name=p254 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 3395 -1580 0 1 {name=p255 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 2970 -1580 0 1 {name=p256 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 2390 -1580 0 1 {name=p257 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 1950 -1580 0 1 {name=p258 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 1535 -1580 0 1 {name=p259 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 1095 -1580 0 1 {name=p260 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 665 -1580 0 1 {name=p261 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 240 -1580 0 1 {name=p262 sig_type=std_logic lab=inv_vcm}
+C {lab_pin.sym} 3145 -1915 0 0 {name=p263 sig_type=std_logic lab=inv_vcm}

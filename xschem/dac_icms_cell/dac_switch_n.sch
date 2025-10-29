@@ -1,95 +1,86 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Switch para celda unitaria DAC} 900 -1500 0 0 1 1 {}
 T {di_spdt_ctrl = 1, di_spdt_ctrl_n = 0: v_c connected to v_a, v_b = HIGH-Z
 di_spdt_ctrl = 0, di_spdt_ctrl_n = 1: v_c connected to v_b, v_a = HIGH-Z} 900 -1360 0 0 0.4 0.4 {}
-N 1280 -720 1280 -620 {
+N 985 -865 985 -765 {
 lab=v_cap}
-N 880 -620 1000 -620 {
+N 585 -765 705 -765 {
 lab=v_in}
-N 1160 -620 1280 -620 {
+N 865 -765 985 -765 {
 lab=v_cap}
-N 1280 -620 1500 -620 {
+N 985 -765 1205 -765 {
 lab=v_cap}
-N 1060 -740 1060 -660 {
+N 765 -885 765 -805 {
 lab=VDD}
-N 1060 -580 1060 -500 {
+N 765 -725 765 -645 {
 lab=VSS}
-N 1080 -700 1080 -660 {
+N 785 -845 785 -805 {
 lab=sample}
-N 1080 -700 1100 -700 {
+N 785 -845 805 -845 {
 lab=sample}
-N 1100 -740 1100 -700 {
+N 805 -885 805 -845 {
 lab=sample}
-N 1080 -580 1080 -540 {
+N 785 -725 785 -685 {
 lab=sample_n}
-N 1080 -540 1100 -540 {
+N 785 -685 805 -685 {
 lab=sample_n}
-N 1100 -540 1100 -500 {
+N 805 -685 805 -645 {
 lab=sample_n}
-N 720 -1070 800 -1070 {lab=d}
-N 940 -1070 1020 -1070 {lab=d_n}
-N 860 -1030 860 -1010 {lab=VSS}
-N 860 -1130 860 -1110 {lab=VDD}
-N 1410 -260 1410 -230 {
+N 1115 -405 1115 -375 {
 lab=VSS}
-N 1580 -580 1580 -540 {
+N 1285 -725 1285 -685 {
 lab=#net1}
-N 1660 -620 1860 -620 {lab=v_cm}
-N 1380 -410 1410 -410 {lab=VDD}
-N 1380 -440 1380 -410 {lab=VDD}
-N 1380 -440 1410 -440 {lab=VDD}
-N 1580 -690 1580 -660 {lab=#net2}
-N 2090 -400 2090 -320 {lab=d}
-N 2090 -440 2250 -440 {lab=bit}
-N 1380 -290 1410 -290 {lab=VSS}
-N 1380 -290 1380 -260 {lab=VSS}
-N 1380 -260 1410 -260 {lab=VSS}
-N 1280 -620 1280 -340 {lab=v_cap}
-N 1410 -340 1410 -320 {
+N 1365 -765 1565 -765 {lab=v_cm}
+N 1085 -555 1115 -555 {lab=VDD}
+N 1085 -585 1085 -555 {lab=VDD}
+N 1085 -585 1115 -585 {lab=VDD}
+N 1285 -835 1285 -805 {lab=#net2}
+N 1795 -545 1795 -465 {lab=d}
+N 1795 -585 1955 -585 {lab=bit}
+N 1085 -435 1115 -435 {lab=VSS}
+N 1085 -435 1085 -405 {lab=VSS}
+N 1085 -405 1115 -405 {lab=VSS}
+N 985 -765 985 -485 {lab=v_cap}
+N 1115 -485 1115 -465 {
 lab=v_cap}
-N 1450 -290 1450 -250 {lab=#net3}
-N 1450 -250 1670 -250 {lab=#net3}
-N 1450 -400 1670 -400 {lab=#net4}
-N 1450 -410 1450 -400 {lab=#net4}
-N 1790 -400 1970 -400 {lab=#net5}
-N 1970 -420 1970 -400 {lab=#net5}
-N 1790 -300 1970 -300 {lab=#net6}
-N 1790 -300 1790 -250 {lab=#net6}
-N 2360 -690 2360 -610 {lab=sample}
-N 2360 -730 2440 -730 {lab=d}
-N 2440 -730 2440 -570 {lab=d}
-N 2360 -570 2440 -570 {lab=d}
-N 2060 -690 2240 -690 {lab=#net7}
-N 2240 -710 2240 -690 {lab=#net7}
-N 2060 -590 2240 -590 {lab=#net8}
-N 2060 -590 2060 -540 {lab=#net8}
-N 1580 -690 1940 -690 {lab=#net2}
-N 1580 -540 1940 -540 {lab=#net1}
-N 2250 -440 2250 -280 {lab=bit}
-N 2090 -280 2150 -280 {lab=#net9}
-N 2230 -280 2250 -280 {lab=bit}
-N 1280 -340 1410 -340 {lab=v_cap}
-N 1410 -380 1410 -340 {
+N 1155 -435 1155 -395 {lab=#net3}
+N 1155 -395 1375 -395 {lab=#net3}
+N 1155 -545 1375 -545 {lab=#net4}
+N 1155 -555 1155 -545 {lab=#net4}
+N 1495 -545 1675 -545 {lab=#net5}
+N 1675 -565 1675 -545 {lab=#net5}
+N 1495 -445 1675 -445 {lab=#net6}
+N 1495 -445 1495 -395 {lab=#net6}
+N 1765 -835 2025 -835 {lab=#net7}
+N 1765 -735 1945 -735 {lab=#net8}
+N 1765 -735 1765 -685 {lab=#net8}
+N 1285 -835 1645 -835 {lab=#net2}
+N 1285 -685 1645 -685 {lab=#net1}
+N 1955 -585 1955 -425 {lab=bit}
+N 1795 -425 1855 -425 {lab=#net9}
+N 1935 -425 1955 -425 {lab=bit}
+N 985 -485 1115 -485 {lab=v_cap}
+N 1115 -525 1115 -485 {
 lab=v_cap}
-C {devices/iopin.sym} 880 -620 0 1 {name=p2 lab=v_in}
-C {devices/iopin.sym} 1280 -720 3 0 {name=p1 lab=v_cap}
+N 2025 -785 2025 -735 {lab=#net7}
+N 2025 -785 2055 -785 {lab=#net7}
+N 2025 -835 2025 -785 {lab=#net7}
+C {devices/iopin.sym} 585 -765 0 1 {name=p2 lab=v_in}
+C {devices/iopin.sym} 985 -865 3 0 {name=p1 lab=v_cap}
 C {devices/title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
-C {devices/iopin.sym} 860 -1130 3 0 {name=p10 lab=VDD}
-C {devices/iopin.sym} 860 -1010 1 0 {name=p11 lab=VSS}
-C {lab_pin.sym} 1020 -1070 2 0 {name=p27 sig_type=std_logic lab=d_n}
-C {inverter/inverter_lv.sym} 860 -1070 0 0 {name=x8 W_P=W_P L_P=L_P_TG W_N=W_N L_N=L_N_TG n=n}
-C {devices/ipin.sym} 720 -1070 0 0 {name=p3 lab=d}
-C {devices/lab_pin.sym} 1060 -500 3 0 {name=p9 sig_type=std_logic lab=VSS}
-C {devices/lab_pin.sym} 1060 -740 1 0 {name=p12 sig_type=std_logic lab=VDD}
-C {devices/lab_pin.sym} 1410 -440 1 0 {name=p6 sig_type=std_logic lab=VDD}
-C {devices/lab_pin.sym} 1410 -230 3 0 {name=p7 sig_type=std_logic lab=VSS}
-C {devices/iopin.sym} 1860 -620 0 0 {name=p17 lab=v_cm}
-C {sg13g2_pr/sg13_lv_nmos.sym} 1430 -290 0 1 {name=M1
+C {devices/ipin.sym} 1255 -1105 0 0 {name=p3 lab=d}
+C {devices/lab_pin.sym} 765 -645 3 0 {name=p9 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 765 -885 1 0 {name=p12 sig_type=std_logic lab=VDD}
+C {devices/lab_pin.sym} 1115 -585 1 0 {name=p6 sig_type=std_logic lab=VDD}
+C {devices/lab_pin.sym} 1115 -375 3 0 {name=p7 sig_type=std_logic lab=VSS}
+C {devices/iopin.sym} 1565 -765 0 0 {name=p17 lab=v_cm}
+C {sg13g2_pr/sg13_lv_nmos.sym} 1135 -435 0 1 {name=M1
 l=0.13u
 w=1u
 ng=1
@@ -97,7 +88,7 @@ m=n
 model=sg13_lv_nmos
 spiceprefix=X
 }
-C {sg13g2_pr/sg13_lv_pmos.sym} 1430 -410 0 1 {name=M3
+C {sg13g2_pr/sg13_lv_pmos.sym} 1135 -555 0 1 {name=M3
 l=0.13u
 w=1u
 ng=1
@@ -105,30 +96,33 @@ m=n
 model=sg13_lv_pmos
 spiceprefix=X
 }
-C {transmission_gate/transmission_gate_lv_wo_dummy.sym} 1580 -620 0 1 {name=x2 W_P=W_P L_P=L_P_TG  W_N=W_N L_N=L_N_TG n=n}
-C {devices/lab_pin.sym} 1600 -580 3 0 {name=p15 sig_type=std_logic lab=VSS}
-C {devices/lab_pin.sym} 1600 -660 1 0 {name=p16 sig_type=std_logic lab=VDD}
-C {transmission_gate/transmission_gate_lv_w_dummy.sym} 1080 -620 0 0 {name=x1 W_P=W_P L_P=L_P_TG  W_N=W_N L_N=L_N_TG n=n}
-C {devices/ipin.sym} 2250 -380 0 1 {name=p19 lab=bit}
-C {sg13g2_stdcells/sg13g2_nand2_1.sym} 2030 -420 0 1 {name=x23 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {sg13g2_stdcells/sg13g2_and2_1.sym} 2030 -300 2 0 {name=x46 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {devices/ipin.sym} 1100 -740 1 0 {name=p21 lab=sample}
-C {devices/lab_pin.sym} 2090 -360 2 0 {name=p22 sig_type=std_logic lab=d}
-C {buffer/buffer_lv.sym} 1730 -400 0 1 {name=x4 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u}
-C {devices/lab_pin.sym} 1730 -440 1 0 {name=p23 sig_type=std_logic lab=VDD}
-C {devices/lab_pin.sym} 1730 -360 3 0 {name=p24 sig_type=std_logic lab=VSS}
-C {buffer/buffer_lv.sym} 1730 -250 0 1 {name=x5 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u}
-C {devices/lab_pin.sym} 1730 -290 1 0 {name=p25 sig_type=std_logic lab=VDD}
-C {devices/lab_pin.sym} 1730 -210 3 0 {name=p26 sig_type=std_logic lab=VSS}
-C {devices/ipin.sym} 1100 -500 3 0 {name=p4 lab=sample_n}
-C {sg13g2_stdcells/sg13g2_nor2_1.sym} 2300 -710 0 1 {name=x3 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {sg13g2_stdcells/sg13g2_or2_1.sym} 2300 -590 2 0 {name=x6 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {devices/lab_pin.sym} 2360 -650 2 0 {name=p8 sig_type=std_logic lab=sample}
-C {buffer/buffer_lv.sym} 2000 -690 0 1 {name=x7 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u}
-C {devices/lab_pin.sym} 2000 -730 1 0 {name=p13 sig_type=std_logic lab=VDD}
-C {devices/lab_pin.sym} 2000 -650 3 0 {name=p14 sig_type=std_logic lab=VSS}
-C {buffer/buffer_lv.sym} 2000 -540 0 1 {name=x9 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u}
-C {devices/lab_pin.sym} 2000 -580 1 0 {name=p18 sig_type=std_logic lab=VDD}
-C {devices/lab_pin.sym} 2000 -500 3 0 {name=p20 sig_type=std_logic lab=VSS}
-C {devices/lab_pin.sym} 2440 -730 1 0 {name=p5 sig_type=std_logic lab=d}
-C {sg13g2_stdcells/sg13g2_inv_1.sym} 2190 -280 2 0 {name=x32 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {transmission_gate/transmission_gate_lv_wo_dummy.sym} 1285 -765 0 1 {name=x2 W_P=W_P L_P=L_P_TG  W_N=W_N L_N=L_N_TG n=n}
+C {devices/lab_pin.sym} 1305 -725 3 0 {name=p15 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} 1305 -805 1 0 {name=p16 sig_type=std_logic lab=VDD}
+C {transmission_gate/transmission_gate_lv_w_dummy.sym} 785 -765 0 0 {name=x1 W_P=W_P L_P=L_P_TG  W_N=W_N L_N=L_N_TG n=n}
+C {devices/ipin.sym} 1955 -525 0 1 {name=p19 lab=bit}
+C {sg13g2_stdcells/sg13g2_nand2_1.sym} 1735 -565 0 1 {name=x23 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {sg13g2_stdcells/sg13g2_and2_1.sym} 1735 -445 2 0 {name=x46 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {devices/ipin.sym} 805 -885 1 0 {name=p21 lab=sample}
+C {devices/lab_pin.sym} 1795 -505 2 0 {name=p22 sig_type=std_logic lab=d}
+C {buffer/buffer_lv.sym} 1435 -545 0 1 {name=x4 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u}
+C {devices/lab_pin.sym} 1435 -585 1 0 {name=p23 sig_type=std_logic lab=VDD}
+C {devices/lab_pin.sym} 1435 -505 3 0 {name=p24 sig_type=std_logic lab=VSS}
+C {buffer/buffer_lv.sym} 1435 -395 0 1 {name=x5 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u}
+C {devices/lab_pin.sym} 1435 -435 1 0 {name=p25 sig_type=std_logic lab=VDD}
+C {devices/lab_pin.sym} 1435 -355 3 0 {name=p26 sig_type=std_logic lab=VSS}
+C {devices/ipin.sym} 805 -645 3 0 {name=p4 lab=sample_n}
+C {buffer/buffer_lv.sym} 1705 -835 0 1 {name=x7 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u}
+C {devices/lab_pin.sym} 1705 -875 1 0 {name=p13 sig_type=std_logic lab=VDD}
+C {devices/lab_pin.sym} 1705 -795 3 0 {name=p14 sig_type=std_logic lab=VSS}
+C {buffer/buffer_lv.sym} 1705 -685 0 1 {name=x9 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u}
+C {devices/lab_pin.sym} 1705 -725 1 0 {name=p18 sig_type=std_logic lab=VDD}
+C {devices/lab_pin.sym} 1705 -645 3 0 {name=p20 sig_type=std_logic lab=VSS}
+C {sg13g2_stdcells/sg13g2_inv_1.sym} 1895 -425 2 0 {name=x32 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {devices/ipin.sym} 2175 -805 0 1 {name=p40 lab=inv_vcm}
+C {sg13g2_stdcells/sg13g2_and2_1.sym} 2115 -785 2 0 {name=x10 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {devices/lab_pin.sym} 2255 -765 2 0 {name=p41 sig_type=std_logic lab=sample}
+C {sg13g2_stdcells/sg13g2_inv_1.sym} 2215 -765 2 0 {name=x11 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {sg13g2_stdcells/sg13g2_inv_1.sym} 1985 -735 2 0 {name=x12 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {iopin.sym} 1375 -1145 3 0 {name=p127 sig_type=std_logic lab=VSS}
+C {iopin.sym} 1375 -1125 1 0 {name=p139 sig_type=std_logic lab=VDD}
