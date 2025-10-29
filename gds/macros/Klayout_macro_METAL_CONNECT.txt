@@ -1,0 +1,32 @@
+# Macro Ruby para registrar un GDS como librería en KLayout
+# Colócalo en "Libraries" y marca Autorun = On load
+
+module METAL_CONNECTModule
+  include RBA
+
+  # Evita redefinir la clase si re-ejecutas el macro
+  remove_const(:METAL_CONNECTLib) if const_defined?(:METAL_CONNECTLib)
+
+  class METAL_CONNECTLib < RBA::Library
+    def initialize
+      lib_name = "METAL_CONNECT"
+      self.description = "Librería con conexiones entre metales"
+
+      gds_file = "/foss/designs/ipd413/Proyecto_IPD413_FlashADC/Layout/Metal_Conn.gds"
+
+      begin
+        # Usa el layout interno provisto por la librería (NO self.layout = ...)
+        layout.clear
+        layout.read(gds_file)
+      rescue => e
+        puts "[#{lib_name}] Error leyendo GDS: #{e}"
+      end
+
+      register(lib_name)
+      puts "[#{lib_name}] Librería registrada desde #{gds_file}"
+    end
+  end
+
+  # Registra solo si no existe ya
+  RBA::Library.library_by_name("METAL_CONNECT") || METAL_CONNECTLib.new
+end

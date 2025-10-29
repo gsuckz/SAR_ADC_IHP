@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Parameterizable Inverter with LV Transistors} 640 -1700 0 0 1 1 {}
 T {Due to the mobility difference between holes and electrons, the size of PMOS is 2-3 times larger than that of NMOS for an inverter.
@@ -58,7 +59,7 @@ C {sg13g2_pr/sg13_lv_pmos.sym} 1160 -900 0 0 {name=M1
 l=L_P
 w=W_P
 ng=1
-m=n
+m=\{N_C\}
 model=sg13_lv_pmos
 spiceprefix=X
 }
@@ -66,7 +67,7 @@ C {sg13g2_pr/sg13_lv_nmos.sym} 1160 -780 0 0 {name=M2
 l=L_N
 w=W_N
 ng=1
-m=n
+m=\{N_C\}
 model=sg13_lv_nmos
 spiceprefix=X
 }

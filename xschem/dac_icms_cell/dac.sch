@@ -139,7 +139,7 @@ N 5935 -1715 5935 -1685 {lab=vdacn2}
 N 5175 -1715 5935 -1715 {lab=vdacn2}
 N 5935 -1830 5935 -1805 {lab=vdacp2}
 N 5600 -1805 5935 -1805 {lab=vdacp2}
-C {dac_icms_cell/unit_cell_n.sym} 195 -1820 0 0 {name=x14 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=32}
+C {dac_icms_cell/unit_cell_n.sym} 195 -1820 0 0 {name=x14 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu N=32}
 C {devices/ipin.sym} 70 -2320 0 0 {name=p15 lab=D0}
 C {devices/ipin.sym} 90 -2350 1 0 {name=p16 lab=b0}
 C {lab_pin.sym} 250 -1845 2 0 {name=p40 sig_type=std_logic lab=VDD}
@@ -147,7 +147,7 @@ C {devices/iopin.sym} -50 -1350 2 0 {name=p48 lab=vinn}
 C {devices/iopin.sym} -85 -2100 2 0 {name=p52 lab=vcm}
 C {devices/ipin.sym} -1290 -1645 0 0 {name=p59 lab=sample_pin}
 C {dac_icms_cell/unit_cell.sym} 240 -1505 0 0 {name=x18 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
-n=32}
+N=32}
 C {devices/lab_pin.sym} 240 -1615 2 0 {name=p65 lab=D11}
 C {devices/lab_pin.sym} 90 -1630 0 0 {name=p66 lab=a_sample}
 C {lab_pin.sym} 250 -1660 2 0 {name=p67 sig_type=std_logic lab=VSS}
@@ -162,69 +162,69 @@ C {devices/lab_pin.sym} 90 -1595 0 0 {name=p47 lab=a_sample_n}
 C {lab_pin.sym} 90 -1845 0 0 {name=p50 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 250 -1910 0 1 {name=p51 lab=a_sample}
 C {devices/lab_pin.sym} 250 -1875 0 1 {name=p53 lab=a_sample_n}
-C {dac_icms_cell/unit_cell_n.sym} 620 -1820 0 0 {name=x1 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16}
+C {dac_icms_cell/unit_cell_n.sym} 620 -1820 0 0 {name=x1 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu N=16}
 C {devices/ipin.sym} 4425 -1890 0 0 {name=p1 lab=D1}
 C {devices/ipin.sym} 4455 -1990 3 1 {name=p2 lab=b1}
 C {lab_pin.sym} 675 -1845 2 0 {name=p4 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 515 -1845 0 0 {name=p5 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 675 -1910 0 1 {name=p6 lab=a_sample}
 C {devices/lab_pin.sym} 675 -1875 0 1 {name=p7 lab=a_sample_n}
-C {dac_icms_cell/unit_cell_n.sym} 1055 -1820 0 0 {name=x2 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8}
+C {dac_icms_cell/unit_cell_n.sym} 1055 -1820 0 0 {name=x2 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu N=8}
 C {devices/ipin.sym} 4005 -1890 0 0 {name=p8 lab=D2}
 C {devices/ipin.sym} 4035 -1990 3 1 {name=p9 lab=b2}
 C {lab_pin.sym} 1110 -1845 2 0 {name=p11 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 950 -1845 0 0 {name=p12 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 1110 -1910 0 1 {name=p13 lab=a_sample}
 C {devices/lab_pin.sym} 1110 -1875 0 1 {name=p14 lab=a_sample_n}
-C {dac_icms_cell/unit_cell_n.sym} 1480 -1820 0 0 {name=x3 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4}
+C {dac_icms_cell/unit_cell_n.sym} 1480 -1820 0 0 {name=x3 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu N=4}
 C {devices/ipin.sym} 3580 -1890 0 0 {name=p17 lab=D3}
 C {devices/ipin.sym} 3610 -1990 3 1 {name=p18 lab=b3}
 C {lab_pin.sym} 1535 -1845 2 0 {name=p21 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 1375 -1845 0 0 {name=p22 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 1535 -1910 0 1 {name=p23 lab=a_sample}
 C {devices/lab_pin.sym} 1535 -1875 0 1 {name=p24 lab=a_sample_n}
-C {dac_icms_cell/unit_cell_n.sym} 1900 -1820 0 0 {name=x4 W_P=1.0u L_P_SPDT=0.13u W_N=1.0u L_N_SPDT=0.13u Cu=cu n=2}
+C {dac_icms_cell/unit_cell_n.sym} 1900 -1820 0 0 {name=x4 W_P=1.0u L_P_SPDT=0.13u W_N=1.0u L_N_SPDT=0.13u Cu=cu N=2}
 C {devices/ipin.sym} 3145 -1890 0 0 {name=p25 lab=D4}
 C {devices/ipin.sym} 3175 -1990 3 1 {name=p26 lab=b4}
 C {lab_pin.sym} 1955 -1845 2 0 {name=p28 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 1795 -1845 0 0 {name=p29 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 1955 -1910 0 1 {name=p30 lab=a_sample}
 C {devices/lab_pin.sym} 1955 -1875 0 1 {name=p31 lab=a_sample_n}
-C {dac_icms_cell/unit_cell_n.sym} 2350 -1820 0 0 {name=x5 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1}
+C {dac_icms_cell/unit_cell_n.sym} 2350 -1820 0 0 {name=x5 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu N=1}
 C {devices/ipin.sym} 2825 -1890 0 0 {name=p32 lab=D5}
 C {devices/ipin.sym} 2855 -1990 3 1 {name=p33 lab=b5}
 C {lab_pin.sym} 2405 -1845 2 0 {name=p35 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 2245 -1845 0 0 {name=p36 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 2405 -1910 0 1 {name=p37 lab=a_sample}
 C {devices/lab_pin.sym} 2405 -1875 0 1 {name=p38 lab=a_sample_n}
-C {dac_icms_cell/unit_cell_n.sym} 2920 -1820 0 0 {name=x6 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=16}
+C {dac_icms_cell/unit_cell_n.sym} 2920 -1820 0 0 {name=x6 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu N=16}
 C {devices/ipin.sym} 2285 -1990 3 1 {name=p41 lab=b6}
 C {lab_pin.sym} 2975 -1845 2 0 {name=p43 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 2815 -1845 0 0 {name=p49 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 2975 -1910 0 1 {name=p57 lab=a_sample}
 C {devices/lab_pin.sym} 2975 -1875 0 1 {name=p58 lab=a_sample_n}
-C {dac_icms_cell/unit_cell_n.sym} 3240 -1820 0 0 {name=x7 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=8}
+C {dac_icms_cell/unit_cell_n.sym} 3240 -1820 0 0 {name=x7 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu N=8}
 C {devices/ipin.sym} 1805 -1890 0 0 {name=p60 lab=D7}
 C {devices/ipin.sym} 1835 -1990 3 1 {name=p61 lab=b7}
 C {lab_pin.sym} 3295 -1845 2 0 {name=p63 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 3135 -1845 0 0 {name=p64 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 3295 -1910 0 1 {name=p71 lab=a_sample}
 C {devices/lab_pin.sym} 3295 -1875 0 1 {name=p74 lab=a_sample_n}
-C {dac_icms_cell/unit_cell_n.sym} 3675 -1820 0 0 {name=x8 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=4}
+C {dac_icms_cell/unit_cell_n.sym} 3675 -1820 0 0 {name=x8 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu N=4}
 C {devices/ipin.sym} 1385 -1890 0 0 {name=p75 lab=D8}
 C {devices/ipin.sym} 1415 -1990 3 1 {name=p76 lab=b8}
 C {lab_pin.sym} 3730 -1845 2 0 {name=p78 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 3570 -1845 0 0 {name=p79 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 3730 -1910 0 1 {name=p80 lab=a_sample}
 C {devices/lab_pin.sym} 3730 -1875 0 1 {name=p81 lab=a_sample_n}
-C {dac_icms_cell/unit_cell_n.sym} 4100 -1820 0 0 {name=x9 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=2}
+C {dac_icms_cell/unit_cell_n.sym} 4100 -1820 0 0 {name=x9 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu N=2}
 C {devices/ipin.sym} 960 -1890 0 0 {name=p82 lab=D9}
 C {devices/ipin.sym} 990 -1990 3 1 {name=p83 lab=b9}
 C {lab_pin.sym} 4155 -1845 2 0 {name=p85 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 3995 -1845 0 0 {name=p86 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 4155 -1910 0 1 {name=p87 lab=a_sample}
 C {devices/lab_pin.sym} 4155 -1875 0 1 {name=p88 lab=a_sample_n}
-C {dac_icms_cell/unit_cell_n.sym} 4520 -1820 0 0 {name=x11 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1}
+C {dac_icms_cell/unit_cell_n.sym} 4520 -1820 0 0 {name=x11 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu N=1}
 C {devices/ipin.sym} 525 -1890 0 0 {name=p89 lab=D10}
 C {devices/ipin.sym} 555 -1990 1 0 {name=p90 lab=b10}
 C {lab_pin.sym} 4575 -1845 2 0 {name=p92 sig_type=std_logic lab=VDD}
@@ -235,7 +235,7 @@ C {devices/ipin.sym} 100 -1890 0 0 {name=p96 lab=D11}
 C {devices/ipin.sym} 130 -1990 1 0 {name=p97 lab=b11}
 C {devices/lab_pin.sym} -50 -1380 0 0 {name=p69 lab=vcm}
 C {dac_icms_cell/unit_cell.sym} 665 -1505 0 0 {name=x13 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
-n=16}
+N=16}
 C {devices/lab_pin.sym} 4680 -1615 2 0 {name=p70 lab=D1}
 C {devices/lab_pin.sym} 515 -1630 0 0 {name=p72 lab=a_sample}
 C {lab_pin.sym} 675 -1660 2 0 {name=p73 sig_type=std_logic lab=VSS}
@@ -243,7 +243,7 @@ C {lab_pin.sym} 515 -1660 0 0 {name=p103 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 4650 -1515 2 0 {name=p104 lab=b1}
 C {devices/lab_pin.sym} 515 -1595 0 0 {name=p105 lab=a_sample_n}
 C {dac_icms_cell/unit_cell.sym} 1095 -1505 0 0 {name=x15 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
-n=8}
+N=8}
 C {devices/lab_pin.sym} 4265 -1615 2 0 {name=p106 lab=D2}
 C {devices/lab_pin.sym} 945 -1630 0 0 {name=p107 lab=a_sample}
 C {lab_pin.sym} 1105 -1660 2 0 {name=p108 sig_type=std_logic lab=VSS}
@@ -251,7 +251,7 @@ C {lab_pin.sym} 945 -1660 0 0 {name=p109 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 4235 -1515 2 0 {name=p110 lab=b2}
 C {devices/lab_pin.sym} 945 -1595 0 0 {name=p111 lab=a_sample_n}
 C {dac_icms_cell/unit_cell.sym} 1535 -1505 0 0 {name=x16 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
-n=4}
+N=4}
 C {devices/lab_pin.sym} 3825 -1615 2 0 {name=p112 lab=D3}
 C {devices/lab_pin.sym} 1385 -1630 0 0 {name=p113 lab=a_sample}
 C {lab_pin.sym} 1545 -1660 2 0 {name=p114 sig_type=std_logic lab=VSS}
@@ -259,7 +259,7 @@ C {lab_pin.sym} 1385 -1660 0 0 {name=p115 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 3795 -1515 2 0 {name=p116 lab=b3}
 C {devices/lab_pin.sym} 1385 -1595 0 0 {name=p117 lab=a_sample_n}
 C {dac_icms_cell/unit_cell.sym} 1950 -1505 0 0 {name=x19 W_P=1.0u L_P_SPDT=0.13u W_N=1.0u L_N_SPDT=0.13u Cu=cu
-n=2}
+N=2}
 C {devices/lab_pin.sym} 3395 -1615 2 0 {name=p118 lab=D4}
 C {devices/lab_pin.sym} 1800 -1630 0 0 {name=p122 lab=a_sample}
 C {lab_pin.sym} 1960 -1660 2 0 {name=p123 sig_type=std_logic lab=VSS}
@@ -267,7 +267,7 @@ C {lab_pin.sym} 1800 -1660 0 0 {name=p125 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 3365 -1515 2 0 {name=p126 lab=b4}
 C {devices/lab_pin.sym} 1800 -1595 0 0 {name=p128 lab=a_sample_n}
 C {dac_icms_cell/unit_cell.sym} 2390 -1505 0 0 {name=x20 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
-n=1}
+N=1}
 C {devices/lab_pin.sym} 2970 -1615 2 0 {name=p129 lab=D5}
 C {devices/lab_pin.sym} 2240 -1630 0 0 {name=p130 lab=a_sample}
 C {lab_pin.sym} 2400 -1660 2 0 {name=p131 sig_type=std_logic lab=VSS}
@@ -275,7 +275,7 @@ C {lab_pin.sym} 2240 -1660 0 0 {name=p132 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 2940 -1515 2 1 {name=p133 lab=b5}
 C {devices/lab_pin.sym} 2240 -1595 0 0 {name=p134 lab=a_sample_n}
 C {dac_icms_cell/unit_cell.sym} 2970 -1505 0 0 {name=x21 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
-n=16}
+N=16}
 C {devices/lab_pin.sym} 2390 -1615 2 0 {name=p135 lab=D6}
 C {devices/lab_pin.sym} 2820 -1630 0 0 {name=p143 lab=a_sample}
 C {lab_pin.sym} 2980 -1660 2 0 {name=p144 sig_type=std_logic lab=VSS}
@@ -283,7 +283,7 @@ C {lab_pin.sym} 2820 -1660 0 0 {name=p145 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 2360 -1515 2 0 {name=p146 lab=b6}
 C {devices/lab_pin.sym} 2820 -1595 0 0 {name=p147 lab=a_sample_n}
 C {dac_icms_cell/unit_cell.sym} 3395 -1505 0 0 {name=x22 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
-n=8}
+N=8}
 C {devices/lab_pin.sym} 1950 -1615 2 0 {name=p148 lab=D7}
 C {devices/lab_pin.sym} 3245 -1630 0 0 {name=p149 lab=a_sample}
 C {lab_pin.sym} 3405 -1660 2 0 {name=p150 sig_type=std_logic lab=VSS}
@@ -291,7 +291,7 @@ C {lab_pin.sym} 3245 -1660 0 0 {name=p151 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 1920 -1515 2 0 {name=p152 lab=b7}
 C {devices/lab_pin.sym} 3245 -1595 0 0 {name=p153 lab=a_sample_n}
 C {dac_icms_cell/unit_cell.sym} 3825 -1505 0 0 {name=x23 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
-n=4}
+N=4}
 C {devices/lab_pin.sym} 1535 -1615 2 0 {name=p154 lab=D8}
 C {devices/lab_pin.sym} 3675 -1630 0 0 {name=p155 lab=a_sample}
 C {lab_pin.sym} 3835 -1660 2 0 {name=p156 sig_type=std_logic lab=VSS}
@@ -299,7 +299,7 @@ C {lab_pin.sym} 3675 -1660 0 0 {name=p157 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 1505 -1515 2 0 {name=p158 lab=b8}
 C {devices/lab_pin.sym} 3675 -1595 0 0 {name=p159 lab=a_sample_n}
 C {dac_icms_cell/unit_cell.sym} 4265 -1505 0 0 {name=x24 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
-n=2}
+N=2}
 C {devices/lab_pin.sym} 1095 -1615 2 0 {name=p160 lab=D9}
 C {devices/lab_pin.sym} 4115 -1630 0 0 {name=p161 lab=a_sample}
 C {lab_pin.sym} 4275 -1660 2 0 {name=p162 sig_type=std_logic lab=VSS}
@@ -307,7 +307,7 @@ C {lab_pin.sym} 4115 -1660 0 0 {name=p163 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 1065 -1515 2 1 {name=p164 lab=b9}
 C {devices/lab_pin.sym} 4115 -1595 0 0 {name=p165 lab=a_sample_n}
 C {dac_icms_cell/unit_cell.sym} 4680 -1505 0 0 {name=x25 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
-n=1}
+N=1}
 C {devices/lab_pin.sym} 665 -1615 2 0 {name=p166 lab=D10}
 C {devices/lab_pin.sym} 4530 -1630 0 0 {name=p167 lab=a_sample}
 C {lab_pin.sym} 4690 -1660 2 0 {name=p168 sig_type=std_logic lab=VSS}
@@ -362,24 +362,24 @@ C {lab_pin.sym} 515 -1825 0 0 {name=p213 sig_type=std_logic lab=b_sample_n}
 C {lab_pin.sym} 250 -1825 0 1 {name=p214 sig_type=std_logic lab=b_sample}
 C {lab_pin.sym} 90 -1825 0 0 {name=p215 sig_type=std_logic lab=b_sample_n}
 C {lab_pin.sym} -920 -1965 0 1 {name=p216 sig_type=std_logic lab=b_sample_n}
-C {inverter/inverter_lv.sym} -1140 -1965 0 0 {name=x27 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1}
+C {inverter/inverter_lv.sym} -1140 -1965 0 0 {name=x27 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u N=1}
 C {lab_pin.sym} -1140 -2005 0 0 {name=p217 sig_type=std_logic lab=VDD}
-C {inverter/inverter_lv.sym} -1000 -1965 0 0 {name=x28 W_P=10.0u L_P=0.13u W_N=10.0u L_N=0.13u n=1}
+C {inverter/inverter_lv.sym} -1000 -1965 0 0 {name=x28 W_P=10.0u L_P=0.13u W_N=10.0u L_N=0.13u N=1}
 C {lab_pin.sym} -1000 -2005 0 0 {name=p218 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -905 -1830 0 1 {name=p219 sig_type=std_logic lab=b_sample}
-C {inverter/inverter_lv.sym} -1125 -1830 0 0 {name=x29 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1}
+C {inverter/inverter_lv.sym} -1125 -1830 0 0 {name=x29 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u N=1}
 C {lab_pin.sym} -1125 -1870 0 0 {name=p220 sig_type=std_logic lab=VDD}
-C {inverter/inverter_lv.sym} -985 -1830 0 0 {name=x31 W_P=10.0u L_P=0.13u W_N=10.0u L_N=0.13u n=1}
+C {inverter/inverter_lv.sym} -985 -1830 0 0 {name=x31 W_P=10.0u L_P=0.13u W_N=10.0u L_N=0.13u N=1}
 C {lab_pin.sym} -985 -1870 0 0 {name=p221 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -450 -1960 0 1 {name=p222 sig_type=std_logic lab=a_sample_n}
-C {inverter/inverter_lv.sym} -670 -1960 0 0 {name=x32 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1}
+C {inverter/inverter_lv.sym} -670 -1960 0 0 {name=x32 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u N=1}
 C {lab_pin.sym} -670 -2000 0 0 {name=p223 sig_type=std_logic lab=VDD}
-C {inverter/inverter_lv.sym} -530 -1960 0 0 {name=x33 W_P=20.0u L_P=0.13u W_N=10.0u L_N=0.13u n=1}
+C {inverter/inverter_lv.sym} -530 -1960 0 0 {name=x33 W_P=20.0u L_P=0.13u W_N=10.0u L_N=0.13u N=1}
 C {lab_pin.sym} -530 -2000 0 0 {name=p224 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -455 -1815 0 1 {name=p225 sig_type=std_logic lab=a_sample}
-C {inverter/inverter_lv.sym} -675 -1815 0 0 {name=x35 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u n=1}
+C {inverter/inverter_lv.sym} -675 -1815 0 0 {name=x35 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u N=1}
 C {lab_pin.sym} -675 -1855 0 0 {name=p226 sig_type=std_logic lab=VDD}
-C {inverter/inverter_lv.sym} -535 -1815 0 0 {name=x36 W_P=20.0u L_P=0.13u W_N=10.0u L_N=0.13u n=1}
+C {inverter/inverter_lv.sym} -535 -1815 0 0 {name=x36 W_P=20.0u L_P=0.13u W_N=10.0u L_N=0.13u N=1}
 C {lab_pin.sym} -535 -1855 0 0 {name=p227 sig_type=std_logic lab=VDD}
 C {sg13g2_stdcells/sg13g2_nor2_2.sym} -615 -1625 0 0 {name=x38 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {sg13g2_stdcells/sg13g2_nand2_2.sym} -615 -1525 0 0 {name=x39 VDD=VDD VSS=VSS prefix=sg13g2_ }
@@ -422,14 +422,14 @@ l=3e-6
 m=2
 spiceprefix=X}
 C {dac_icms_cell/unit_cell.sym} 5605 -1515 0 0 {name=x10 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu
-n=1}
+N=1}
 C {devices/lab_pin.sym} 5455 -1640 0 0 {name=p140 lab=a_sample}
 C {lab_pin.sym} 5615 -1670 2 0 {name=p141 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 5455 -1670 0 0 {name=p142 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 5455 -1605 0 0 {name=p241 lab=a_sample_n}
 C {lab_pin.sym} 5455 -1690 0 0 {name=p242 sig_type=std_logic lab=b_sample}
 C {lab_pin.sym} 5615 -1690 0 1 {name=p243 sig_type=std_logic lab=b_sample_n}
-C {dac_icms_cell/unit_cell_n.sym} 5625 -1825 0 0 {name=x17 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu n=1}
+C {dac_icms_cell/unit_cell_n.sym} 5625 -1825 0 0 {name=x17 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=cu N=1}
 C {lab_pin.sym} 5680 -1850 2 0 {name=p246 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 5520 -1850 0 0 {name=p247 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 5680 -1915 0 1 {name=p248 lab=a_sample}

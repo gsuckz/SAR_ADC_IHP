@@ -1,0 +1,26 @@
+# Macro Ruby (Autorun) para registrar STD_Cells al iniciar KLayout
+module STD_CELLSModule
+  include RBA
+
+  remove_const(:STD_CELLSLib) if const_defined?(:STD_CELLSLib)
+
+  class STD_CELLSLib < RBA::Library
+    def initialize
+      lib_name = "STD_Cells"
+      self.description = "Librería con las celdas estándar SG13G2"
+      gds_file = "/foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/gds/sg13g2_stdcell.gds"
+
+      begin
+        layout.clear
+        layout.read(gds_file)
+      rescue => e
+        puts "[#{lib_name}] Error leyendo GDS: #{e}"
+      end
+
+      register(lib_name)
+      puts "[#{lib_name}] Librería registrada desde #{gds_file}"
+    end
+  end
+
+  RBA::Library.library_by_name("STD_Cells") || STD_CELLSLib.new
+end

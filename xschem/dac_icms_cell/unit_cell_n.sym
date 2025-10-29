@@ -1,7 +1,7 @@
 v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {type=subcircuit
-format="@name @pinlist @symname W_P=@W_P L_P_SPDT=@L_P_SPDT W_N=@W_N L_N_SPDT=@L_N_SPDT Cu=@Cu n=@n"
+format="@name @pinlist @symname W_P=@W_P L_P_SPDT=@L_P_SPDT W_N=@W_N L_N_SPDT=@L_N_SPDT Cu=@Cu N=@N"
 template="name=x1 W_P_SPDT=1.0u L_P_SPDT=0.13u W_N_SPDT=1.0u L_N_SPDT=0.13u Cu=8f n=1"
 }
 V {}
@@ -65,7 +65,7 @@ T {@name} -125 -3 2 0 0.2 0.2 {}
 T {Cu=@Cu} -125 -117.5 2 0 0.2 0.2 {}
 T {PMOS_SPDT: @W_P_SPDT / @L_P_SPDT} -125 -76.25 2 0 0.2 0.2 {}
 T {NMOS_SPDT: @W_N_SPDT / @L_N_SPDT} -125 -96.25 2 0 0.2 0.2 {}
-T {n=@n} -125 -137.5 2 0 0.2 0.2 {}
+T {N=@N} -125 -137.5 2 0 0.2 0.2 {}
 T {VDD} 10 -19.75 2 1 0.2 0.2 {}
 T {VSS} -60 -31.5 0 1 0.2 0.2 {}
 T {v_c} -47.5 26.5 2 1 0.2 0.2 {}

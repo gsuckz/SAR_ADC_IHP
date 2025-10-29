@@ -1,4 +1,4 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
@@ -87,6 +87,10 @@ N 800 -710 920 -710 {lab=vinp}
 N 920 -760 920 -710 {lab=vinp}
 N 800 -650 1020 -650 {lab=vinn}
 N 1020 -720 1020 -650 {lab=vinn}
+N 1350 -1130 1350 -1090 {
+lab=vcm}
+N 1350 -1030 1350 -990 {
+lab=GND}
 C {devices/vsource.sym} 1180 -1050 0 0 {name=VDD value="\{VDD\}"}
 C {devices/gnd.sym} 1180 -980 0 0 {name=l6 lab=GND}
 C {devices/vdd.sym} 1180 -1120 0 0 {name=l8 lab=VDD}
@@ -112,7 +116,7 @@ C {devices/launcher.sym} 1720 -1300 0 0 {name=h3
 descr="Annotate OP" 
 tclcommand="set show_hidden_texts 1; xschem annotate_op"
 }
-C {code_shown.sym} 60 -1320 0 0 {name=NGSPICE
+C {code_shown.sym} 50 -1320 0 0 {name=NGSPICE
 only_toplevel=true
 value="
 .param vdd=1.8
@@ -207,8 +211,12 @@ C {devices/gnd.sym} 1440 -560 0 0 {name=l17 lab=GND}
 C {devices/lab_wire.sym} 900 -760 0 0 {name=l18 sig_type=std_logic lab=vinp}
 C {devices/lab_wire.sym} 1020 -720 0 0 {name=l19 sig_type=std_logic lab=vinn}
 C {comparator/discrete_time/DT_comparator.sym} 1240 -740 0 0 {name=x1}
-C {devices/lab_wire.sym} 1410 -810 0 1 {name=l7 sig_type=std_logic lab=pulse}
+C {devices/lab_wire.sym} 1320 -820 0 1 {name=l7 sig_type=std_logic lab=pulse}
 C {devices/vsource.sym} 690 -850 0 0 {name=VDD3 value=0}
 C {devices/gnd.sym} 690 -820 0 0 {name=l16 lab=GND}
 C {devices/lab_wire.sym} 690 -880 0 1 {name=l5 sig_type=std_logic lab=VSS}
 C {devices/vsource.sym} 800 -620 0 1 {name=vinp1 value="\{vcm\}"}
+C {devices/vsource.sym} 1350 -1060 0 0 {name=VDD1 value="\{vcm\}"}
+C {devices/gnd.sym} 1350 -990 0 0 {name=l9 lab=GND}
+C {devices/vdd.sym} 1350 -1130 0 0 {name=l11 lab=vcm}
+C {devices/vdd.sym} 1290 -820 0 0 {name=l15 lab=vcm}

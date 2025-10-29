@@ -1,0 +1,6 @@
+Using run time directory XSCHEM_SHAREDIR = /foss/tools/xschem/share/xschem
+Sourcing /foss/tools/xschem/share/xschem/xschemrc init file
+Sourcing xschemrc init file
+Use 'exit' to close the program
+tcleval(): evaluation of script: netlist {/foss/designs/SAR_ADC_IHP/xschem/simulations/.dac_9967} noshow {dac.spice} failed
+         : child killed: interrupt
