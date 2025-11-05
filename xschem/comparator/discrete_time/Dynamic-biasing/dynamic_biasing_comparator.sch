@@ -160,9 +160,9 @@ C {ipin.sym} 980 -790 2 0 {name=p10 lab=vinn}
 C {ipin.sym} 420 -670 0 0 {name=p12 lab=di_clk}
 C {sg13g2_pr/sg13_lv_nmos.sym} 680 -670 0 0 {name=M3a
 l=0.13u
-w=8.0u
-ng=4
-m=2
+w=16.0u
+ng=8
+m=1
 model=sg13_lv_nmos
 spiceprefix=X
 }
