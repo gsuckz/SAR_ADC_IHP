@@ -88,10 +88,10 @@ N 1440 -830 1520 -830 {lab=VDD}
 N 1800 -830 1880 -830 {lab=VDD}
 N 1240 -590 1280 -590 {lab=di_clk_n}
 N 2040 -590 2080 -590 {lab=di_clk_n}
-N 700 -620 700 -600 {lab=#net3}
+N 700 -620 700 -600 {lab=v_cap}
 N 700 -520 700 -480 {lab=VSS}
-N 700 -640 700 -620 {lab=#net3}
-N 580 -620 580 -600 {lab=#net3}
+N 700 -640 700 -620 {lab=v_cap}
+N 580 -620 580 -600 {lab=v_cap}
 N 420 -670 660 -670 {lab=di_clk}
 N 420 -570 540 -570 {lab=di_clk_n}
 N 580 -570 640 -570 {lab=VSS}
@@ -147,7 +147,7 @@ N 1840 -1060 1840 -1000 {lab=VDD}
 N 700 -740 700 -720 {lab=vs}
 N 1320 -590 1380 -590 {lab=VSS}
 N 700 -670 760 -670 {lab=VSS}
-N 580 -620 700 -620 {lab=#net3}
+N 580 -620 700 -620 {lab=v_cap}
 N 640 -520 700 -520 {lab=VSS}
 C {title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
 C {devices/iopin.sym} 700 -1100 3 0 {name=p11 lab=VDD}
@@ -241,7 +241,7 @@ C {lab_wire.sym} 2080 -590 0 1 {name=p21 sig_type=std_logic lab=di_clk_n}
 C {sg13g2_pr/sg13_lv_nmos.sym} 560 -570 0 0 {name=M3b
 l=0.13u
 w=2.0u
-ng=2
+ng=13
 m=1
 model=sg13_lv_nmos
 spiceprefix=X
@@ -303,3 +303,4 @@ w=7.0e-6
 l=7.0e-6
 m=1
 spiceprefix=X}
+C {lab_wire.sym} 580 -620 0 1 {name=p24 sig_type=std_logic lab=v_cap}
