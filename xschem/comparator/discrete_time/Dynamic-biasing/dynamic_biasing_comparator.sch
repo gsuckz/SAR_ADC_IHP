@@ -241,7 +241,7 @@ C {lab_wire.sym} 2080 -590 0 1 {name=p21 sig_type=std_logic lab=di_clk_n}
 C {sg13g2_pr/sg13_lv_nmos.sym} 560 -570 0 0 {name=M3b
 l=0.13u
 w=2.0u
-ng=13
+ng=2
 m=1
 model=sg13_lv_nmos
 spiceprefix=X
