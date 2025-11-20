@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {Discrete-time comparator with NOR-based SR-Latch} 600 -1700 0 0 1 1 {}
 T {The differential output of the DT comparator is buffered and latched into a NOR-based SR-latch [Schmickl] [Razavi]. 

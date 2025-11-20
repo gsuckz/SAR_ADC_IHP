@@ -1,9 +1,9 @@
-# Logfile created on 2025-11-19 19:14:49 +0100 by logger.rb/v1.5.3
-2025-11-19 19:14:49 +0100: Memory Usage (455268K) : Starting running IHP-SG13G2 Klayout DRC maximum runset on /foss/designs/SAR_ADC_IHP/gds/comparador/dynamic_biasing_comparator.gds
-2025-11-19 19:14:49 +0100: Memory Usage (455268K) : Ruby Version for klayout: 3.2.3
-2025-11-19 19:14:49 +0100: Memory Usage (455268K) : Loading database to memory is complete.
-2025-11-19 19:14:49 +0100: Memory Usage (455268K) : IHP-SG13G2 Klayout DRC maximum runset output at: /foss/designs/SAR_ADC_IHP/gds/drc_run_dynamic_biasing_comparator/dynamic_biasing_comparator_dynamic_biasing_comparator_sg13g2_maximal.lyrdb
-2025-11-19 19:14:49 +0100: Memory Usage (455268K) : Evaluate switches.
-2025-11-19 19:14:49 +0100: Memory Usage (455268K) : Klayout will use 1 thread(s)
-2025-11-19 19:14:49 +0100: Memory Usage (455268K) : deep mode is enabled for sg13g2_maximal runset.
-2025-11-19 19:14:57 +0100: Memory Usage (481596K) : KLayout DRC run for maximum ruleSet completed in 7.65 seconds
+# Logfile created on 2025-11-20 22:02:01 +0100 by logger.rb/v1.5.3
+2025-11-20 22:02:01 +0100: Memory Usage (452796K) : Starting running IHP-SG13G2 Klayout DRC maximum runset on /foss/designs/SAR_ADC_IHP/gds/comparador/dynamic_biasing_comparator.gds
+2025-11-20 22:02:01 +0100: Memory Usage (452796K) : Ruby Version for klayout: 3.2.3
+2025-11-20 22:02:01 +0100: Memory Usage (452796K) : Loading database to memory is complete.
+2025-11-20 22:02:01 +0100: Memory Usage (452796K) : IHP-SG13G2 Klayout DRC maximum runset output at: /foss/designs/SAR_ADC_IHP/gds/drc_run_dynamic_biasing_comparator/dynamic_biasing_comparator_dynamic_biasing_comparator_sg13g2_maximal.lyrdb
+2025-11-20 22:02:01 +0100: Memory Usage (452796K) : Evaluate switches.
+2025-11-20 22:02:01 +0100: Memory Usage (452796K) : Klayout will use 1 thread(s)
+2025-11-20 22:02:01 +0100: Memory Usage (452796K) : deep mode is enabled for sg13g2_maximal runset.
+2025-11-20 22:02:09 +0100: Memory Usage (483320K) : KLayout DRC run for maximum ruleSet completed in 7.87 seconds

@@ -304,3 +304,17 @@ l=7.0e-6
 m=1
 spiceprefix=X}
 C {lab_wire.sym} 580 -620 0 1 {name=p24 sig_type=std_logic lab=v_cap}
+C {code_shown.sym} 150 -380 0 0 {
+name=TT_MODELS
+only_toplevel=true
+value="
+** IHP models
+*.lib cornerMOSlv.lib mos_tt
+*.lib cornerMOShv.lib mos_tt
+*.lib cornerHBT.lib hbt_typ
+*.lib cornerRES.lib res_typ
+.lib cornerCAP.lib cap_typ
+*.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+"
+spice_ignore=false
+      }
