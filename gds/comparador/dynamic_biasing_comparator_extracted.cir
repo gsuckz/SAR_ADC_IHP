@@ -1,36 +1,34 @@
-* Extracted by KLayout with SG13G2 LVS runset on : 20/11/2025 23:04
+* Extracted by KLayout with SG13G2 LVS runset on : 22/11/2025 13:37
 
-.SUBCKT dynamic_biasing_comparator
-M$1 VSS voutp voutn \$1 sg13_lv_nmos L=0.13u W=2u AS=0.53p AD=0.53p PS=4.06u
+.SUBCKT dynamic_biasing_comparator VSS voutp voutn di_clk_n VDD vcpp vcpn v_cap
++ di_clk vs vinp vinn
+M$1 vs vinn vcpp VSS sg13_lv_nmos L=0.13u W=5u AS=1.1p AD=1.1p PS=8.2u PD=8.2u
+M$6 vcpn vinp vs VSS sg13_lv_nmos L=0.13u W=5u AS=1.1p AD=1.1p PS=8.2u PD=8.2u
+M$11 \$16 vcpn voutp VDD sg13_lv_pmos L=0.13u W=6u AS=1.365p AD=1.365p PS=9.32u
++ PD=9.32u
+M$15 \$18 vcpp voutn VDD sg13_lv_pmos L=0.13u W=6u AS=1.365p AD=1.365p PS=9.32u
++ PD=9.32u
+M$19 VSS di_clk_n voutp VSS sg13_lv_nmos L=0.13u W=2u AS=0.53p AD=0.53p
++ PS=4.06u PD=4.06u
+M$21 VSS voutp voutn VSS sg13_lv_nmos L=0.13u W=2u AS=0.53p AD=0.53p PS=4.06u
 + PD=4.06u
-M$3 VSS di_clk_n voutn \$1 sg13_lv_nmos L=0.13u W=2u AS=0.53p AD=0.53p PS=4.06u
+M$23 VSS di_clk_n voutn VSS sg13_lv_nmos L=0.13u W=2u AS=0.53p AD=0.53p
++ PS=4.06u PD=4.06u
+M$25 VSS voutn voutp VSS sg13_lv_nmos L=0.13u W=2u AS=0.53p AD=0.53p PS=4.06u
 + PD=4.06u
-M$5 VSS di_clk_n voutp \$1 sg13_lv_nmos L=0.13u W=2u AS=0.53p AD=0.53p PS=4.06u
-+ PD=4.06u
-M$7 VSS voutn voutp \$1 sg13_lv_nmos L=0.13u W=2u AS=0.53p AD=0.53p PS=4.06u
-+ PD=4.06u
-M$9 v_cap di_clk_n VSS \$1 sg13_lv_nmos L=0.13u W=2u AS=0.53p AD=0.53p PS=4.06u
-+ PD=4.06u
-M$11 vs di_clk v_cap \$1 sg13_lv_nmos L=0.13u W=16u AS=3.34p AD=3.34p PS=21.34u
+C$27 VSS vcpn cap_cmim w=7u l=7u A=49p P=28u m=1
+C$28 VSS vcpp cap_cmim w=7u l=7u A=49p P=28u m=1
+M$29 \$16 voutn VDD VDD sg13_lv_pmos L=0.13u W=4u AS=0.91p AD=0.91p PS=6.82u
++ PD=6.82u
+M$33 \$18 voutp VDD VDD sg13_lv_pmos L=0.13u W=4u AS=0.91p AD=0.91p PS=6.82u
++ PD=6.82u
+M$37 VDD di_clk vcpn VDD sg13_lv_pmos L=0.13u W=3u AS=0.72p AD=0.72p PS=5.44u
++ PD=5.44u
+M$40 VDD di_clk vcpp VDD sg13_lv_pmos L=0.13u W=3u AS=0.72p AD=0.72p PS=5.44u
++ PD=5.44u
+M$43 v_cap di_clk_n VSS VSS sg13_lv_nmos L=0.13u W=2u AS=0.53p AD=0.53p
++ PS=4.06u PD=4.06u
+M$45 vs di_clk v_cap VSS sg13_lv_nmos L=0.13u W=16u AS=3.34p AD=3.34p PS=21.34u
 + PD=21.34u
-M$19 vcpn vinp vs \$1 sg13_lv_nmos L=0.13u W=5u AS=1.1p AD=1.1p PS=8.2u PD=8.2u
-M$24 vs vinn vcpp \$1 sg13_lv_nmos L=0.13u W=5u AS=1.1p AD=1.1p PS=8.2u PD=8.2u
-M$29 \$17 vcpp voutn \$15 sg13_lv_pmos L=0.13u W=6u AS=1.365p AD=1.365p
-+ PS=9.32u PD=9.32u
-M$33 \$16 vcpn voutp \$15 sg13_lv_pmos L=0.13u W=6u AS=1.365p AD=1.365p
-+ PS=9.32u PD=9.32u
-M$37 \$17 voutp VDD \$15 sg13_lv_pmos L=0.13u W=4u AS=0.91p AD=0.91p PS=6.82u
-+ PD=6.82u
-M$41 \$16 voutn VDD \$15 sg13_lv_pmos L=0.13u W=4u AS=0.91p AD=0.91p PS=6.82u
-+ PD=6.82u
-M$45 VDD di_clk vcpn \$59 sg13_lv_pmos L=0.13u W=3u AS=0.72p AD=0.72p PS=5.44u
-+ PD=5.44u
-M$48 vcpp di_clk VDD \$59 sg13_lv_pmos L=0.13u W=3u AS=0.72p AD=0.72p PS=5.44u
-+ PD=5.44u
-C$51 VSS vcpp cap_cmim w=7u l=7u A=49p P=28u m=1
-C$52 VSS vcpn cap_cmim w=7u l=7u A=49p P=28u m=1
 C$53 VSS v_cap cap_cmim w=20u l=20u A=400p P=80u m=1
-R$54 \$15 VDD ntap1 A=13.7928p P=90.08u
-R$58 \$59 VDD ntap1 A=1.2168p P=6.24u
-R$60 \$1 VSS ptap1 A=16.4328p P=98.32u
 .ENDS dynamic_biasing_comparator

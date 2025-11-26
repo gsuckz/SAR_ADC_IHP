@@ -285,36 +285,22 @@ C {lab_wire.sym} 700 -1000 0 0 {name=p15 sig_type=std_logic lab=di_clk}
 C {lab_wire.sym} 840 -900 0 0 {name=p1 sig_type=std_logic lab=vcpp}
 C {lab_wire.sym} 520 -860 2 1 {name=p4 sig_type=std_logic lab=vcpn}
 C {lab_wire.sym} 700 -740 0 1 {name=p22 sig_type=std_logic lab=vs}
-C {sg13g2_pr/cap_cmim.sym} 700 -570 0 0 {name=C1
+C {sg13g2_pr/cap_cmim.sym} 700 -570 2 0 {name=C1
 model=cap_cmim
 w=20.0e-6
 l=20.0e-6
 m=1
 spiceprefix=X}
-C {sg13g2_pr/cap_cmim.sym} 1100 -530 0 0 {name=C2
+C {sg13g2_pr/cap_cmim.sym} 1100 -530 2 0 {name=C2
 model=cap_cmim
 w=7.0e-6
 l=7.0e-6
 m=1
 spiceprefix=X}
-C {sg13g2_pr/cap_cmim.sym} 2200 -530 0 0 {name=C3
+C {sg13g2_pr/cap_cmim.sym} 2200 -530 2 0 {name=C3
 model=cap_cmim
 w=7.0e-6
 l=7.0e-6
 m=1
 spiceprefix=X}
 C {lab_wire.sym} 580 -620 0 1 {name=p24 sig_type=std_logic lab=v_cap}
-C {code_shown.sym} 150 -380 0 0 {
-name=TT_MODELS
-only_toplevel=true
-value="
-** IHP models
-*.lib cornerMOSlv.lib mos_tt
-*.lib cornerMOShv.lib mos_tt
-*.lib cornerHBT.lib hbt_typ
-*.lib cornerRES.lib res_typ
-.lib cornerCAP.lib cap_typ
-*.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
-"
-spice_ignore=false
-      }
