@@ -1,0 +1,34 @@
+** sch_path: /foss/designs/pruebaSim/plantillaPrueba.sch
+**.subckt plantillaPrueba
+V1 v1 GND {V}
+R1 v1 GND 1k m=1
+V2 eoc GND PULSE(0 1 0 10p 10p 1n 2n)
+R2 eoc GND 1k m=1
+**** begin user architecture code
+
+
+
+*.include pruebaSim.save
+.param temp=27
+.param V=1
+.control
+alterparam V={$valor * 1m}
+reset
+
+tran 1p 5n
+
+print {$valor}
+print  i(V1) v(V1)
+
+meas tran med find v1 when eoc=1
+meas tran med2 find i(v1) when eoc=1
+print med med2 > ./out/sim{$valor}.txt
+
+
+.endc
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

@@ -1,0 +1,28 @@
+** sch_path: /foss/designs/pruebaSim/plantillaPrueba.sch
+**.subckt plantillaPrueba
+V1 v1 GND {V}
+R1 v1 GND 1k m=1
+**** begin user architecture code
+
+
+
+*.include pruebaSim.save
+.param temp=27
+.param V=1
+
+.control
+alterparam V=$valor
+reset
+op
+*plot v1
+print {$valor}
+print  i(V1) v(V1)
+write pruebaSim.raw
+
+.endc
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end
