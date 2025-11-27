@@ -1,4 +1,4 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
@@ -17,21 +17,21 @@ C {devices/code_shown.sym} 305 -660 0 0 {name=NGSPICE
 only_toplevel=false
 value="
 .param periodclk=1n
-.param periodconv=30n
+.param periodconv=20n
 .param stoptime=1*periodconv
 .param ro = 300
 
-.param W_P = 4.0u
+.param W_P = 1.0u
 .param L_P = 0.13u
-.param W_N = 4.0u
+.param W_N = 1.0u
 .param L_N = 0.13u
 
-.param vdiff = 0.5
+.param vdiff = 1
 
 .options klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
 
 
-.tran \{0.01*periodclk\} \{stoptime\} 
+.tran \{0.005*periodclk\} \{stoptime\} 
 
 .control
 
@@ -72,7 +72,6 @@ C {devices/lab_pin.sym} 130 -190 3 0 {name=p18 lab=eoc}
 C {devices/gnd.sym} -330 -130 0 0 {name=l6 lab=GND}
 C {devices/gnd.sym} -570 -275 0 0 {name=l7 lab=GND}
 C {devices/gnd.sym} -135 -190 0 0 {name=l2 lab=GND}
-C {devices/vsource.sym} -570 -305 0 1 {name=VIN2 value=0.9}
 C {devices/lab_pin.sym} -505 -435 0 1 {name=l4 lab=vinn}
 C {code_shown.sym} -540 -640 0 0 {
 name=TT_MODELS
@@ -98,3 +97,4 @@ C {devices/lab_pin.sym} 145 -410 1 0 {name=l11 lab=sample}
 C {devices/lab_pin.sym} -570 -335 1 0 {name=l14 lab=vcm}
 C {devices/vsource.sym} -330 -160 0 0 {name=V3 value="PULSE(0 1.8 0.1n 100p 100p 1 2 )"}
 C {devices/lab_pin.sym} -85 -410 1 0 {name=l10 lab=vcm}
+C {devices/vsource.sym} -570 -305 0 0 {name=V7 value="PULSE(0 0.9 0.1n 100p 100p 1 2 )"}

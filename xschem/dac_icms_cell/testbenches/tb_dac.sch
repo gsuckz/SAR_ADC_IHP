@@ -1,4 +1,4 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
@@ -12,9 +12,11 @@ N 260 270 320 270 {lab=GND}
 N -400 30 -400 70 {lab=#net1}
 N -430 130 -360 130 {lab=#net2}
 N -560 30 -400 30 {lab=#net1}
-N -510 70 -430 70 {lab=#net3}
-N -510 70 -510 90 {lab=#net3}
-N -560 90 -510 90 {lab=#net3}
+N -470 70 -430 70 {lab=vcm}
+N -510 70 -510 90 {lab=vcm}
+N -560 90 -510 90 {lab=vcm}
+N -470 55 -470 70 {lab=vcm}
+N -510 70 -470 70 {lab=vcm}
 C {dac_icms_cell/dac.sym} -500 590 2 1 {name=x3 cu=10f}
 C {lab_pin.sym} -330 -70 1 0 {name=p2 lab=b11}
 C {lab_pin.sym} -110 190 0 0 {name=p7 lab=VDD}
@@ -59,7 +61,7 @@ value="
 .control
 
 * Transient Analysis
-tran 200p 30n
+tran 10p 20n
 *Busco los valores "finales" de cdacp y cdacn 
 meas tran tstart when sample=0.18 fall=1
 meas tran valor_s_p find vdacp when clk=0.18 td=$&tstart fall=1
@@ -240,9 +242,7 @@ value="
 "
 spice_ignore=false
       }
-C {vsource.sym} -460 250 0 0 {name=V2 value=.9 savecurrent=false}
-C {lab_pin.sym} -460 220 0 0 {name=p11 sig_type=std_logic lab=vcm}
-C {gnd.sym} -460 280 0 0 {name=l6 lab=GND}
+C {lab_pin.sym} -470 55 0 0 {name=p11 sig_type=std_logic lab=vcm}
 C {lab_pin.sym} -90 190 3 0 {name=p23 sig_type=std_logic lab=vcm}
 C {logic/logic.sym} 270 600 2 1 {name=x2 }
 C {lab_pin.sym} 440 -60 1 0 {name=p24 lab=b11}
@@ -312,5 +312,5 @@ C {devices/lab_pin.sym} -635 215 1 0 {name=l1 lab=vdd}
 C {devices/gnd.sym} -635 275 0 0 {name=l10 lab=GND}
 C {devices/vsource.sym} -635 245 0 0 {name=V1 value="PULSE(0 1.8 0.1n 100p 100p 1 2 )"}
 C {devices/vsource.sym} -510 120 0 0 {name=V7 value="PULSE(0 0.9 0.1n 100p 100p 1 2 )"}
-C {devices/vsource.sym} -560 60 0 0 {name=V3 value="PULSE(0 0.5 0.1n 100p 100p 1 2 )"}
-C {devices/vsource.sym} -430 100 2 0 {name=V8 value="PULSE(0 0.5 0.1n 100p 100p 1 2 )"}
+C {devices/vsource.sym} -560 60 0 1 {name=V3 value="PULSE(0 0.5 0.1n 100p 100p 1 2 )"}
+C {devices/vsource.sym} -430 100 0 0 {name=V8 value="PULSE(0 0.5 0.1n 100p 100p 1 2 )"}

@@ -1,4 +1,4 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
@@ -20,6 +20,7 @@ N -330 380 -230 380 {lab=start}
 N -330 300 -330 380 {lab=start}
 N -460 380 -330 380 {lab=start}
 N 70 380 150 380 {lab=d11}
+N 825 705 940 705 {lab=sample}
 C {lab_pin.sym} -230 460 0 0 {name=p1 sig_type=std_logic lab=clk}
 C {lab_pin.sym} -20 500 0 0 {name=p2 sig_type=std_logic lab=rst}
 C {lab_pin.sym} -230 420 0 0 {name=p4 sig_type=std_logic lab=comp_in}
@@ -123,14 +124,8 @@ C {opin.sym} 135 380 3 0 {name=p110 lab=d11}
 C {ipin.sym} -310 700 0 0 {name=p3 lab=rst_pin}
 C {lab_pin.sym} -230 700 0 1 {name=p5 sig_type=std_logic lab=rst}
 C {opin.sym} 4280 380 1 1 {name=p24 lab=eoc}
-C {buffer/buffer_lv.sym} 155 720 0 0 {name=x6 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u}
-C {opin.sym} 335 720 1 1 {name=p18 lab=sample}
-C {lab_pin.sym} 155 680 0 0 {name=p19 sig_type=std_logic lab=VDD}
-C {lab_pin.sym} 155 760 0 0 {name=p21 sig_type=std_logic lab=VSS}
-C {buffer/buffer_lv.sym} 275 720 0 0 {name=x7 W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u}
-C {lab_pin.sym} 275 680 0 0 {name=p22 sig_type=std_logic lab=VDD}
-C {lab_pin.sym} 275 760 0 0 {name=p23 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} 95 720 0 0 {name=p117 sig_type=std_logic lab=rst_pin}
+C {opin.sym} 940 705 1 1 {name=p18 lab=sample}
+C {lab_pin.sym} 545 705 0 0 {name=p117 sig_type=std_logic lab=rst_pin}
 C {sg13g2_stdcells/sg13g2_inv_2.sym} -270 700 0 0 {name=x30 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {lab_pin.sym} -760 460 0 0 {name=p7 sig_type=std_logic lab=clk}
 C {lab_pin.sym} -550 500 0 0 {name=p12 sig_type=std_logic lab=rst}
@@ -141,12 +136,16 @@ C {lab_pin.sym} -620 500 0 0 {name=p15 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -760 380 0 0 {name=p17 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} -330 300 0 1 {name=p16 sig_type=std_logic lab=start}
 C {noconn.sym} 1880 700 0 0 {name=l1}
-C {buffer/buffer_lv.sym} 165 940 0 0 {name=x2 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=1.0u L_N_INV=0.13u}
-C {opin.sym} 345 940 1 1 {name=p6 lab=inv_vcm}
-C {lab_pin.sym} 165 900 0 0 {name=p8 sig_type=std_logic lab=VDD}
-C {lab_pin.sym} 165 980 0 0 {name=p9 sig_type=std_logic lab=VSS}
-C {buffer/buffer_lv.sym} 285 940 0 0 {name=x4 W_P_INV=10.0u L_P_INV=0.13u W_N_INV=10.0u L_N_INV=0.13u}
-C {lab_pin.sym} 285 900 0 0 {name=p10 sig_type=std_logic lab=VDD}
-C {lab_pin.sym} 285 980 0 0 {name=p11 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} 25 940 0 0 {name=p20 sig_type=std_logic lab=start}
-C {sg13g2_stdcells/sg13g2_inv_2.sym} 65 940 0 0 {name=x5 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {opin.sym} 180 770 1 1 {name=p6 lab=inv_vcm}
+C {inverter/inverter_lv.sym} 605 705 0 0 {name=x53 W_P=0.3u L_P=0.13u W_N=0.15u L_N=0.13u n=1}
+C {lab_pin.sym} 605 665 0 0 {name=p288 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} 745 665 0 0 {name=p289 sig_type=std_logic lab=VDD}
+C {lab_pin.sym} 605 745 0 0 {name=p290 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} 745 745 0 0 {name=p291 sig_type=std_logic lab=VSS}
+C {inverter/inverter_lv.sym} 745 705 0 0 {name=x56 W_P=0.3u L_P=0.13u W_N=0.15u L_N=0.13u n=4}
+C {res.sym} 180 800 0 0 {name=R1
+value=1k
+footprint=1206
+device=resistor
+m=1}
+C {lab_pin.sym} 180 830 0 0 {name=p8 sig_type=std_logic lab=VSS}
