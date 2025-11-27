@@ -28,7 +28,7 @@ value="
 .options klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
 .control
 set lsb=878u
-alterparam vdiff=\{&n * &lsb\}
+alterparam vdiff=\{$n * $lsb\}
 reset
 tran 5p 20n
 meas tran bit11 FIND d11 when eoc=1.7 CROSS=LAST
