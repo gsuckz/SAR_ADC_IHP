@@ -26,7 +26,7 @@ value="
 .param W_N = 1.0u
 .param L_N = 0.13u
 
-.param vdiff = 1
+.param vdiff = 0.757
 
 .options klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
 

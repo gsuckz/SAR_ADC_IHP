@@ -38,7 +38,6 @@ N 170 -130 170 -90 {lab=VDD}
 N 440 110 440 200 {lab=vx}
 N 520 120 520 230 {lab=READY}
 N 480 230 520 230 {lab=READY}
-N 420 -30 470 -30 {lab=vxs}
 N 230 -30 250 -30 {lab=#net1}
 N 250 -60 250 -30 {lab=#net1}
 N 250 -60 590 -60 {lab=#net1}
@@ -66,7 +65,7 @@ N 890 -320 890 -30 {lab=vx}
 N 1120 -180 1190 -180 {lab=#net3}
 N 930 -200 930 -180 {lab=#net3}
 N 1120 -190 1120 -180 {lab=#net3}
-N 930 -180 1120 -180 {lab=#net3}
+N 1020 -180 1120 -180 {lab=#net3}
 N 1120 -180 1120 -160 {lab=#net3}
 N 930 -280 1090 -280 {lab=#net4}
 N 930 -290 930 -280 {lab=#net4}
@@ -80,8 +79,6 @@ N 1150 -250 1150 -230 {lab=VSS}
 N 1120 -120 1120 -100 {lab=VDD}
 N 1120 -100 1150 -100 {lab=VDD}
 N 1150 -120 1150 -100 {lab=VDD}
-N 420 -30 420 60 {lab=vxs}
-N 290 -30 420 -30 {lab=vxs}
 N 530 120 790 120 {lab=READY}
 N 790 120 790 180 {lab=READY}
 N 780 180 790 180 {lab=READY}
@@ -94,6 +91,11 @@ N -360 -60 -340 -60 {lab=VDD}
 N -360 -0 -200 -0 {lab=READY}
 N -470 120 -210 120 {lab=VSS}
 N -460 60 -200 60 {lab=READY}
+N 1020 -180 1020 -170 {lab=#net3}
+N 930 -180 1020 -180 {lab=#net3}
+N 320 -30 470 -30 {lab=vxs}
+N 320 -30 320 40 {lab=vxs}
+N 290 -30 320 -30 {lab=vxs}
 C {sg13g2_pr/sg13_lv_nmos.sym} -330 90 0 0 {name=M1
 l=0.13u
 w=1u
@@ -132,8 +134,7 @@ C {sg13g2_stdcells/sg13g2_or2_2.sym} 530 -10 0 0 {name=x46 VDD=VDD VSS=VSS prefi
 C {iopin.sym} 230 -90 0 0 {name=p12 lab=VTUNE}
 C {iopin.sym} 710 10 0 0 {name=p13 lab=PULSE_n}
 C {lab_pin.sym} 780 180 0 0 {name=p14 sig_type=std_logic lab=READY}
-C {sg13g2_stdcells/sg13g2_inv_2.sym} 460 60 0 0 {name=x6 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {lab_pin.sym} 500 60 0 1 {name=p15 sig_type=std_logic lab=vx_n}
+C {lab_pin.sym} 400 40 0 1 {name=p15 sig_type=std_logic lab=vx_n}
 C {sg13g2_pr/sg13_lv_nmos.sym} -110 90 0 1 {name=M3
 l=0.13u
 w=1u
@@ -151,7 +152,7 @@ model=sg13_lv_nmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} 210 -90 0 1 {name=M7
-l=0.5u
+l=2u
 w=2u
 ng=1
 m=1
@@ -163,7 +164,7 @@ C {sg13g2_pr/sg13_lv_pmos.sym} 910 -320 0 0 {name=M6
 l=0.13u
 w=0.15u
 ng=1
-m=1
+m=2
 model=sg13_lv_pmos
 spiceprefix=X
 }
@@ -171,7 +172,7 @@ C {sg13g2_pr/sg13_lv_nmos.sym} 910 -130 0 0 {name=M8
 l=0.13u
 w=0.15u
 ng=1
-m=1
+m=2
 model=sg13_lv_nmos
 spiceprefix=X
 }
@@ -179,7 +180,7 @@ C {sg13g2_pr/sg13_lv_pmos.sym} 910 -230 0 0 {name=M9
 l=0.13u
 w=0.15u
 ng=1
-m=1
+m=2
 model=sg13_lv_pmos
 spiceprefix=X
 }
@@ -187,7 +188,7 @@ C {sg13g2_pr/sg13_lv_nmos.sym} 910 -30 0 0 {name=M10
 l=0.13u
 w=0.15u
 ng=1
-m=1
+m=2
 model=sg13_lv_nmos
 spiceprefix=X
 }
@@ -232,3 +233,4 @@ m=1
 model=sg13_lv_pmos
 spiceprefix=X
 }
+C {sg13g2_stdcells/sg13g2_inv_2.sym} 360 40 0 0 {name=x3 VDD=VDD VSS=VSS prefix=sg13g2_ }

@@ -1,8 +1,9 @@
-v {xschem version=3.4.7 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N 575 10 580 20 {lab=vcbot}
 N 805 20 805 25 {lab=vctop}
@@ -183,13 +184,13 @@ only_toplevel=false
 value="
 .param temp=27
 .param period = 1n
-.param wp = 1u
+.param wp = 2u
 .param wn = 1u
-.param rise_t = period*0.05
-.param fall_t = period*0.05
-.param delay_n = 0
-.param delay_s = 0
-.param delay_2 = period*0.2
+.param rise_t = period*0.01
+.param fall_t = period*0.01
+.param delay_n = 0.1n
+.param delay_s = 0.1n
+.param delay_2 = 0
 .param delay_1 = 0
 .options savecurrents klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-10
 .control
@@ -226,7 +227,7 @@ C {gnd.sym} 0 1065 0 0 {name=l13 lab=GND}
 C {vsource.sym} 0 1035 0 1 {name=V7 value="PULSE( 0 1.8 \{delay_1 + delay_s\} \{rise_t\} \{fall_t\}  \{period/2\} \{period\} 1)" savecurrent=false}
 C {lab_pin.sym} -195 -105 1 1 {name=p1 sig_type=std_logic lab=sample_s}
 C {lab_pin.sym} -55 -105 1 1 {name=p6 sig_type=std_logic lab=sample_n}
-C {vsource.sym} 245 490 0 0 {name=V2 value=1.7 savecurrent=false}
+C {vsource.sym} 245 490 0 0 {name=V2 value=1.8 savecurrent=false}
 C {lab_pin.sym} 245 460 0 0 {name=p12 sig_type=std_logic lab=vin}
 C {gnd.sym} 245 520 0 0 {name=l5 lab=GND}
 C {vsource.sym} 345 490 0 0 {name=V3 value=0.9 savecurrent=false}
@@ -237,8 +238,8 @@ C {lab_pin.sym} 130 460 0 0 {name=p14 sig_type=std_logic lab=VDD}
 C {gnd.sym} 130 520 0 0 {name=l7 lab=GND}
 C {lab_pin.sym} -395 -325 0 0 {name=p16 sig_type=std_logic lab=vin}
 C {capa.sym} 610 20 3 0 {name=C1
-m=128
-value=20f
+m=64
+value=15f
 footprint=1206
 device="ceramic capacitor"}
 C {lab_pin.sym} 630 -580 0 0 {name=p20 sig_type=std_logic lab=vcm}
