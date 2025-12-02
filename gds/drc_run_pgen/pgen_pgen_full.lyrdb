@@ -765,6 +765,30 @@
    </categories>
   </category>
   <category>
+   <name>Padc.a</name>
+   <description>6.9. Padc.a : CuPillarPad size is 35.0 um</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Padc.b</name>
+   <description>6.9. Padc.b : Min. CuPillarPad space is 40.0 um</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Padc.c</name>
+   <description>6.9. Padc.c : Min. TopMetal2 (within dfpad) enclosure of CuPillarPad is 7.5 um</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>padc.f</name>
+   <description>6.9.2. Padc.f: Allowed passivation opening shape Circle</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
    <name>Padb.a</name>
    <description>6.9. Padb.a : SBumpPad size is 60.0 um</description>
    <categories>
@@ -845,30 +869,6 @@
   <category>
    <name>Pad.i</name>
    <description>6.9. Pad.i : dfpad without TopMetal2 not allowed</description>
-   <categories>
-   </categories>
-  </category>
-  <category>
-   <name>Padc.a</name>
-   <description>6.9. Padc.a : CuPillarPad size is 35.0 um</description>
-   <categories>
-   </categories>
-  </category>
-  <category>
-   <name>Padc.b</name>
-   <description>6.9. Padc.b : Min. CuPillarPad space is 40.0 um</description>
-   <categories>
-   </categories>
-  </category>
-  <category>
-   <name>Padc.c</name>
-   <description>6.9. Padc.c : Min. TopMetal2 (within dfpad) enclosure of CuPillarPad is 7.5 um</description>
-   <categories>
-   </categories>
-  </category>
-  <category>
-   <name>padc.f</name>
-   <description>6.9.2. Padc.f: Allowed passivation opening shape Circle</description>
    <categories>
    </categories>
   </category>

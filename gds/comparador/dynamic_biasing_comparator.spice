@@ -1,0 +1,74 @@
+* NGSPICE file created from dynamic_biasing_comparator.ext - technology: ihp-sg13g2
+
+.subckt pmos$4 a_298_0# a_68_n36# w_n62_n62# a_196_0# a_170_n36# a_94_0# a_0_0# a_272_n36#
+X0 a_298_0# a_272_n36# a_196_0# w_n62_n62# sg13_lv_pmos ad=0.34p pd=2.68u as=0.19p ps=1.38u w=1u l=0.13u
+X1 a_94_0# a_68_n36# a_0_0# w_n62_n62# sg13_lv_pmos ad=0.19p pd=1.38u as=0.34p ps=2.68u w=1u l=0.13u
+X2 a_196_0# a_170_n36# a_94_0# w_n62_n62# sg13_lv_pmos ad=0.19p pd=1.38u as=0.19p ps=1.38u w=1u l=0.13u
+.ends
+
+.subckt nmos$7 a_68_n36# a_196_0# a_170_n36# VSUB a_94_0# a_0_0#
+X0 a_94_0# a_68_n36# a_0_0# VSUB sg13_lv_nmos ad=0.19p pd=1.38u as=0.34p ps=2.68u w=1u l=0.13u
+X1 a_196_0# a_170_n36# a_94_0# VSUB sg13_lv_nmos ad=0.34p pd=2.68u as=0.19p ps=1.38u w=1u l=0.13u
+.ends
+
+.subckt nmos a_68_n36# a_196_0# a_170_n36# VSUB a_94_0# a_0_0#
+X0 a_94_0# a_68_n36# a_0_0# VSUB sg13_lv_nmos ad=0.19p pd=1.38u as=0.34p ps=2.68u w=1u l=0.13u
+X1 a_196_0# a_170_n36# a_94_0# VSUB sg13_lv_nmos ad=0.34p pd=2.68u as=0.19p ps=1.38u w=1u l=0.13u
+.ends
+
+.subckt pmos a_298_0# a_68_n36# w_n62_n62# a_374_n36# a_196_0# a_170_n36# a_400_0#
++ a_94_0# a_0_0# a_272_n36#
+X0 a_400_0# a_374_n36# a_298_0# w_n62_n62# sg13_lv_pmos ad=0.34p pd=2.68u as=0.19p ps=1.38u w=1u l=0.13u
+X1 a_298_0# a_272_n36# a_196_0# w_n62_n62# sg13_lv_pmos ad=0.19p pd=1.38u as=0.19p ps=1.38u w=1u l=0.13u
+X2 a_94_0# a_68_n36# a_0_0# w_n62_n62# sg13_lv_pmos ad=0.19p pd=1.38u as=0.34p ps=2.68u w=1u l=0.13u
+X3 a_196_0# a_170_n36# a_94_0# w_n62_n62# sg13_lv_pmos ad=0.19p pd=1.38u as=0.19p ps=1.38u w=1u l=0.13u
+.ends
+
+.subckt nmos$4 a_782_n36# a_298_0# a_808_0# a_68_n36# a_578_n36# a_502_0# a_374_n36#
++ a_196_0# a_170_n36# a_706_0# VSUB a_680_n36# a_400_0# a_94_0# a_476_n36# a_0_0#
++ a_604_0# a_272_n36#
+X0 a_400_0# a_374_n36# a_298_0# VSUB sg13_lv_nmos ad=0.38p pd=2.38u as=0.38p ps=2.38u w=2u l=0.13u
+X1 a_604_0# a_578_n36# a_502_0# VSUB sg13_lv_nmos ad=0.38p pd=2.38u as=0.38p ps=2.38u w=2u l=0.13u
+X2 a_808_0# a_782_n36# a_706_0# VSUB sg13_lv_nmos ad=0.68p pd=4.68u as=0.38p ps=2.38u w=2u l=0.13u
+X3 a_298_0# a_272_n36# a_196_0# VSUB sg13_lv_nmos ad=0.38p pd=2.38u as=0.38p ps=2.38u w=2u l=0.13u
+X4 a_502_0# a_476_n36# a_400_0# VSUB sg13_lv_nmos ad=0.38p pd=2.38u as=0.38p ps=2.38u w=2u l=0.13u
+X5 a_94_0# a_68_n36# a_0_0# VSUB sg13_lv_nmos ad=0.38p pd=2.38u as=0.68p ps=4.68u w=2u l=0.13u
+X6 a_706_0# a_680_n36# a_604_0# VSUB sg13_lv_nmos ad=0.38p pd=2.38u as=0.38p ps=2.38u w=2u l=0.13u
+X7 a_196_0# a_170_n36# a_94_0# VSUB sg13_lv_nmos ad=0.38p pd=2.38u as=0.38p ps=2.38u w=2u l=0.13u
+.ends
+
+.subckt dynamic_biasing_comparator VSS VDD v_cap vinp vinn vcpn vcpp voutn voutp vs
++ di_clk_n di_clk
+Xpmos$4_1 vcpp di_clk VDD VDD di_clk vcpp VDD di_clk pmos$4
+Xpmos$4_0 vcpn di_clk VDD VDD di_clk vcpn VDD di_clk pmos$4
+Xnmos$7_0 voutp VSS voutp VSS voutn VSS nmos$7
+Xnmos$7_1 di_clk_n VSS di_clk_n VSS voutn VSS nmos$7
+Xnmos$7_2 voutn VSS voutn VSS voutp VSS nmos$7
+Xnmos$7_3 di_clk_n VSS di_clk_n VSS voutp VSS nmos$7
+Xnmos_0 di_clk_n v_cap di_clk_n VSS VSS v_cap nmos
+Xpmos_0 VDD voutp VDD voutp m1_4045_n761# voutp m1_4045_n761# VDD m1_4045_n761# voutp
++ pmos
+Xnmos$4_0 di_clk v_cap vs di_clk di_clk v_cap di_clk vs di_clk v_cap VSS di_clk vs
++ v_cap di_clk vs vs di_clk nmos$4
+Xpmos_1 VDD voutn VDD voutn m1_2330_n758# voutn m1_2330_n758# VDD m1_2330_n758# voutn
++ pmos
+X0 vs vinp vcpn VSS sg13_lv_nmos ad=0.34p pd=2.68u as=0.19p ps=1.38u w=1u l=0.13u
+X1 vs vinn vcpp VSS sg13_lv_nmos ad=0.19p pd=1.38u as=0.19p ps=1.38u w=1u l=0.13u
+X2 voutp vcpn m1_2330_n758# VDD sg13_lv_pmos ad=0.285p pd=1.88u as=0.285p ps=1.88u w=1.5u l=0.13u
+X3 m1_2330_n758# vcpn voutp VDD sg13_lv_pmos ad=0.51p pd=3.68u as=0.285p ps=1.88u w=1.5u l=0.13u
+X4 vs vinp vcpn VSS sg13_lv_nmos ad=0.19p pd=1.38u as=0.19p ps=1.38u w=1u l=0.13u
+X5 voutn vcpp m1_4045_n761# VDD sg13_lv_pmos ad=0.285p pd=1.88u as=0.51p ps=3.68u w=1.5u l=0.13u
+X6 m1_4045_n761# vcpp voutn VDD sg13_lv_pmos ad=0.51p pd=3.68u as=0.285p ps=1.88u w=1.5u l=0.13u
+X7 vcpp vinn vs VSS sg13_lv_nmos ad=0.34p pd=2.68u as=0.19p ps=1.38u w=1u l=0.13u
+X8 vcpn vinp vs VSS sg13_lv_nmos ad=0.19p pd=1.38u as=0.19p ps=1.38u w=1u l=0.13u
+X9 voutp vcpn m1_2330_n758# VDD sg13_lv_pmos ad=0.285p pd=1.88u as=0.51p ps=3.68u w=1.5u l=0.13u
+X10 vcpp vinn vs VSS sg13_lv_nmos ad=0.19p pd=1.38u as=0.19p ps=1.38u w=1u l=0.13u
+X11 m1_4045_n761# vcpp voutn VDD sg13_lv_pmos ad=0.285p pd=1.88u as=0.285p ps=1.88u w=1.5u l=0.13u
+X12 vs vinp vcpn VSS sg13_lv_nmos ad=0.19p pd=1.38u as=0.34p ps=2.68u w=1u l=0.13u
+X13 vcpp vinn vs VSS sg13_lv_nmos ad=0.19p pd=1.38u as=0.34p ps=2.68u w=1u l=0.13u
+X14 m1_2330_n758# vcpn voutp VDD sg13_lv_pmos ad=0.285p pd=1.88u as=0.285p ps=1.88u w=1.5u l=0.13u
+X15 vcpn vinp vs VSS sg13_lv_nmos ad=0.19p pd=1.38u as=0.19p ps=1.38u w=1u l=0.13u
+X16 voutn vcpp m1_4045_n761# VDD sg13_lv_pmos ad=0.285p pd=1.88u as=0.285p ps=1.88u w=1.5u l=0.13u
+X17 vs vinn vcpp VSS sg13_lv_nmos ad=0.19p pd=1.38u as=0.19p ps=1.38u w=1u l=0.13u
+.ends
+

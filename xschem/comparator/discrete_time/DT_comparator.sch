@@ -91,7 +91,7 @@ C {devices/iopin.sym} 630 -600 3 1 {name=p26 lab=PULSE}
 C {lab_wire.sym} 370 -720 2 1 {name=p6 sig_type=std_logic lab=voutp_buf}
 C {lab_wire.sym} 370 -680 2 1 {name=p27 sig_type=std_logic lab=voutn_buf}
 C {lab_wire.sym} 490 -465 2 1 {name=p29 sig_type=std_logic lab=PULSEN}
-C {comparator/discrete_time/Dynamic-biasing/dynamic_biasing_comparator.sym} 820 -940 0 0 {name=x1}
+C {comparator/discrete_time/Dynamic-biasing/dynamic_biasing_comparator_pex.sym} 820 -940 0 0 {name=x1}
 C {buffer/buffer_lv.sym} 1920 -960 0 0 {name=x7 W_P_INV=3.0u L_P_INV=0.13u W_N_INV=3.0u L_N_INV=0.13u}
 C {lab_wire.sym} 1920 -1020 3 1 {name=p20 sig_type=std_logic lab=VDD}
 C {lab_wire.sym} 1920 -900 3 0 {name=p21 sig_type=std_logic lab=VSS}
