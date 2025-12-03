@@ -1,0 +1,757 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage{svg}
+\svgpath{{./img}}
+\svgsetup{inkscapelatex=false}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, graphicx, caption, subcaption, geometry, hyperref}
+\geometry{margin=2.5cm}
+
+\begin{document}
+
+% ---------------------------------------------------------------
+% PORTADA
+% ---------------------------------------------------------------
+\begin{titlepage}
+    \centering
+    {\LARGE \textbf{Diseño de un ADC SAR de 12 bits @ 40 MSa/s en Tecnología ihp-sg13g2}}\\[1.5cm]
+    {\large Autor: Avila Jesus Gerardo Daniel (DNI 41650372)}\\[0.5cm]
+    {\large Tutor: Miranda Bonomi, Fernando}\\[0.3cm]
+    {\large Co-tutor: Scandaliaris, Jorge}\\[3cm]
+    {\large \textbf{Proyecto de Graduación}}\\[0.5cm]
+    {\large Ingeniería Electrónica}\\[2cm]
+    {\large Diciemrbe 2025}\\
+    \vfill
+\end{titlepage}
+
+% ---------------------------------------------------------------
+% RESUMEN
+% ---------------------------------------------------------------
+\chapter*{Resumen}
+\addcontentsline{toc}{chapter}{Resumen}
+Este trabajo presenta el diseño y análisis de un convertidor analógico-digital (ADC) de aproximaciones sucesivas (SAR) de 12 bits operando a 40 MSa/s en tecnología ihp-sg13g2. El diseño implementa un CDAC con arquitectura Inverted Merged Capacitor Switching (IMCS) basada en modo común, un comparador de doble cola tipo Bindra, y lógica SAR síncrona realizada con celdas estándar. Se documentan decisiones de diseño, simulaciones y caracterización del sistema, con énfasis en aspectos didácticos y uso de herramientas de código abierto.
+
+\tableofcontents
+\newpage
+
+% ---------------------------------------------------------------
+% CAPÍTULO 1: INTRODUCCIÓN
+% ---------------------------------------------------------------
+% ---------------------------------------------------------------
+% CAPÍTULO 1: INTRODUCCIÓN
+% ---------------------------------------------------------------
+\chapter{Introducción}
+
+\section{Motivación}
+
+Los convertidores analógico-digitales (ADCs) de aproximaciones sucesivas (SAR) son ampliamente utilizados en aplicaciones que requieren eficiencia energética y resoluciones medias-altas. En las últimas décadas, el diseño de SAR ADCs ha experimentado mejoras significativas: se ha conseguido reducir el consumo de energía aproximadamente 7500 veces en un periodo de 15 años~\cite{lowpower_survey}, principalmente gracias al avance hacia nodos tecnológicos más pequeños y al desarrollo de técnicas de conmutación más eficientes.
+
+El presente trabajo documenta el diseño completo de un ADC SAR de 12 bits operando a una velocidad de muestreo mínima de 1~MSa/s, utilizando herramientas de código abierto y la tecnología ihp-sg13g2. El objetivo principal de este trabajo es servir como una primera aproximación al diseño de circuitos integrados, sirviendo como material de referencia para la asignatura de Diseño de Circuitos Integrados de la Facultad de Ciencias Exactas y Tecnología (FACET). 
+
+La elección del SAR ADC como caso de estudio se fundamenta en su complejidad media, que permite ilustrar las diferentes etapas del flujo de diseño analógico sin alcanzar la complejidad de sistemas como PLLs o transceptores completos. Este enfoque didáctico prioriza la documentación exhaustiva del proceso de diseño sobre la optimización extrema del rendimiento.
+
+\section{Estado del Arte}
+
+En un SAR ADC bien optimizado, el retardo~\cite{murmann_sar} (delay) y el consumo de energía~\cite{lowpower_survey} se distribuyen de manera equilibrada entre los tres bloques principales: CDAC, comparador y lógica digital.
+
+\subsection{Evolución de los Comparadores}
+
+El comparador es típicamente implementado con un ancho de banda relativamente pequeño para filtrar el ruido proveniente del CDAC. La arquitectura clásica consiste en un preamplificador seguido de un latch que utiliza realimentación positiva para resolver la decisión. El preamplificador cumple la función de amplificar la señal de entrada y atenuar el offset, ruido y kickback del latch.
+
+Desde la introducción del comparador Strong-ARM, se han propuesto diversas mejoras. Van Elzakker et al.~\cite{vanelzakker_sar} modificaron la topología del latch separando las etapas de preamplificación y regeneración, asegurando que los transistores de entrada del latch comiencen en la región de saturación. Esto resulta en mayor ganancia y reducción del ruido y offset del comparador, mejorando simultáneamente la velocidad de operación.
+
+Más recientemente, Bindra et al.~\cite{bindra_comparator} propusieron un comparador de polarización dinámica (dynamic bias) que alcanza un ruido de entrada de 0.4~mV operando a 1.2~V en tecnología de 65~nm CMOS, mejorando significativamente la eficiencia energética.
+
+\subsection{Arquitecturas de CDAC}
+
+Se han presentado diversas arquitecturas para el CDAC que mejoran sustancialmente la eficiencia energética respecto al esquema convencional~\cite{lowpower_survey}. Entre ellas destacan las arquitecturas basadas en modo común (VCM-based), que mantienen constante el voltaje de modo común durante la conversión, simplificando el diseño del comparador y mejorando la linealidad.
+
+El esquema Inverted Merged Capacitor Switching (IMCS)~\cite{chang_sar_thesis} representa una evolución de estas técnicas, logrando eliminar la sensibilidad a capacitancias parásitas mientras mantiene una alta eficiencia energética (94\% menos consumo que el esquema convencional). Esta arquitectura invierte el proceso de muestreo: durante la fase de muestreo se captura $V_{CM}$ en las placas superiores y la señal de entrada en las placas inferiores, asegurando que las placas superiores comiencen y terminen en el mismo voltaje.
+
+\subsection{Implementaciones Digitales}
+
+Respecto a la lógica de control, se han propuesto tanto diseños full-custom~\cite{murmann_sar} como circuitos auto-sincronizados (self-clocked) para reducir el consumo asociado a la distribución de la señal de reloj. Estos últimos generan los pulsos de control basándose en la detección de la finalización de cada comparación, optimizando la velocidad de conversión.
+
+\section{Resumen del Trabajo}
+
+Este diseño está fuertemente basado en la arquitectura propuesta por Chang~\cite{chang_sar_thesis}, adoptando el esquema de conmutación IMCS y el generador de pulsos auto-sincronizado. La implementación se diferencia en los siguientes aspectos:
+
+\begin{itemize}
+    \item \textbf{Herramientas de Código Abierto:} Todo el flujo de diseño se realizó utilizando herramientas libres integradas en el entorno IIC-OSIC-TOOLS: xschem para captura esquemática, ngspice para simulación y klayout para layout. El proyecto completo está disponible en GitHub: \url{https://github.com/gsuckz/SAR_ADC_IHP}.
+    
+    \item \textbf{Tecnología Abierta:} Se utiliza el PDK ihp-sg13g2, una tecnología de 130~nm completamente abierta y accesible para la comunidad académica.
+    
+    \item \textbf{Comparador de Polarización Dinámica:} Se implementó el comparador de doble cola propuesto por Bindra et al.~\cite{bindra_comparator}, que incluye un capacitor en la cola del preamplificador para reducir el consumo de potencia.
+    
+    \item \textbf{Lógica con Celdas Estándar:} A diferencia de implementaciones full-custom, la lógica SAR se realizó con celdas estándar disponibles en el PDK, simplificando el diseño y facilitando la replicabilidad.
+    
+    \item \textbf{Enfoque Didáctico:} El trabajo prioriza la documentación exhaustiva del proceso de diseño sobre la optimización extrema del rendimiento, sirviendo como material educativo para estudiantes de circuitos integrados.
+\end{itemize}
+
+\subsection{Alcance y Limitaciones}
+
+Este trabajo atraviesa las diferentes etapas del diseño de circuitos integrados: desde la captura esquemática y simulación hasta el diseño del layout final, verificando DRC (Design Rule Check) y LVS (Layout vs Schematic). Sin embargo, con el objetivo de mantener el enfoque didáctico y la complejidad manejable, se establecieron las siguientes limitaciones:
+
+\begin{itemize}
+    \item No se realizaron simulaciones de mismatch (Monte Carlo) ni análisis de corners de proceso, voltaje y temperatura (PVT).
+    \item No se implementaron técnicas avanzadas de optimización de parásitos en el layout.
+    \item Las especificaciones mínimas establecidas son 12 bits de resolución y 1~MSa/s de velocidad de muestreo, sin restricciones específicas sobre otras métricas como SNDR, SFDR o consumo de potencia.
+\end{itemize}
+
+
+\section{Requeriminetos del Sistema}
+
+\begin{table}[h]
+\centering
+\caption{Requeriminetos del ADC SAR}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Parámetro} & \textbf{Valor} \\
+\hline
+Resolución & 12 bits \\
+Velocidad de muestreo (mínima) & 1 MSa/s \\
+Tensión de alimentación ($V_{DD}$) & 1.8 V \\
+Tensión de modo común ($V_{CM}$) & 0.9 V \\
+Tecnología & ihp-sg13g2 (130 nm) \\
+Herramientas & xschem, ngspice, klayout \\
+Arquitectura CDAC & IMCS (VCM-based invertida) \\
+Comparador & Double-tail (Bindra) \\
+Lógica SAR & Celdas estándar (síncrona) \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Organización del Documento}
+
+El documento se estructura en cuatro capítulos principales:
+
+\begin{itemize}
+    \item \textbf{Capítulo 2 - Implementación:} Se describe la implementación práctica de cada bloque del ADC SAR: CDAC con esquema IMCS, circuito de Sample \& Hold, comparador de doble cola, lógica SAR y generador de pulsos.
+    
+    \item \textbf{Capítulo 3 - Resultados:} Se presentan las simulaciones de cada bloque y del sistema completo, junto con el diseño del layout y verificación DRC/LVS.
+    
+    \item \textbf{Capítulo 4 - Conclusiones:} Se resumen los resultados obtenidos, lecciones aprendidas y trabajo futuro.
+\end{itemize}
+
+Para fundamentos teóricos sobre arquitecturas SAR y esquemas de conmutación, se remite al lector a las referencias citadas~\cite{lowpower_survey, chang_sar_thesis}.
+
+% ---------------------------------------------------------------
+% CAPÍTULO 4: DISEÑO DEL CDAC
+% ---------------------------------------------------------------
+% ---------------------------------------------------------------
+% CAPÍTULO 2: IMPLEMENTACIÓN
+% ---------------------------------------------------------------
+\chapter{Implementación}
+
+Este capítulo describe la implementación práctica de cada bloque del ADC SAR de 12 bits. Se detallan las decisiones de diseño, los testbenches utilizados para verificación y los resultados de simulación obtenidos.
+
+% ---------------------------------------------------------------
+\section{DAC Capacitivo (CDAC)}
+
+El CDAC implementa el esquema de conmutación IMCS (Inverted Merged Capacitor Switching) con una arquitectura split-binary de 6 bits MSB + 6 bits LSB sin redundancia, para un total de 12 bits de resolución.
+
+\subsection{Definición del Capacitor Unitario ($C_u$)}
+
+\subsubsection{Criterio de Ruido Térmico}
+
+El tamaño del capacitor unitario se determina principalmente por el compromiso entre ruido térmico ($kT/C$) y área de silicio. Para un ADC de 12 bits, el ruido térmico total debe ser suficientemente pequeño para no degradar el número efectivo de bits (ENOB).
+
+El criterio utilizado establece que la capacitancia total del array debe satisfacer:
+\begin{equation}
+C_{total} > \frac{12kT}{V_{ref}^2 \cdot 2^{N+1}}
+\end{equation}
+
+donde $k$ es la constante de Boltzmann, $T$ la temperatura absoluta, $V_{ref}$ el voltaje de referencia y $N$ la resolución en bits.
+
+% TODO: Agregar cálculo numérico específico mostrando C_total mínimo
+
+\subsubsection{Selección del Capacitor del PDK}
+
+Se utilizaron capacitores MIM (Metal-Insulator-Metal) del PDK ihp-sg13g2. La elección de MIM se justifica por:
+\begin{itemize}
+    \item Buen matching entre capacitores (bajo coeficiente $K_{\sigma}$)
+    \item Bajo coeficiente de tensión y temperatura
+    \item Estructura planar que facilita el layout common-centroid
+\end{itemize}
+
+El capacitor unitario implementado tiene un valor de \textbf{$C_u = 15$ fF} con dimensiones de 3 µm × 3 µm.
+
+% FIGURA: Vista en corte y layout del capacitor MIM unitario del PDK ihp-sg13g2
+
+\subsection{Cálculo de Capacitores de Atenuación ($C_B$) y Grounding ($C_X$)}
+
+\subsubsection{Problema del Capacitor Fraccional}
+
+En arquitecturas split-binary, el capacitor de puente ($C_B$) que conecta los segmentos MSB y LSB tradicionalmente tiene un valor fraccional:
+\begin{equation}
+C_B = \frac{2^L - 1}{2^L} C_u
+\end{equation}
+
+Para $L = 6$ bits en el segmento LSB, esto resulta en $C_B = 63/64 \cdot C_u$, un valor no entero que dificulta el matching en el layout.
+
+\subsubsection{Metodología de Cálculo}
+
+Para resolver este problema, se implementó la arquitectura propuesta por Chang~\cite{chang_sar_thesis}, que introduce un capacitor de grounding ($C_X$) permitiendo que $C_B$ sea un valor entero de unidades $C_u$.
+
+Se desarrolló un script en Maxima (disponible en el repositorio GitHub: \url{https://github.com/gsuckz/SAR_ADC_IHP}) que calcula el valor óptimo de $C_X$ mediante:
+
+\begin{enumerate}
+    \item Barrido del valor de $C_X$ en incrementos de $C_u$
+    \item Cálculo del $C_B$ correspondiente usando la relación derivada por Chang
+    \item Selección del par ($C_B$, $C_X$) que minimiza el error de linealidad (INL) teórico y mantiene $C_B$ como múltiplo entero de $C_u$
+\end{enumerate}
+
+% FIGURA: Diagrama del CDAC split-binary mostrando MDAC, SDAC, C_B y C_X
+
+\subsubsection{Valores Finales}
+
+Los valores óptimos calculados son:
+\begin{itemize}
+    \item $C_B = 2 \cdot C_u = 30$ fF
+    \item $C_X = 31 \cdot C_u = 465$ fF
+\end{itemize}
+
+Estos valores permiten:
+\begin{itemize}
+    \item Fabricación precisa con matching controlado (valores enteros)
+    \item Prevención de over-range en el nodo LSB durante conmutaciones
+    \item Atenuación adecuada entre los segmentos MSB y LSB
+\end{itemize}
+
+% TODO: Agregar derivación de la ecuación de C_B en función de C_X (a desarrollar)
+
+\subsection{Implementación del Array Split-Binary}
+
+El array se divide en:
+\begin{itemize}
+    \item \textbf{MDAC (Main DAC):} 6 bits MSB con capacitores pesados binariamente: $32C_u$, $16C_u$, $8C_u$, $4C_u$, $2C_u$, $1C_u$
+    \item \textbf{Capacitor de puente:} $C_B = 2C_u$
+    \item \textbf{SDAC (Sub DAC):} 6 bits LSB con capacitores pesados binariamente: $32C_u$, $16C_u$, $8C_u$, $4C_u$, $2C_u$, $1C_u$
+    \item \textbf{Capacitor de grounding:} $C_X = 31C_u$ en paralelo con el SDAC
+\end{itemize}
+
+% FIGURA: Esquemático completo del CDAC diferencial con nomenclatura de cada capacitor
+
+\subsection{Esquema de Conmutación de los Capacitores}
+
+Cada capacitor unitario del array implementa el esquema IMCS mediante la siguiente lógica de switches:
+
+\subsubsection{Switches de Placa Inferior (Bottom Plate)}
+
+\begin{itemize}
+    \item \textbf{Conexión a entradas ($V_{INP}$, $V_{INN}$):} Transmission gates con dummies para minimizar charge injection durante el muestreo
+    \item \textbf{Conexión a modo común ($V_{CM}$):} Transmission gates sin dummies (switching durante conversión)
+    \item \textbf{Conexión a $V_{DD}$ (referencia):} Transistor PMOS individual
+    \item \textbf{Conexión a $V_{SS}$ (tierra):} Transistor NMOS individual
+\end{itemize}
+
+Los transistores PMOS y NMOS tienen el mismo tamaño que los transistores que componen los transmission gates para mantener simetría en las impedancias de conmutación.
+
+% FIGURA: Esquemático de la celda unitaria del CDAC mostrando todos los switches
+
+\subsection{Generador de Señales Non-Overlap}
+
+El circuito generador de señales non-overlap es crítico para evitar conducción simultánea durante el muestreo. Se implementó utilizando la topología estándar basada en compuertas NAND-NOR con realimentación cruzada.
+
+\subsubsection{Funcionamiento}
+
+El generador produce dos señales de reloj ($\Phi_1$ y $\Phi_2$) que nunca se superponen, garantizando un tiempo muerto entre transiciones. Esto evita cortocircuitos entre $V_{IN}$ y $V_{CM}$ durante las fases de muestreo y hold.
+
+% FIGURA: Esquemático del generador de señales non-overlap
+% FIGURA: Formas de onda de las señales $\Phi_1$ y $\Phi_2$ mostrando el tiempo muerto
+
+\subsection{Buffer de Señales de Sampleo}
+
+Las señales non-overlap generadas deben manejar la carga capacitiva de todos los switches del array de muestreo. Para garantizar tiempos de rise/fall adecuados y evitar degradación de las señales, se implementó una cadena de buffers.
+
+% SUBSECCIÓN A DESARROLLAR: Metodología de cálculo de buffers
+El dimensionamiento de las cadenas de buffers se realizó siguiendo la metodología presentada en el libro \textit{Digital Integrated Circuits—A Design Perspective} de Rabaey~\cite{rabaey_book}.
+
+% TODO: Desarrollar explicación detallada del cálculo de buffers (Tapered Buffer Design)
+% TODO: Incluir ecuaciones de factor de tapering óptimo
+% TODO: Mostrar cálculo de número de etapas
+
+% FIGURA: Esquemático de la cadena de buffers para señales de sampleo con sizing de cada etapa
+
+\subsection{Testbench del CDAC}
+
+\subsubsection{Objetivo del Test}
+
+El testbench valida:
+\begin{enumerate}
+    \item Tiempo de settling de cada paso de conversión
+    \item Valores correctos de los saltos de tensión (verificación de atenuación)
+    \item Funcionamiento correcto de ambos sub-arrays (MDAC y SDAC)
+    \item Comportamiento del esquema de conmutación IMCS
+\end{enumerate}
+
+\subsubsection{Configuración del Test}
+
+% FIGURA: Diagrama del testbench del CDAC mostrando generadores de señales, CDAC bajo test y puntos de medición
+
+El testbench implementa:
+\begin{itemize}
+    \item Generadores de voltaje para $V_{INP}$, $V_{INN}$, $V_{CM}$, $V_{DD}$
+    \item Secuenciador de señales de control para emular la lógica SAR
+    \item Medición diferencial en las placas superiores del CDAC
+    \item Análisis transitorio para observar settling
+\end{itemize}
+
+\subsubsection{Resultados}
+
+% FIGURA: Formas de onda del testbench mostrando settling en cada paso de conversión
+% FIGURA: Gráfico de los saltos de tensión vs bit position mostrando la atenuación correcta
+
+\begin{table}[h]
+\centering
+\caption{Parámetros del CDAC}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Parámetro} & \textbf{Valor} \\
+\hline
+Capacitor unitario ($C_u$) & 15 fF \\
+Tipo de capacitor & MIM 3µm × 3µm \\
+Capacitor de puente ($C_B$) & $2 C_u$ = 30 fF \\
+Capacitor de grounding ($C_X$) & $31 C_u$ = 465 fF \\
+Capacitancia total MDAC & $63 C_u$ = 945 fF \\
+Capacitancia total SDAC + $C_X$ & $94 C_u$ = 1.41 pF \\
+Atenuación MSB-LSB & $AgregarValor$ dB \\
+Tiempo de settling (por paso) & $AgregarValor$ ns \\
+\hline
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------
+\section{Sample and Hold}
+
+El circuito de muestreo y retención está integrado al CDAC mediante transmission gates controlados por las señales non-overlap generadas en la sección anterior.
+
+\subsection{Requerimiento de Settling}
+
+\subsubsection{Presupuesto de Tiempo}
+
+Para una velocidad de muestreo objetivo de 1 MSa/s (período de 1 µs), el tiempo disponible para la fase de muestreo es:
+
+% TODO: Definir fracción del período asignada al tracking (ej: 20% del período total)
+
+El error de settling debe ser menor a 0.5 LSB para no degradar la resolución de 12 bits, lo que establece:
+\begin{equation}
+t_{settling} > n \tau = n \cdot R_{ON} \cdot C_{load}
+\end{equation}
+
+donde $n \approx 9$ para error < 0.5 LSB en settling exponencial.
+
+\subsection{Dimensionamiento del Transmission Gate}
+
+\subsubsection{Cálculo de $R_{ON}$ Objetivo}
+
+Dado el tiempo de settling disponible y la carga capacitiva del array ($C_{load} \approx$ $AgregarValor$ pF), se calcula:
+
+% TODO: Mostrar cálculo de R_ON máximo permitido
+
+\subsubsection{Barrido Paramétrico}
+
+Se realizó un barrido de los anchos $W_n$ y $W_p$ de los transistores NMOS y PMOS del transmission gate para caracterizar $R_{ON}$ vs dimensiones.
+
+% FIGURA: Gráfico de R_ON vs W para transmission gate a diferentes voltajes V_IN
+
+\subsubsection{Selección Final}
+
+Basándose en el barrido paramétrico y considerando área vs performance:
+
+\begin{table}[h]
+\centering
+\caption{Dimensiones del Transmission Gate}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Parámetro} & \textbf{Valor} \\
+\hline
+$W_n$ / $L_n$ & $AgregarValor$ µm / $AgregarValor$ µm \\
+$W_p$ / $L_p$ & $AgregarValor$ µm / $AgregarValor$ µm \\
+$R_{ON}$ típico & $AgregarValor$ Ω \\
+Tiempo de settling objetivo & $AgregarValor$ ns \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Testbench de Medición de $R_{ON}$}
+
+\subsubsection{Metodología}
+
+Para medir experimentalmente $R_{ON}$, se implementa el siguiente testbench:
+
+\begin{enumerate}
+    \item Configurar el transmission gate con una fuente de voltaje $V_{IN}$ en un terminal
+    \item Conectar el otro terminal a un capacitor de carga conocido $C_{test}$
+    \item Aplicar un escalón de voltaje y cerrar el switch
+    \item Medir la constante de tiempo $\tau$ del settling exponencial
+    \item Calcular $R_{ON} = \tau / C_{test}$
+\end{enumerate}
+
+% FIGURA: Diagrama del testbench para medición de R_ON
+
+\subsubsection{Variación de $R_{ON}$ con $V_{IN}$}
+
+Un aspecto crítico es que $R_{ON}$ varía con el voltaje de entrada. El testbench debe barrer $V_{IN}$ desde 0 a $V_{DD}$ para caracterizar esta dependencia.
+
+% FIGURA: R_ON vs V_IN medido en simulación
+
+\subsection{Compensación de Inyección de Carga con Dummies}
+
+\subsubsection{Problema de Charge Injection}
+
+Cuando los transmission gates se abren, la carga almacenada en el canal de conducción se inyecta parcialmente en el capacitor de muestreo, introduciendo un error dependiente de la señal.
+
+\subsubsection{Implementación de Dummies}
+
+Se implementaron transistores dummy conectados con compuerta controlada por la señal complementaria. La regla de dimensionamiento utilizada es:
+\begin{equation}
+W_{dummy} = 0.5 \times W_{active}
+\end{equation}
+
+% FIGURA: Esquemático del transmission gate con dummies mostrando las conexiones
+
+\subsection{Testbench del Sample \& Hold}
+
+\subsubsection{Objetivo}
+
+Validar el settling completo del circuito de muestreo bajo condiciones realistas de operación.
+
+% FIGURA: Diagrama del testbench del S&H
+
+\subsubsection{Configuración del Test}
+
+\begin{itemize}
+    \item Señal de entrada: Escalón de amplitud $V_{DD}$ (peor caso)
+    \item Carga: Array completo del CDAC
+    \item Medición: Voltaje en placa superior del CDAC vs tiempo
+    \item Criterio de éxito: Settling < 0.5 LSB en el tiempo asignado
+\end{itemize}
+
+\subsubsection{Resultados}
+
+% FIGURA: Forma de onda mostrando el settling exponencial y marcadores de tiempo
+
+% ---------------------------------------------------------------
+\section{Comparador de Doble Cola}
+
+Se implementó el comparador de doble cola (double-tail) propuesto por Bindra et al.~\cite{bindra_comparator}, que separa las etapas de preamplificación y regeneración para optimizar velocidad y consumo.
+
+
+El comparador de doble cola (Fig. 2.2) Se compone de 2 etapas, un preamplificador que aporta ganancia a la vez que aislación hacia la etapa anterior (CDAC) y una segunda etapa con un latch regenerativo para realizar la comparación. 
+
+
+El funcionamiento básico se describe así: cuando di\_clk está en 0, el preamp carga los nodos vcpp y vcpn a VDD. Mientras que el latch descarga sus nodos de salida hacia VSS. Este tiempo se llama tiempo de reset.
+Cuando di\_clk está en 1, el preamp empieza a descargar los nodos vcpp y vcpn a través del capacitor de cola. Esto genera una una tensión diferencial en la entrada del latch regenerativo, que determina cual será el estado final de los nodos de salida. De esta manera voutp se va alto si vinp es mayor que vinn y viceversa. Este tiempo de llama tiempo de comparacion.
+
+\subsection{Presupuesto de Tiempos}
+Durante el proceso de conversión, se van generando 1 a 1 los bits del código de salida, el tiempo que tarda en decidirse cada bit se denomina tiempo de bit. El tiempo de conversión, será entonces N veces el tiempo de bit, siendo N el número de bits del código.
+
+\subsubsection{Ciclo de Conversión}
+
+El tiempo de bit del conversor, es el periodo de reloj. Ya que por cada ciclo de reloj se decide un bit de la salida. 
+
+Durante el tiempo bajo el comparador realiza la decisión, mientras que durante el tiempo alto la lógica genera el bit de acuerdo a la comparación y de acuerdo a esto el CDAC ajusta su salida. 
+
+En este caso, el tiempo bajo será variable, ya que por la naturaleza del comparador las entradas diferenciales mas pequeñas tomarán mas tiempo en resolverse. En cambio el tiempo alto será fijo debido al generador de pulsos, este tiempo está ajustado de manera de asegurar el settling del DAC antes del flanco de bajada. 
+Llamaremos tiempo de settling del CDAC $(T_{settlingCDAC} )$ al tiempo desde que clk sube al 50\% de VDD hasta que las salidas del CDAC alcanzan el 90\% de su valor final. 
+
+Llamaremos tiempo de decision $(T_{decision})$ al tiempo desde que clk baja al 50\% de VDD hasta que el latch sale de metaestaibilidad.
+
+\begin{itemize}
+    \item Fase de reset (tiempo alto): Reset del comparador y settling del CDAC
+    \item Fase de compacion (tiempo bajo)
+\end{itemize}
+
+El presupuesto de tiempos se diseñó considerando:
+\begin{equation}
+T_{bit} = T_{reset} + T_{comp} > T_{settling\_CDAC} + T_{decision}
+\end{equation}
+
+El generador de pulsos asegura esto a través de:
+Un tiempo de reset del doble del tiempo estimado de Settling y un tiempo de comparación que termina cuando alguna de las salidas del comparador va a alto, en este tiempo se incluyen entonces el retardo de los buffers y el retardo propio del generador de pulsos.
+% FIGURA: Diagrama de timing mostrando las fases de reset y evaluación en un ciclo de bit
+
+\subsection{Arquitectura del Comparador}
+
+El comparador se basa en el diseño de polarización dinámica propuesto por Bindra~\cite{bindra_comparator}, modificando la arquitectura de Elzakker para reducir consumo mediante un capacitor en la cola del preamplificador.
+
+Se incluye un generador de pulsos que detecta cuando se realizó la comparación, y genera un tiempo de reset fijo para esperar el settling del DAC.
+
+
+\begin{figure}[!h]
+    \centering
+    \includesvg[width=\linewidth]{DT_comparator}
+    \caption{Diagrama de Bloques del comparador usado}
+\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \includesvg[width=\linewidth]{dynamic_biasing_comparator}
+    \caption{Comparador Bindra}
+\end{figure}
+
+\subsubsection{Dimensionamiento}
+
+El diseño se basó en los valores reportados por Simon Dorrer (referencia a completar), ajustados para la tecnología ihp-sg13g2. Se realizó un diseño empírico partiendo de:
+
+\begin{itemize}
+    \item Par diferencial de entrada: dimensionado para sensibilidad objetivo
+    \item Etapa de preamplificación: ganancia suficiente para atenuar offset del latch
+    \item Latch regenerativo: dimensionado para velocidad de regeneración
+    \item Capacitor de cola: reduce consumo durante reset
+\end{itemize}
+
+% FIGURA: Esquemático completo del comparador de doble cola mostrando sizing de transistores clave
+
+\subsection{Testbench del Comparador}
+
+\subsubsection{Objetivo}
+
+Caracterizar:
+\begin{enumerate}
+    \item Tiempo de comparación para entrada de 1 LSB
+    \item Tiempo de reset requerido
+    \item Consumo de potencia
+\end{enumerate}
+
+% FIGURA: Diagrama del testbench del comparador
+
+\subsubsection{Configuración del Test}
+
+\begin{figure}[!h]
+    \centering
+    \includesvg[width=\linewidth]{DT_comparator_tb}
+    \caption{Testbench comparador completo}
+\end{figure}
+
+\begin{itemize}
+    \item Entrada diferencial: $V_{IN} = \pm 0.5$ LSB = $\pm$ $219$ uV
+    \item Mediciones: Tiempo hasta decisión estable, consumo promedio
+\end{itemize}
+
+\subsubsection{Resultados}
+
+\begin{figure}[!h]
+    \centering
+    \includesvg[width=\linewidth]{salidas_comp}
+    \caption{Señales de salida del comparador}
+\end{figure}
+% FIGURA: Formas de onda del comparador mostrando entrada, salida y fases de reset/evaluación
+
+\begin{table}[!h]
+\centering
+\caption{Parámetros del Comparador}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Parámetro} & \textbf{Valor} \\
+\hline
+Tiempo de comparación (1 LSB) & $548$ ns \\
+Tiempo de reset & $768$ ns \\
+Consumo de potencia & $AgregarValor$ µW \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Generador de Pulsos (Delay Line)}
+
+El generador de pulsos implementa el esquema de auto-clock del comparador y sincroniza la lógica SAR. El objetivo crítico es garantizar que el pulso de control se genere \textbf{después} de que el CDAC haya alcanzado su valor de settling.
+
+\subsubsection{Criterio de Diseño}
+
+El tiempo de reset del comparador debe ser aproximadamente:
+\begin{equation}
+T_{reset} \approx 2 \times T_{settling\_CDAC}
+\end{equation}
+
+Esto asegura que:
+\begin{itemize}
+    \item El CDAC tiene tiempo suficiente para establecerse
+    \item El comparador puede resetear completamente 
+    \item Hay margen para variaciones de proceso
+\end{itemize}
+
+\subsubsection{Implementación del Delay}
+
+El retardo se implementó mediante la carga del nodo vx a través del transistor M7, el cual tiene un largo mayor al mínimo (ajustado mediante iteraciones) y limita la velocidad de carga del nodo vx, de esta forma aseguramos un tiempo de reset suficientemente largo para que el CDAC establezca su salida correctamente.
+
+% FIGURA: Esquemático del generador de pulsos mostrando la cadena de buffers
+\begin{figure}[!h]
+    \centering
+    \includesvg[width=\linewidth]{pgen}
+    \caption{Diagrama del generador de pulsos, debajo se puede ver la implementación del Buffer Schmmit Trigger}
+\end{figure}
+
+
+\begin{figure}[!h]
+    \centering
+    \includesvg[width=\linewidth]{senales_pgen}
+    \caption{Formas de onda del generador de Pulsos}
+\end{figure}
+\subsubsection{Verificación del Timing}
+
+% FIGURA: Simulación mostrando el settling del CDAC, el delay del generador de pulsos, y la activación del comparador
+
+\subsection{Buffers de Control}
+
+El sistema requiere varias cadenas de buffers para manejar las cargas capacitivas de los diferentes bloques:
+
+\subsubsection{Buffer de Salida del Comparador}
+
+La salida del comparador maneja el latch que retiene la última comparación. Se implementó una cadena de buffers para:
+\begin{itemize}
+    \item Aislar el nodo de salida sensible del comparador, esto evita introducir offset por el estado del latch.
+    \item Proveer drive suficiente para el latch.
+\end{itemize}
+\begin{figure}[!h]
+    \centering
+    \includesvg[width=\linewidth]{retardo_buffer_comp}
+    \caption{Retardo del buffer de la salida del comparador hacia el latch}
+\end{figure}
+
+% FIGURA: Cadena de buffers de salida del comparador con sizing
+
+\subsubsection{Buffer de Señales de Lógica a CDAC}
+
+Las señales de control digitales ($D[n]$ y $B[n]$) provenientes de la lógica SAR deben manejar todos los switches del CDAC. Se implementó una cadena de buffers para garantizar tiempos de rise/fall adecuados.
+
+% FIGURA: Cadena de buffers para señales D y B con sizing
+
+\subsubsection{Metodología de Cálculo de Buffers}
+
+% SUBSECCIÓN A DESARROLLAR: Metodología detallada
+El dimensionamiento de todas las cadenas de buffers se realizó siguiendo la metodología presentada en \textit{Digital Integrated Circuits—A Design Perspective} de Rabaey~\cite{rabaey_book}.
+
+% TODO: Desarrollar cálculo detallado:
+% - Carga capacitiva a manejar
+% - Factor de tapering óptimo (típicamente e ≈ 2.7)
+% - Número de etapas: N = ln(C_load / C_in) / ln(f)
+% - Sizing progresivo de cada etapa
+
+% ---------------------------------------------------------------
+\section{Lógica SAR}
+
+La lógica SAR controla la secuencia de conversión y almacena los bits resueltos. Se implementó de manera síncrona utilizando celdas estándar del PDK ihp-sg13g2.
+
+\subsection{Bloque Unitario de Lógica}
+
+Cada bit de la conversión requiere un bloque de lógica que incluye:
+\begin{itemize}
+    \item Latch para retener el bit de dato $D[n]$
+    \item Latch para retener el bit de control $B[n]$
+    \item Lógica combinacional para generar señales de control del CDAC
+    \item Interfaz con el bit anterior $D[n-1]$ para propagar la habilitación
+\end{itemize}
+
+\subsubsection{Entradas y Salidas del Bloque}
+
+\textbf{Entradas:}
+\begin{itemize}
+    \item Salida del comparador (decisión del bit actual)
+    \item Pulso del generador de pulsos (reloj de la lógica)
+    \item $D[n-1]$ (habilitación desde el bit anterior)
+\end{itemize}
+
+\textbf{Salidas:}
+\begin{itemize}
+    \item $D[n]$: Bit de dato resuelto
+    \item $B[n]$: Bit de control para el CDAC
+\end{itemize}
+
+% FIGURA: Diagrama de bloques del bloque unitario de lógica mostrando entradas, salidas y componentes internos
+
+\subsection{Implementación con Celdas Estándar}
+
+La implementación se realizó utilizando latches y compuertas lógicas de la biblioteca de celdas estándar del PDK ihp-sg13g2. Esto simplifica el diseño y garantiza:
+\begin{itemize}
+    \item Comportamiento lógico verificado
+    \item Timing caracterizado
+    \item Layout DRC-clean
+\end{itemize}
+
+% FIGURA: Esquemático del bloque unitario implementado con celdas estándar específicas
+
+\subsection{Cadena Completa de 12 Bits}
+
+Los 12 bloques unitarios se conectan en cascada, donde cada bit habilita al siguiente mediante la señal $D[n]$.
+
+% FIGURA: Diagrama de bloques de la cadena completa de lógica SAR de 12 bits
+
+\subsection{Análisis de Timing}
+
+\subsubsection{Delay de Propagación}
+
+El parámetro crítico es el delay desde el flanco de subida del generador de pulsos hasta el cambio en las señales $D[n]$ y $B[n]$ que controlan el CDAC.
+
+Este delay debe ser suficientemente pequeño para que:
+\begin{equation}
+T_{bit} = T_{reset} + T_{logic} + T_{comp} < T_{periodo}
+\end{equation}
+
+\subsubsection{Medición del Delay}
+
+Se realizó simulación transitoria midiendo:
+\begin{itemize}
+    \item Delay de flanco de subida del generador de pulsos al cambio en $D[n]$
+    \item Delay de flanco de subida del generador de pulsos al cambio en $B[n]$
+    \item Variación del delay a lo largo de la cadena (bit 1 vs bit 12)
+\end{itemize}
+
+% FIGURA: Forma de onda mostrando el pulso del generador y los cambios en D y B con marcadores de tiempo
+
+\begin{table}[h]
+\centering
+\caption{Parámetros de Timing de la Lógica SAR}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Parámetro} & \textbf{Valor} \\
+\hline
+Delay pulso → $D[n]$ & $AgregarValor$ ps \\
+Delay pulso → $B[n]$ & $AgregarValor$ ps \\
+Delay máximo en cadena & $AgregarValor$ ns \\
+\hline
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------
+% CAPÍTULO 10: LAYOUT
+% ---------------------------------------------------------------
+\chapter{Diseño del Layout}
+
+\section{Metodología}
+% TODO: Descripción breve del flujo de layout en klayout
+
+\section{Resultados DRC y LVS}
+% TODO: Resultados de verificación (si se completa)
+
+% ---------------------------------------------------------------
+% CAPÍTULO 11: CONCLUSIONES
+% ---------------------------------------------------------------
+\chapter{Conclusiones y Trabajo Futuro}
+
+\section{Conclusiones}
+% TODO: Resumen de resultados y logros
+
+\section{Trabajo Futuro}
+% TODO: Posibles mejoras y extensiones
+
+% ---------------------------------------------------------------
+% REFERENCIAS
+% ---------------------------------------------------------------
+
+\begin{thebibliography}{99}
+\bibitem{lowpower_survey} X. Tang et al., ``Low-Power SAR ADC Design: Overview and Survey of State-of-the-Art Techniques,'' \textit{IEEE [completar]}.
+
+\bibitem{murmann_sar} V. Tripathi and B. Murmann, ``An 8-bit 450-MS/s Single-Bit/Cycle SAR ADC in 65-nm CMOS,'' \textit{[completar]}.
+
+\bibitem{vanelzakker_sar} M. van Elzakker et al., ``A 10-bit charge-redistribution ADC consuming 1.9 μW at 1 MS/s,'' \textit{IEEE J. Solid-State Circuits}, vol. 45, no. 5, pp. 1007–1015, May 2010.
+
+\bibitem{bindra_comparator} H. S. Bindra et al., ``A 1.2-V dynamic bias latch-type comparator in 65-nm CMOS with 0.4-mV input noise,'' \textit{IEEE J. Solid-State Circuits}, vol. 53, no. 7, pp. 1902–1912, Jul. 2018.
+
+\bibitem{chang_sar_thesis} A. H. T. Chang, ``Low-Power High-Performance SAR ADC with Redundancy and Digital Background Calibration,'' Master's thesis, Massachusetts Institute of Technology, [año].
+\end{thebibliography}
+
+% TODO: Agregar referencias adicionales
+\end{thebibliography}
+
+\end{document}

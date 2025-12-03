@@ -5,92 +5,44 @@ V {}
 S {}
 F {}
 E {}
-B 2 1660 -760 2460 -360 {flags=graph
-y1=-0.00111
-y2=0.00084
-ypos1=0
-ypos2=2
-divy=5
-subdivy=1
-unity=1
-x1=1.6543612e-24
-x2=1.5e-07
-divx=5
-subdivx=1
-xlabmag=1.0
-ylabmag=1.0
-
-
-dataset=-1
-unitx=1
-logx=0
-logy=0
-hilight_wave=-1
-linewidth_mult=4
-color=4
-node=i(vdd)}
-B 2 1660 -1200 2460 -800 {flags=graph
-y1=-0.17467568
-y2=1.6514195
-ypos1=0
-ypos2=2
-divy=5
-subdivy=1
-unity=1
-x1=1.6543612e-24
-x2=1.5e-07
-divx=5
-subdivx=1
-xlabmag=1.0
-ylabmag=1.0
-node="clk
-vinp
-vinn
-\\"vs; x1.x1.vs\\"
-\\"vcpp; x1.x1.vcpp\\"
-\\"vcpn; x1.x1.vcpn\\"
-\\"voutp; x1.voutp_comp\\"
-\\"voutn; x1.voutn_comp\\"
-vout"
-color="4 7 10 12 17 18 21 8 11"
-dataset=-1
-unitx=1
-logx=0
-logy=0
-hilight_wave=-1
-linewidth_mult=4
-autoload=0}
 T {Testbench for transient analysis - DT comparator} 540 -1710 0 0 1 1 {}
-T {Capacitive load of digital core} 1350 -530 0 0 0.25 0.25 {}
-N 1180 -1120 1180 -1080 {
+T {Carga capacitiva de Logica} 1350 -530 0 0 0.25 0.25 {}
+T {VDD} 1160 -900 0 0 0.25 0.25 {}
+T {Vin+} 1070 -790 0 0 0.25 0.25 {}
+T {Vin-} 1070 -700 0 0 0.25 0.25 {}
+T {PULSE} 1420 -1000 0 0 0.25 0.25 {}
+T {VCM} 1260 -900 0 0 0.25 0.25 {}
+T {VCM} 900 -620 0 0 0.25 0.25 {}
+T {Enable} 1260 -610 0 0 0.25 0.25 {}
+N 410 -760 410 -720 {
 lab=VDD}
-N 1180 -1020 1180 -980 {
+N 410 -660 410 -620 {
 lab=GND}
 N 1180 -860 1180 -820 {lab=VDD}
-N 840 -1020 840 -980 {
+N 420 -890 420 -850 {
 lab=GND}
-N 840 -1120 840 -1080 {
-lab=clk}
+N 420 -990 420 -950 {
+lab=enable}
 N 1440 -600 1440 -560 {lab=GND}
-N 920 -760 1120 -760 {lab=vinp}
-N 900 -760 920 -760 {lab=vinp}
 N 1020 -720 1120 -720 {lab=vinn}
-N 1300 -660 1300 -620 {lab=clk}
+N 1300 -660 1300 -620 {lab=enable}
 N 1180 -660 1180 -560 {lab=GND}
-N 1360 -740 1440 -740 {lab=vout}
-N 1440 -740 1440 -660 {lab=vout}
-N 1440 -740 1520 -740 {lab=vout}
-N 800 -710 920 -710 {lab=vinp}
-N 920 -760 920 -710 {lab=vinp}
-N 800 -650 1020 -650 {lab=vinn}
+N 1360 -740 1440 -740 {lab=out_comp}
+N 1440 -740 1440 -660 {lab=out_comp}
+N 1440 -740 1520 -740 {lab=out_comp}
 N 1020 -720 1020 -650 {lab=vinn}
-N 820 -520 870 -520 {lab=vcm}
 N 870 -590 870 -520 {lab=vcm}
-N 870 -590 880 -590 {lab=vcm}
+N 870 -590 1020 -590 {lab=vcm}
 N 1470 -910 1470 -870 {lab=GND}
-C {devices/vsource.sym} 1180 -1050 0 0 {name=VDD value="\{VDD\}"}
-C {devices/gnd.sym} 1180 -980 0 0 {name=l6 lab=GND}
-C {devices/vdd.sym} 1180 -1120 0 0 {name=l8 lab=VDD}
+N 800 -590 870 -590 {lab=vcm}
+N 800 -760 800 -650 {lab=vinp}
+N 800 -760 1120 -760 {lab=vinp}
+N 1320 -970 1470 -970 {lab=pulse}
+N 1320 -970 1320 -820 {lab=pulse}
+N 1290 -860 1290 -820 {lab=vcm}
+C {devices/vsource.sym} 410 -690 0 0 {name=VDD value="\{VDD\}"}
+C {devices/gnd.sym} 410 -620 0 0 {name=l6 lab=GND}
+C {devices/vdd.sym} 410 -760 0 0 {name=l8 lab=VDD}
 C {devices/title-3.sym} 0 0 0 0 {name=l3 author="Jesus Avila" rev=1.0 lock=true}
 C {devices/code_shown.sym} 40 -1510 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
@@ -101,32 +53,22 @@ value="
 .lib cornerCAP.lib cap_typ
 .include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
 "}
-C {devices/launcher.sym} 1720 -1360 0 0 {name=h2
-descr="Simulate" 
-tclcommand="xschem save; xschem netlist; xschem simulate"
-}
-C {devices/launcher.sym} 1720 -1240 0 0 {name=h1
-descr="Load waves" 
-tclcommand="xschem raw_read $netlist_dir/DT_comparator_tb_tran.raw tran"
-}
-C {devices/launcher.sym} 1720 -1300 0 0 {name=h3
-descr="Annotate OP" 
-tclcommand="set show_hidden_texts 1; xschem annotate_op"
-}
-C {code_shown.sym} -640 -1410 0 0 {name=NGSPICE
+C {code_shown.sym} -1850 -1710 0 0 {name=NGSPICE
 only_toplevel=true
 value="
 .param vdd=1.8
 .param temp=27
 .param tstart=2n
-.param vindiff = 300u
-.param Vcm=0.75
+.param vindiff = 219u
+.param Vcm=0.9
 
 .options savecurrents reltol=1e-3 abstol=1e-12 gmin=1e-15
 .ic v(vout) = 0
 .control
 save all
-
+set hcopydevtype = svg
+set color0 = white
+set color1 = black
 
 * Operating Point Analysis
 op
@@ -174,10 +116,29 @@ echo Tiempo de espera $&t_reset3 s
 
 * Plotting
 
+let vin_dif_mV = (vinp-vinn)*1000
+let outp_Bindra = x1.voutp_comp
+let outn_Bindra = x1.voutn_comp
+let outp_Buffer = x1.voutp_buf
+let outn_Buffer = x1.voutn_buf
+let READY = x1.x6.READY
+let Schmitt_in = x1.x6.vx
+let Schmitt_out = x1.x6.vxs
+let Schmitt_outn = x1.x6.vx_n
+
 plot i(VDD)
 plot v(x1.voutp_buf) \{v(x1.voutn_buf)\} \{v(x1.x6.vx_n) + 4\}  \{v(pulse) + 8\} \{v(x1.x6.READY) + 10\}
-plot v(x1.voutp_comp) \{v(x1.voutn_comp)\} \{v(x1.x6.vx_n) + 4\}  \{v(x1.x6.vx) + 8\} \{v(x1.x6.vxs) + 10\}
+plot v(x1.voutp_comp) \{v(x1.voutn_comp)\} \{v(x1.x6.vx_n) + 4\}  \{v(x1.x6.vx) + 8\} \{v(x1.x6.vxs) + 10\} vin_dif_mV+12
 plot x1.voutp_comp pulse x1.voutp_buf x1.x6.ready
+
+hardcopy ./../../img/corriente_comparador.svg i(VDD) title 'consumo'
+hardcopy ./../../img/salidas_internas_comparador.svg outp_Bindra outn_Bindra outp_Buffer+2 outn_Buffer+2 pulse+4 vin_dif_mV+6 title 'Salidas Internas del Comparador'
+hardcopy ./../../img/senales_pgen.svg READY Schmitt_out+2 Schmitt_outn+2 Schmitt_in+2 pulse+4 title 'Señales Internas Generador de Pulsos'
+hardcopy ./../../img/retardo_buffer_comp.svg outp_Bindra outn_Bindra+2 outp_Buffer outn_Buffer+2 out_comp+4 title 'Retardo Salidas'
+hardcopy ./../../img/salidas_comp.svg vin_dif_mV out_comp pulse+4 enable+2 title 'Salidas Comparador'
+
+
+
 * Writing Data
 set wr_singlescale
 set wr_vecnames
@@ -190,32 +151,30 @@ wrdata ./../../DT_comparator_tb_tran.txt v(clk) v(vinp) v(vinn) v(vs) v(vcpp) v(
 
 *quit
 .endc"}
-C {devices/vsource.sym} 840 -1050 0 0 {name=V1 value="pulse(\{VDD\} 0 0 10p 10p \{tstart\} 6n 1)"}
+C {devices/vsource.sym} 420 -920 0 0 {name=V1 value="pulse(\{VDD\} 0 0 10p 10p \{tstart\} 6n 1)"}
 C {devices/vdd.sym} 1180 -860 0 0 {name=l1 lab=VDD}
 C {devices/gnd.sym} 1180 -560 0 0 {name=l2 lab=GND}
-C {devices/lab_wire.sym} 1300 -620 2 0 {name=l4 sig_type=std_logic lab=clk}
-C {devices/lab_wire.sym} 1520 -740 0 1 {name=l10 sig_type=std_logic lab=vout}
-C {devices/gnd.sym} 820 -460 0 0 {name=l12 lab=GND}
-C {devices/vsource.sym} 800 -680 0 1 {name=vinp value="\{vindiff\}"}
-C {devices/gnd.sym} 840 -980 0 0 {name=l13 lab=GND}
-C {devices/lab_wire.sym} 840 -1120 0 1 {name=l14 sig_type=std_logic lab=clk}
+C {devices/lab_wire.sym} 1300 -620 2 0 {name=l4 sig_type=std_logic lab=enable}
+C {devices/lab_wire.sym} 1520 -740 0 1 {name=l10 sig_type=std_logic lab=out_comp}
+C {devices/gnd.sym} 870 -460 0 0 {name=l12 lab=GND}
+C {devices/vsource.sym} 800 -620 0 1 {name=vinp value="PULSE(\{vindiff/2\} \{-vindiff/2\} 0 0.1p 0.1p 2n 4n)"}
+C {devices/gnd.sym} 420 -850 0 0 {name=l13 lab=GND}
+C {devices/lab_wire.sym} 420 -990 0 1 {name=l14 sig_type=std_logic lab=enable}
 C {capa.sym} 1440 -630 0 0 {name=C2
 m=1
 value=100f
 footprint=1206
 device="ceramic capacitor"}
 C {devices/gnd.sym} 1440 -560 0 0 {name=l17 lab=GND}
-C {devices/lab_wire.sym} 900 -760 0 0 {name=l18 sig_type=std_logic lab=vinp}
-C {devices/lab_wire.sym} 1020 -720 0 0 {name=l19 sig_type=std_logic lab=vinn}
+C {devices/lab_wire.sym} 800 -690 0 0 {name=l18 sig_type=std_logic lab=vinp}
+C {devices/lab_wire.sym} 1020 -690 0 0 {name=l19 sig_type=std_logic lab=vinn}
 C {comparator/discrete_time/DT_comparator.sym} 1240 -740 0 0 {name=x1}
-C {devices/lab_wire.sym} 1320 -820 0 1 {name=l7 sig_type=std_logic lab=pulse}
-C {devices/vsource.sym} 690 -850 0 0 {name=VDD3 value=0}
-C {devices/gnd.sym} 690 -820 0 0 {name=l16 lab=GND}
-C {devices/lab_wire.sym} 690 -880 0 1 {name=l5 sig_type=std_logic lab=VSS}
-C {devices/vsource.sym} 820 -490 0 1 {name=vinp1 value="\{vcm\}"}
-C {devices/vsource.sym} 880 -620 2 1 {name=vinp2 value="\{vindiff\}"}
+C {devices/vsource.sym} 430 -1090 0 0 {name=VDD3 value=0}
+C {devices/gnd.sym} 430 -1060 0 0 {name=l16 lab=GND}
+C {devices/lab_wire.sym} 430 -1120 0 1 {name=l5 sig_type=std_logic lab=VSS}
+C {devices/vsource.sym} 870 -490 0 1 {name=vinp1 value="\{vcm\}"}
 C {devices/lab_wire.sym} 870 -550 0 0 {name=l9 sig_type=std_logic lab=vcm}
-C {devices/lab_wire.sym} 1290 -820 0 0 {name=l11 sig_type=std_logic lab=vcm}
+C {devices/lab_wire.sym} 1290 -860 0 0 {name=l11 sig_type=std_logic lab=vcm}
 C {capa.sym} 1470 -940 0 0 {name=C1
 m=1
 value=200f
@@ -223,3 +182,4 @@ footprint=1206
 device="ceramic capacitor"}
 C {devices/gnd.sym} 1470 -870 0 0 {name=l15 lab=GND}
 C {devices/lab_wire.sym} 1470 -970 0 1 {name=l20 sig_type=std_logic lab=pulse}
+C {devices/vsource.sym} 1020 -620 2 1 {name=vinp3 value="PULSE(\{vindiff/2\} \{-vindiff/2\} 0 0.1p 0.1p 2n 4n)"}

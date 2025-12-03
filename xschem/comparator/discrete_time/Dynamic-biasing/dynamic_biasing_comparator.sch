@@ -1,4 +1,4 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
@@ -18,14 +18,13 @@ Advantages:
 Disadvantages:
 -) Regeneration speed of the output is reduced (lower propagation delay) due to less overdrive voltage of the latch transistors and therefore the current is on average smaller.
 -) 20% more area overhead due to tail capacitor CTAIL compared to Elzakker's comparator.
-} 110 -1580 0 0 0.5 0.5 {}
-T {Pre-amplifier
-stage with
-tail cap.} 810 -590 0 0 0.4 0.4 {}
+} 100 -2070 0 0 0.5 0.5 {}
+T {PreAmp con capacitor de cola } 510 -420 0 0 0.4 0.4 {}
 T {Latch
 stage} 1980 -1060 0 0 0.4 0.4 {}
-T {vcpn} 1040 -620 0 0 0.4 0.4 {}
+T {vcpn} 1020 -580 0 0 0.4 0.4 {}
 T {vcpp} 2220 -600 0 0 0.4 0.4 {}
+T {Latch} 1640 -450 0 0 0.4 0.4 {}
 N 1500 -520 1560 -520 {lab=VSS}
 N 1500 -590 1560 -590 {lab=VSS}
 N 1500 -590 1500 -520 {lab=VSS}
