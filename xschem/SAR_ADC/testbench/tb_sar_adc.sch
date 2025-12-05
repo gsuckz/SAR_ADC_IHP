@@ -26,7 +26,7 @@ value="
 .param W_N = 1.0u
 .param L_N = 0.13u
 
-.param vdiff = 0
+.param vdiff = .735
 
 .options klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
 
@@ -36,14 +36,49 @@ value="
 .control
 
 run
+set hcopydevtype = svg
+set color0 = white
+set color1 = black
+
+meas tran eoc_t WHEN eoc=1.7 CROSS=LAST
+meas tran soc_t WHEN sample=1.6 FALL=1
+meas tran i_rms RMS i(V3) from=soc_t to=eoc_t
+
+let vin = vinp-vinn
+let vin_comp = compp-compn
+let resultado = \{(((V(d11)/1.8)*2048 + (V(d10)/1.8)*1024 + (V(d9)/1.8)*512 + (V(d8)/1.8)*256 + (V(d7)/1.8)*128 + (V(d6)/1.8)*64 + (V(d5)/1.8)*32 + (V(d4)/1.8)*16 + (V(d3)/1.8)*8 + (V(d2)/1.8)*4 + (V(d1)/1.8)*2 + (V(d0)/1.8)) - 2048) * 1.8/2048\} 
+let resultado2 = \{((((0-V(d11))/1.8)*2048 + (V(d10)/1.8)*1024 + (V(d9)/1.8)*512 + (V(d8)/1.8)*256 + (V(d7)/1.8)*128 + (V(d6)/1.8)*64 + (V(d5)/1.8)*32 + (V(d4)/1.8)*16 + (V(d3)/1.8)*8 + (V(d2)/1.8)*4 + (V(d1)/1.8)*2 + (V(d0)/1.8)) + 2048)*1.8/2048\} 
+let clk = x1.comp_clk
+let vdd = 1.8
+let potencia_rms = i_rms*vdd
+let energia_conv = potencia_rms*(eoc_t-soc_t)
+let energia_bit = energia_conv/12
+let a_sample_buf = x1.x2.a_sample
+let b_sample_buf = x1.x2.b_sample
+let a_sample_n_buf = x1.x2.a_sample_n
+let b_sample_n_buf = x1.x2.b_sample_n
+let a_sample_nol = x1.x2.a_ctrl
+let b_sample_nol = x1.x2.b_ctrl
+meas tran resultado_final find resultado WHEN eoc=1.7 CROSS=LAST
+let error = vin-resultado_final
+
 
 plot compp compn \{compout + 4\}
-plot \{d0\} \{d1 + 4\} \{d2 + 8\} \{d3 + 12\} \{d4 + 16\} \{d5 + 20\} \{d6 + 24\} \{d7 + 28\} \{d8 + 32\} \{d9 + 36\} \{d10 + 40\} \{d11 + 44\} \{x1.comp_clk + 50\} \{compout + 55\} \{eoc + 60\}  \{compp - compn - 2\}
-plot compp-compn x1.comp_clk compout
-plot sample eoc x1.x3.start
+plot \{d0\} \{d1 + 4\} \{d2 + 8\} \{d3 + 12\} \{d4 + 16\} \{d5 + 20\} \{d6 + 24\} \{d7 + 28\} \{d8 + 32\} \{d9 + 36\} \{d10 + 40\} \{d11 + 44\} \{clk + 50\} \{compout + 55\} \{eoc + 60\}  \{vin_comp - 2\}
+plot compp-compn x1.clk compout
+*plot sample eoc x1.x3.start
+plot resultado sample eoc vin
+plot resultado sample eoc vin
 
-plot \{(((V(d11)/1.8)*2048 + (V(d10)/1.8)*1024 + (V(d9)/1.8)*512 + (V(d8)/1.8)*256 + (V(d7)/1.8)*128 + (V(d6)/1.8)*64 + (V(d5)/1.8)*32 + (V(d4)/1.8)*16 + (V(d3)/1.8)*8 + (V(d2)/1.8)*4 + (V(d1)/1.8)*2 + (V(d0)/1.8)) - 2048) * 1.8/2048\} sample eoc vinp-vinn
-plot \{((((0-V(d11))/1.8)*2048 + (V(d10)/1.8)*1024 + (V(d9)/1.8)*512 + (V(d8)/1.8)*256 + (V(d7)/1.8)*128 + (V(d6)/1.8)*64 + (V(d5)/1.8)*32 + (V(d4)/1.8)*16 + (V(d3)/1.8)*8 + (V(d2)/1.8)*4 + (V(d1)/1.8)*2 + (V(d0)/1.8)) + 2048)*1.8/2048\} sample eoc vinp-vinn
+print i_rms potencia_rms energia_conv energia_bit > "./../../out/consumos_conversion.txt"
+print vin reusultado_final error "./../../out/error_ejemplo.txt"
+
+hardcopy ./../../img/salidas_SAR.svg \{d0\} \{d1 + 4\} \{d2 + 8\} \{d3 + 12\} \{d4 + 16\} \{d5 + 20\} \{d6 + 24\} \{d7 + 28\} \{d8 + 32\} \{d9 + 36\} \{d10 + 40\} \{d11 + 44\} \{clk + 50\} \{compout + 55\} \{eoc + 60\}  \{vin_comp - 2\} title 'Salidas SAR'
+hardcopy ./../../img/conversion_ejemplo.svg resultado sample eoc vin title 'Ejemplo de una conversion'
+*hardcopy ./../../img/conversion2_ejemplo.svg resultado2 sample eoc vin 
+hardcopy ./../../img/nol_formas_de_onda.svg sample a_sample_nol+2 b_sample_nol+4 a_sample_buf+2 b_sample_buf+4 xlimit 0 4n title 'Señales de Non-Overlap'
+hardcopy ./../../img/nol_salidas.svg sample a_sample_buf+2 a_sample_n_buf+2 b_sample_buf+4 b_sample_n_buf+4 xlimit 0 4n title 'Salidas del Non-Overlap'
+
 *wrdata adc_signals.csv time V(d0) V(d1) V(d2) V(d3) V(d4) V(d5) V(d6) V(d7) V(d8) V(d9) V(d10) V(d11) vinp vinn eoc sample compout compp compn x1.comp_clk
 *write adc_signals.raw time V(d0) V(d1) V(d2) V(d3) V(d4) V(d5) V(d6) V(d7) V(d8) V(d9) V(d10) V(d11) vinp vinn eoc sample compout compp compn x1.comp_clk
 *quit
@@ -90,7 +125,7 @@ spice_ignore=false
 C {devices/vsource.sym} -505 -365 2 1 {name=VIN3 value="pulse(250m \{vdiff/2\} 0.1n 100p 100p \{stoptime\} \{stoptime+1\} 1)"}
 C {devices/lab_pin.sym} -240 -270 2 1 {name=l8 lab=vinn}
 C {devices/lab_pin.sym} -240 -330 0 0 {name=l9 lab=vinp}
-C {devices/vsource.sym} -510 -160 0 1 {name=V2 value="PULSE(0 1.8 0.1n 100p 100p 2n 30n )"}
+C {devices/vsource.sym} -510 -160 0 1 {name=V2 value="PULSE(0 1.8 0.1n 1p 1p 2n 30n )"}
 C {devices/lab_pin.sym} -510 -190 1 0 {name=l12 lab=sample}
 C {devices/gnd.sym} -510 -130 0 0 {name=l13 lab=GND}
 C {devices/lab_pin.sym} 145 -410 1 0 {name=l11 lab=sample}

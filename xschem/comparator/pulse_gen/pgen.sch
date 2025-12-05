@@ -18,8 +18,6 @@ L 4 250 -20 290 0 {}
 L 4 250 20 290 0 {}
 L 4 290 0 310 0 {}
 L 4 230 0 250 0 {}
-B 5 227.5 -2.5 232.5 2.5 {name=A dir=in goto=1 propag=1 }
-B 5 307.5 -2.5 312.5 2.5 {name=Y dir=out }
 T {A} 235 -14 0 0 0.2 0.2 {}
 T {Y} 305 -14 0 1 0.2 0.2 {}
 T {@name} 272.5 15 0 0 0.2 0.2 {}
@@ -32,7 +30,7 @@ N -180 90 -130 90 {lab=VSS}
 N -200 60 -130 60 {lab=READY}
 N 190 -130 190 -120 {lab=VDD}
 N 170 -130 190 -130 {lab=VDD}
-N 170 -90 190 -90 {lab=VDD}
+N 170 -90 200 -90 {lab=VDD}
 N 170 -130 170 -90 {lab=VDD}
 N 230 -30 250 -30 {lab=#net1}
 N 250 -60 250 -30 {lab=#net1}
@@ -74,7 +72,6 @@ N -360 -30 -300 -30 {lab=VDD}
 N -260 -60 -200 -60 {lab=VDD}
 N -300 -60 -260 -60 {lab=VDD}
 N -360 -0 -200 -0 {lab=READY}
-N 420 -30 470 -30 {lab=#net5}
 N -260 -30 -200 -30 {lab=VDD}
 N -260 -60 -260 -30 {lab=VDD}
 N -300 -60 -300 -30 {lab=VDD}
@@ -83,7 +80,6 @@ N -120 -30 -80 -30 {lab=vx_n}
 N -120 -70 -120 -30 {lab=vx_n}
 N -160 -30 -120 -30 {lab=vx_n}
 N -310 60 -200 60 {lab=READY}
-N 410 100 420 100 {lab=READY}
 N 360 50 360 70 {lab=vx}
 N 190 50 360 50 {lab=vx}
 N 190 0 190 50 {lab=vx}
@@ -105,8 +101,12 @@ N -310 90 -260 90 {lab=VSS}
 N -310 140 -260 140 {lab=VSS}
 N -180 90 -180 140 {lab=VSS}
 N -260 140 -180 140 {lab=VSS}
-N 252 8 257 8 {lab=#net6}
 N 415 -47 415 -30 {lab=vxs}
+N 240 -90 250 -90 {lab=VTUNE}
+N 190 -120 200 -120 {lab=VDD}
+N 415 -30 470 -30 {lab=vxs}
+N 410 -30 415 -30 {lab=vxs}
+N 190 -60 200 -60 {lab=#net5}
 C {sg13g2_pr/sg13_lv_nmos.sym} -330 90 0 0 {name=M1
 l=0.13u
 w=1u
@@ -138,7 +138,7 @@ spiceprefix=X
 }
 C {lab_pin.sym} -200 20 0 1 {name=p10 sig_type=std_logic lab=READY}
 C {sg13g2_stdcells/sg13g2_or2_2.sym} 530 -10 0 0 {name=x46 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {iopin.sym} 230 -90 0 0 {name=p12 lab=VTUNE}
+C {iopin.sym} 250 -90 0 0 {name=p12 lab=VTUNE}
 C {iopin.sym} 710 10 0 0 {name=p13 lab=PULSE_n}
 C {lab_pin.sym} 410 10 0 0 {name=p14 sig_type=std_logic lab=READY}
 C {sg13g2_stdcells/sg13g2_inv_2.sym} -40 -30 0 1 {name=x6 VDD=VDD VSS=VSS prefix=sg13g2_ }
@@ -158,7 +158,7 @@ m=1
 model=sg13_lv_nmos
 spiceprefix=X
 }
-C {sg13g2_pr/sg13_lv_pmos.sym} 210 -90 0 1 {name=M7
+C {sg13g2_pr/sg13_lv_pmos.sym} 220 -90 0 1 {name=M7
 l=0.5u
 w=2u
 ng=1
