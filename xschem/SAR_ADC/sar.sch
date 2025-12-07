@@ -1,4 +1,4 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
@@ -26,8 +26,6 @@ N -190 -40 -150 -40 {lab=compn}
 N -190 -40 -190 -30 {lab=compn}
 N -460 -10 -460 50 {lab=sample}
 N 30 20 30 70 {lab=comp_en}
-N -735 120 -730 120 {lab=#net1}
-N -735 -25 -735 120 {lab=#net1}
 C {comparator/discrete_time/DT_comparator.sym} -30 -60 0 0 {name=x1}
 C {dac_icms_cell/dac.sym} -870 -610 0 0 {name=x2 cu=10}
 C {logic/logic.sym} -870 710 2 1 {name=x3 }
@@ -70,9 +68,8 @@ C {lab_pin.sym} -240 50 1 0 {name=p40 lab=d1}
 C {lab_pin.sym} -220 50 1 0 {name=p41 lab=d0}
 C {lab_pin.sym} -460 -10 1 0 {name=p29 lab=sample}
 C {lab_pin.sym} 50 -140 0 1 {name=p10 lab=comp_clk}
-C {lab_pin.sym} -130 70 2 1 {name=p28 lab=sample_in}
+C {lab_pin.sym} -50 70 2 1 {name=p28 lab=sample_in}
 C {sg13g2_stdcells/sg13g2_inv_2.sym} -10 70 0 0 {name=x6 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {sg13g2_stdcells/sg13g2_dlygate4sd1_1.sym} -90 70 0 0 {name=x4 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {lab_pin.sym} 30 40 2 1 {name=p43 lab=comp_en}
 C {iopin.sym} -460 -340 0 1 {name=p4 lab=vcm}
 C {lab_pin.sym} -730 210 0 0 {name=p42 lab=comp_clk}

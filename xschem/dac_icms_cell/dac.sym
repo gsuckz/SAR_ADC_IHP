@@ -1,4 +1,4 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {type=subcircuit
 format="@name @pinlist @symname cu=@cu"
@@ -47,7 +47,6 @@ L 4 290 420 540 420 {}
 L 4 280 420 290 420 {}
 L 4 660 520 680 520 {}
 L 4 660 580 680 580 {}
-L 4 135 585 155 585 {}
 L 4 155 420 280 420 {}
 L 4 155 580 155 640 {}
 L 4 155 640 160 640 {}
@@ -85,7 +84,6 @@ B 5 487.5 657.5 492.5 662.5 {name=D8 dir=in}
 B 5 527.5 657.5 532.5 662.5 {name=D6 dir=in}
 B 5 547.5 657.5 552.5 662.5 {name=D5 dir=in}
 B 5 447.5 657.5 452.5 662.5 {name=D10 dir=in}
-B 5 132.5 582.5 137.5 587.5 {name=inv_vcm dir=in}
 T {@symname} 364 514 0 0 0.3 0.3 {}
 T {@name} 465 538 0 0 0.2 0.2 {}
 T {vcm} 414 425 1 0 0.2 0.2 {}

@@ -1,4 +1,4 @@
-v {xschem version=3.4.8RC file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {type=subcircuit
 format="@name @pinlist @symname W_P_SPDT=@W_P_SPDT L_P_SPDT=@L_P_SPDT W_N_SPDT=@W_N_SPDT L_N_SPDT=@L_N_SPDT Cu=@Cu n=@n"
@@ -36,7 +36,6 @@ L 4 -10 -180 -10 -130 {}
 L 4 -70 -95 -70 -60 {}
 L 4 -70 -145 -70 -125 {}
 L 4 -70 -175 -70 -150 {}
-L 4 -20 -70 0 -70 {}
 L 7 -150 -155 -130 -155 {}
 L 7 -10 -155 10 -155 {}
 L 7 -70 -200 -70 -180 {}
@@ -56,7 +55,6 @@ B 5 -152.5 -127.5 -147.5 -122.5 {name=a_sample dir=in}
 B 5 -152.5 -92.5 -147.5 -87.5 {name=a_sample_n dir=in}
 B 5 -152.5 -177.5 -147.5 -172.5 {name=b_sample dir=in}
 B 5 7.5 -177.5 12.5 -172.5 {name=b_sample_n dir=in}
-B 5 -2.5 -72.5 2.5 -67.5 {name=inv_vcm dir=in}
 A 4 -70 -50 7.071067811865476 315 360 {}
 A 4 -70 -120 7.071067811865476 315 360 {}
 A 4 -30 -50 7.071067811865476 315 360 {}

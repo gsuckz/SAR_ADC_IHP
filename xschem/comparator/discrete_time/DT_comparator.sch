@@ -27,14 +27,10 @@ N 1500 -1025 1500 -960 {lab=voutp_buf}
 N 800 -1080 800 -1060 {lab=VDD}
 N 1740 -960 1860 -960 {lab=#net1}
 N 460 -640 490 -640 {lab=#net2}
-N 540 -500 540 -480 {lab=VDD}
-N 540 -400 540 -380 {lab=VSS}
-N 450 -440 480 -440 {lab=#net3}
 N 760 -500 760 -480 {lab=VDD}
 N 760 -400 760 -380 {lab=VSS}
-N 620 -440 700 -440 {lab=#net4}
-N 1280 -840 1310 -840 {lab=#net5}
-N 1280 -1025 1310 -1025 {lab=#net6}
+N 1280 -840 1310 -840 {lab=#net3}
+N 1280 -1025 1310 -1025 {lab=#net4}
 N 1450 -1025 1500 -1025 {lab=voutp_buf}
 N 1500 -1080 1500 -1025 {lab=voutp_buf}
 N 1450 -840 1500 -840 {lab=voutn_buf}
@@ -42,11 +38,13 @@ N 1500 -920 1500 -840 {lab=voutn_buf}
 N 1960 -980 1960 -960 {lab=VDD}
 N 1960 -880 1960 -860 {lab=VSS}
 N 1340 -460 1340 -420 {lab=vcm}
-N 1740 -920 1900 -920 {lab=#net7}
+N 1740 -920 1900 -920 {lab=#net5}
 N 630 -640 860 -640 {lab=clk}
 N 860 -820 860 -640 {lab=clk}
-N 900 -820 900 -440 {lab=#net8}
-N 840 -440 900 -440 {lab=#net8}
+N 900 -820 900 -440 {lab=PULSE}
+N 840 -440 900 -440 {lab=PULSE}
+N 630 -440 700 -440 {lab=clk}
+N 630 -640 630 -440 {lab=clk}
 C {devices/iopin.sym} 800 -1080 3 0 {name=p11 lab=VDD}
 C {devices/opin.sym} 2040 -920 2 1 {name=p2 lab=vout}
 C {devices/iopin.sym} 800 -800 1 0 {name=p8 lab=VSS}
@@ -77,17 +75,10 @@ C {inverter/inverter_lv.sym} 380 -640 0 0 {name=x8 W_P=0.3u L_P=0.13u W_N=0.15u 
 C {lab_wire.sym} 380 -680 3 1 {name=p30 sig_type=std_logic lab=VDD}
 C {lab_wire.sym} 380 -600 3 0 {name=p31 sig_type=std_logic lab=VSS}
 C {devices/iopin.sym} 1340 -420 2 1 {name=p25 lab=vcm}
-C {inverter/inverter_lv.sym} 540 -440 0 0 {name=x9 W_P=0.3u L_P=0.13u W_N=0.15u L_N=0.13u n=16}
-C {lab_wire.sym} 540 -500 3 1 {name=p32 sig_type=std_logic lab=VDD}
-C {lab_wire.sym} 540 -380 3 0 {name=p33 sig_type=std_logic lab=VSS}
-C {inverter/inverter_lv.sym} 370 -440 0 0 {name=x10 W_P=0.3u L_P=0.13u W_N=0.15u L_N=0.13u n=4}
-C {lab_wire.sym} 370 -480 3 1 {name=p34 sig_type=std_logic lab=VDD}
-C {lab_wire.sym} 370 -400 3 0 {name=p35 sig_type=std_logic lab=VSS}
 C {inverter/inverter_lv.sym} 760 -440 0 0 {name=x11 W_P=0.3u L_P=0.13u W_N=0.15u L_N=0.13u n=64}
 C {lab_wire.sym} 760 -500 3 1 {name=p36 sig_type=std_logic lab=VDD}
 C {lab_wire.sym} 760 -380 3 0 {name=p37 sig_type=std_logic lab=VSS}
 C {lab_wire.sym} 320 -640 2 1 {name=p38 sig_type=std_logic lab=PULSEN}
-C {lab_wire.sym} 310 -440 2 1 {name=p39 sig_type=std_logic lab=PULSEN}
 C {inverter/inverter_lv.sym} 1370 -840 0 0 {name=x12 W_P=0.3u L_P=0.13u W_N=0.15u L_N=0.13u n=8}
 C {lab_wire.sym} 1370 -880 3 1 {name=p40 sig_type=std_logic lab=VDD}
 C {lab_wire.sym} 1370 -800 3 0 {name=p41 sig_type=std_logic lab=VSS}

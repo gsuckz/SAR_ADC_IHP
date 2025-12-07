@@ -93,9 +93,9 @@ meas tran t_dec1 TRIG v(x1.voutp_buf) VAL=1.62 RISE=1 TARG v(pulse) VAL=0.18 FAL
 meas tran t_dec2 TRIG v(x1.voutp_buf) VAL=1.62 RISE=2 TARG v(pulse) VAL=0.18 FALL=2
 meas tran t_dec3 TRIG v(x1.voutp_buf) VAL=1.62 RISE=3 TARG v(pulse) VAL=0.18 FALL=3
 
-meas tran t_reset1 TRIG pulse VAL=1.62 RISE=2 TARG pulse VAL=0.18 FALL=2
-meas tran t_reset2 TRIG pulse VAL=1.62 RISE=3 TARG pulse VAL=0.18 FALL=3
-meas tran t_reset3 TRIG pulse VAL=1.62 RISE=4 TARG pulse VAL=0.18 FALL=4
+meas tran t_resetp TRIG pulse VAL=1.62 RISE=2 TARG pulse VAL=0.18 FALL=1
+meas tran t_resetn TRIG pulse VAL=1.62 RISE=3 TARG pulse VAL=0.18 FALL=3
+
 
 echo Primer tiempo de decision $&t_dec1 s
 echo Segundo tiempo de decison $&t_dec3 s
@@ -106,10 +106,9 @@ echo Tiempo de espera $&t_reset3 s
 * Calculate Energy / Conversion
 * i_int in As
 * energy_conv in Ws = J
-*let N = 1
-**let t_conv = tstart + t_dec
-*meas tran i_int INTEG i(VDD) from=tstart to=t_conv
-*let energy_conv = 1.5 * i_int / N
+let t_conv = tstart + t_dec
+meas tran i_int INTEG i(VDD) from=tstart to=t_conv
+let energy_conv = 1.5 * i_int 
 
 *let energy_conv_femto = energy_conv * 1e15
 *echo Energy / Conversion $&energy_conv_femto fJ/conv
@@ -136,6 +135,7 @@ hardcopy ./../../img/salidas_internas_comparador.svg outp_Bindra outn_Bindra out
 hardcopy ./../../img/senales_pgen.svg READY Schmitt_out+2 Schmitt_outn+2 Schmitt_in+2 pulse+4 title 'Señales Internas Generador de Pulsos'
 hardcopy ./../../img/retardo_buffer_comp.svg outp_Bindra outn_Bindra+2 outp_Buffer outn_Buffer+2 out_comp+4 title 'Retardo Salidas'
 hardcopy ./../../img/salidas_comp.svg vin_dif_mV out_comp pulse+4 enable+2 title 'Salidas Comparador'
+hardcopy ./../../img/tiempo_rst_comp.svg pulse+2 outp_Bindra outn_Bindra xlimit 2.65n 2.95n title 'Tiempo Reset'
 
 
 

@@ -125,11 +125,9 @@ N 5640 -2155 5640 -1995 {lab=vinp}
 N 4570 -1350 5495 -1350 {lab=vinn}
 N 5535 -1525 5535 -1380 {lab=vcm}
 N 2640 -1800 5600 -1800 {lab=vdacp2}
-N 5935 -1715 6080 -1715 {lab=vdacn2}
 N 5175 -1715 5175 -1705 {lab=vdacn2}
 N 2645 -1705 5175 -1705 {lab=vdacn2}
 N 5600 -2100 5600 -1995 {lab=vcm}
-N 5935 -1805 6080 -1805 {lab=vdacp2}
 N 6140 -1805 6155 -1805 {lab=VSS}
 N 6140 -1715 6155 -1715 {lab=VSS}
 N 6155 -1805 6155 -1715 {lab=VSS}
@@ -139,6 +137,8 @@ N 5935 -1715 5935 -1685 {lab=vdacn2}
 N 5175 -1715 5935 -1715 {lab=vdacn2}
 N 5935 -1830 5935 -1805 {lab=vdacp2}
 N 5600 -1805 5935 -1805 {lab=vdacp2}
+N 5935 -1715 6080 -1715 {lab=vdacn2}
+N 5935 -1805 6080 -1805 {lab=vdacp2}
 C {dac_icms_cell/unit_cell_n.sym} 195 -1820 0 0 {name=x14 W_P_SPDT=W_P L_P_SPDT=0.13u W_N_SPDT=W_N L_N_SPDT=0.13u Cu=cu n=32}
 C {devices/ipin.sym} 70 -2320 0 0 {name=p15 lab=D0}
 C {devices/ipin.sym} 90 -2350 1 0 {name=p16 lab=b0}
@@ -430,31 +430,6 @@ spiceprefix=X}
 C {devices/ipin.sym} 2255 -1890 0 0 {name=p99 lab=D6}
 C {noconn.sym} 90 -2350 0 0 {name=l1}
 C {noconn.sym} 70 -2320 0 0 {name=l2}
-C {devices/ipin.sym} 80 -2255 0 0 {name=p39 lab=inv_vcm}
-C {lab_pin.sym} 240 -1575 0 1 {name=p100 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 665 -1575 0 1 {name=p101 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 1095 -1575 0 1 {name=p102 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 1535 -1575 0 1 {name=p172 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 1950 -1575 0 1 {name=p173 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 2390 -1575 0 1 {name=p175 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 2970 -1575 0 1 {name=p176 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 3395 -1575 0 1 {name=p177 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 3825 -1575 0 1 {name=p190 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 4680 -1575 0 1 {name=p191 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 4265 -1575 0 1 {name=p192 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 5605 -1585 0 1 {name=p193 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 5530 -1935 0 0 {name=p252 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 4425 -1930 0 0 {name=p253 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 4005 -1930 0 0 {name=p254 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 3580 -1930 0 0 {name=p255 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 3145 -1930 0 0 {name=p256 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 2825 -1930 0 0 {name=p257 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 2255 -1930 0 0 {name=p258 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 1805 -1930 0 0 {name=p259 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 1385 -1930 0 0 {name=p260 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 960 -1930 0 0 {name=p261 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 525 -1930 0 0 {name=p262 sig_type=std_logic lab=inv_vcm}
-C {lab_pin.sym} 100 -1930 0 0 {name=p263 sig_type=std_logic lab=inv_vcm}
 C {inverter/inverter_lv.sym} -1145 -2445 0 0 {name=x12 W_P=0.3u L_P=0.13u W_N=0.15u L_N=0.13u n=4}
 C {lab_pin.sym} -1145 -2485 0 0 {name=p265 sig_type=std_logic lab=VDD}
 C {inverter/inverter_lv.sym} -1005 -2445 0 0 {name=x26 W_P=0.3u L_P=0.13u W_N=0.15u L_N=0.13u n=16}

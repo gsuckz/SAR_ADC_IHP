@@ -140,7 +140,6 @@ C {sg13g2_stdcells/sg13g2_nand2_1.sym} 1750 -930 2 0 {name=x46 VDD=VDD VSS=VSS p
 C {devices/lab_pin.sym} 1450 -1090 3 1 {name=p33 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 1450 -1010 1 1 {name=p34 sig_type=std_logic lab=VSS}
 C {sg13g2_stdcells/sg13g2_inv_1.sym} 1915 -1070 2 0 {name=x32 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {devices/ipin.sym} 470 -1415 0 1 {name=p40 lab=inv_vcm}
 C {devices/lab_pin.sym} 2030 -1260 2 0 {name=p41 sig_type=std_logic lab=b_sample_n}
 C {iopin.sym} 485 -1580 3 0 {name=p127 sig_type=std_logic lab=VSS}
 C {iopin.sym} 485 -1560 1 0 {name=p139 sig_type=std_logic lab=VDD}
