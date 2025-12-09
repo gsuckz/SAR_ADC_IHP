@@ -1,9 +1,8 @@
 v {xschem version=3.4.6 file_version=1.2}
 G {}
 K {type=subcircuit
-format="@name @pinlist @symname W_P=@W_P L_P=@L_P W_N=@W_N L_N=@L_N"
-template="name=x1 W_P=1.0u L_P=0.13u W_N=1.0u L_N=0.13u"
-}
+format="@name @pinlist @symname W_P=@W_P L_P=@L_P W_N=@W_N L_N=@L_N W_P_D=@W_P_D L_P_D=@L_P_D W_N_D=@W_N_D L_N_D=@L_N_D n=@n"
+template="name=x1 W_P=2.0u L_P=0.13u W_N=2.0u L_N=0.13u W_P_D=1.0u L_P_D=0.13u W_N_D=1.0u L_N_D=0.13u n=1"}
 V {}
 S {}
 E {}

@@ -55,7 +55,7 @@
      inkscape:zoom="0.62182757"
      inkscape:cx="592.60801"
      inkscape:cy="330.47747"
-     inkscape:window-width="1360"
+     inkscape:window-width="1366"
      inkscape:window-height="705"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
@@ -944,7 +944,7 @@ text {font-family: Sans-Serif;}
      transform="rotate(-90,305.46528,429.63685)"><tspan
        x="224.01758"
        y="492.15761"
-       id="tspan2">Vcm</tspan></text>
+       id="tspan1">Vcm</tspan></text>
   <text
      xml:space="preserve"
      id="text333-5"
@@ -952,7 +952,7 @@ text {font-family: Sans-Serif;}
      transform="rotate(-90,241.76254,84.4076)"><tspan
        x="224.01758"
        y="492.15761"
-       id="tspan3">Vcm</tspan></text>
+       id="tspan2">Vcm</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:16px;font-family:Sans-Serif;-inkscape-font-specification:'Sans-Serif, Normal';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;stroke:#1e95cb;stroke-width:1.8;stroke-opacity:1"
@@ -1016,7 +1016,7 @@ text {font-family: Sans-Serif;}
      transform="rotate(-90,403.7698,333.41528)"><tspan
        x="224.01758"
        y="492.15761"
-       id="tspan4">Vcm</tspan></text>
+       id="tspan3">Vcm</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:16px;font-family:Sans-Serif;-inkscape-font-specification:'Sans-Serif, Normal';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;stroke:#1e95cb;stroke-width:1.8;stroke-opacity:1"
@@ -1063,7 +1063,7 @@ text {font-family: Sans-Serif;}
      transform="rotate(-90,540.50123,197.25528)"><tspan
        x="224.01758"
        y="492.15761"
-       id="tspan5">Vcm</tspan></text>
+       id="tspan4">Vcm</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:16px;font-family:Sans-Serif;-inkscape-font-specification:'Sans-Serif, Normal';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;stroke:#1e95cb;stroke-width:1.8;stroke-opacity:1"
@@ -1110,7 +1110,7 @@ text {font-family: Sans-Serif;}
      transform="rotate(-90,647.74409,88.543853)"><tspan
        x="224.01758"
        y="492.15761"
-       id="tspan6">Vcm</tspan></text>
+       id="tspan5">Vcm</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:16px;font-family:Sans-Serif;-inkscape-font-specification:'Sans-Serif, Normal';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;stroke:#1e95cb;stroke-width:1.8;stroke-opacity:1"
@@ -1352,7 +1352,7 @@ text {font-family: Sans-Serif;}
        sodipodi:role="line"
        id="tspan357"
        x="466.22858"
-       y="286.56">2 Cu</tspan></text>
+       y="286.56"> Cu</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:16px;font-family:Sans-Serif;-inkscape-font-specification:'Sans-Serif, Normal';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;stroke:#0099cc;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
@@ -1382,7 +1382,7 @@ text {font-family: Sans-Serif;}
        sodipodi:role="line"
        id="tspan360"
        x="1035.9371"
-       y="285.42285">2 Cu</tspan></text>
+       y="285.42285"> Cu</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:16px;font-family:Sans-Serif;-inkscape-font-specification:'Sans-Serif, Normal';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;stroke:#0099cc;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"

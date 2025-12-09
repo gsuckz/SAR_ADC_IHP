@@ -1,0 +1,121 @@
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+  width="100%" height="100%" viewBox="0 0 1024 768"
+  style="fill: none; font-family: Helvetica;
+ font: Helvetica;
+">
+
+<!-- Creator: NGspice -->
+
+<rect x="0" y="0" width="1024" height="768" fill="white" stroke="none"/>
+<text stroke="none" fill="black" font-size="16" x="358" y="752">
+time
+</text>
+<text stroke="none" fill="black" font-size="16" x="10" y="16">
+tran1: Pulso de subida de 1024 circuitos en paralelo
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M60 704l0 -639"/>
+<text stroke="none" fill="black" font-size="16" x="35" y="728">
+4.000
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M150 704l0 -639"/>
+<text stroke="none" fill="black" font-size="16" x="125" y="728">
+4.010
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M240 704l0 -639"/>
+<text stroke="none" fill="black" font-size="16" x="215" y="728">
+4.020
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M330 704l0 -639"/>
+<text stroke="none" fill="black" font-size="16" x="305" y="728">
+4.030
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M420 704l0 -639"/>
+<text stroke="none" fill="black" font-size="16" x="395" y="728">
+4.040
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M510 704l0 -639"/>
+<text stroke="none" fill="black" font-size="16" x="485" y="728">
+4.050
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M600 704l0 -639"/>
+<text stroke="none" fill="black" font-size="16" x="575" y="728">
+4.060
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M690 704l0 -639"/>
+<text stroke="none" fill="black" font-size="16" x="665" y="728">
+4.070
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M780 704l0 -639"/>
+<text stroke="none" fill="black" font-size="16" x="755" y="728">
+4.080
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M870 704l0 -639"/>
+<text stroke="none" fill="black" font-size="16" x="845" y="728">
+4.090
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M960 704l0 -639"/>
+<text stroke="none" fill="black" font-size="16" x="935" y="728">
+4.100
+</text>
+<text stroke="none" fill="black" font-size="16" x="614" y="752">
+ns
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M60 704l900 0"/>
+<text stroke="none" fill="black" font-size="16" x="18" y="712">
+0.90
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M60 633l900 0"/>
+<text stroke="none" fill="black" font-size="16" x="18" y="641">
+1.00
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M60 562l900 0"/>
+<text stroke="none" fill="black" font-size="16" x="18" y="570">
+1.10
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M60 491l900 0"/>
+<text stroke="none" fill="black" font-size="16" x="18" y="499">
+1.20
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M60 420l900 0"/>
+<text stroke="none" fill="black" font-size="16" x="18" y="428">
+1.30
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M60 349l900 0"/>
+<text stroke="none" fill="black" font-size="16" x="18" y="357">
+1.40
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M60 278l900 0"/>
+<text stroke="none" fill="black" font-size="16" x="18" y="286">
+1.50
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M60 207l900 0"/>
+<text stroke="none" fill="black" font-size="16" x="18" y="215">
+1.60
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M60 136l900 0"/>
+<text stroke="none" fill="black" font-size="16" x="18" y="144">
+1.70
+</text>
+<path stroke="black" stroke-dasharray="1,2" d="M60 65l900 0"/>
+<text stroke="none" fill="black" font-size="16" x="18" y="73">
+1.80
+</text>
+<text stroke="none" fill="black" font-size="16" x="10" y="32">
+V
+</text>
+<path stroke="red" d="M450 23l45 0"/>
+<text stroke="none" fill="black" font-size="16" x="505" y="32">
+vin1
+</text>
+<path stroke="blue" d="M60 23l45 0"/>
+<text stroke="none" fill="black" font-size="16" x="115" y="32">
+v_top1
+</text>
+<path stroke="#FFA500" d="M450 39l45 0"/>
+<text stroke="none" fill="black" font-size="16" x="505" y="48">
+v_top1a
+</text>
+</svg>
