@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.16)  16 MAR 2026 11:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.16)  16 MAR 2026 16:20
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -787,30 +787,12 @@ un com-pa-ra-dor de po-la-ri-za-ci^^Son din^^Sami-
 
 [9] [10] [11]
 Cap\'{\i }tulo 2.
-Package svg Info: Calling Inkscape on input line 276.
-runsystem(inkscape "./img/tb_sar_adc.svg" -D --export-filename="tb_sar_adc_svg-
-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "tb_sar_adc_svg-raw.pdf" "./svg-inkscape/tb_sar_adc_svg-raw.pdf"
-)...executed.
-
 <./svg-inkscape/tb_sar_adc_svg-raw.pdf, id=330, 690.20439pt x 255.55582pt>
 File: ./svg-inkscape/tb_sar_adc_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/tb_sar_adc_svg-raw.pdf>
 Package pdftex.def Info: ./svg-inkscape/tb_sar_adc_svg-raw.pdf  used on input l
 ine 276.
 (pdftex.def)             Requested size: 690.2027pt x 255.55518pt.
-Package svg Info: Calling Inkscape on input line 283.
-runsystem(inkscape "./img/sar_diagrama_xschem.svg" -D --export-filename="sar_di
-agrama_xschem_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "sar_diagrama_xschem_svg-raw.pdf" "./svg-inkscape/sar_diagrama_x
-schem_svg-raw.pdf")...executed.
-
 <./svg-inkscape/sar_diagrama_xschem_svg-raw.pdf, id=332, 716.19719pt x 427.9764
 pt>
 File: ./svg-inkscape/sar_diagrama_xschem_svg-raw.pdf Graphic file (type pdf)
@@ -825,15 +807,6 @@ Overfull \hbox (14.30534pt too wide) in paragraph at lines 291--291
 []\OT1/cmr/bx/n/14.4 Arquitectura In-ver-ted Mer-ged Ca-pa-ci-tor Swit-ching (I
 MCS) 
  []
-
-Package svg Info: Calling Inkscape on input line 294.
-runsystem(inkscape "./img/imcs_diagrama.svg" -D --export-filename="imcs_diagram
-a_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "imcs_diagrama_svg-raw.pdf" "./svg-inkscape/imcs_diagrama_svg-ra
-w.pdf")...executed.
 
 <./svg-inkscape/imcs_diagrama_svg-raw.pdf, id=349, 916.10199pt x 336.23346pt>
 File: ./svg-inkscape/imcs_diagrama_svg-raw.pdf Graphic file (type pdf)
@@ -890,15 +863,6 @@ qui-tec-tu-ra pro-pues-ta por Chang [[]],
  []
 
 [17]
-Package svg Info: Calling Inkscape on input line 490.
-runsystem(inkscape "./img/dac_unit_cell.svg" -D --export-filename="dac_unit_cel
-l_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "dac_unit_cell_svg-raw.pdf" "./svg-inkscape/dac_unit_cell_svg-ra
-w.pdf")...executed.
-
 <./svg-inkscape/dac_unit_cell_svg-raw.pdf, id=414, 695.34775pt x 400.6435pt>
 File: ./svg-inkscape/dac_unit_cell_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/dac_unit_cell_svg-raw.pdf>
@@ -906,15 +870,6 @@ Package pdftex.def Info: ./svg-inkscape/dac_unit_cell_svg-raw.pdf  used on inpu
 t line 490.
 (pdftex.def)             Requested size: 695.34604pt x 400.64252pt.
  [18]
-Package svg Info: Calling Inkscape on input line 497.
-runsystem(inkscape "./img/dac_unit_cell_n.svg" -D --export-filename="dac_unit_c
-ell_n_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "dac_unit_cell_n_svg-raw.pdf" "./svg-inkscape/dac_unit_cell_n_sv
-g-raw.pdf")...executed.
-
 <./svg-inkscape/dac_unit_cell_n_svg-raw.pdf, id=422, 695.34775pt x 403.03072pt>
 
 File: ./svg-inkscape/dac_unit_cell_n_svg-raw.pdf Graphic file (type pdf)
@@ -928,30 +883,12 @@ _svg-raw.pdf
 pdfTeX warning: pdflatex (file ./svg-inkscape/dac_unit_cell_n_svg-raw.pdf): PDF
  inclusion: multiple pdfs with page group included in a single page
 >]
-Package svg Info: Calling Inkscape on input line 516.
-runsystem(inkscape "./img/nol_diagrama.svg" -D --export-filename="nol_diagrama_
-svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "nol_diagrama_svg-raw.pdf" "./svg-inkscape/nol_diagrama_svg-raw.
-pdf")...executed.
-
 <./svg-inkscape/nol_diagrama_svg-raw.pdf, id=448, 1015.33258pt x 449.97043pt>
 File: ./svg-inkscape/nol_diagrama_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/nol_diagrama_svg-raw.pdf>
 Package pdftex.def Info: ./svg-inkscape/nol_diagrama_svg-raw.pdf  used on input
  line 516.
 (pdftex.def)             Requested size: 1015.33011pt x 449.96933pt.
-Package svg Info: Calling Inkscape on input line 537.
-runsystem(inkscape "./img/nol_salidas_editado.svg" -D --export-filename="nol_sa
-lidas_editado_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "nol_salidas_editado_svg-raw.pdf" "./svg-inkscape/nol_salidas_ed
-itado_svg-raw.pdf")...executed.
-
 <./svg-inkscape/nol_salidas_editado_svg-raw.pdf, id=452, 770.88pt x 574.88997pt
 >
 File: ./svg-inkscape/nol_salidas_editado_svg-raw.pdf Graphic file (type pdf)
@@ -960,15 +897,6 @@ Package pdftex.def Info: ./svg-inkscape/nol_salidas_editado_svg-raw.pdf  used o
 n input line 537.
 (pdftex.def)             Requested size: 770.87813pt x 574.88855pt.
  [20 <./svg-inkscape/nol_diagrama_svg-raw.pdf>]
-Package svg Info: Calling Inkscape on input line 544.
-runsystem(inkscape "./img/nol_formas_de_onda_editado.svg" -D --export-filename=
-"nol_formas_de_onda_editado_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "nol_formas_de_onda_editado_svg-raw.pdf" "./svg-inkscape/nol_for
-mas_de_onda_editado_svg-raw.pdf")...executed.
-
 <./svg-inkscape/nol_formas_de_onda_editado_svg-raw.pdf, id=469, 770.88pt x 578.
 16pt>
 File: ./svg-inkscape/nol_formas_de_onda_editado_svg-raw.pdf Graphic file (type 
@@ -983,15 +911,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 566--567
 
  []
 
-Package svg Info: Calling Inkscape on input line 570.
-runsystem(inkscape "./img/tb_top_tran_step.svg" -D --export-filename="tb_top_tr
-an_step_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "tb_top_tran_step_svg-raw.pdf" "./svg-inkscape/tb_top_tran_step_
-svg-raw.pdf")...executed.
-
 <./svg-inkscape/tb_top_tran_step_svg-raw.pdf, id=499, 281.65422pt x 288.81105pt
 >
 File: ./svg-inkscape/tb_top_tran_step_svg-raw.pdf Graphic file (type pdf)
@@ -1000,30 +919,12 @@ Package pdftex.def Info: ./svg-inkscape/tb_top_tran_step_svg-raw.pdf  used on i
 nput line 570.
 (pdftex.def)             Requested size: 281.65352pt x 288.81033pt.
 [23 <./svg-inkscape/tb_top_tran_step_svg-raw.pdf>]
-Package svg Info: Calling Inkscape on input line 584.
-runsystem(inkscape "./img/rise_top.svg" -D --export-filename="rise_top_svg-raw.
-pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "rise_top_svg-raw.pdf" "./svg-inkscape/rise_top_svg-raw.pdf")...
-executed.
-
 <./svg-inkscape/rise_top_svg-raw.pdf, id=517, 770.88pt x 578.16pt>
 File: ./svg-inkscape/rise_top_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/rise_top_svg-raw.pdf>
 Package pdftex.def Info: ./svg-inkscape/rise_top_svg-raw.pdf  used on input lin
 e 584.
 (pdftex.def)             Requested size: 770.87813pt x 578.15858pt.
-Package svg Info: Calling Inkscape on input line 591.
-runsystem(inkscape "./img/rise_topa.svg" -D --export-filename="rise_topa_svg-ra
-w.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "rise_topa_svg-raw.pdf" "./svg-inkscape/rise_topa_svg-raw.pdf").
-..executed.
-
 <./svg-inkscape/rise_topa_svg-raw.pdf, id=518, 770.88pt x 578.16pt>
 File: ./svg-inkscape/rise_topa_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/rise_topa_svg-raw.pdf>
@@ -1031,15 +932,6 @@ Package pdftex.def Info: ./svg-inkscape/rise_topa_svg-raw.pdf  used on input li
 ne 591.
 (pdftex.def)             Requested size: 770.87813pt x 578.15858pt.
  [24 <./svg-inkscape/rise_top_svg-raw.pdf>]
-Package svg Info: Calling Inkscape on input line 599.
-runsystem(inkscape "./img/delays_sah.svg" -D --export-filename="delays_sah_svg-
-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "delays_sah_svg-raw.pdf" "./svg-inkscape/delays_sah_svg-raw.pdf"
-)...executed.
-
 <./svg-inkscape/delays_sah_svg-raw.pdf, id=536, 770.88pt x 578.16pt>
 File: ./svg-inkscape/delays_sah_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/delays_sah_svg-raw.pdf>
@@ -1047,15 +939,6 @@ Package pdftex.def Info: ./svg-inkscape/delays_sah_svg-raw.pdf  used on input l
 ine 599.
 (pdftex.def)             Requested size: 770.87813pt x 578.15858pt.
  [25 <./svg-inkscape/rise_topa_svg-raw.pdf>]
-Package svg Info: Calling Inkscape on input line 606.
-runsystem(inkscape "./img/respuesta_c.svg" -D --export-filename="respuesta_c_sv
-g-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "respuesta_c_svg-raw.pdf" "./svg-inkscape/respuesta_c_svg-raw.pd
-f")...executed.
-
 <./svg-inkscape/respuesta_c_svg-raw.pdf, id=550, 770.88pt x 578.16pt>
 File: ./svg-inkscape/respuesta_c_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/respuesta_c_svg-raw.pdf>
@@ -1063,15 +946,6 @@ Package pdftex.def Info: ./svg-inkscape/respuesta_c_svg-raw.pdf  used on input
 line 606.
 (pdftex.def)             Requested size: 770.87813pt x 578.15858pt.
  [26 <./svg-inkscape/delays_sah_svg-raw.pdf>]
-Package svg Info: Calling Inkscape on input line 630.
-runsystem(inkscape "./img/tg_diagrama_dummies.svg" -D --export-filename="tg_dia
-grama_dummies_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "tg_diagrama_dummies_svg-raw.pdf" "./svg-inkscape/tg_diagrama_du
-mmies_svg-raw.pdf")...executed.
-
 <./svg-inkscape/tg_diagrama_dummies_svg-raw.pdf, id=563, 326.80576pt x 410.4048
 5pt>
 File: ./svg-inkscape/tg_diagrama_dummies_svg-raw.pdf Graphic file (type pdf)
@@ -1081,15 +955,6 @@ n input line 630.
 (pdftex.def)             Requested size: 326.80495pt x 410.40384pt.
  [27 <./svg-inkscape/respuesta_c_svg-raw.pdf>] [28 <./svg-inkscape/tg_diagrama_
 dummies_svg-raw.pdf>]
-Package svg Info: Calling Inkscape on input line 647.
-runsystem(inkscape "./img/sample_rapido_vs_lento_dummies.svg" -D --export-filen
-ame="sample_rapido_vs_lento_dummies_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "sample_rapido_vs_lento_dummies_svg-raw.pdf" "./svg-inkscape/sam
-ple_rapido_vs_lento_dummies_svg-raw.pdf")...executed.
-
 <./svg-inkscape/sample_rapido_vs_lento_dummies_svg-raw.pdf, id=592, 770.88pt x 
 578.16pt>
 File: ./svg-inkscape/sample_rapido_vs_lento_dummies_svg-raw.pdf Graphic file (t
@@ -1098,15 +963,6 @@ ype pdf)
 Package pdftex.def Info: ./svg-inkscape/sample_rapido_vs_lento_dummies_svg-raw.
 pdf  used on input line 647.
 (pdftex.def)             Requested size: 770.87813pt x 578.15858pt.
-Package svg Info: Calling Inkscape on input line 653.
-runsystem(inkscape "./img/sample_rapido_vs_lento_dummies_zoom.svg" -D --export-
-filename="sample_rapido_vs_lento_dummies_zoom_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "sample_rapido_vs_lento_dummies_zoom_svg-raw.pdf" "./svg-inkscap
-e/sample_rapido_vs_lento_dummies_zoom_svg-raw.pdf")...executed.
-
 <./svg-inkscape/sample_rapido_vs_lento_dummies_zoom_svg-raw.pdf, id=593, 770.88
 pt x 578.16pt>
 File: ./svg-inkscape/sample_rapido_vs_lento_dummies_zoom_svg-raw.pdf Graphic fi
@@ -1117,30 +973,12 @@ Package pdftex.def Info: ./svg-inkscape/sample_rapido_vs_lento_dummies_zoom_svg
 (pdftex.def)             Requested size: 770.87813pt x 578.15858pt.
  [29 <./svg-inkscape/sample_rapido_vs_lento_dummies_svg-raw.pdf>] [30 <./svg-in
 kscape/sample_rapido_vs_lento_dummies_zoom_svg-raw.pdf>] [31] [32]
-Package svg Info: Calling Inkscape on input line 787.
-runsystem(inkscape "./img/DT_comparator.svg" -D --export-filename="DT_comparato
-r_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "DT_comparator_svg-raw.pdf" "./svg-inkscape/DT_comparator_svg-ra
-w.pdf")...executed.
-
 <./svg-inkscape/DT_comparator_svg-raw.pdf, id=653, 1009.80571pt x 443.81725pt>
 File: ./svg-inkscape/DT_comparator_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/DT_comparator_svg-raw.pdf>
 Package pdftex.def Info: ./svg-inkscape/DT_comparator_svg-raw.pdf  used on inpu
 t line 787.
 (pdftex.def)             Requested size: 1009.80325pt x 443.81615pt.
-Package svg Info: Calling Inkscape on input line 794.
-runsystem(inkscape "./img/bindra_preamp_diagrama.svg" -D --export-filename="bin
-dra_preamp_diagrama_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "bindra_preamp_diagrama_svg-raw.pdf" "./svg-inkscape/bindra_prea
-mp_diagrama_svg-raw.pdf")...executed.
-
 <./svg-inkscape/bindra_preamp_diagrama_svg-raw.pdf, id=654, 1015.62592pt x 466.
 43443pt>
 File: ./svg-inkscape/bindra_preamp_diagrama_svg-raw.pdf Graphic file (type pdf)
@@ -1149,15 +987,6 @@ File: ./svg-inkscape/bindra_preamp_diagrama_svg-raw.pdf Graphic file (type pdf)
 Package pdftex.def Info: ./svg-inkscape/bindra_preamp_diagrama_svg-raw.pdf  use
 d on input line 794.
 (pdftex.def)             Requested size: 1015.62344pt x 466.43329pt.
-Package svg Info: Calling Inkscape on input line 801.
-runsystem(inkscape "./img/latch_diagrama.svg" -D --export-filename="latch_diagr
-ama_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "latch_diagrama_svg-raw.pdf" "./svg-inkscape/latch_diagrama_svg-
-raw.pdf")...executed.
-
 <./svg-inkscape/latch_diagrama_svg-raw.pdf, id=655, 661.74529pt x 441.907pt>
 File: ./svg-inkscape/latch_diagrama_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/latch_diagrama_svg-raw.pdf>
@@ -1173,15 +1002,6 @@ f): PDF inclusion: multiple pdfs with page group included in a single page
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-Package svg Info: Calling Inkscape on input line 866.
-runsystem(inkscape "./img/DT_comparator_tb.svg" -D --export-filename="DT_compar
-ator_tb_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "DT_comparator_tb_svg-raw.pdf" "./svg-inkscape/DT_comparator_tb_
-svg-raw.pdf")...executed.
-
 <./svg-inkscape/DT_comparator_tb_svg-raw.pdf, id=685, 1438.03447pt x 678.44666p
 t>
 File: ./svg-inkscape/DT_comparator_tb_svg-raw.pdf Graphic file (type pdf)
@@ -1190,15 +1010,6 @@ Package pdftex.def Info: ./svg-inkscape/DT_comparator_tb_svg-raw.pdf  used on i
 nput line 866.
 (pdftex.def)             Requested size: 1438.03098pt x 678.44499pt.
 [34 <./svg-inkscape/latch_diagrama_svg-raw.pdf>]
-Package svg Info: Calling Inkscape on input line 880.
-runsystem(inkscape "./img/salidas_comp.svg" -D --export-filename="salidas_comp_
-svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "salidas_comp_svg-raw.pdf" "./svg-inkscape/salidas_comp_svg-raw.
-pdf")...executed.
-
 <./svg-inkscape/salidas_comp_svg-raw.pdf, id=704, 770.88pt x 578.16pt>
 File: ./svg-inkscape/salidas_comp_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/salidas_comp_svg-raw.pdf>
@@ -1206,15 +1017,6 @@ Package pdftex.def Info: ./svg-inkscape/salidas_comp_svg-raw.pdf  used on input
  line 880.
 (pdftex.def)             Requested size: 770.87813pt x 578.15858pt.
  [35 <./svg-inkscape/DT_comparator_tb_svg-raw.pdf>]
-Package svg Info: Calling Inkscape on input line 888.
-runsystem(inkscape "./img/tiempo_rst_comp_editado.svg" -D --export-filename="ti
-empo_rst_comp_editado_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "tiempo_rst_comp_editado_svg-raw.pdf" "./svg-inkscape/tiempo_rst
-_comp_editado_svg-raw.pdf")...executed.
-
 <./svg-inkscape/tiempo_rst_comp_editado_svg-raw.pdf, id=721, 770.88pt x 578.16p
 t>
 File: ./svg-inkscape/tiempo_rst_comp_editado_svg-raw.pdf Graphic file (type pdf
@@ -1224,15 +1026,6 @@ Package pdftex.def Info: ./svg-inkscape/tiempo_rst_comp_editado_svg-raw.pdf  us
 ed on input line 888.
 (pdftex.def)             Requested size: 770.87813pt x 578.15858pt.
  [36 <./svg-inkscape/salidas_comp_svg-raw.pdf>]
-Package svg Info: Calling Inkscape on input line 921.
-runsystem(inkscape "./img/pgen_diagrama.svg" -D --export-filename="pgen_diagram
-a_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "pgen_diagrama_svg-raw.pdf" "./svg-inkscape/pgen_diagrama_svg-ra
-w.pdf")...executed.
-
 <./svg-inkscape/pgen_diagrama_svg-raw.pdf, id=736, 1015.72945pt x 450.36723pt>
 File: ./svg-inkscape/pgen_diagrama_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/pgen_diagrama_svg-raw.pdf>
@@ -1240,15 +1033,6 @@ Package pdftex.def Info: ./svg-inkscape/pgen_diagrama_svg-raw.pdf  used on inpu
 t line 921.
 (pdftex.def)             Requested size: 1015.72697pt x 450.36613pt.
  [37 <./svg-inkscape/tiempo_rst_comp_editado_svg-raw.pdf>]
-Package svg Info: Calling Inkscape on input line 928.
-runsystem(inkscape "./img/pgen_schimtt_trigger_diagrama.svg" -D --export-filena
-me="pgen_schimtt_trigger_diagrama_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "pgen_schimtt_trigger_diagrama_svg-raw.pdf" "./svg-inkscape/pgen
-_schimtt_trigger_diagrama_svg-raw.pdf")...executed.
-
 <./svg-inkscape/pgen_schimtt_trigger_diagrama_svg-raw.pdf, id=754, 1015.9171pt 
 x 450.55489pt>
 File: ./svg-inkscape/pgen_schimtt_trigger_diagrama_svg-raw.pdf Graphic file (ty
@@ -1257,15 +1041,6 @@ pe pdf)
 Package pdftex.def Info: ./svg-inkscape/pgen_schimtt_trigger_diagrama_svg-raw.p
 df  used on input line 928.
 (pdftex.def)             Requested size: 1015.91463pt x 450.55379pt.
-Package svg Info: Calling Inkscape on input line 935.
-runsystem(inkscape "./img/senales_pgen.svg" -D --export-filename="senales_pgen_
-svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "senales_pgen_svg-raw.pdf" "./svg-inkscape/senales_pgen_svg-raw.
-pdf")...executed.
-
 <./svg-inkscape/senales_pgen_svg-raw.pdf, id=755, 770.88pt x 578.16pt>
 File: ./svg-inkscape/senales_pgen_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/senales_pgen_svg-raw.pdf>
@@ -1279,15 +1054,6 @@ pdfTeX warning: pdflatex (file ./svg-inkscape/pgen_schimtt_trigger_diagrama_svg
 -raw.pdf): PDF inclusion: multiple pdfs with page group included in a single pa
 ge
 >] [39 <./svg-inkscape/senales_pgen_svg-raw.pdf>]
-Package svg Info: Calling Inkscape on input line 977.
-runsystem(inkscape "./img/fanout_opt.svg" -D --export-filename="fanout_opt_svg-
-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "fanout_opt_svg-raw.pdf" "./svg-inkscape/fanout_opt_svg-raw.pdf"
-)...executed.
-
 <./svg-inkscape/fanout_opt_svg-raw.pdf, id=793, 770.88pt x 578.16pt>
 File: ./svg-inkscape/fanout_opt_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/fanout_opt_svg-raw.pdf>
@@ -1313,15 +1079,6 @@ Package pdftex.def Info: ./img/geogebra2.png  used on input line 1027.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [41] [42 <./img/geogebra.png> <./img/geogebra2.png>]
-Package svg Info: Calling Inkscape on input line 1055.
-runsystem(inkscape "./img/retardo_buffer_comp.svg" -D --export-filename="retard
-o_buffer_comp_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "retardo_buffer_comp_svg-raw.pdf" "./svg-inkscape/retardo_buffer
-_comp_svg-raw.pdf")...executed.
-
 <./svg-inkscape/retardo_buffer_comp_svg-raw.pdf, id=832, 770.88pt x 578.16pt>
 File: ./svg-inkscape/retardo_buffer_comp_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/retardo_buffer_comp_svg-raw.pdf>
@@ -1333,30 +1090,12 @@ n input line 1055.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [44]
-Package svg Info: Calling Inkscape on input line 1138.
-runsystem(inkscape "./img/logica_parte.svg" -D --export-filename="logica_parte_
-svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "logica_parte_svg-raw.pdf" "./svg-inkscape/logica_parte_svg-raw.
-pdf")...executed.
-
 <./svg-inkscape/logica_parte_svg-raw.pdf, id=854, 863.71707pt x 163.0563pt>
 File: ./svg-inkscape/logica_parte_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/logica_parte_svg-raw.pdf>
 Package pdftex.def Info: ./svg-inkscape/logica_parte_svg-raw.pdf  used on input
  line 1138.
 (pdftex.def)             Requested size: 863.71497pt x 163.0559pt.
-Package svg Info: Calling Inkscape on input line 1155.
-runsystem(inkscape "./img/bit_cell_diagrama.svg" -D --export-filename="bit_cell
-_diagrama_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "bit_cell_diagrama_svg-raw.pdf" "./svg-inkscape/bit_cell_diagram
-a_svg-raw.pdf")...executed.
-
 <./svg-inkscape/bit_cell_diagrama_svg-raw.pdf, id=856, 900.11784pt x 432.94864p
 t>
 File: ./svg-inkscape/bit_cell_diagrama_svg-raw.pdf Graphic file (type pdf)
@@ -1370,15 +1109,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 1158--1161
  []
 
 [46 <./svg-inkscape/bit_cell_diagrama_svg-raw.pdf>]
-Package svg Info: Calling Inkscape on input line 1252.
-runsystem(inkscape "./img/conversion_ejemplo_1.svg" -D --export-filename="conve
-rsion_ejemplo_1_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "conversion_ejemplo_1_svg-raw.pdf" "./svg-inkscape/conversion_ej
-emplo_1_svg-raw.pdf")...executed.
-
 <./svg-inkscape/conversion_ejemplo_1_svg-raw.pdf, id=892, 770.88pt x 578.16pt>
 File: ./svg-inkscape/conversion_ejemplo_1_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/conversion_ejemplo_1_svg-raw.pdf>
@@ -1386,15 +1116,6 @@ Package pdftex.def Info: ./svg-inkscape/conversion_ejemplo_1_svg-raw.pdf  used
 on input line 1252.
 (pdftex.def)             Requested size: 770.87813pt x 578.15858pt.
  [47]
-Package svg Info: Calling Inkscape on input line 1259.
-runsystem(inkscape "./img/salidas_sar_ej1.svg" -D --export-filename="salidas_sa
-r_ej1_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "salidas_sar_ej1_svg-raw.pdf" "./svg-inkscape/salidas_sar_ej1_sv
-g-raw.pdf")...executed.
-
 <./svg-inkscape/salidas_sar_ej1_svg-raw.pdf, id=901, 770.88pt x 578.16pt>
 File: ./svg-inkscape/salidas_sar_ej1_svg-raw.pdf Graphic file (type pdf)
 <use ./svg-inkscape/salidas_sar_ej1_svg-raw.pdf>
@@ -1402,15 +1123,6 @@ Package pdftex.def Info: ./svg-inkscape/salidas_sar_ej1_svg-raw.pdf  used on in
 put line 1259.
 (pdftex.def)             Requested size: 770.87813pt x 578.15858pt.
  [48 <./svg-inkscape/conversion_ejemplo_1_svg-raw.pdf>]
-Package svg Info: Calling Inkscape on input line 1266.
-runsystem(inkscape "./img/conversion_comparador_1.svg" -D --export-filename="co
-nversion_comparador_1_svg-raw.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "conversion_comparador_1_svg-raw.pdf" "./svg-inkscape/conversion
-_comparador_1_svg-raw.pdf")...executed.
-
 <./svg-inkscape/conversion_comparador_1_svg-raw.pdf, id=917, 770.88pt x 578.16p
 t>
 File: ./svg-inkscape/conversion_comparador_1_svg-raw.pdf Graphic file (type pdf
@@ -1482,10 +1194,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: EA738F24C55F469AEDB5CDF6C9D10873;9913.
  ) 
 Here is how much of TeX's memory you used:
- 22338 strings out of 467866
- 456728 string characters out of 5417829
+ 22242 strings out of 467866
+ 453171 string characters out of 5417829
  855707 words of memory out of 5000000
- 50695 multiletter control sequences out of 15000+600000
+ 50599 multiletter control sequences out of 15000+600000
  640975 words of font info for 89 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,14n,93p,1208b,1331s stack positions out of 10000i,1000n,20000p,200000b,200000s
