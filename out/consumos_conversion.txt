@@ -1,4 +1,4 @@
-i_rms = 8.979305e-03
-potencia_rms = 1.616275e-02
-energia_conv = 1.736498e-10
-energia_bit = 1.447082e-11
+i_rms = 5.961353e-03
+potencia_rms = 1.073044e-02
+energia_conv = 1.886422e-10
+energia_bit = 1.572019e-11
