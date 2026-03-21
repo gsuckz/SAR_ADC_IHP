@@ -14,6 +14,14 @@
 \usepackage{amsmath, amssymb, graphicx, caption, subcaption, geometry, hyperref}
 \geometry{margin=2.5cm}
 
+\usepackage{svg}
+
+\svgsetup{
+	inkscapeexe = inkscape,
+	inkscapeversion = 1.4.2,
+	inkscapeopt = --export-type=pdf
+}
+
 
 \usepackage{cleveref}
 
@@ -1313,7 +1321,8 @@ Se realizaron simulaciones con entrada DC para aproximar la longitud de los inte
 \end{table}
 
 \chapter{Diseño de Layout}
-\section{Preamplificador}
+Se ilustran algunos diseños propuestos para el layout de un par de bloques. Para el diseño del comparador de Bindra y el Latch SR se intento optimizar la simetría del diseño para disminuir al mínimo el error sistematico, mientras que para el diseño de la celda unitaria del cdac se intento minimizar area. Se incluye el diseño del generador de pulsos para notar como se dibuja el nmos aislado (triple well). Finalmente se dejan algunas imagenes 2.5D renderizadas para ilustrar mejor la vista 3D de los bloques.
+\section{Comparador}
 \begin{figure}[H]
 	\centering
 	\includesvg[
@@ -1333,17 +1342,117 @@ Se realizaron simulaciones con entrada DC para aproximar la longitud de los inte
 	keepaspectratio
 	]{img/lo_comp_preamp_fl}
 	\caption{Layout del preamplificador, mostrando todas las capas}
-	\label{preamp_lo}
+	\label{preamp_lo2}
 \end{figure}
 
 
 
+\begin{figure}[H]
+	\centering
+	\includegraphics{img/comparadorFullLayoutt}
+	\caption{Layout Bindra}
+	\label{full_comp}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{img/pgenlayoutexplicado}
+	\caption{Generador de pulso con nmos de triple-well}
+	\label{pgen_lo}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{img/SR_latch_export}
+	\caption{Latch SR simétrico}
+	\label{SR Latch}
+\end{figure}
+
+
+
+\section{CDAC}
+\begin{figure}[H]
+	\centering
+	\includegraphics{img/cdac_unit_cell_lo_explicado}
+	\caption{Celda unitaria del CDAC propuesta}
+	\label{unit_cdac_lo}
+\end{figure}
+
+\section{Imagenes 2.5D}
+Dentro del entorno de KLayout se incluye la posibilidad de renderizar imagenes 2.5D para ilustrar mejor el diseño, de dejan un par a modo de ejemplo.
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{bmp/cdacPrueba}
+	\caption{Vista CDAC en perspectiva}
+	\label{}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{bmp/cdacPrueba2}
+	\caption{Otra vista del CDAC}
+	\label{}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{bmp/cdacUnitCellVista}
+	\caption{Celdas unitaria del CDAC}
+	\label{}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{bmp/cdacUnitCellVistaPattern}
+	\caption{Acercamiento a la via de conexion hacia el capacitor de la celda unitaria}
+	\label{}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{bmp/ComparadorBaseLayer}
+	\caption{Vista de los transistores del comparador Bindra}
+	\label{}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{bmp/comparadorVistaTOPConexiones}
+	\caption{Conexiones del Preamplificador Bindra}
+	\label{}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{bmp/Vista1_comp_lo}
+	\caption{Compardor Bindra ocultando los capacitores y capas superiores}
+	\label{}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{bmp/Vista1_comp_lo_ConTOPMetal}
+	\caption{Comparador Bindra mostrando los capacitorees}
+	\label{}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{bmp/Vista1_comp_lo_SeVenLosCaps}
+	\caption{Descripción}
+	\label{}
+\end{figure}
 
 \chapter{Conclusiones y Trabajo Futuro}
 
 \section{Estado Actual del Trabajo}
 
 Este documento presenta la implementación de un ADC SAR de 12 bits utilizando herramientas de código abierto y la tecnología ihp-sg13g2. Al momento de esta versión del informe, el diseño esquemático y las simulaciones funcionales están completos, y se ha avanzado significativamente en el layout físico. Se han completado y verificado (DRC/LVS) los siguientes bloques: comparador, celda unitaria del CDAC, latch del comparador, y generador de pulsos (implementado con transistores NMOS en triple-well). Sin embargo, el layout completo del sistema integrado y las simulaciones post-layout están pendientes para la versión final de este trabajo.
+
+
+
 
 \section{Conclusiones}
 

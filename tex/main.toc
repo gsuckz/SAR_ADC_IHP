@@ -70,29 +70,31 @@
 \contentsline {section}{\numberline {2.6}Simulación TOP}{48}{section.2.6}%
 \contentsline {subsection}{\numberline {2.6.1}Caracterización}{50}{subsection.2.6.1}%
 \contentsline {chapter}{\numberline {3}Diseño de Layout}{52}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Preamplificador}{53}{section.3.1}%
-\contentsline {chapter}{\numberline {4}Conclusiones y Trabajo Futuro}{55}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Estado Actual del Trabajo}{55}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Conclusiones}{55}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Logros Principales}{55}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Lecciones Aprendidas y Recomendaciones Metodológicas}{56}{subsection.4.2.2}%
-\contentsline {subsubsection}{Simulaciones y Herramientas}{56}{section*.85}%
-\contentsline {subsubsection}{Documentación Continua}{56}{section*.86}%
-\contentsline {section}{\numberline {4.3}Trabajo Futuro}{56}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Mejoras en Metodología y Automatización}{56}{subsection.4.3.1}%
-\contentsline {subsubsection}{Automatización de Simulaciones}{56}{section*.87}%
-\contentsline {subsubsection}{Diseño Basado en Corners}{57}{section*.88}%
-\contentsline {subsection}{\numberline {4.3.2}Mejoras Específicas del ADC}{57}{subsection.4.3.2}%
-\contentsline {subsubsection}{Implementación de Bootstrap Switches}{57}{section*.89}%
-\contentsline {subsubsection}{Comparación con Arquitectura de Top-Plate Sampling}{57}{section*.90}%
-\contentsline {subsection}{\numberline {4.3.3}Análisis Avanzados}{57}{subsection.4.3.3}%
-\contentsline {subsubsection}{Caracterización con Entradas Aleatorias}{57}{section*.91}%
-\contentsline {subsubsection}{Análisis de Parásitos por Bloque}{58}{section*.92}%
-\contentsline {subsection}{\numberline {4.3.4}Mejoras de Layout}{58}{subsection.4.3.4}%
-\contentsline {subsubsection}{Layout con Common-Centroid}{58}{section*.93}%
-\contentsline {subsubsection}{Completar Layout del Sistema Integrado}{58}{section*.94}%
-\contentsline {subsection}{\numberline {4.3.5}Escalabilidad: Arquitectura Time-Interleaved}{58}{subsection.4.3.5}%
-\contentsline {subsubsection}{Motivación}{59}{section*.95}%
-\contentsline {subsubsection}{Desafíos}{59}{section*.96}%
-\contentsline {subsubsection}{Trabajo Futuro}{59}{section*.97}%
-\contentsline {section}{\numberline {4.4}Reflexión Final}{59}{section.4.4}%
+\contentsline {section}{\numberline {3.1}Comparador}{53}{section.3.1}%
+\contentsline {section}{\numberline {3.2}CDAC}{56}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Imagenes 2.5D}{56}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Conclusiones y Trabajo Futuro}{64}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Estado Actual del Trabajo}{64}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Conclusiones}{64}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Logros Principales}{64}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Lecciones Aprendidas y Recomendaciones Metodológicas}{65}{subsection.4.2.2}%
+\contentsline {subsubsection}{Simulaciones y Herramientas}{65}{section*.98}%
+\contentsline {subsubsection}{Documentación Continua}{65}{section*.99}%
+\contentsline {section}{\numberline {4.3}Trabajo Futuro}{65}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Mejoras en Metodología y Automatización}{65}{subsection.4.3.1}%
+\contentsline {subsubsection}{Automatización de Simulaciones}{65}{section*.100}%
+\contentsline {subsubsection}{Diseño Basado en Corners}{66}{section*.101}%
+\contentsline {subsection}{\numberline {4.3.2}Mejoras Específicas del ADC}{66}{subsection.4.3.2}%
+\contentsline {subsubsection}{Implementación de Bootstrap Switches}{66}{section*.102}%
+\contentsline {subsubsection}{Comparación con Arquitectura de Top-Plate Sampling}{66}{section*.103}%
+\contentsline {subsection}{\numberline {4.3.3}Análisis Avanzados}{66}{subsection.4.3.3}%
+\contentsline {subsubsection}{Caracterización con Entradas Aleatorias}{66}{section*.104}%
+\contentsline {subsubsection}{Análisis de Parásitos por Bloque}{67}{section*.105}%
+\contentsline {subsection}{\numberline {4.3.4}Mejoras de Layout}{67}{subsection.4.3.4}%
+\contentsline {subsubsection}{Layout con Common-Centroid}{67}{section*.106}%
+\contentsline {subsubsection}{Completar Layout del Sistema Integrado}{67}{section*.107}%
+\contentsline {subsection}{\numberline {4.3.5}Escalabilidad: Arquitectura Time-Interleaved}{67}{subsection.4.3.5}%
+\contentsline {subsubsection}{Motivación}{68}{section*.108}%
+\contentsline {subsubsection}{Desafíos}{68}{section*.109}%
+\contentsline {subsubsection}{Trabajo Futuro}{68}{section*.110}%
+\contentsline {section}{\numberline {4.4}Reflexión Final}{68}{section.4.4}%
