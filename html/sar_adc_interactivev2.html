@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADC SAR 12-bit · 40 MS/s · SG13G2 (Gráficos Activos)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap');
+
+:root {
+  --bg: #050810;
+  --surface: #0d1117;
+  --surface2: #161b22;
+  --surface3: #1c2128;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e6edf3;
+  --text2: #8b949e;
+  --text3: #484f58;
+  --vdd: #ff4444;
+  --vdd2: #ff6b6b;
+  --vss: #4488ff;
+  --vss2: #6ba3ff;
+  --vcm: #22c55e;
+  --vcm2: #4ade80;
+  --vin: #f0f6fc;
+  --gray: #484f58;
+  --accent: #58a6ff;
+  --accent2: #79c0ff;
+  --amber: #e3b341;
+  --purple: #a371f7;
+  --mono: 'JetBrains Mono', monospace;
+  --display: 'Syne', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── SECTIONS ── */
+section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  padding: 60px 40px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(5,8,16,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 40px; height: 52px; gap: 4px;
+}
+.nav-logo {
+  font-family: var(--display);
+  font-size: 13px; font-weight: 700;
+  color: var(--accent); margin-right: 20px;
+  letter-spacing: 0.05em; white-space: nowrap;
+}
+.nav-link {
+  font-size: 11px; color: var(--text3);
+  text-decoration: none; padding: 4px 10px;
+  border-radius: 4px; transition: all 0.2s;
+  letter-spacing: 0.03em;
+}
+.nav-link:hover, .nav-link.active { color: var(--accent); background: rgba(88,166,255,0.08); }
+
+/* ── TYPOGRAPHY ── */
+.sec-label {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 8px; font-weight: 500;
+}
+h1 { font-family: var(--display); font-size: clamp(36px,6vw,72px); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; }
+h2 { font-family: var(--display); font-size: clamp(24px,4vw,42px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
+h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+p { color: var(--text2); line-height: 1.7; }
+
+/* ── LAYOUT UTILITIES ── */
+.container { max-width: 1100px; margin: 0 auto; width: 100%; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+}
+.card-accent { border-left: 2px solid var(--accent); }
+.card-warn  { border-left: 2px solid var(--amber); }
+.card-red   { border-left: 2px solid var(--vdd); }
+.card-green { border-left: 2px solid var(--vcm); }
+
+/* ── BADGE ── */
+.badge {
+  display: inline-block; font-size: 10px;
+  padding: 3px 8px; border-radius: 4px;
+  letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
+}
+.badge-blue   { background: rgba(88,166,255,0.15);  color: var(--accent2); }
+.badge-green  { background: rgba(34,197,94,0.15);   color: var(--vcm2); }
+.badge-amber  { background: rgba(227,179,65,0.15);  color: var(--amber); }
+.badge-red    { background: rgba(255,68,68,0.15);   color: var(--vdd2); }
+.badge-gray   { background: rgba(72,79,88,0.3);     color: var(--text2); }
+
+/* ── BUTTONS ── */
+.btn {
+  font-family: var(--mono); font-size: 12px; font-weight: 500;
+  padding: 8px 20px; border-radius: 6px; cursor: pointer;
+  border: 1px solid var(--border2); background: var(--surface2);
+  color: var(--text2); transition: all 0.15s; letter-spacing: 0.04em;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,0.08); }
+.btn.primary { background: rgba(88,166,255,0.15); border-color: var(--accent); color: var(--accent2); }
+.btn:disabled { opacity: 0.3; cursor: default; pointer-events: none; }
+
+/* ── INPUTS ── */
+input[type=range] {
+  appearance: none;
+  -webkit-appearance: none; width: 100%; height: 3px;
+  background: var(--surface3); border-radius: 2px; outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px;
+  background: var(--accent); border-radius: 50%; cursor: pointer;
+  border: 2px solid var(--bg);
+}
+.toggle-switch {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+  font-size: 12px; color: var(--text2);
+}
+.toggle-switch input { display: none; }
+.toggle-track {
+  width: 34px; height: 18px; background: var(--surface3);
+  border-radius: 9px; position: relative; transition: background 0.2s;
+  border: 1px solid var(--border2);
+}
+.toggle-switch input:checked + .toggle-track { background: rgba(88,166,255,0.3); border-color: var(--accent); }
+.toggle-thumb {
+  position: absolute; top: 2px; left: 2px;
+  width: 12px; height: 12px; background: var(--text3);
+  border-radius: 50%; transition: all 0.2s;
+}
+.toggle-switch input:checked + .toggle-track .toggle-thumb {
+  left: 18px; background: var(--accent);
+}
+
+/* ── EQ BOX ── */
+.eq {
+  font-family: var(--mono); font-size: 12px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 12px 16px;
+  color: var(--text); line-height: 1.8; overflow-x: auto;
+}
+.eq .c-vdd { color: var(--vdd2); }
+.eq .c-vcm { color: var(--vcm2); }
+.eq .c-acc { color: var(--accent2); }
+.eq .c-amb { color: var(--amber); }
+
+/* ── TABLE ── */
+.tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+.tbl th { color: var(--text3); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; font-size: 10px; padding: 10px 14px; border-bottom: 1px solid var(--border2); text-align: left; }
+.tbl td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text2); }
+.tbl tr:last-child td { border-bottom: none; }
+.tbl tr:hover td { background: var(--surface2); }
+
+/* ── STAT PILL ── */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 12px; margin-top: 20px; }
+.stat {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 16px;
+}
+.stat-val { font-family: var(--display); font-size: 22px; font-weight: 700; color: var(--text); }
+.stat-label { font-size: 10px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+
+/* ── HERO ── */
+#s-hero {
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(88,166,255,0.06) 0%, transparent 70%);
+  justify-content: center; align-items: center; text-align: center;
+}
+.hero-title { margin-bottom: 16px; }
+.hero-title .line1 { display: block; color: var(--text); }
+.hero-title .line2 { display: block; color: var(--accent); }
+.hero-sub { color: var(--text2); max-width: 580px; margin: 0 auto 28px; font-size: 14px; line-height: 1.8; }
+.hero-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.scan-line {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: scan 3s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes scan { 0%,100%{opacity:0} 50%{opacity:0.6} }
+
+/* ── BIT REGISTER ── */
+.bit-register { display: flex; gap: 4px; flex-wrap: wrap; }
+.bit-cell {
+  width: 36px; height: 48px; border-radius: 6px;
+  border: 1px solid var(--border2); background: var(--surface2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; transition: all 0.25s;
+}
+.bit-cell .bit-idx { font-size: 9px; color: var(--text3); letter-spacing: 0.05em; }
+.bit-cell .bit-val { font-size: 16px; font-weight: 700; color: var(--text3); }
+.bit-cell.b1 { background: rgba(34,197,94,0.12); border-color: var(--vcm); }
+.bit-cell.b1 .bit-val { color: var(--vcm2); }
+.bit-cell.b0 { background: rgba(255,68,68,0.08); border-color: rgba(255,68,68,0.3); }
+.bit-cell.b0 .bit-val { color: var(--vdd2); }
+.bit-cell.active { border-color: var(--amber); background: rgba(227,179,65,0.12); box-shadow: 0 0 10px rgba(227,179,65,0.2); }
+.bit-cell.active .bit-val { color: var(--amber); }
+
+/* ── WAVEFORM CANVAS ── */
+canvas { display: block; border-radius: 8px; background: var(--surface2); width: 100%; }
+
+/* ── PROGRESS BAR ── */
+.progress-bar {
+  height: 3px; background: var(--surface3); border-radius: 2px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: var(--accent); border-radius: 2px;
+  transition: width 0.3s;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
+
+/* ── COMPARATOR NODE ── */
+.comp-node {
+  width: 70px; height: 70px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; font-size: 11px; border: 2px solid;
+  transition: all 0.4s; font-weight: 600;
+}
+
+/* ── PHASE INDICATOR ── */
+.phase-dots { display: flex; gap: 6px; }
+.phase-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--surface3); transition: all 0.3s;
+}
+.phase-dot.active { background: var(--accent); }
+
+/* ── RESPONSIVE ── */
+@media(max-width: 768px) {
+  section { padding: 80px 20px 40px; }
+  nav { padding: 0 16px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .nav-link { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">SAR·ADC·12b</div>
+  <a href="#s-hero" class="nav-link active">Intro</a>
+  <a href="#s-overview" class="nav-link">Overview</a>
+  <a href="#s-sar" class="nav-link">Algoritmo</a>
+  <a href="#s-cdac" class="nav-link">CDAC</a>
+  <a href="#s-parasitos" class="nav-link">Parásitos</a>
+  <a href="#s-comp" class="nav-link">Comparador</a>
+  <a href="#s-timing" class="nav-link">Timing</a>
+  <a href="#s-limits" class="nav-link">Limitaciones</a>
+  <a href="#s-end" class="nav-link">Conclusión</a>
+</nav>
+
+<section id="s-hero">
+<div class="container" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px">
+  <div class="sec-label">Trabajo de Graduación · FACET · UNT · 2025</div>
+  <h1 class="hero-title">
+    <span class="line1">ADC SAR de</span>
+    <span class="line2">12 bits @ 40 MS/s</span>
+  </h1>
+  <p class="hero-sub">
+    Diseño completo de un convertidor analógico-digital de aproximaciones sucesivas en tecnología open-source <strong style="color:var(--text)">ihp-sg13g2 (130 nm)</strong> con herramientas <strong style="color:var(--accent)">xschem · ngspice · KLayout</strong>.
+  </p>
+</div>
+<div class="scan-line"></div>
+</section>
+
+<section id="s-sar">
+<div class="container">
+  <div class="sec-label">03 — Algoritmo Interactivo</div>
+  <h2>Búsqueda Binaria <span style="color:var(--accent)">SAR</span></h2>
+  <div class="grid-2">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <span style="font-size:12px;color:var(--text2)">VIN entrada</span>
+          <span style="color:var(--vin);font-weight:600" id="sar-vin-val">900 mV</span>
+        </div>
+        <input type="range" id="sar-vin-slider" min="0" max="1800" value="900" step="1" oninput="sarVinChange()">
+      </div>
+      <div class="card">
+        <div style="display:flex;gap:8px;margin-bottom:14px">
+          <button class="btn primary" onclick="sarNextStep()">▶ Siguiente bit</button>
+          <button class="btn" onclick="sarReset()">↺ Reset</button>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="sar-progress" style="width:0%"></div></div>
+      </div>
+      <div class="card card-accent" id="sar-decision-card">
+        <div class="stat-label" id="sar-decision-text">Presiona "Siguiente bit"</div>
+        <div class="stat-val" id="sar-vdac-val" style="font-size:18px">0 mV</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="bit-register" id="sar-bit-register" style="margin-bottom:15px"></div>
+      <canvas id="sar-canvas" height="180"></canvas>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="s-cdac">
+<div class="container">
+  <div class="sec-label">04 — CDAC Principal</div>
+  <h2>DAC Capacitivo <span style="color:var(--accent)">IMCS</span></h2>
+  <div style="display:flex;gap:10px;margin-bottom:16px">
+    <button class="btn primary" onclick="cdacNextPhase()">▶ Siguiente fase</button>
+    <div class="phase-dots" id="cdac-phase-dots" style="margin-left:auto; align-self:center">
+      <div class="phase-dot active"></div><div class="phase-dot"></div><div class="phase-dot"></div><div class="phase-dot"></div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card card-accent">
+      <h3 id="cdac-phase-heading">Reposue</h3>
+      <p id="cdac-phase-desc" style="font-size:12px; color:var(--text2)"></p>
+      <div class="stat-val" id="cdac-vtop-val" style="margin-top:15px">VCM</div>
+    </div>
+    <div class="card">
+      <canvas id="cdac-canvas" height="150"></canvas>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="s-parasitos">
+<div class="container">
+  <div class="sec-label">05 — No Idealidades</div>
+  <h2>Parásitos y <span style="color:var(--accent)">Charge Injection</span></h2>
+  <div class="grid-2">
+    <div class="card">
+      <label class="toggle-switch">
+        <input type="checkbox" id="tog-dummy" onchange="updateParasitics()">
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span>Activar Dummies</span>
+      </label>
+      <div id="para-result-text" style="font-size:12px; margin-top:15px; color:var(--text2)">Muestra el error de inyección de carga.</div>
+    </div>
+    <div class="card">
+      <canvas id="para-canvas" height="150"></canvas>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="s-comp">
+<div class="container">
+  <div class="sec-label">06 — Comparador</div>
+  <h2>Double-Tail <span style="color:var(--accent)">Bindra</span></h2>
+  <div class="grid-2">
+    <div class="card">
+      <button class="btn primary" onclick="compNextPhase()">Siguiente fase</button>
+      <div class="phase-dots" id="comp-phase-dots" style="margin-top:15px">
+        <div class="phase-dot active"></div><div class="phase-dot"></div><div class="phase-dot"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="display:flex; justify-content:space-around; margin-bottom:15px">
+         <div class="comp-node" id="comp-node-voutp">V+</div>
+         <div class="comp-node" id="comp-node-voutn">V-</div>
+      </div>
+      <canvas id="comp-canvas" height="150"></canvas>
+    </div>
+  </div>
+</div>
+</section>
+
+<script>
+/* ─── CONSTANTS & STATE ─── */
+const C = { N: 12, VDD: 1800, VCM: 900, LSB: 0.439, FULL: 4096 };
+const sarState = { vin: 900, vdac: 0, step: 0, bits: new Array(12).fill(-1) };
+let cdacHistory = [900];
+
+/* ─── HELPER: GET SAFE WIDTH ─── */
+function getW(id) { 
+  const c = document.getElementById(id);
+  return c ? c.clientWidth : 0;
+}
+
+/* ─── 1. SAR LOGIC & DRAW ─── */
+function sarVinChange() {
+  sarState.vin = parseInt(document.getElementById('sar-vin-slider').value);
+  document.getElementById('sar-vin-val').textContent = sarState.vin + ' mV';
+  sarReset();
+}
+
+function sarReset() {
+  sarState.vdac = 0; sarState.step = 0; sarState.bits.fill(-1);
+  sarRender();
+}
+
+function sarNextStep() {
+  if (sarState.step >= 12) return;
+  const bitWeight = Math.pow(2, 11 - sarState.step);
+  const trialVdac = sarState.vdac + (C.VDD * bitWeight / C.FULL);
+  
+  if (sarState.vin >= trialVdac) {
+    sarState.vdac = trialVdac;
+    sarState.bits[sarState.step] = 1;
+  } else {
+    sarState.bits[sarState.step] = 0;
+  }
+  sarState.step++;
+  sarRender();
+}
+
+function sarRender() {
+  const reg = document.getElementById('sar-bit-register');
+  reg.innerHTML = sarState.bits.map((b, i) => `
+    <div class="bit-cell ${b===1?'b1':b===0?'b0':''} ${sarState.step===i?'active':''}">
+      <span class="bit-idx">B${11-i}</span>
+      <span class="bit-val">${b===-1?'?':b}</span>
+    </div>`).join('');
+  
+  document.getElementById('sar-progress').style.width = (sarState.step/12*100) + '%';
+  document.getElementById('sar-vdac-val').textContent = Math.round(sarState.vdac) + ' mV';
+  drawSarCanvas();
+}
+
+function drawSarCanvas() {
+  const cvs = document.getElementById('sar-canvas');
+  const w = getW('sar-canvas'); if(!cvs || w===0) return;
+  cvs.width = w; cvs.height = 180;
+  const ctx = cvs.getContext('2d');
+  
+  // Background & Grid
+  ctx.fillStyle = '#0d1117'; ctx.fillRect(0,0,w,180);
+  ctx.strokeStyle = '#1c2128'; ctx.lineWidth = 1;
+  [0, 450, 900, 1350, 1800].forEach(v => {
+    const y = 170 - (v/1800 * 160);
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+  });
+
+  // VIN Line (Target)
+  const vinY = 170 - (sarState.vin/1800 * 160);
+  ctx.strokeStyle = '#f0f6fc'; ctx.setLineDash([5,5]);
+  ctx.beginPath(); ctx.moveTo(0, vinY); ctx.lineTo(w, vinY); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // VDAC Steps (Search path)
+  ctx.strokeStyle = '#58a6ff'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(0, 170);
+  let currentV = 0;
+  const stepW = w / 12;
+  for(let i=0; i<sarState.step; i++) {
+    const x = i * stepW;
+    const bitWeight = Math.pow(2, 11 - i);
+    const trial = currentV + (C.VDD * bitWeight / C.FULL);
+    
+    // Line up to trial
+    ctx.lineTo(x, 170 - (trial/1800 * 160));
+    // Horizontal step
+    ctx.lineTo(x + stepW, 170 - (trial/1800 * 160));
+    
+    if(sarState.bits[i] === 1) currentV = trial;
+    // Line down if bit was 0
+    ctx.lineTo(x + stepW, 170 - (currentV/1800 * 160));
+  }
+  ctx.stroke();
+}
+
+/* ─── 2. CDAC STRUCTURAL DRAW (ARRAY DE 12 CAPACITORES) ─── */
+let cdacPhase = 0;
+const cdacData = [
+  { t: "Reposo", d: "Capacitores en estado neutro.", v: 900 },
+  { t: "Muestreo", d: "Bottom plates conectadas a VIN para cargar la señal.", v: 900 },
+  { t: "Inversión", d: "Bottom plates a VCM. El Top plate flota a VCM - VIN.", v: 450 },
+  { t: "Aproximación", d: "Bit cycling: cada capacitor conmuta entre VDD o VSS.", v: 880 }
+];
+
+function cdacNextPhase() {
+  cdacPhase = (cdacPhase + 1) % 4;
+  
+  document.getElementById('cdac-phase-heading').textContent = cdacData[cdacPhase].t;
+  document.getElementById('cdac-phase-desc').textContent = cdacData[cdacPhase].d;
+  document.getElementById('cdac-vtop-val').textContent = cdacData[cdacPhase].v + ' mV';
+  
+  const dots = document.querySelectorAll('#cdac-phase-dots .phase-dot');
+  dots.forEach((d, i) => d.classList.toggle('active', i === cdacPhase));
+  drawCdacCanvas();
+}
+
+function drawCdacCanvas() {
+  const cvs = document.getElementById('cdac-canvas');
+  const w = getW('cdac-canvas'); if(!cvs || w===0) return;
+  cvs.width = w; cvs.height = 150;
+  const ctx = cvs.getContext('2d');
+  
+  // Limpiar fondo
+  ctx.fillStyle = '#0d1117'; ctx.fillRect(0,0,w,150);
+  
+  const nCaps = 12;
+  const padding = 30;
+  const capW = (w - (padding * 2)) / nCaps;
+  const topPlateY = 40;
+  const botPlateY = 70;
+
+  // 1. Dibujar línea de Top Plate (común a todos)
+  ctx.strokeStyle = '#58a6ff';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(padding, topPlateY);
+  ctx.lineTo(w - padding, topPlateY);
+  ctx.stroke();
+
+  for(let i = 0; i < nCaps; i++) {
+    const x = padding + (i * capW) + (capW / 2);
+    
+    // 2. Dibujar placas del capacitor
+    ctx.strokeStyle = '#e6edf3';
+    ctx.lineWidth = 3;
+    // Placa superior
+    ctx.beginPath(); ctx.moveTo(x - 8, topPlateY + 5); ctx.lineTo(x + 8, topPlateY + 5); ctx.stroke();
+    // Placa inferior
+    ctx.beginPath(); ctx.moveTo(x - 8, botPlateY - 5); ctx.lineTo(x + 8, botPlateY - 5); ctx.stroke();
+    
+    // Conexión vertical al bus superior
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(x, topPlateY); ctx.lineTo(x, topPlateY + 5); ctx.stroke();
+
+    // 3. Lógica de Switches (Conexiones dinámicas)
+    let targetY = 120;
+    let color = '#484f58';
+    let label = '';
+
+    switch(cdacPhase) {
+      case 0: // Reposo
+        color = '#484f58'; label = 'VSS'; break;
+      case 1: // Muestreo
+        color = '#f0f6fc'; label = 'VIN'; break;
+      case 2: // Inversión
+        color = '#22c55e'; label = 'VCM'; break;
+      case 3: // Aproximación (usa los bits actuales del estado SAR)
+        const bit = sarState.bits[i];
+        if (bit === 1) { color = '#ff6b6b'; label = 'VDD'; }
+        else if (bit === 0) { color = '#4488ff'; label = 'VSS'; }
+        else { color = '#22c55e'; label = 'VCM'; }
+        break;
+    }
+
+    // Dibujar cable de conexión al switch
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(x, botPlateY - 5);
+    ctx.lineTo(x, targetY);
+    ctx.stroke();
+
+    // Dibujar etiqueta de la referencia
+    ctx.fillStyle = color;
+    ctx.font = '9px JetBrains Mono';
+    ctx.textAlign = 'center';
+    ctx.fillText(label, x, targetY + 12);
+    
+    // Índice del capacitor (11...0)
+    ctx.fillStyle = '#484f58';
+    ctx.fillText(11-i, x, topPlateY - 10);
+  }
+}
+/* ─── 3. PARASITICS DRAW ─── */
+function updateParasitics() {
+  const isDummy = document.getElementById('tog-dummy').checked;
+  document.getElementById('para-result-text').textContent = isDummy ? 
+    "Dummies ON: El glitch se cancela por inyección opuesta." : 
+    "Dummies OFF: El glitch de ±30mV distorsiona el muestreo.";
+  drawParaCanvas(isDummy);
+}
+
+function drawParaCanvas(dummy) {
+  const cvs = document.getElementById('para-canvas');
+  const w = getW('para-canvas'); if(!cvs || w===0) return;
+  cvs.width = w; cvs.height = 150;
+  const ctx = cvs.getContext('2d');
+  ctx.fillStyle = '#0d1117'; ctx.fillRect(0,0,w,150);
+
+  ctx.strokeStyle = '#ff4444'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(0, 75);
+  for(let x=0; x<w; x++) {
+    let noise = 0;
+    if(!dummy && x > w/2 && x < w/2 + 20) {
+      noise = Math.sin((x-w/2)*0.3) * 30; // Glitch
+    }
+    ctx.lineTo(x, 75 + noise);
+  }
+  ctx.stroke();
+}
+
+/* ─── 4. COMPARATOR DRAW ─── */
+let compPhase = 0;
+function compNextPhase() {
+  compPhase = (compPhase + 1) % 3;
+  const dots = document.querySelectorAll('#comp-phase-dots .phase-dot');
+  dots.forEach((d, i) => d.classList.toggle('active', i === compPhase));
+  
+  const vp = document.getElementById('comp-node-voutp');
+  const vn = document.getElementById('comp-node-voutn');
+  
+  if(compPhase === 2) {
+    vp.style.background = "var(--vcm2)"; vn.style.background = "var(--surface3)";
+  } else {
+    vp.style.background = "var(--surface3)"; vn.style.background = "var(--surface3)";
+  }
+  drawCompCanvas();
+}
+
+function drawCompCanvas() {
+  const cvs = document.getElementById('comp-canvas');
+  const w = getW('comp-canvas'); if(!cvs || w===0) return;
+  cvs.width = w; cvs.height = 150;
+  const ctx = cvs.getContext('2d');
+  ctx.fillStyle = '#0d1117'; ctx.fillRect(0,0,w,150);
+
+  if(compPhase > 0) {
+    ctx.lineWidth = 2;
+    // Voutp (Regeneration to VDD)
+    ctx.strokeStyle = '#22c55e';
+    ctx.beginPath(); ctx.moveTo(0, 140);
+    for(let x=0; x<w; x++) {
+      const y = compPhase === 2 ? 140 - Math.pow(x/w, 2)*120 : 140;
+      ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    
+    // Voutn (Regeneration to VSS)
+    ctx.strokeStyle = '#ff4444';
+    ctx.beginPath(); ctx.moveTo(0, 140);
+    for(let x=0; x<w; x++) {
+      const y = 140;
+      ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+}
+
+/* ─── INIT ─── */
+document.addEventListener('DOMContentLoaded', () => {
+  sarReset();
+  cdacNextPhase();
+  updateParasitics();
+  compNextPhase();
+});
+
+window.addEventListener('resize', () => {
+  sarRender();
+  drawCdacCanvas();
+  updateParasitics();
+  drawCompCanvas();
+});
+</script>
+</body>
+</html>

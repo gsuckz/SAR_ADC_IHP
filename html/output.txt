@@ -1,0 +1,3776 @@
+UNIVERSIDAD NACIONAL DE TUCUMÁN
+FACULTAD DE CIENCIAS EXACTAS Y TECNOLOGÍA
+DEPARTAMENTO DE ELECTRICIDAD, ELECTRÓNICA Y COMPUTACIÓN
+
+TRABAJO DE GRADUACIÓN, INFORME FINAL
+
+Diseño de un ADC SAR de 12 bits @ 40 MSa/s en Tecnologı́a ihp-sg13g2
+
+Jesus Gerardo Daniel Avila
+DNI 41650372
+Ing Electrónica
+
+Tutores: Miranda Bonomi, Fernando Scandaliaris, Jorge
+
+Diciembre, 2025
+
+ANEXO III - FICHA DE PRESENTACIÓN DE PROYECTOS FINALES
+NOMBRE DEL PROYECTO:Diseño de un ADC SAR de 12 bits @ 40 MSa/s
+en Tecnologı́a ihp-sg13g2
+
+APELLIDO(S) Y NOMBRE(S) DEL (DE LOS) ALUMNO(S): Jesus Gerardo
+Daniel Avila
+
+DNI: 41650372
+
+OBJETIVOS: Tener un diseño de ejemplo en herramientas Open-Source para
+la catedra de Diseño de Circuitos Integrados
+
+ESPECIFICACIONES: 12 Bits @40MSa/s
+
+CONCEPTOS TEÓRICOS PRÁCTICOS INVOLUCRADOS: Diseño VLSI
+custom
+
+DURACIÓN: 7 meses
+
+LUGAR DE REALIZACIÓN: Laboratorio Telecomunicaciones (LabTel) - FACET
+
+2
+
+RESPONSABLE O TUTOR: Miranda Bonomi, Fernando
+Firma:
+
+Fecha:
+
+RESPONSABLE O TUTOR: Scandaliaris, Jorge
+Firma:
+
+Fecha:
+
+3
+
+Dedicatoria
+
+A mi Padre, por quien empecé esta carrera
+A mi Madre, por quien puedo terminarla
+
+Agradecimientos
+
+Agradezco profundamente a Dios, a la Patria y a la educación pública argentina,
+pilares fundamentales que hicieron posible mi formación. En particular, expreso mi reconocimiento a la Universidad Nacional de Tucumán, por brindarme el espacio, los recursos
+y la calidad académica necesarios para desarrollarme profesionalmente.
+A mis padres, por su inmenso sacrificio y su apoyo incondicional. A mi mamá, especialmente, por el enorme esfuerzo realizado en los últimos años, que fueron particularmente
+difı́ciles, por su rol fundamental en inculcarme disciplina y por confiar profundamente
+en mis capacidades incluso en los momentos más complejos. A mi papá, por haberme
+transmitido desde temprano conceptos, ideas y formas de pensar que despertaron en mı́
+el interés y la vocación por esta carrera.
+A mi familia, por el acompañamiento constante a lo largo de todo este proceso. En
+especial, a mi tı́o Hugo, por su apoyo en los momentos más difı́ciles de la carrera, por su
+insistencia diaria y por haberme demostrado que siempre es posible seguir adelante.
+A todos mis amigos y compañeros de carrera, por el acompañamiento constante, el
+intercambio de conocimientos y los momentos compartidos a lo largo de este camino.
+A mis profesores, tanto de la carrera como de mi formación secundaria en el Instituto
+Lorenzo Massa, por haber contribuido a mi educación y por motivarme a continuar en el
+camino de la electrónica.
+Finalmente, quiero agradecer a mi tutor, el Dr. Fernando Miranda Bonomi, por su
+guı́a, su tiempo y su compromiso no solo durante el desarrollo de esta tesis, sino también
+a lo largo de varios años en la carrera, siendo una figura clave que marcó profundamente
+mi forma de trabajar y de abordar los desafı́os académicos.
+
+5
+
+Resumen
+Este trabajo presenta el diseño y análisis de un convertidor analógico-digital (ADC) de
+aproximaciones sucesivas (SAR) de 12 bits operando a 40 MSa/s en tecnologı́a ihp-sg13g2.
+El diseño implementa un CDAC con arquitectura Inverted Merged Capacitor Switching
+(IMCS) basada en modo común, un comparador de doble cola tipo Bindra, y lógica SAR
+sı́ncrona realizada con celdas estándar. Se documentan decisiones de diseño, simulaciones
+y caracterización del sistema, con énfasis en aspectos didácticos y uso de herramientas de
+código abierto.
+
+6
+
+Índice general
+Agradecimientos
+
+5
+
+Resumen
+
+6
+
+1. Introducción
+1.1. Motivación . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2. Estado del Arte . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.1. Evolución de los Comparadores . . . . . . . . . . . . . . . . . . . .
+1.2.2. Arquitecturas de CDAC . . . . . . . . . . . . . . . . . . . . . . . .
+1.2.3. Implementaciones Digitales . . . . . . . . . . . . . . . . . . . . . .
+1.3. Resumen del Trabajo . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3.1. Alcance y Limitaciones . . . . . . . . . . . . . . . . . . . . . . . . .
+1.4. Requerimientos del Sistema . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5. Organizacion del documento . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+9
+9
+9
+9
+10
+10
+10
+11
+11
+11
+
+2. Implementación del SAR ADC
+2.1. Descripcion del SAR ADC nivel TOP . . . . . . . . . . . . . . . . . . . . .
+2.1.1. Arquitectura Inverted Merged Capacitor Switching (IMCS) . . . . .
+2.2. DAC Capacitivo (CDAC) . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.2.1. Definición del Capacitor Unitario (Cu ) . . . . . . . . . . . . . . . .
+2.2.2. Implementación del Array Split-Binary . . . . . . . . . . . . . . . .
+2.2.3. Cálculo de Capacitores de Atenuación (CB ) y Grounding (CX ) . . .
+2.2.4. Logica de las señales de control de la Bottom Plate de cada celda .
+2.2.5. Generador de Señales Non-Overlap . . . . . . . . . . . . . . . . . .
+2.2.6. Top Plate Sample switch . . . . . . . . . . . . . . . . . . . . . . . .
+2.2.7. Requerimiento de Settling . . . . . . . . . . . . . . . . . . . . . . .
+2.2.8. Dimensionamiento del Transmission Gate (sample) . . . . . . . . .
+2.2.9. Compensación de Inyección de Carga con Dummies . . . . . . . . .
+2.2.10. Testbench del CDAC . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.3. Comparador de Doble Cola . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.3.1. Presupuesto de Tiempos . . . . . . . . . . . . . . . . . . . . . . . .
+2.3.2. Arquitectura del Comparador . . . . . . . . . . . . . . . . . . . . .
+2.3.3. Testbench del Comparador . . . . . . . . . . . . . . . . . . . . . . .
+2.3.4. Generador de Pulsos (Delay Line) . . . . . . . . . . . . . . . . . . .
+2.4. Buffers de Control . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.5. Lógica SAR . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.5.1. Bloque Unitario de Lógica . . . . . . . . . . . . . . . . . . . . . . .
+2.5.2. Implementación con Celdas Estándar . . . . . . . . . . . . . . . . .
+2.5.3. Análisis de Timing . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+13
+14
+15
+17
+17
+17
+18
+19
+21
+23
+23
+24
+29
+31
+33
+33
+34
+35
+38
+41
+46
+47
+48
+48
+
+7
+
+2.6. Simulación TOP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 49
+2.6.1. Caracterización . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 51
+3. Diseño de Layout
+3.1. Comparador . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.2. CDAC . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.3. Imagenes 2.5D . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+53
+54
+57
+57
+
+4. Conclusiones y Trabajo Futuro
+4.1. Estado Actual del Trabajo . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.2. Conclusiones . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.2.1. Logros Principales . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.2.2. Lecciones Aprendidas y Recomendaciones Metodológicas . . . . . .
+4.3. Trabajo Futuro . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.3.1. Mejoras en Metodologı́a y Automatización . . . . . . . . . . . . . .
+4.3.2. Mejoras Especı́ficas del ADC . . . . . . . . . . . . . . . . . . . . . .
+4.3.3. Análisis Avanzados . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.3.4. Mejoras de Layout . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.3.5. Escalabilidad: Arquitectura Time-Interleaved . . . . . . . . . . . . .
+4.4. Reflexión Final . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+65
+65
+65
+65
+66
+66
+66
+67
+67
+68
+68
+69
+
+8
+
+Capı́tulo 1
+Introducción
+1.1.
+
+Motivación
+
+Los convertidores analógico-digitales (ADCs) de aproximaciones sucesivas (SAR) son
+ampliamente utilizados en aplicaciones que requieren eficiencia energética y resoluciones
+medias-altas. En las últimas décadas, el diseño de SAR ADCs ha experimentado mejoras
+significativas: se ha conseguido reducir el consumo de energı́a aproximadamente 7500 veces
+en un periodo de 15 años [2], principalmente gracias al avance hacia nodos tecnológicos
+más pequeños y al desarrollo de técnicas de conmutación más eficientes.
+El presente trabajo documenta el diseño completo de un ADC SAR de 12 bits operando
+a una velocidad de muestreo mı́nima de 1 MSa/s, utilizando herramientas de código
+abierto y la tecnologı́a ihp-sg13g2. El objetivo principal de este trabajo es servir como
+una primera aproximación al diseño de circuitos integrados, sirviendo como material de
+referencia para la asignatura de Diseño de Circuitos Integrados de la Facultad de Ciencias
+Exactas y Tecnologı́a (FACET).
+La elección del SAR ADC como caso de estudio se fundamenta en su complejidad
+media, que permite ilustrar las diferentes etapas del flujo de diseño analógico sin alcanzar
+la complejidad de sistemas como PLLs o transceptores completos. Este enfoque didáctico
+prioriza la documentación exhaustiva del proceso de diseño sobre la optimización extrema
+del rendimiento.
+
+1.2.
+
+Estado del Arte
+
+En un SAR ADC bien optimizado, el retardo [3] (delay) y el consumo de energı́a [2] se
+distribuyen de manera equilibrada entre los tres bloques principales: CDAC, comparador
+y lógica digital.
+
+1.2.1.
+
+Evolución de los Comparadores
+
+El comparador es tı́picamente implementado con un ancho de banda relativamente
+pequeño para filtrar el ruido proveniente del CDAC. La arquitectura clásica consiste en
+un preamplificador seguido de un latch que utiliza realimentación positiva para resolver la
+decisión. El preamplificador cumple la función de amplificar la señal de entrada y atenuar
+el offset, ruido y kickback del latch.
+Desde la introducción del comparador Strong-ARM, se han propuesto diversas mejoras. Van Elzakker et al. [4] modificaron la topologı́a del latch separando las etapas de
+9
+
+preamplificación y regeneración, asegurando que los transistores de entrada del latch comiencen en la región de saturación. Esto resulta en mayor ganancia y reducción del ruido
+y offset del comparador, mejorando simultáneamente la velocidad de operación.
+Más recientemente, Bindra et al. [5] propusieron un comparador de polarización dinámica (dynamic bias) que alcanza un ruido de entrada de 0.4 mV operando a 1.2 V en
+tecnologı́a de 65 nm CMOS, mejorando significativamente la eficiencia energética.
+
+1.2.2.
+
+Arquitecturas de CDAC
+
+Se han presentado diversas arquitecturas para el CDAC que mejoran sustancialmente
+la eficiencia energética respecto al esquema convencional [2]. Entre ellas destacan las
+arquitecturas basadas en modo común (VCM-based), que mantienen constante el voltaje
+de modo común durante la conversión, simplificando el diseño del comparador y mejorando
+la linealidad.
+El esquema Inverted Merged Capacitor Switching (IMCS) [7] representa una evolución
+de estas técnicas, logrando eliminar la sensibilidad a capacitancias parásitas mientras mantiene una alta eficiencia energética (94 % menos consumo que el esquema convencional).
+Esta arquitectura invierte el proceso de muestreo: durante la fase de muestreo se captura
+VCM en las placas superiores y la señal de entrada en las placas inferiores, asegurando que
+las placas superiores comiencen y terminen en el mismo voltaje.
+
+1.2.3.
+
+Implementaciones Digitales
+
+Respecto a la lógica de control, se han propuesto tanto diseños full-custom [3] como
+circuitos auto-sincronizados (self-clocked) para reducir el consumo asociado a la distribución de la señal de reloj. Estos últimos generan los pulsos de control basándose en la
+detección de la finalización de cada comparación, optimizando la velocidad de conversión.
+
+1.3.
+
+Resumen del Trabajo
+
+Este diseño está fuertemente basado en la arquitectura propuesta por Chang [7], adoptando el esquema de conmutación IMCS y el generador de pulsos auto-sincronizado. La
+implementación se diferencia en los siguientes aspectos:
+Herramientas de Código Abierto: Todo el flujo de diseño se realizó utilizando
+herramientas libres integradas en el entorno IIC-OSIC-TOOLS: xschem para captura
+esquemática, ngspice para simulación y klayout para layout. El proyecto completo
+está disponible en GitHub: https://github.com/gsuckz/SAR_ADC_IHP.
+Tecnologı́a Abierta: Se utiliza el PDK ihp-sg13g2, una tecnologı́a de 130 nm
+completamente abierta y accesible para la comunidad académica.
+Comparador de Polarización Dinámica: Se implementó el comparador de doble cola propuesto por Bindra et al. [5], que incluye un capacitor en la cola del
+preamplificador para reducir el consumo de potencia.
+Lógica con Celdas Estándar: A diferencia de implementaciones full-custom, la
+lógica SAR se realizó con celdas estándar disponibles en el PDK, simplificando el
+diseño y facilitando la replicabilidad.
+10
+
+Enfoque Didáctico: El trabajo prioriza la documentación exhaustiva del proceso
+de diseño sobre la optimización extrema del rendimiento, sirviendo como material
+educativo para estudiantes de circuitos integrados.
+
+1.3.1.
+
+Alcance y Limitaciones
+
+Este trabajo atraviesa las diferentes etapas del diseño de circuitos integrados: desde la
+captura esquemática y simulación hasta el diseño del layout final, verificando DRC (Design
+Rule Check) y LVS (Layout vs Schematic). Sin embargo, con el objetivo de mantener el
+enfoque didáctico y la complejidad manejable, se establecieron las siguientes limitaciones:
+No se realizaron simulaciones de mismatch (Monte Carlo) ni análisis de corners de
+proceso, voltaje y temperatura (PVT).
+No se implementaron técnicas avanzadas de optimización de parásitos en el layout.
+Las especificaciones mı́nimas establecidas son 12 bits de resolución y 1 MSa/s de
+velocidad de muestreo, sin restricciones especı́ficas sobre otras métricas como SNDR,
+SFDR o consumo de potencia.
+Debido a que no se realizaron simulaciones de ruido ni de variaciones de proceso (mismatch), la única especificación sobre la que se iteró es el tiempo de conversión, intentando
+reducirlo lo máximo posible. Se detallan los requeriminetos perseguidos en la tabla 1.1
+
+1.4.
+
+Requerimientos del Sistema
+Cuadro 1.1: Requerimientos del ADC SAR
+Parámetro
+
+Valor
+
+Resolución
+12 bits (diferencial)
+Velocidad de muestreo (mı́nima)
+1 MSa/s
+Velocidad de muestreo (objetivo)
+40 MSa/s
+Tensión de alimentación (VDD )
+1,8 V
+Tensión de modo común (VCM )
+0,9 V
+Tecnologı́a
+ihp-sg13g2 (130 nm)
+Arquitectura CDAC
+IMCS con Split 6+6
+LSB
+878 V
+Tiempo de Muestreo
+2 ns
+
+µ
+
+1.5.
+
+Organizacion del documento
+
+Capı́tulo 2 - Implementación: Se describe la implementación práctica de cada bloque del ADC SAR: CDAC con esquema IMCS, Switch de Sample & Hold,
+comparador de doble cola, lógica SAR y generador de pulsos.
+Capı́tulo 3 - Layout: Se adjuntan fotos del layout implementado y se explica la
+implementacion del CDAC.
+11
+
+Capı́tulo 4 - Conclusiones: Se resumen los resultados obtenidos, lecciones aprendidas y trabajo futuro.
+Para fundamentos teóricos sobre arquitecturas SAR y esquemas de conmutación, se
+remite al lector a las referencias citadas [2, 7].
+
+12
+
+Capı́tulo 2
+
+GND
+
+GND
+
+vcm
+
+sample
+
+VI
+
+vcm
+
+V3
+
+V2
+
+vinn
+
+vdd
+
+vinp
+
+vdd
+
+sample
+
+Implementación del SAR ADC
+
+vdd
+
+vcm
+
+sample
+
+VIN3
+V7
+
+vinp
+
+d[0]
+d[1]
+d[2]
+d[3]
+d[4]
+d[5]
+d[6]
+d[7]
+d[8]
+d[9]
+d[10]
+d[11]
+
+vinp
+
+SAR ADC
+GND
+
+vinn
+
+x1
+vinn
+testpoints
+eoc
+
+eoc
+
+compout
+
+compp
+
+GND
+
+compn compp compout
+
+compn
+
+gnd
+
+d0
+d1
+d2
+d3
+d4
+d5
+d6
+d7
+d8
+d9
+d10
+d11
+
+Figura 2.1: Testbench del SAR ADC
+Este capı́tulo describe la implementación práctica de cada bloque del ADC SAR de
+12 bits. Se detallan las decisiones de diseño, los testbenches utilizados para verificación
+y los resultados de simulación obtenidos. La la figura 2.2 muestra la interconexion de los
+bloques principales del sistema.
+
+13
+
+vcm
+VDD
+vinp
+
+sample
+
+R
+
+compn
+
+d[1]
+
+d[2]
+
+d[0]
+d[0]
+
+d[1]
+
+d[4]
+
+d[5]
+
+d[6]
+
+d[7]
+
+d[8]
+
+d[9]
+
+d[10]
+
+d[3]
+d[3]
+
+d[4]
+
+d[5]
+
+d[6]
+
+d[7]
+
+d[8]
+
+d[9]
+
+d[10]
+
+d[11]
+
+Qn
+
+vout
+
+Q
+
+VSS
+comp_en
+sample_in
+
+eoc
+
+gnd
+
+compout
+
+b11
+b10
+b9
+b8
+b7
+b6
+b5
+b4
+b3
+b2
+b1
+b0
+logic
+
+vdd
+
+S
+
+comparator input
+
+comp_clk
+
+VDD
+
+comp_clk
+
+vcm clk
+
+vdacn
+
+inv_vcm
+
+sample_in
+
+VDD
+
+vinp
+
+vdacp
+
+d[11]
+
+b[0]
+
+b[2]
+
+b[3]
+
+b[4]
+
+b[5]
+
+b[6]
+
+b[7]
+
+b[8]
+
+b[9]
+
+b[10]
+
+b[1]
+
+b[0]
+
+b[1]
+
+b[2]
+
+b[3]
+
+b[4]
+
+b[5]
+
+b[6]
+
+b[7]
+
+b[8]
+
+b[9]
+
+b[10]
+
+b[11]
+
+b[11]
+
+sample
+
+dac
+
+d[2]
+
+vinn
+
+vcm
+
+compp
+
+VSS
+
+VSS
+
+Figura 2.2: Diagrama de bloques en Xschem
+
+2.1.
+
+Descripcion del SAR ADC nivel TOP
+
+Como se muestra en la la figura 2.1 las entradas del circuito son Vinp , Vinn y sample,
+mientras que sus salidas son el vector D[11:0] y la señal de final de conversion eoc (end of
+conversion). El funcionaminto básico es el siguiente, mientras la señal sample esta en alto
+todas las salidas del ADC pasan a 0, eoc va a bajo y el ADC está siguiendo la entrada,
+cuando sample pasa a bajo, el ADC retiene la entrada y empieza a convertir bit a bit,
+hasta resolver el ultimo bit, cuando resuelve el ultimo bit, eoc se pone a alto indicando que
+el resultado esta listo, y el ADC queda esperano una nueva señal de sampleo. El hecho que
+la señal de sample sea externa está pensado para implementar un time-interleaving usando
+varios canales como este en paralelo coordinados por sus señales de sampleo individuales.
+Notar que el tiempo de sampleo (sample en 1) se fijó en 2ns (por elección de diseño) y
+el timing crı́tico estará en el flanco de bajada de sample (inicio de conversión) ya que la
+tension de entrada en este momento será la que se convierta. Un análisis detallado del
+sampleo en un tiempo no nulo se puede consultar en [6].
+
+14
+
+2.1.1.
+
+Arquitectura Inverted Merged Capacitor Switching (IMCS)
+
+Figura 2.3: Diagrama simplificado de la arquitectua IMCS, usando split dac y capacitores
+de grounding
+La arquitectura IMCS (Inverted Merged Capacitor Switching) es una técnica de conmutación para ADCs SAR que representa una evolución de la arquitectura MCS (Merged
+Capacitor Switching), propuesta por Chang [7]. Esta arquitectura fue seleccionada para el
+presente diseño por sus múltiples ventajas en términos de eficiencia energética, robustez
+y simplicidad de implementación. Se ejemplifica de manera simplifcada la arquitectura
+implementeada en la la figura 2.3
+Beneficios de la Arquitectura IMCS
+La arquitectura IMCS ofrece las siguientes ventajas respecto a otras técnicas de conmutación:
+Inmunidad a Capacitancias Parásitas: A diferencia de otras técnicas eficientes
+como la conmutación monotónica o la MCS estándar, la arquitectura IMCS garantiza que el voltaje en la placa superior (top-plate) del DAC comience y termine en
+el mismo voltaje (VCM ). Esto hace que la precisión de la conversión sea insensible
+a las capacitancias parásitas en la placa superior del DAC y elimina la dependencia
+de la inyección de carga con la señal [7].
+Alta Eficiencia Energética: La IMCS consume un 94 % menos de energı́a en comparación con la implementación de conmutación convencional, igualando la eficiencia
+energética de la arquitectura MCS estándar.
+Modo Común Constante: Al igual que la MCS, la IMCS mantiene un voltaje de
+modo común constante durante el proceso de conversión. Esto simplifica el diseño
+del comparador y mejora la linealidad del ADC al evitar variaciones en el offset
+dinámico del comparador.
+Rango de Entrada Rail-to-Rail: Permite un rango de entrada completo (rail-torail), lo que maximiza la relación señal-ruido (SNR).
+La Tabla la tabla 2.1 resume las caracterı́sticas principales de las diferentes arquitecturas de conmutación.
+15
+
+Cuadro 2.1: Comparación de arquitecturas de conmutación CDAC
+Caracterı́stica
+Consumo relativo
+Sensibilidad parásitos top-plate
+VCM constante
+Rango entrada
+Capacitancia total
+
+Conv.
+100 %
+Media
+No
+Limitado
+2N Cu
+
+Monotonic
+19 %
+Alta
+No
+Limitado
+2N −1 Cu
+
+MCS
+6%
+Alta
+Sı́
+Rail-to-rail
+2N −1 Cu
+
+IMCS
+6%
+Baja
+Sı́
+Rail-to-rail
+2N −1 Cu
+
+Funcionamiento del Esquema IMCS
+El nombre “Inverted” (Invertido) proviene de la forma en que se realiza el muestreo en
+comparación con la MCS estándar. El proceso de conversión se desarrolla en las siguientes
+fases:
+1. Fase de Muestreo: En lugar de muestrear la señal de entrada en la placa superior, la arquitectura IMCS muestrea el voltaje de modo común (VCM ) en las placas
+superiores del array de capacitores y la señal de entrada diferencial (VIN ) en las placas inferiores. Para una implementación diferencial, las placas inferiores del array
+positivo se conectan a VIN P y las del array negativo a VIN N .
+2. Fase de Inversión: Una vez completado el muestreo, se desconectan las fuentes
+de entrada mediante la apertura de los switches controlados por las señales nonoverlap. Luego, se conecta el voltaje VCM a las placas inferiores de todo el array. Esto
+empuja la diferencia de voltaje (proporcional a −VIN ) hacia las placas superiores,
+donde se encuentra conectado el comparador. El primer bit (MSB) se determina
+inmediatamente sin consumir energı́a del array de capacitores.
+3. Ciclos de Conversión (Bit Cycling): Dependiendo de la decisión del comparador, los capacitores correspondientes se conmutan desde VCM hacia la referencia
+positiva (VDD ) o negativa (VSS ). El objetivo del algoritmo es llevar el voltaje de
+la placa superior de regreso a VCM paso a paso, reduciendo el error en cada ciclo
+mediante búsqueda binaria. Este proceso se repite para cada uno de los 12 bits de
+resolución.
+En resumen, la IMCS combina la eficiencia energética de la MCS con la robustez frente
+a parásitos de las arquitecturas de muestreo en placa inferior (bottom-plate sampling).
+Aunque la arquitectura IMCS también permite implementar redundancia con ventanas
+de tolerancia simétricas, esta caracterı́stica no fue implementada en el presente diseño,
+optando por una configuración binaria pura de 12 bits.
+La caracterı́stica distintiva que hace a la IMCS insensible a parásitos es que los voltajes
+en las placas superiores comienzan en VCM y convergen hacia VCM al final de la conversión,
+eliminando el efecto de las capacitancias parásitas en la precisión de la conversión.
+
+16
+
+2.2.
+
+DAC Capacitivo (CDAC)
+
+El CDAC implementa el esquema de conmutación IMCS (Inverted Merged Capacitor
+Switching) con una arquitectura split-binary de 6 bits MSB + 6 bits LSB sin redundancia,
+para un total de 12 bits de resolución. Esta arquitectura incluye por cada capacitor 4
+switches (Una Transmission Gate para conectar Vin , otra para conectar Vcm , un PMOS
+para conectar a VDD y uno NMOS para conectar a aVSS) en la bottom plate, y 4
+swtiches generales que manejan las Top plates del MSB y LSB del lado positivo como del
+negativo para el sampleo. Además se agregaron capacitores de grounding para solucionar
+prblemas de implementación del capacitor de puente (C bridge, CB ) y de overrange en el
+Sub-DAC[7].
+
+2.2.1.
+
+Definición del Capacitor Unitario (Cu )
+
+Criterio de Ruido Térmico
+El tamaño del capacitor unitario se determina principalmente por el compromiso entre
+ruido térmico (kT /C) y área de silicio. Para un ADC de 12 bits, el ruido térmico total
+debe ser suficientemente pequeño para no degradar el número efectivo de bits (ENOB).
+Donde k es la constante de Boltzmann, T la temperatura absoluta, Vref el voltaje de
+referencia y N la resolución en bits. Como se ı́ndica en la figura, el número efectivo de
+bits (Efective Number of Bits, ENOB) decrece con la magnitud del ruido térmico. En
+nuestro caso, buscaremos perder menos de 1 bit de ENOB, por lo que buscaremos un
+ruido térmico menor a 0,5 LSB.
+El criterio utilizado establece que la capacitancia total del array debe satisfacer, usamos
+T=300K:
+kT · 2N +1
+(2.1)
+Ctotal >
+2
+Vref
+Ctotal > 85, 7f F
+
+(2.2)
+
+Esto refiere a la capacidad total del CDAC. Para obtener el valor unitario debemos
+dividirlo en la cantidad de capacitores unitarios ”vistos”por el switch de muestreo y retención (sample & hold, S&H). Esto se aclara en la sección 2-1-3, en este caso son:
+Ctotal = CM SB + CLSB
+
+(2.3)
+
+CM SB = 63Cu , CLSB = 63Cu + Cx = 63CU + 31c u,
+
+(2.4)
+
+Ctotal = 63Cu + (63Cu + 31Cu ) = 157CU
+
+(2.5)
+
+Cu >= Ctotalmin /157
+
+(2.6)
+
+Cu >= 0, 54f F
+
+(2.7)
+
+Finalmente:
+
+2.2.2.
+
+Implementación del Array Split-Binary
+
+Para El array se divide en:
+MDAC (Main DAC): 6 bits MSB con capacitores pesados binariamente: 32Cu ,
+16Cu , 8Cu , 4Cu , 2Cu , 1Cu
+
+17
+
+Capacitor de puente: CB = 2Cu
+SDAC (Sub DAC): 6 bits LSB con capacitores pesados binariamente: 32Cu , 16Cu ,
+8Cu , 4Cu , 2Cu , 1Cu
+Capacitor de grounding: CX = 31Cu en paralelo con el SDAC
+Selección del capacitor unitario Cu
+Se utilizaron capacitores MIM (Metal-Insulator-Metal) del PDK ihp-sg13g2 por simplicidad en el diseño del layout.
+En la documentacion no se indica el coeficiente de matching
+Bajo coeficiente de tensión y temperatura
+Estructura planar que facilita el layout centroide común (common-centroid)
+Se partió del tamaño mı́nimo permitido por el proceso para un mimcap, Wc = Lc =
+1,15µmconC = 2,16f F
+A través de iteraciones sobre la simulación TOP se encontró que era necesario un
+capacitor mucho más grande para lograr una conversión correcta. Algunos efectos
+que son mitigados por aumentar Cu son: Inyección de carga, corrientes de fuga, ruido
+por Kickback del comparador. Mediante simulaciones iterativas a nivel de sistema,
+se observó que el valor mı́nimo teórico era insuficiente debido a efectos de segundo
+orden como la inyección de carga y el kickback noise del comparador. Se seleccionó
+finalmente un capacitor unitario Wc = Lc = 3µmconC = 13,9f F , lo cual provee
+un margen de robustez adicional.
+El capacitor unitario implementado tiene un valor de Cu = 15 fF con dimensiones de
+3 m 3 m.
+
+µ Ö µ
+
+2.2.3.
+
+Cálculo de Capacitores de Atenuación (CB ) y Grounding
+(CX )
+
+Problema del Capacitor Fraccional
+En arquitecturas split-binary, el capacitor de puente (CB ) que conecta los segmentos
+MSB y LSB tradicionalmente tiene un valor fraccional:
+CB =
+
+2L − 1
+Cu
+2L
+
+(2.8)
+
+Para L = 6 bits en el segmento LSB, esto resulta en CB = 63/64 · Cu , un valor no
+entero que dificulta el matching en el layout.
+Problema de los rieles del Sub-DAC
+Los rieles del sub-dac pueden salir de los rieles de alimentación, como se explica en [7].
+Esto puede producir que las junturas de drenador de los switches se polaricen en directa,
+por ejemplo, si el drenador de un pmos (con sustrato a vdd) se va arriba de VDD por
+encima de la tensión de umbral de esta juntura Vthp = 0,48V posiblemente dañanado el
+chip.
+18
+
+Metodologı́a de Cálculo
+Para resolver ambos problemas, se implementó la arquitectura propuesta por Chang [7],
+que introduce un capacitor de grounding (CX ) permitiendo que CBX sea un valor entero
+de unidades Cu .
+Se adjunta un archivo de Maxima (disponible en el repositorio GitHub: https://
+github.com/gsuckz/SAR_ADC_IHP) que calcula el valor de CX (como multiplo de Cu ).
+Valores Finales
+Los valores calculados son:
+CB = 2 · Cu = 27,8f F
+CX = 31 · Cu = 430,9f F
+Estos valores permiten:
+Fabricación precisa con matching controlado (valores enteros)
+Prevención de over-range en el nodo LSB durante conmutaciones
+Sin embargo, los pasos del LSB estaban atenuados, por lo que se iteró sobre el WB
+al aumnetar el valor de CB se puede disminuir la atenuaciòn e incluso hacer los pasos
+mas grandes de lo necesario, se encontro que el valor WB = 3,23µm entrega los pasos
+correctos. Se procedió como sigue:
+Se calcula la atenución A del paso como:
+asoReal
+A = VVPPasoIdeal
+Se divide WB por la atenuación obtenida, tal que:
+WBnuevo = WAB
+Volver a calcular A
+Repetir hasta encontrar un valor aceptable (A ≈ 1)
+
+2.2.4.
+
+Logica de las señales de control de la Bottom Plate de
+cada celda
+
+Cada capacitor unitario del array implementa el esquema IMCS mediante la siguiente
+lógica de switches:
+
+19
+
+VDD
+p_ctrl
+
+A
+B
+
+A
+bit
+
+d
+B
+A
+
+VSS
+
+M1
+
+b_sample_n
+
+v_cm
+
+n_ctrl
+
+M3
+
+d
+
+tg_vcm_ctrl
+
+v_top
+VDD
+
+VSS
+
+tg_vcm_ctrl_n
+b_sample
+
+A
+B
+
+bit_n
+
+v_in
+
+VSS
+
+b_sample_n
+
+Bottom_Plate
+
+a_sample_n
+a_sample
+
+VSS
+VDD
+
+VDD
+
+v_cm
+
+d
+
+tg_vcm_ctrl
+VDD
+
+bit_n
+
+p_ctrl
+
+B
+A
+
+bit
+A
+
+VSS
+
+M1
+
+A
+B
+d
+
+n_ctrl
+
+VDD
+
+VSS
+
+M3
+
+b_sample_n
+
+v_cm
+
+tg_vcm_ctrl_n
+b_sample
+
+A
+B
+
+VSS
+
+v_in
+
+v_top
+
+a_sample_n
+
+b_sample_n
+
+Bottom_Plate
+
+VDD
+
+VDD
+
+v_cm
+
+a_sample
+
+VSS
+
+Figura 2.4: Esquema de la lógica de la celda unitaria del DAC, notar que se indican los
+dispositivos escalados por unidad de capacitor. La cadena de buffers solo es ilustrativa.
+
+Figura 2.5: Celda con bit negado. La cadena de buffers solo es ilustrativa.
+Switches de Placa Inferior (Bottom Plate)
+La lógica para activar los swtiches segun las señales B[n] y D[n] se detallan en la
+figura 2.4 y la figura 2.5
+
+20
+
+Conexión a entradas (VIN P , VIN N ): Transmission gates con dummies para minimizar charge injection durante el muestreo
+Conexión a modo común (VCM ): Transmission gates sin dummies (switching
+durante conversión)
+Conexión a VDD (referencia): Transistor PMOS individual
+Conexión a VSS (tierra): Transistor NMOS individual
+Los transistores PMOS y NMOS tienen el mismo tamaño que los transistores que componen los transmission gates para mantener simetrı́a en las impedancias de conmutación.
+
+2.2.5.
+
+Generador de Señales Non-Overlap
+
+b_ctrl
+A
+
+sample_pin
+A
+
+a_sample_n
+a_sample
+
+A
+
+Y
+
+Y
+
+A
+
+Y
+
+b_n_ctrl
+
+Y
+A
+
+Y B
+A
+
+x44
+
+B
+
+A
+
+b_sample
+b_sample_n
+
+Y
+B
+
+Y
+A
+
+a_ctrl
+
+a_n_ctrl
+
+Y B
+
+Figura 2.6: Diagrama del generador de señales de sampleo sin superposición
+Funcionamiento
+El generador de pulsos de la figura 2.6 produce dos señales para el sampleo (SampleA
+y SampleB ), la primera es la que conecta las Top Plates a Vcm , mientras que la segunda
+conecta las Bottom Plates a Vin . Funciona de la siguiente manera:
+SampleA y SampleB cierran sus switches cargando los capacitores del CDAC
+SampleA Abre, dejando flotantes las TOP Plates
+SampleB Abre, desconectando las Bottom Plates de Vin , cuando esto sucede, la
+lógica correspondiente a esa celda del CDAC, conecta la Bottom plate a Vcm de
+acuerdo a ala arquitectua IMCS. Permanecerá conectada, hasta que se decida el bit
+correspondiente a la celda.
+Este procedimiento evita que los capacitores pierdan carga si se conectaran ambas
+placas al mismo potencial Vcm . Para asegurar el NOL se realizó esta implementación a
+lazo cerrado, por lo que el tiempo muerto incluye todos los delays de los buffers. Las
+señales se muestran en la figura 2.7, se indica el delay en la figura 2.8
+21
+
+tran1: Salidas del Non-Overlap
+a_sample_buf+2
+b_sample_buf+4
+
+sample
+a_sample_n_buf+2
+b_sample_n_buf+4
+
+6.0
+5.5
+5.0
+4.5
+4.0
+3.5
+3.0
+2.5
+2.0
+1.5
+1.0
+0.5
+0.0
+0.0
+
+0.5
+
+1.0
+
+1.5
+time
+
+2.0
+
+2.5
+ns
+
+3.0
+
+3.5
+
+4.0
+
+Figura 2.7: Salidas del NOL, se resalta el tiempo muestro donde ambas señales abren los
+switches
+
+22
+
+a_sample_nol+2
+a_sample_buf+2
+
+sample
+b_sample_nol+4
+b_sample_buf+4
+
+6.0
+5.5
+5.0
+4.5
+4.0
+3.5
+3.0
+2.5
+2.0
+1.5
+1.0
+0.5
+
+0.0
+
+0.5
+
+1.0
+
+1.5
+
+2.0
+
+2.5
+ns
+
+3.0
+
+3.5
+
+4.0
+
+Figura 2.8: Señales generadas por el NOL, se señala el alto delay generado por la operacion
+a lazo cerrado
+
+2.2.6.
+
+Top Plate Sample switch
+
+Se implementaron 4 compuertas de transmisión, 2 para los nodos de las TOP plates
+MSB y LSB de cada parte del DAC
+
+2.2.7.
+
+Requerimiento de Settling
+
+Presupuesto de Tiempo
+Para una velocidad de muestreo objetivo de 40 MSa/s (perı́odo de 25 ns), adoptamos
+un tiempo de muestreo (Tiempo de sampling) Ts = 2ns, restándonos 23ns para realizar la
+conversión. Por lo que nuestra señal se debe estabilizar en menos de ese tiempo (tiempo
+de settiling en la respuesta al escalón). Además buscaremos que el ancho de banda 3dB
+(BW) del S&H sea al menos 20 veces mayor a la frecuencia de Nyquist de este ADC,
+en este caso buscamos un BW = 400M Hz. En la figura 2.13 se muestra el resultado al
+samplear una señal con f1 = 4 ∗ fnyquist
+Usaremos la regla practica de [10]:
+BW =
+Tr =
+
+0,35
+Tr
+
+0,35
+BW
+
+23
+
+Tr =
+
+2.2.8.
+
+0,35s
+= 875ps
+400 ∗ 106
+
+Dimensionamiento del Transmission Gate (sample)
+
+Se realizó un test bench con el objetivo de alcanzar una respuesta al escalon con un
+tiempo de settling menor a 875ps. Para el mismo se colocó una compuerta de transmission
+con dummies, el capacitor y una compuerta de transmission sin dummies, como decision
+de diseño, las dimensiones de Wn y Wp serán las mismas para todas las compuertas.
+
+VDD
+
+VDD
+v_top1
+vcm
+
+m=1
+15f
+
+vin1
+VDD
+
+VDD
+v_top2
+vcm
+
+m=1
+15f
+
+vin2
+
+VDD
+
+VDD
+vcm
+
+m=1024
+
+m=1024
+15f
+
+vin1
+
+m=1024
+
+v_top1a
+
+Figura 2.9: Testbench usado para probar el Tr del S&H
+Se Realizaron las siguientes pruebas:
+Se busco un tiempo de settling menor a 875ps para test bench de la figura
+24
+
+Se comprobó el efecto de agregar dummies para mitigar la inyeccion de carga, además
+se probó la dependencia de este metodo respecto a tiempo de bajada de la señal de
+sample. la figura 2.15 la figura 2.16
+Se comprobó que si ponemos n compuertas en paralelo manejan n capacitores igual,
+el tiempo de rise se mantiene. la figura 2.11
+Se probó la respuesta al escalon en la señal de sample (tiempo que tarda el switch en
+cerrar) y luego se probó la respuesta a los 2 escalones en simultaneo. la figura 2.12
+tran1: Pulso de subida
+V
+vin2
+vin4
+v_top2
+1.8
+v_top4
+
+vin1
+vin3
+v_top1
+v_top3
+
+1.6
+
+1.4
+
+1.2
+
+1.0
+
+0.8
+
+0.6
+
+0.4
+
+0.2
+
+0.0
+1.00
+
+1.01
+
+1.02
+
+1.03
+
+1.04
+
+1.05
+
+time
+
+1.06
+
+1.07
+ns
+
+Figura 2.10: Respuesta al escalón (subida)
+
+25
+
+1.08
+
+1.09
+
+1.10
+
+tran1: Pulso de subida de 1024 circuitos en paralelo
+V
+v_top1
+
+vin1
+v_top1a
+
+1.80
+
+1.70
+
+1.60
+
+1.50
+
+1.40
+
+1.30
+
+1.20
+
+1.10
+
+1.00
+
+0.90
+4.000
+
+4.010
+
+4.020
+
+4.030
+
+4.040
+
+4.050
+
+time
+
+4.060
+ns
+
+4.070
+
+4.080
+
+4.090
+
+4.100
+
+Figura 2.11: Respuesta al escalón de varios en paralelo (v top1a) se observa que se superpone con la respuesta de 1 solo conjunto (v top1)
+
+26
+
+tran1: Comparativa Retardos
+V
+v_top1
+
+v_top
+v_top_sample
+
+1.90
+
+1.80
+
+1.70
+
+1.60
+
+1.50
+
+1.40
+
+1.30
+
+1.20
+
+1.10
+
+1.00
+
+0.90
+
+0.80
+1.00
+
+1.01
+
+1.02
+
+1.03
+
+1.04
+
+1.05
+
+time
+
+1.06
+
+1.07
+
+1.08
+
+1.09
+
+1.10
+
+ns
+
+Figura 2.12: Respuesta del circuito con escalon en: entrada (v top1), señal de sampleo(v top sample) y en ambos (v top)
+
+27
+
+tran1: Ejemplo de sample a 80MHz
+V
+v_top_ac_sample_rapido
+
+vin_ac
+
+1.90
+
+1.80
+
+1.70
+
+1.60
+
+1.50
+
+1.40
+
+1.30
+
+1.20
+
+1.10
+
+1.00
+
+0.90
+
+0.80
+0.0
+
+0.5
+
+1.0
+
+1.5
+
+2.0
+time
+
+2.5
+
+3.0
+
+3.5
+
+4.0
+
+4.5
+
+5.0
+
+5.5
+
+6.0
+
+ns
+
+Figura 2.13: Ejemplo de sampleo de una señalde 80MHz (4veces la frecuencia de Nyquist)
+
+Cuadro 2.2: Dimensiones del Transmission Gate
+Parámetro
+Wn / Ln
+Wp / Lp
+Tiempo de settling objetivo
+
+28
+
+Valor
+1.0 m / 0.13 m
+2.0 m / 0.13 m
+< 875 ps
+
+µ
+µ
+
+µ
+µ
+
+M2
+
+di_tg_ctrl
+M2d
+
+VDD
+
+Compensación de Inyección de Carga con Dummies
+
+di_tg_ctrl_n
+
+2.2.9.
+
+v_b
+
+VSS
+
+di_tg_ctrl_n
+
+di_tg_ctrl
+
+M1
+
+M1d
+
+v_a
+
+Figura 2.14: Transmission gate implmentada usando dummies para mitigar la inyección
+de carga
+
+29
+
+Problema de Charge Injection
+Cuando los transmission gates se abren, la carga almacenada en el canal de conducción
+se inyecta parcialmente en el capacitor de muestreo, introduciendo un error dependiente
+de la señal.
+Implementación de Dummies
+Se implementaron transistores dummy conectados con compuerta controlada por la
+señal complementaria. Partiedo de que la capacidad de canal se descarga a través de Source
+y Drain por igual, por lo que un transistor igual, con la mitad del area (en este caso w)
+absorberá la mitad de la carga que irı́a de otra forma al capacitor. Las la figura 2.15 y
+la figura 2.16 y muestran que para que esta compensacion sea efectiva necesitamos un
+tiempo de bajada corto.
+Wdummy = 0,5 × Wactive
+(2.9)
+tran1: Efecto del tiempo de bajada de sample en la inyeccion de carga
+V
+v_top_ac_sample_rapido
+vin_ac
+v_top_ac_sin_dummies
+v_top_ac_sample_lento
+1.9
+
+1.8
+
+1.7
+
+1.6
+
+1.5
+
+1.4
+
+1.3
+
+1.2
+
+1.1
+
+1.0
+
+0.9
+
+0.8
+0.0
+
+0.5
+
+1.0
+
+1.5
+
+2.0
+time
+
+2.5
+
+3.0
+
+3.5
+
+4.0
+
+4.5
+
+5.0
+
+5.5
+
+6.0
+
+ns
+
+Figura 2.15: Dependencia de la compensación con dummies del falltime de la señal de
+sample
+
+30
+
+tran1: Efecto del tiempo de bajada de sample en la inyeccion de carga
+V
+v_top_ac_sample_rapido
+vin_ac
+v_top_ac_sin_dummies
+v_top_ac_sample_lento
+1.90
+
+1.88
+
+1.86
+
+1.84
+
+1.82
+
+1.80
+
+1.78
+
+1.76
+
+1.74
+
+1.72
+
+1.70
+3.40
+
+3.45
+
+3.50
+
+3.55
+time
+
+3.60
+
+3.65
+ns
+
+3.70
+
+3.75
+
+3.80
+
+Figura 2.16: Dependencia de la compensación con dummies del falltime de la señal de
+sample (zoom)
+
+2.2.10.
+
+Testbench del CDAC
+
+Objetivo del Test
+El testbench valida:
+1. Tiempo de settling de cada paso de conversión
+2. Valores correctos de los saltos de tensión (verificación de atenuación)
+3. Funcionamiento correcto de ambos sub-arrays (MDAC y SDAC)
+4. Comportamiento del esquema de conmutación IMCS
+Configuración del Test
+El testbench implementa:
+Generadores de voltaje para VIN P , VIN N , VCM , VDD
+Bloque lógica SAR para obtener el delay total desde la decisión del comparador
+Medición diferencial en las placas superiores del CDAC
+Análisis transitorio para observar settling
+31
+
+Resultados
+Cuadro 2.3: Valores de salto de tensión en el CDAC - Verificación del esquema IMCS
+Salto
+
+Segmento
+
+VdacP (mV)
+
+VdacN (mV)
+
+Vdac,diff (mV)
+
+0
+1
+2
+3
+4
+5
+
+Main DAC
+Main DAC
+Main DAC
+Main DAC
+Main DAC
+Main DAC
+
+401,017
+200,648
+100,351
+50,188
+25,097
+12,549
+
+401,014
+200,649
+100,285
+50,142
+25,064
+12,53
+
+802,439
+401,297
+200,636
+100,331
+50,0161
+25,079
+
+6
+7
+8
+9
+10
+
+Sub DAC
+Sub DAC
+Sub DAC
+Sub DAC
+Sub DAC
+
+6,359
+3,185
+1,592
+0,79
+0,397
+
+6,368
+3,167
+1,582
+0,79
+0,397
+
+12,72
+6,352
+3,174
+1,59
+0,794
+
+Se implementaron las compouertas con las medidas detallas en la tabla 2.2. Se puede
+observar en los cuadros 2.3 y 2.4 que los pasos decrecen exponencialmnte, y que estan atenuados respecto a los esperado por un factor de 0,89. Se observa además que la operación
+en amvos CDAC (lado p y lado n) son prácticamente simétricos.
+Cuadro 2.4: Parámetros del CDAC
+Parámetro
+Capacitor unitario (Cu )
+Tipo de capacitor
+Capacitor de puente (CB )
+Capacitor de grounding (CX )
+Capacitancia total MDAC
+Capacitancia total SDAC + CX
+Tiempo de settling promedio (por paso)
+Tiempo de settling Maximo (por paso)
+
+32
+
+Valor
+13.9 fF
+MIM 3 m 3 m
+2Cu = 27.8 fF
+31Cu = 430 fF
+63Cu = 945 fF
+94Cu = 1.3 pF
+387 ps
+527 ps
+
+µ Ö µ
+
+2.3.
+
+Comparador de Doble Cola
+
+Se implementó el comparador de doble cola (double-tail) propuesto por Bindra et
+al. [5], que separa las etapas de preamplificación y regeneración para optimizar velocidad
+y consumo.
+El comparador de doble cola (Fig. 2.2) Se compone de 2 etapas, un preamplificador
+que aporta ganancia a la vez que aislación hacia la etapa anterior (CDAC) y una segunda
+etapa con un latch regenerativo para realizar la comparación.
+El funcionamiento básico se describe ası́: cuando di clk está en 0, el preamp carga
+los nodos vcpp y vcpn a VDD. Mientras que el latch descarga sus nodos de salida hacia
+VSS. Este tiempo se llama tiempo de reset. Cuando di clk está en 1, el preamp empieza
+a descargar los nodos vcpp y vcpn a través del capacitor de cola. Esto genera una una
+tensión diferencial en la entrada del latch regenerativo, que determina cual será el estado
+final de los nodos de salida. De esta manera voutp se va alto si vinp es mayor que vinn y
+viceversa. Este tiempo de llama tiempo de comparacion.
+
+2.3.1.
+
+Presupuesto de Tiempos
+
+Durante el proceso de conversión, se van generando 1 a 1 los bits del código de salida, el
+tiempo que tarda en decidirse cada bit se denomina tiempo de bit. El tiempo de conversión,
+será entonces N veces el tiempo de bit, siendo N el número de bits del código.
+Ciclo de Conversión
+Cuando la señal pulse esta en bajo, el comparador realiza la decisión, mientras que
+durante el tiempo alto la lógica genera el bit de acuerdo a la comparación y de acuerdo a
+esto el CDAC ajusta su salida.
+En este caso, el tiempo bajo será variable, ya que por la naturaleza del comparador
+las entradas diferenciales mas pequeñas tomarán mas tiempo en resolverse. En cambio el
+tiempo alto será fijo debido al generador de pulsos, este tiempo está ajustado de manera de
+asegurar el settling del DAC antes del flanco de bajada. Llamaremos tiempo de settling
+del CDAC (TsettlingCDAC ) al tiempo desde que clk sube al 50 % de VDD hasta que las
+salidas del CDAC alcanzan el 90 % de su valor final.
+Llamaremos tiempo de decision (Tdecision ) al tiempo desde que clk baja al 50 % de
+VDD hasta que el latch sale de metaestaibilidad.
+Fase de reset (tiempo alto): Reset del comparador y settling del CDAC
+Fase de compacion (tiempo bajo)
+El presupuesto de tiempos se diseñó considerando:
+Tbit = Treset + Tcomp > Tsettling CDAC + Tdecision
+
+(2.10)
+
+El generador de pulsos asegura esto a través de: Un tiempo de reset del doble del
+tiempo estimado de Settling y un tiempo de comparación que termina cuando alguna de
+las salidas del comparador va a alto, en este tiempo se incluyen entonces el retardo de los
+buffers y el retardo propio del generador de pulsos.
+
+33
+
+2.3.2.
+
+Arquitectura del Comparador
+
+VDD
+
+en
+
+VSS
+
+VSS
+
+VDD
+voutp_buf
+VSS voutn_buf
+PULSEN
+vcm
+
+pgen
+
+VSS
+
+PULSEN
+
+VDD
+
+Figura 2.17: Diagrama de Bloques del comparador usado
+
+M4
+
+VSS
+
+C2
+
+di_clk M5
+
+vinp
+
+C3
+
+M2
+
+M1
+VSS
+M3a
+
+vs
+
+VSS
+
+vinn
+
+vcpp
+
+VSS
+
+vcpn
+
+di_clk
+C1
+M3b
+VSS
+
+di_clk_n
+
+Figura 2.18: Preamplificador con Capacitor de Cola
+
+34
+
+VDD
+
+VDD
+
+voutp_buf
+
+VDD
+VDD
+VSS
+VSS
+
+vout
+
+voutn_buf
+
+VDD
+
+voutn_comp
+
+di_clk_n
+
+VSS
+di_clk
+
+VDD
+VSS
+
+VDD
+VSS
+
+NC
+
+PULSE
+
+clk
+
+VDD
+VSS
+
+PULSEN
+
+VSS
+
+VDD
+
+vinn
+
+VDD
+VSS
+
+vinp
+
+VSS
+
+VDD
+
+voutp_comp
+
+El comparador se basa en el diseño de polarización dinámica propuesto por Bindra [5]
+indicado en la figura 2.18 y la figura 2.19, modificando la arquitectura de Elzakker[4] para
+reducir consumo mediante un capacitor en la cola del preamplificador. Los tamaños se
+indican en la tabla 2.5
+Se incluye un generador de pulsos que detecta cuando se realizó la comparación, y
+genera un tiempo de reset fijo para esperar el settling del DAC. El diagrama del mimsmo
+se indica en la figura 2.23. En el mismo se incluye un buffer Schmitt Trigger implementado
+como se indica en la figura 2.24.
+El funcionamineto se ilustra en la figura 2.21 y se muestra su tiempo de reset en la
+tabla 2.6.
+
+VDD
+
+VDD
+
+M9
+
+M8
+
+vcpn
+
+M6
+VDD
+
+VDD
+
+M7
+vcpp
+
+voutp
+voutn
+M12
+di_clk_n
+
+M10
+
+M13
+di_clk_n
+
+VSS
+
+M11
+
+Figura 2.19: Latch del comparador Doble Cola
+
+Dimensionamiento
+El diseño se basó en los valores reportados por Simon Dorrer [9], ajustados para la
+tecnologı́a ihp-sg13g2. Se achicaron los capacitores de salida y agrandó el de cola para
+conseguir un menor tiempo de comparación, se agrandaron también los transistores de
+ambos pares (el del preamp y el latch) para aumentar la transconductancia, finalmente
+agrandamos un poco los transistores de reset (M4 y M5 para el preamp, M8 y M9 para
+el latch) para asegurar un correcto reset, evitando offset dinamico (cuando el resultado
+anterior sesga el próximo. El numero de gates en paralelo (ng) y el multiplicador (m) se
+ajustaron para lograr un diseño de layout mas cómodo. El Wef ectivo = w ∗ m el número
+de gates no modifica el wef ectivvo , sino que wgate = wef ectivo /ng. Para un modelo de primer
+orden solo usamos el wef ectivo , pero efectos de segundo orden, como capacidad de Miller
+dependen de la geometrı́a implementada y debemos tener en cuenta los valores de ng y
+m.
+
+2.3.3.
+
+Testbench del Comparador
+
+Objetivo
+A través del testbench de la figura 2.20 se busca caracterizar:
+1. Tiempo de comparación para entrada de 1 LSB
+2. Tiempo de reset requerido
+
+35
+
+Cuadro 2.5: Parámetros de diseño del comparador de doble cola tipo Bindra
+Dispositivo
+
+Tipo
+
+W (µm)
+
+L (µm)
+
+ng
+
+m
+
+Función/Nodo
+
+0.13
+0.13
+0.13
+0.13
+0.13
+0.13
+
+1
+1
+1
+1
+1
+1
+
+1
+1
+2
+1
+1
+1
+
+Par diferencial (vinp)
+Par diferencial (vinn)
+Tail current source (parte a)
+Tail current source (parte b)
+Reset(vcpp)
+Reset(vcpn)
+
+Etapa de Preamplificación
+M1
+M2
+M3a
+M3b
+M4
+M5
+
+NMOS
+NMOS
+NMOS
+NMOS
+PMOS
+PMOS
+
+5,0
+5,0
+8,0
+2,0
+3,0
+3,0
+
+Etapa de Latch Regenerativo
+M6
+M7
+M8
+M9
+M10
+M11
+M12
+M13
+
+PMOS
+PMOS
+PMOS
+PMOS
+NMOS
+NMOS
+NMOS
+NMOS
+
+6,0
+6,0
+4,0
+4,0
+2,0
+2,0
+2,0
+2,0
+
+0.13
+0.13
+0.13
+0.13
+0.13
+0.13
+0.13
+0.13
+
+2
+2
+2
+2
+1
+1
+1
+1
+
+1
+1
+1
+1
+1
+1
+1
+1
+
+Entrada diferencial latch (vcpn)
+Entrada diferencial latch (vcpp)
+Realimentación cruzada (voutp) [VDD]
+Realimentación cruzada (voutn) [VDD]
+Realimentación cruzada (voutp) [VSS]
+Realimentación cruzada (voutn) [VSS]
+Reset latch (voutp)
+Reset latch (voutn)
+
+MIM
+MIM
+MIM
+
+20,0
+7,0
+7,0
+
+20,0
+7,0
+7,0
+
+–
+–
+–
+
+1
+1
+1
+
+Capacitor de cola (dynamic bias)
+Vcpn
+Vcpp
+
+Capacitores
+C1
+C2
+C3
+
+Nota: ng = número de gates en paralelo, m = multiplicador
+
+Configuración del Test
+
+PULSE
+
+VDD
+
+VCM
+
+Vin+
+
+Vin-
+
+VCM
+
+Enable
+
+Carga capacitiva de Logica
+
+Figura 2.20: Testbench comparador completo
+Entrada diferencial: VIN = ±0,5 LSB = ± 219 uV
+Mediciones: Tiempo hasta decisión estable, consumo promedio
+36
+
+Resultados
+tran1: Salidas Comparador
+out_comp
+enable+2
+
+vin_dif_mv
+pulse+4
+
+6.0
+
+5.0
+
+4.0
+
+3.0
+
+2.0
+
+1.0
+
+0.0
+
+-1.0
+0.0
+
+1.0
+
+2.0
+
+3.0
+
+4.0
+
+5.0
+
+time
+
+6.0
+
+7.0
+
+8.0
+
+ns
+
+Figura 2.21: Señales de salida del comparador
+
+37
+
+9.0
+
+10.0
+
+tran1: Tiempo Reset
+outp_bindra
+
+pulse+2
+outn_bindra
+
+4.0
+
+3.5
+
+3.0
+
+2.5
+
+2.0
+
+1.5
+
+1.0
+
+0.5
+
+0.0
+
+-0.5
+2.65
+
+2.70
+
+2.75
+time
+
+2.80
+
+2.85
+
+2.90
+
+2.95
+
+ns
+
+Figura 2.22: Tiempo de reset del comparador
+
+2.3.4.
+
+Generador de Pulsos (Delay Line)
+
+El generador de pulsos implementa el esquema de auto-clock del comparador y sincroniza la lógica SAR. El objetivo crı́tico es garantizar que el pulso de control se genere
+después de que el CDAC haya alcanzado su valor de settling.
+Criterio de Diseño
+El tiempo de reset del comparador debe ser aproximadamente:
+Treset ≈ 2 × Tsettling CDAC
+
+(2.11)
+
+Esto asegura que:
+El CDAC tiene tiempo suficiente para establecerse
+El comparador puede resetear completamente
+Hay margen para variaciones de proceso
+Implementación del generador de pulsos
+El generador de pulsos se implementó mediante la carga del nodo vx a través del
+transistor M7, el cual tiene un largo mayor al mı́nimo (ajustado mediante iteraciones) y
+38
+
+limita la velocidad de carga del nodo vx, de esta forma aseguramos un tiempo de reset
+suficientemente largo para que el CDAC establezca su salida correctamente. Se puede
+observar las formas de onda obtenidas en la figura 2.25.
+
+VDD
+M7
+M2
+
+M14
+en
+
+vx_n
+vxs
+READY
+
+M1
+
+M3
+in2
+
+in1
+
+VTUNE
+
+M4
+
+vxs
+READY
+
+vx
+
+en
+
+M5
+
+VSS
+
+Figura 2.23: Diagrama del generador de pulsos
+
+VDD
+M6
+M12
+VSS
+
+M9
+vx
+
+vxs
+
+M8
+M11
+
+VDD
+
+M10
+
+VSS
+
+Figura 2.24: Implemetnación de la compuerta Schimtt-Trigger
+
+39
+
+PULSE_n
+
+tran1: Señales Internas Generador de Pulsos
+schmitt_out+2
+schmitt_in+2
+
+ready
+schmitt_outn+2
+pulse+4
+
+6.0
+
+5.0
+
+4.0
+
+3.0
+
+2.0
+
+1.0
+
+0.0
+
+-1.0
+0.0
+
+1.0
+
+2.0
+
+3.0
+
+4.0
+
+5.0
+
+time
+
+6.0
+
+7.0
+
+8.0
+
+ns
+
+Figura 2.25: Formas de onda del generador de Pulsos
+
+Cuadro 2.6: Resultados
+Parámetro
+Tiempo de comparación (1 LSB)
+Tiempo de reset pgen
+Tiempo de reset comparador
+
+40
+
+Valor
+548 ps
+768 ps
+56 ps
+
+9.0
+
+10.0
+
+2.4.
+
+Buffers de Control
+
+Metodologı́a de Cálculo de Buffers
+El dimensionamiento de todas las cadenas de buffers se realizó siguiendo la metodologı́a presentada en Digital Integrated Circuits—A Design Perspective de Rabaey [11]. Se
+procedió como se indica al principio para calcular CLOAD , notar que si calculamos un
+numero no entero de cadenas (lo mas probable) procedemos a quedarnos con
+El que nos de la fase que queremos (Invertida o no)
+El que nos de el menor delay, tener en cuenta que el fan out debe agrandarse bastante
+mas de 4, para compensar el retardo de un inversor extra.
+Tener en cuenta que es mejor dejar el exceso de fanout para las ultimas etapas para
+minimizar el consumo agregado
+Testebench fanout optimo
+Como se muestra en la la figura 2.26 al variar el fanout de una compuerta, varı́a
+tambien su retardo, se aplico la teorı́a clásica para buscar el fanout óptimo para una
+cadena de Buffers. El la tabla 2.7 indica los delays obtenidos y las la figura 2.27 la
+figura 2.28 muestran el fanout optimo estimado usando Geogebra.
+tran1: cambio del delay con f
+V
+fin3
+fin5
+fout3
+2.2
+fout5
+
+fin2
+fin4
+fout2
+fout4
+
+2.0
+1.8
+1.6
+1.4
+1.2
+1.0
+0.8
+0.6
+0.4
+0.2
+0.0
+-0.2
+1.90
+
+1.95
+
+2.00
+time
+
+2.05
+
+2.10
+
+2.15
+
+ns
+
+Figura 2.26: Retardos correspondiente a un fanout de 2, 3, 4 y 5
+
+41
+
+2.20
+
+El modelo de delay de propagación de Rabaey para una cadena de buffers está dado
+por:
+
+
+CL
+tp = kRW Cin 1 +
+= tinv (γ + f )
+(2.12)
+Cin
+donde:
+k: constante dependiente de la tecnologı́a
+RW : resistencia efectiva del transistor
+Cin : capacitancia de entrada del inversor
+CL : capacitancia de carga
+f = CL /Cin : fanout eléctrico
+γ: parámetro de esfuerzo intrı́nseco
+tinv : delay intrı́nseco del inversor sin carga
+Podemos aproximar el valor de γ como el cociente entre el tiempo de propagacion de un
+inversor descargado divido en la derivada del tiempo de propagacion respecto del layout
+(en ete caso el cambio al aumentar el fan out en 1):
+γ=
+
+tp0
+
+(2.13)
+
+tp inv
+
+. Podemos obvservar que este valor no es constante y depende del fanout, de la literatura
+sabemos que el fanout óptimo está alrededor de 4, por lo que procedemos a estimar el
+parámetro gamma con los valores correspondientes al fanout 4.
+Usando Geogebra podemos derivar el retardo de una cadena de buffers y encontrar el
+mı́nimo del retardo para un cierto número de etapas, el fanout será entonces la raiz nesima del fan out total que ingresamos, si repetimos para varios valores, encontramos un
+valor relativamente constante para el fanout. Procedemos luego a realizar pruebas con los
+valores enteros más próximos, de manera que podemos encontrar un fanout öptimo entero
+,̈ ya que implementaremos las cadenas de buffer con multiplicadores. Delay del inversor
+en vacı́o es 9ps. El valor encontrado es: 1.5 para el parametro gamma, lo que nos lleva
+Cuadro 2.7: Análisis de delay vs fanout para optimización de cadenas de buffers
+Fanout
+
+Delay (ps)
+
+∆ Delay (ps)
+
+2
+3
+4
+5
+
+18ps
+23ps
+29ps
+35ps
+
+–
+5ps
+6ps
+6ps
+
+Referencia
+Optimo segun libro
+
+a un fanout optimo de 4 efectivamente en geogebra. En la curva azul, el delay estimado
+para un numero de etapas x, en la grafica gris el fanout optimo para el numero de etapas
+x. La curva verde resalta el fanout optimo del numero de etapas minimo.
+Podemos entonces, encontrar el numero de etapas como
+N = ln(Cload /Cin )/ln(4) = log4 (Cload /Cin
+42
+
+Figura 2.27: Valor del fanout f optimo para un fanout total F=1000
+
+Figura 2.28: Valor del fanout f optimo para otro fanout total F=178
+———————————————
+El sistema requiere varias cadenas de buffers para manejar las cargas capacitivas de
+los diferentes bloques. A continuación se indica como se encontaron las cargas capacitivas
+a manejar. Se consideró como inversor mı́nimo, un con Wn = 0, 15µm y Wp = 0, 3µm
+además Ln = Lp = Lmin = 0, 13µm por lo que para calcular la CLOAD se procedió de la
+siguiente manera, aproximando las capacitancias de compuerta de ambos MOS al mismo
+valor, (suponemos esto debido a las similitudes de los valores reportados de CJUNCTION
+y CMILLER proporcionados por la documentación del proceso) [8]:
+Multiplica W por m de cada transistor conectado al nodo, y luego se suma todo.
+Se divide el valor en 0,45 µm para obtner la capacidad del nodo relativa a la capacidad de entrada de un inversor unitario
+Buffer de Salidas del Comparador
+La salida del comparador maneja el latch que retiene la última comparación. Se implementó una cadena de buffers para:
+
+43
+
+Aislar el nodo de salida sensible del comparador, esto evita introducir offset y degradar demasiado el tiempo de conversión por el estado del latch. En el nodo de
+salida se conecta el inversor unitario
+Proveer drive suficiente para el latch.
+En la figura 2.29 se muestran los retardos obtenidos. En este caso de 11ps desde que el
+comparador toma la decision (cuando una salida empieza a bajar) hasta el 50 % de VDD
+en la salida del buffer,.
+tran1: Retardo Salidas
+outn_bindra+2
+outn_buffer+2
+
+outp_bindra
+outp_buffer
+out_comp+4
+
+6.0
+
+5.0
+
+4.0
+
+3.0
+
+2.0
+
+1.0
+
+0.0
+
+-1.0
+0.0
+
+1.0
+
+2.0
+
+3.0
+
+4.0
+
+5.0
+
+6.0
+
+time
+
+7.0
+
+8.0
+
+9.0
+
+ns
+
+Figura 2.29: Retardo del buffer de la salida del comparador hacia el latch
+
+FLOAD = 24
+Buffer de Salida Pulse del Comparador
+La salida que implementa el reloj del comparador mueve varios nodos
+Señales di clk y di clk n del preamp y el latch
+Señal de reloj de la lógica
+di clk n y reloj logica CLOAD = 218
+di clk CLOAD = 48
+44
+
+10.0
+
+Buffer de Señales de Lógica a CDAC
+Las señales de control digitales (D[n] y B[n]) provenientes de la lógica SAR deben manejar todos los switches del CDAC. Se implementó una cadena de buffers para garantizar
+tiempos de rise/fall adecuados. Por cada transistor pmos unitario son 4.44 Cinv y el nmos
+2.22 Cinv aproximadamente. tendremos entonces 3 buffers diferentes a implementar.
+FT Gnmos = n ∗ 2,22
+FT Gpmos = n ∗ 4,44
+Fnmos = n ∗ 2,22
+Fpmos = n ∗ 4,44
+Buffer de Señales de Sampleo
+Las señales non-overlap generadas deben manejar la carga capacitiva de todos los
+switches del array de muestreo. Para garantizar tiempos de rise/fall adecuados y evitar
+degradación de las señales, se implementó una cadena de buffers.De forma similar al caso
+anterior, pero esta vez con un numero fijo de transistores por nodo. Tenemos 2 dac (p y
+n) con 2 subdac, cada uno con 63 transistores, además tengamos en cuenta que la señal
+B maneja compuertas con dummmies asi que agregamos sus capaciades.
+En el nodo Sample A se conectan 252 nmos
+En el nodo Sample B se conectan 378 pmos (por los dummmies)
+En el nodo Sample A negado se conectan 252 pmos
+En el nodo Sample B negado se conectan 378 nmos (por los dummmies)
+FLOADsampleA = 252 ∗ 2,2 = 554,4
+FLOADsampleB = 378 ∗ 4,4 = 1663
+FLOADsampleAn = 252 ∗ 4,4 = 1108
+FLOADsampleBn = 378 ∗ 2,2 = 831
+
+45
+
+Cuadro 2.8: Diseño de cadenas de buffers - Cálculo de etapas y multiplicadores
+Número de etapas
+(cálculo)
+
+Número de
+Etapas
+
+Multiplicadores
+
+24
+48
+218
+554
+1663
+1108
+831
+4.44
+8.88
+17.76
+35.52
+71.04
+8.88
+17.76
+35.52
+71.04
+142.08
+
+2.29248125
+2.79248125
+3.88409162
+4.56687083
+5.34978627
+5.05687083
+4.84935233
+1.07527983
+1.57527983
+2.07527983
+2.57527983
+3.07527983
+1.57527983
+2.07527983
+2.57527983
+3.07527983
+3.57527983
+
+2
+2
+3
+4
+5
+5
+4
+1
+1
+2
+2
+3
+1
+2
+2
+3
+3
+
+4-8
+4-8
+4-8-32
+4-8-32-64
+4-8-32-64-256
+4-8-32-64-256
+4-8-32-64
+–
+–
+4-8
+4-8
+4-8-32
+–
+4-8
+4-8
+4-8-32
+4-8-32
+
+x1
+VDD
+
+bit
+
+p_bit_dec
+
+comp_in
+clk
+
+comp_in
+
+dec
+
+bit_cell
+
+clk
+
+VSS
+
+VSS
+
+rst
+
+x14
+VDD
+
+bit
+
+p_bit_dec
+
+comp_in
+reset
+
+VDD
+
+clk
+
+comp_in
+
+d10
+
+VDD
+
+d11
+
+VDD
+
+b10
+
+Lógica SAR
+b11
+
+2.5.
+
+FLOAD
+
+clk
+
+VSS
+
+VSS
+
+comp_in
+reset
+
+rst
+
+VDD
+p_bit_dec
+
+dec
+
+bit_cell
+
+VDD
+
+clk
+
+comp_in
+
+bit_cell
+
+clk
+
+VSS
+
+Figura 2.30: Fragmento de la cadena de la lógica implementada
+La lógica SAR controla la secuencia de conversión y almacena los bits resueltos. Se
+implementó de manera sı́ncrona utilizando celdas estándar del PDK ihp-sg13g2 formando
+una cadena ”dominó”que activa la señal de decidido y retiene el bit a medida que recibe
+un 1 (desde D[n-1]) de la celda anterior, como se indica en la figura 2.30 mostrando solo
+el principio de esta cadena que termina con la celda que maneja D[0] y B[0] . Cada bloque
+unitario de la lógica consiste en 2 partes:
+El latch que guarda decidido, que propaga el valor logico alto en cada pulso generado
+por la decisión del comparador. Genera la señal D[n]
+El latch que retiene el valor de la decisión del comparador de ese momento. Genera
+la señal Bit[n]
+
+46
+
+2.5.1.
+
+Bloque Unitario de Lógica
+VDD
+CLK
+D
+
+Q
+
+dec
+VSS
+
+RESET_B
+
+comp_in
+
+VDD
+
+n_dec
+
+sg13g2_dfrbp_1 Q_N
+
+VDD
+
+clk
+p_bit_dec
+reset
+
+VDD
+
+VSS
+
+VSS
+
+VSS
+
+VDD
+
+VDD
+R
+
+Q
+
+S
+
+Qn
+
+VDD
+bit
+
+n_dec
+NC
+
+VSS
+
+VSS
+
+VSS
+
+VSS
+
+Figura 2.31: Bloque unitario de la lógica, genera el bit B[n] y la señal de decidido D[n]
+b En la figura 2.31 se muestra el diagrama de cada eslabón que forma la cadena ”dominó”de la logica. La celda lógica sg13g2 dfrbp 1 implementa un flip-flop tipo D, activado
+por flanco con reset asincrónico activo bajo. La caracterizacion (tabla de verdad, delays)
+puede verse en: [8]
+Cada bit de la conversión requiere un bloque de lógica que incluye:
+Registro para retener el bit de decidido D[n]
+Biestable para retener el bit de control B[n]
+Lógica combinacional para generar señales de control del CDAC (En la implementación Layout)
+Interfaz con el bit anterior D[n − 1] para propagar la habilitación
+Entradas y Salidas del Bloque Unitario
+Entradas:
+Salida del comparador (decisión del bit actual)
+Pulso del generador de pulsos (reloj de la lógica)
+D[n − 1] (habilitación desde el bit anterior)
+Entradas y Salidas del Bloque Unitario
+Entradas:
+Salida del comparador (decisión del bit actual)
+47
+
+Señal de Reset
+Salidas:
+D[n]: Señales de bits resueltos
+B[n]: Bit de control para el CDAC/Codigo de Salida
+
+2.5.2.
+
+Implementación con Celdas Estándar
+
+La implementación se realizó utilizando latches y compuertas lógicas de la biblioteca
+de celdas estándar del PDK ihp-sg13g2. Esto simplifica el diseño y garantiza:
+Comportamiento lógico verificado
+Timing caracterizado
+Layout DRC-clean
+
+2.5.3.
+
+Análisis de Timing
+
+Delay de Propagación
+El parámetro crı́tico es el delay desde el flanco de subida del generador de pulsos hasta
+el cambio en las señales D[n] y B[n] que controlan el CDAC.
+Este delay debe ser suficientemente pequeño para que:
+Tbit = Treset + Tlogic + Tcomp < Tperiodo
+
+(2.14)
+
+Medición del Delay
+Se realizó simulación transitoria midiendo:
+Delay de flanco de subida del generador de pulsos al cambio en D[n]
+Delay de flanco de subida del generador de pulsos al cambio en B[n]
+Variación del delay a lo largo de la cadena (bit 1 vs bit 12)
+Se midió el delay desde el flanco de subida de clk hasta el flanco de subida de las señales
+de la celda unitaria de lógica. Esto es porque ambas señales de salida siempre inician en
+0. Se midió el delay en la simulación TOP, es decir con la lógica cargada.
+Cuadro 2.9: Parámetros de Timing de la Lógica SAR
+Parámetro
+Delay pulso
+Delay pulso
+
+ D[n]
+ B[n]
+
+48
+
+Valor
+258 ps
+115 ps
+
+2.6.
+
+Simulación TOP
+
+Se realizaron simulaciones tran a nivel TOP, usando entradas DC para probar la
+funcionalidad del circuito. Se muestra el testbench utilizado en la figura 2.1 mientras
+que las salidas obtenidas pueden verse en la figura 2.33 y el proceso de aproximaciones
+sucesivas en la salida del dac se ilustra en la figura 2.32. Finalmente podemos ver como
+la entrada del comparador decrece monotonamente en la figura 2.34
+tran1: Ejemplo de una conversion
+sample
+vin
+2.0
+
+resultado
+eoc
+
+1.5
+
+1.0
+
+0.5
+
+0.0
+
+-0.5
+
+-1.0
+
+-1.5
+
+-2.0
+0.0
+
+2.0
+
+4.0
+
+6.0
+
+8.0
+
+10.0
+
+time
+
+12.0
+
+14.0
+
+16.0
+
+18.0
+
+20.0
+
+ns
+
+Figura 2.32: Ejemplo de una conversión completa, se observa como el resultado se va a
+aproximando al valor de la entrada
+
+49
+
+tran1: Salidas SAR
+d1+4
+d3+12
+d5+20
+70.0
+d7+28
+d9+36
+d11+44
+compout+55
+vin_comp-2
+60.0
+
+d0
+d2+8
+d4+16
+d6+24
+d8+32
+d10+40
+clk+50
+eoc+60
+
+50.0
+
+40.0
+
+30.0
+
+20.0
+
+10.0
+
+0.0
+
+-10.0
+
+0.0
+
+2.0
+
+4.0
+
+6.0
+
+8.0
+
+10.0
+
+time
+
+12.0
+
+14.0
+
+16.0
+
+ns
+
+Figura 2.33: Salidas correspondientes al ejemplo
+
+50
+
+18.0
+
+20.0
+
+tran1: Ejemplo convesion comparador
+compout
+
+vin_comp
+clk*.5
+
+2.0
+1.8
+1.6
+1.4
+1.2
+1.0
+0.8
+0.6
+0.4
+0.2
+0.0
+-0.2
+-0.4
+0.0
+
+2.0
+
+4.0
+
+6.0
+
+8.0
+
+10.0
+
+time
+
+12.0
+
+14.0
+
+16.0
+
+18.0
+
+20.0
+
+ns
+
+Figura 2.34: Entradas del comparador en el ejemplo (se escaló el clk para mejor visualizacion)
+
+2.6.1.
+
+Caracterización
+
+Se realizaron simulaciones con entrada DC para aproximar la longitud de los intervalos
+correspondientes a los códigos de Vin = 0,Vin = VDD y Vin = VDD
+, para lo cual se simularon
+2
+4 valores en los supuestos intervalos entre el codigo en cuestion y el anterior/siguiente. Se
+detalla los valores obtenidos en la tabla 2.10:
+
+51
+
+Cuadro 2.10: Resultados de simulación: Verificación de códigos y transiciones (Valores en
+mV).
+Región
+Código 0
+4* (Inicio)
+
+Código 1024
+8* (Mitad)
+
+Código 2048
+4* (Final)
+
+Posición (LSB)
+
+Vin (mV)
+
+Cód. Esperado
+
+Cód. Obtenido
+
+0,125
+0,250
+0,375
+0,500
+
+0,109 863
+0,219 726
+0,329 589
+0,439 453
+
+0
+0
+0
+0/1 (Transición)
+
+0
+0
+0
+0
+
+1023,500
+1023,625
+1023,750
+1023,875
+1024,125
+1024,250
+1024,375
+1024,500
+
+899,560 291
+899,670 154
+899,780 017
+899,889 880
+900,109 607
+900,219 470
+900,329 333
+900,439 197
+
+1023/1024
+1024
+1024
+1024
+1024
+1024
+1024
+1024/1025
+
+1023
+1024
+1024
+1024
+1024
+1024
+1024
+1024
+
+2047,500
+2047,625
+2047,750
+2047,875
+
+1799,560 035
+1799,669 898
+1799,779 762
+1799,889 625
+
+2047/2048
+2048
+2048
+2048
+
+2047
+2048
+2048
+2048
+
+52
+
+Capı́tulo 3
+Diseño de Layout
+Se ilustran algunos diseños propuestos para el layout de un par de bloques. Para el
+diseño del comparador de Bindra y el Latch SR se intento optimizar la simetrı́a del diseño
+para disminuir al mı́nimo el error sistematico, mientras que para el diseño de la celda
+unitaria del cdac se intento minimizar area. Se incluye el diseño del generador de pulsos
+para notar como se dibuja el nmos aislado (triple well). Finalmente se dejan algunas
+imagenes 2.5D renderizadas para ilustrar mejor la vista 3D de los bloques.
+
+53
+
+3.1.
+
+Comparador
+
+vinp vinn
+VDD
+
+vcpn
+
+vcpp
+vs
+
+v_cap
+
+VSS
+
+Figura 3.1: Layout del preamplificador, ocultando los capacitores
+
+54
+
+vinn
+
+vinp
+
+VDD
+vcpn
+
+vcpp
+
+di_clk
+
+vs
+
+v_cap
+
+VSS
+
+Figura 3.2: Layout del preamplificador, mostrando todas las capas
+
+55
+
+vinp vinn
+VDD
+
+vcpn
+
+vcpp
+
+di_clk
+vs
+
+v_cap
+
+VSS
+
+di_clk_n
+
+sub!sub!
+
+sub!
+voutp
+
+sub!
+voutn
+
+Figura 3.3: Layout Bindra
+
+VTUNE
+
+TripleWell iNMOS
+PULSE_N
+
+in1
+
+in2
+
+en
+pmos
+
+Figura 3.4: Generador de pulso con nmos de triple-well
+
+56
+
+Figura 3.5: Latch SR simétrico
+
+3.2.
+
+CDAC
+
+Vcm
+tgate to vin
+Vin
+Pull UP
+dmy
+tgate
+to
+vcm
+
+CAP
+
+tgate
+pmos
+
+dmy
+
+Pull Down tgate
+nmos
+
+Figura 3.6: Celda unitaria del CDAC propuesta
+
+3.3.
+
+Imagenes 2.5D
+
+Dentro del entorno de KLayout se incluye la posibilidad de renderizar imagenes 2.5D
+para ilustrar mejor el diseño, de dejan un par a modo de ejemplo.
+
+57
+
+Figura 3.7: Vista CDAC en perspectiva
+
+Figura 3.8: Otra vista del CDAC
+
+58
+
+Figura 3.9: Celdas unitaria del CDAC
+
+59
+
+Figura 3.10: Acercamiento a la via de conexion hacia el capacitor de la celda unitaria
+
+60
+
+Figura 3.11: Vista de los transistores del comparador Bindra
+
+61
+
+Figura 3.12: Conexiones del Preamplificador Bindra
+
+62
+
+Figura 3.13: Compardor Bindra ocultando los capacitores y capas superiores
+
+Figura 3.14: Comparador Bindra mostrando los capacitorees
+
+63
+
+Figura 3.15: Descripción
+
+64
+
+Capı́tulo 4
+Conclusiones y Trabajo Futuro
+4.1.
+
+Estado Actual del Trabajo
+
+Este documento presenta la implementación de un ADC SAR de 12 bits utilizando
+herramientas de código abierto y la tecnologı́a ihp-sg13g2. Al momento de esta versión
+del informe, el diseño esquemático y las simulaciones funcionales están completos, y se ha
+avanzado significativamente en el layout fı́sico. Se han completado y verificado (DRC/LVS)
+los siguientes bloques: comparador, celda unitaria del CDAC, latch del comparador, y
+generador de pulsos (implementado con transistores NMOS en triple-well). Sin embargo,
+el layout completo del sistema integrado y las simulaciones post-layout están pendientes
+para la versión final de este trabajo.
+
+4.2.
+
+Conclusiones
+
+4.2.1.
+
+Logros Principales
+
+El presente trabajo ha logrado diseñar e implementar un ADC SAR de 12 bits funcional
+en tecnologı́a ihp-sg13g2, cumpliendo con los objetivos establecidos:
+Diseño Funcional Completo: Se implementó exitosamente un ADC SAR de 12
+bits basado en la arquitectura IMCS (Inverted Merged Capacitor Switching), incluyendo todos los bloques necesarios: CDAC split-binary (6+6 bits), circuito de
+Sample & Hold, comparador de doble cola tipo Bindra, generador de pulsos autosincronizado, y lógica SAR implementada con celdas estándar.
+Rendimiento Alcanzado: Las simulaciones funcionales demostraron que el diseño
+logra resolver conversiones dentro del error de cuantización esperado, con un tiempo
+de conversión promedio de aproximadamente 18 ns y un consumo energético de
+aproximadamente 220 pJ por conversión.
+Verificación de Layout: Los bloques de layout completados (comparador, celda
+unitaria del CDAC, latch del comparador, y generador de pulsos) pasaron exitosamente las verificaciones DRC (Design Rule Check) y LVS (Layout vs Schematic),
+demostrando la manufacturabilidad del diseño en el PDK ihp-sg13g2.
+Documentación Completa: Se logró el objetivo principal de proveer una guı́a
+didáctica exhaustiva del proceso de diseño de circuitos integrados analógicos utilizando exclusivamente herramientas de código abierto (xschem, ngspice, klayout).
+65
+
+Todo el código, esquemáticos, scripts y resultados están disponibles públicamente
+en el repositorio [1].
+Especificaciones como Baseline: Aunque este diseño no fue optimizado exhaustivamente, las métricas obtenidas pueden servir como especificaciones mı́nimas para
+futuros diseños más sistemáticos. Las siguientes métricas fueron caracterizadas:
+
+ Tiempo de conversión: ∼18 ns/conversión
+ Energı́a por conversión: ∼220 pJ/conversión
+ Figura de mérito (FoM): ∼ 14 pJ/conversión-paso (estimado)
+ Resolución funcional: 12 bits dentro del error de cuantización
+
+4.2.2.
+
+Lecciones Aprendidas y Recomendaciones Metodológicas
+
+Durante el desarrollo de este trabajo se identificaron varios aspectos metodológicos
+que pueden ser de utilidad para futuros diseñadores:
+Simulaciones y Herramientas
+Los tiempos de simulación prolongados complicaron significativamente el análisis de
+performance. En ocasiones, el simulador presentaba problemas de convergencia que requerı́an ajustes en las condiciones iniciales o en el paso de integración. Recomendación: Un mejor entendimiento y práctica con ngspice acelera enormemente el trabajo.
+En particular, aprender a utilizar los comandos .measure para extracción automática de
+mediciones y el modo interactivo de ngspice fueron puntos de inflexión que mejoraron
+sustancialmente la productividad.
+El uso de foros especializados como FOSSI-chat resultó invaluable, permitiendo contacto directo con desarrolladores de las herramientas para resolver problemas especı́ficos.
+Recomendación: Participar activamente en las comunidades de código abierto no solo
+acelera la resolución de problemas, sino que también contribuye al ecosistema general.
+Documentación Continua
+Un error metodológico importante fue dejar la documentación para las etapas finales
+del proyecto. Esto no solo dificultó recordar detalles especı́ficos de las decisiones de diseño,
+sino que también privó al proceso de los beneficios de la escritura reflexiva. Recomendación: Escribir los resultados e ideas de manera continua es extremadamente útil para
+entender mejor lo que se está haciendo, identificar inconsistencias, y mantener un registro
+preciso de las decisiones de diseño y sus justificaciones.
+
+4.3.
+
+Trabajo Futuro
+
+4.3.1.
+
+Mejoras en Metodologı́a y Automatización
+
+Automatización de Simulaciones
+Un punto de partida valioso para mejorar la eficiencia del flujo de diseño serı́a la
+automatización completa de las simulaciones, incluyendo:
+
+66
+
+Scripts para ejecutar baterı́as de simulaciones paramétricas
+Extracción automática de métricas utilizando comandos .measure
+Ordenamiento automático de resultados, gráficos e imágenes
+Generación automática de reportes con las métricas extraı́das
+Esta automatización permitirı́a explorar el espacio de diseño de manera mucho más
+eficiente y facilitarı́a el análisis de sensibilidad paramétrica.
+Diseño Basado en Corners
+Aunque no se puede modelar mismatch en simulaciones esquemáticas, serı́a extremadamente útil poder realizar simulaciones automáticas para diseñar sistemas que cumplan
+especificaciones en todos los corners de proceso, voltaje y temperatura (PVT). Esto permitirı́a garantizar robustez del diseño antes de proceder al layout.
+
+4.3.2.
+
+Mejoras Especı́ficas del ADC
+
+Implementación de Bootstrap Switches
+Una mejora significativa en la linealidad del ADC serı́a la implementación de switches
+bootstrapped según la técnica propuesta por Chang [7]. Estos switches deberı́an implementarse en:
+Switches de muestreo (Sample & Hold)
+Switches del CDAC que conectan a las entradas
+Potencialmente switches que conectan a VCM
+La implementación de bootstrap mejorarı́a la resistencia ON constante a lo largo del
+rango de entrada, reduciendo la distorsión armónica total (THD) y mejorando el SFDR
+del conversor.
+Comparación con Arquitectura de Top-Plate Sampling
+Serı́a valioso comparar el desempeño de la arquitectura IMCS implementada con una
+arquitectura MCS estándar que utiliza top-plate sampling. Esta comparación permitirı́a
+cuantificar experimentalmente los beneficios de la insensibilidad a parásitos de la IMCS
+versus la simplicidad del muestreo top-plate.
+
+4.3.3.
+
+Análisis Avanzados
+
+Caracterización con Entradas Aleatorias
+Aunque no es posible simular mismatch directamente, se podrı́an realizar simulaciones
+con entradas aleatorias para obtener métricas que se ven degradadas por efectos dinámicos:
+Offset dinámico del comparador
+Efectos de kickback sobre el CDAC
+67
+
+Settling errors bajo diferentes condiciones de entrada
+Variación del tiempo de conversión con la amplitud de entrada
+Este análisis proveerı́a información valiosa sobre el comportamiento real del ADC en
+condiciones operativas variadas.
+Análisis de Parásitos por Bloque
+Un estudio sistemático de los efectos de parásitos individuales por bloque serı́a extremadamente útil para guiar el proceso de layout. Esto incluirı́a:
+Degradación de la performance del comparador por parásitos en nodos crı́ticos
+Impacto de resistencias serie en el CDAC sobre el settling time
+Efecto de capacitancias parásitas en el ancho de banda de buffers
+Sensibilidad del generador de pulsos a variaciones de parásitos
+Este análisis permitirı́a priorizar esfuerzos de optimización de layout en los nodos más
+crı́ticos.
+
+4.3.4.
+
+Mejoras de Layout
+
+Layout con Common-Centroid
+Un buen punto de partida para mejorar el matching serı́a implementar el layout del
+comparador utilizando técnicas de common-centroid para los pares diferenciales. Esto
+reducirı́a el offset sistemático y mejorarı́a la simetrı́a del diseño, sirviendo como ejemplo
+didáctico de técnicas avanzadas de layout.
+El CDAC también se beneficiarı́a enormemente de un layout common-centroid para
+los arrays de capacitores, mejorando el matching entre capacitores unitarios y reduciendo
+errores de INL/DNL.
+Completar Layout del Sistema Integrado
+La finalización del layout completo y la realización de simulaciones post-layout con
+parásitos extraı́dos es el siguiente paso crı́tico. Esto permitirá:
+Validar que el diseño mantiene funcionalidad con parásitos reales
+Cuantificar la degradación de performance por efectos de layout
+Identificar problemas de timing que no son visibles en simulaciones esquemáticas
+Completar la caracterización DNL/INL del sistema
+
+4.3.5.
+
+Escalabilidad: Arquitectura Time-Interleaved
+
+Un objetivo de largo plazo para este diseño es su uso como canal individual en una
+arquitectura time-interleaved. Este trabajo fue concebido como el primer paso hacia un
+ADC multi-canal de alta velocidad.
+68
+
+Motivación
+La arquitectura time-interleaved permite escalar la velocidad de muestreo efectiva
+multiplicando el número de canales. Si este diseño alcanza 1 MSa/s por canal, un sistema
+de N canales intercalados podrı́a alcanzar N MSa/s, extendiendo significativamente el
+rango de aplicaciones.
+Desafı́os
+La implementación time-interleaved introduce nuevos desafı́os:
+Offset mismatch: Diferencias de offset entre canales generan espurios en el espectro
+de salida
+Gain mismatch: Diferencias de ganancia entre canales degradan SFDR
+Timing skew: Errores en el timing de muestreo entre canales limitan el SNDR a
+altas frecuencias de entrada
+Complejidad de calibración: Se requieren algoritmos de calibración digital para
+corregir mismatches
+Trabajo Futuro
+Una vez completado y caracterizado este diseño de canal único, el trabajo futuro
+incluirı́a:
+1. Optimización del canal único para minimizar área y consumo (facilitando la replicación)
+2. Diseño del sistema de generación de fases de reloj con bajo skew
+3. Implementación de múltiples canales con layout matched
+4. Desarrollo de algoritmos de calibración digital para corrección de offset, ganancia y
+timing
+5. Caracterización completa del sistema time-interleaved (SNDR vs frecuencia de entrada, SFDR, espurios por mismatch)
+Este trabajo sienta las bases para ese desarrollo futuro, proveyendo un diseño funcional,
+documentado y verificado que puede servir como punto de partida.
+
+4.4.
+
+Reflexión Final
+
+Este proyecto demuestra que es posible diseñar circuitos integrados analógicos complejos utilizando exclusivamente herramientas de código abierto y PDKs accesibles. Si
+bien el camino presentó desafı́os metodológicos y técnicos, el resultado es un diseño funcional documentado que puede servir como material educativo y punto de partida para
+desarrollos futuros.
+La disponibilidad completa del código, esquemáticos, scripts y documentación en el
+repositorio público contribuye al ecosistema de diseño de código abierto y facilita que
+otros estudiantes e investigadores puedan replicar, mejorar y extender este trabajo.
+69
+
+Bibliografı́a
+[1] J. G. D. Avila, “SAR ADC IHP Repository,” GitHub, 2025. [Online]. Disponible:
+https://github.com/gsuckz/SAR_ADC_IHP
+[2] X. Tang et al., “Low-Power SAR ADC Design: Overview and Survey of State-ofthe-Art Techniques,” IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS—I:
+REGULAR PAPERS, VOL. 69, NO. 6, JUNE 2022.
+[3] V. Tripathi and B. Murmann, .An 8-bit 450-MS/s single-bit/cycle SAR ADC in 65-nm
+CMOS,”2013 Proceedings of the ESSCIRC (ESSCIRC), Bucharest, Romania, 2013,
+pp. 117-120, doi: 10.1109/ESSCIRC.2013.6649086.
+[4] M. van Elzakker et al., “A 10-bit charge-redistribution ADC consuming 1.9 µW at
+1 MS/s,” IEEE J. Solid-State Circuits, vol. 45, no. 5, pp. 1007–1015, May 2010.
+[5] H. S. Bindra et al., “A 1.2-V dynamic bias latch-type comparator in 65-nm CMOS
+with 0.4-mV input noise,” IEEE J. Solid-State Circuits, vol. 53, no. 7, pp. 1902–1912,
+Jul. 2018.
+[6] T. Iizuka, R. Takenaka, H. Xu and A. A. Abidi, ”Systematic Equation-Based Design
+of a 10-Bit, 500-MS/s Single-Channel SAR A/D Converter With 2-GHz Resolution
+Bandwidth,ı̈n IEEE Open Journal of the Solid-State Circuits Society, vol. 4, pp.
+147-162, 2024, doi: 10.1109/OJSSCS.2024.3469109
+[7] A. H. T. Chang, “Low-Power High-Performance SAR ADC with Redundancy and
+Digital Background Calibration,” Master’s thesis, Massachusetts Institute of Technology, 2013.
+[8] IHP GmbH, “SG13G2 Open Source Layout Rules,” IHP-Open-PDK GitHub Repository. [Online]. Disponible: https://github.com/IHP-GmbH/IHP-Open-PDK/blob/
+main/ihp-sg13g2/libs.doc/doc/SG13G2_os_layout_rules.pdf
+[9] An open-source adaptive event-based ADC for bio-signal acquisition in 130nm CMOS
+Dorrer, Simon [VerfasserIn]; 2025
+[10] The
+Relationship
+Between
+Rise
+Time
+and
+Bandwidth
+in
+Digital
+Signals
+All
+About
+Circuits.
+[Online].
+Disponible:
+https://www.allaboutcircuits.com/technical-articles/
+relationship-between-rise-time-bandwidth-digital-signal
+[11] J. M. Rabaey, A. P. Chandrakasan y B. Nikolić, Digital Integrated Circuits: A Design
+Perspective, 2. ed. Upper Saddle River, NJ: Prentice Hall, 2003.
+
+ª
+
+70
+
+
