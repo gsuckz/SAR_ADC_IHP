@@ -59,7 +59,7 @@ value="
 .param vdd=1.8
 .param temp=27
 .param tstart=2n
-.param vindiff = 219u
+.param vindiff = 219m
 .param Vcm=0.9
 
 .options savecurrents reltol=1e-3 abstol=1e-12 gmin=1e-15
@@ -129,6 +129,7 @@ plot i(VDD)
 plot v(x1.voutp_buf) \{v(x1.voutn_buf)\} \{v(x1.x6.vx_n) + 4\}  \{v(pulse) + 8\} \{v(x1.x6.READY) + 10\}
 plot v(x1.voutp_comp) \{v(x1.voutn_comp)\} \{v(x1.x6.vx_n) + 4\}  \{v(x1.x6.vx) + 8\} \{v(x1.x6.vxs) + 10\} vin_dif_mV+12
 plot x1.voutp_comp pulse x1.voutp_buf x1.x6.ready
+plot x1.voutp_comp x1.voutn_comp x1.x1.vcpp+2 x1.x1.vcpn+2 x1.x1.vs+4 x1.x1.vcap+4 pulse+6
 
 hardcopy ./../../img/corriente_comparador.svg i(VDD) title 'consumo'
 hardcopy ./../../img/salidas_internas_comparador.svg outp_Bindra outn_Bindra outp_Buffer+2 outn_Buffer+2 pulse+4 vin_dif_mV+6 title 'Salidas Internas del Comparador'

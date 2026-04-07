@@ -162,9 +162,35 @@ A mi Madre, por quien puedo terminarla
 \end{flushright}
 
 \cleardoublepage
+
+
+
+\cleardoublepage
+\thispagestyle{empty}
+\newpage
+\chapter*{Agradecimientos}
+\addcontentsline{toc}{chapter}{Agradecimientos}
+
+\vspace{1cm}
+
+Agradezco profundamente a Dios, a la Patria y a la educación pública argentina, pilares fundamentales que hicieron posible mi formación. En particular, expreso mi reconocimiento a la Universidad Nacional de Tucumán, por brindarme el espacio, los recursos y la calidad académica necesarios para desarrollarme profesionalmente.
+
+A mis padres, por su inmenso sacrificio y su apoyo incondicional. A mi mamá, especialmente, por el enorme esfuerzo realizado en los últimos años, que fueron particularmente difíciles, por su rol fundamental en inculcarme disciplina y por confiar profundamente en mis capacidades incluso en los momentos más complejos. A mi papá, por haberme transmitido desde temprano conceptos, ideas y formas de pensar que despertaron en mí el interés y la vocación por esta carrera.
+
+A mi familia, por el acompañamiento constante a lo largo de todo este proceso. En especial, a mi tío Hugo, por su apoyo en los momentos más difíciles de la carrera, por su insistencia diaria y por haberme demostrado que siempre es posible seguir adelante.
+
+A todos mis amigos y compañeros de carrera, por el acompañamiento constante, el intercambio de conocimientos y los momentos compartidos a lo largo de este camino.
+
+A mis profesores, tanto de la carrera como de mi formación secundaria en el Instituto Lorenzo Massa, por haber contribuido a mi educación y por motivarme a continuar en el camino de la electrónica.
+
+Finalmente, quiero agradecer a mi tutor, el Dr. Fernando Miranda Bonomi, por su guía, su tiempo y su compromiso no solo durante el desarrollo de esta tesis, sino también a lo largo de varios años en la carrera, siendo una figura clave que marcó profundamente mi forma de trabajar y de abordar los desafíos académicos.
+
+
+
 % ---------------------------------------------------------------
 % RESUMEN
 % ---------------------------------------------------------------
+\newpage
 \chapter*{Resumen}
 \addcontentsline{toc}{chapter}{Resumen}
 Este trabajo presenta el diseño y análisis de un convertidor analógico-digital (ADC) de aproximaciones sucesivas (SAR) de 12 bits operando a 40 MSa/s en tecnología ihp-sg13g2. El diseño implementa un CDAC con arquitectura Inverted Merged Capacitor Switching (IMCS) basada en modo común, un comparador de doble cola tipo Bindra, y lógica SAR síncrona realizada con celdas estándar. Se documentan decisiones de diseño, simulaciones y caracterización del sistema, con énfasis en aspectos didácticos y uso de herramientas de código abierto.
@@ -1294,6 +1320,7 @@ Se realizaron simulaciones con entrada DC para aproximar la longitud de los inte
 \textbf{Región} & {\textbf{Posición (LSB)}} & {\textbf{$V_{in}$ (mV)}} & \textbf{Cód. Esperado} & \textbf{Cód. Obtenido} \\ \midrule
 
 % BLOQUE 0
+
 \multirow{4}{*}{\shortstack{Código 0\\(Inicio)}} 
  & 0.125 & 0.109863 & 0 & \textbf{0} \\
  & 0.250 & 0.219726 & 0 & \textbf{0} \\

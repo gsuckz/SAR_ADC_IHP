@@ -5,8 +5,7 @@ V {}
 S {}
 F {}
 E {}
-N 90 -60 90 120 {lab=compout}
-N -190 120 90 120 {lab=compout}
+N -190 120 415 120 {lab=compout}
 N -460 -340 -460 -210 {lab=vcm}
 N -700 50 -700 100 {lab=b11}
 N -680 50 -680 100 {lab=b10}
@@ -26,6 +25,11 @@ N -190 -40 -150 -40 {lab=compn}
 N -190 -40 -190 -30 {lab=compn}
 N -460 -10 -460 50 {lab=sample}
 N 30 20 30 70 {lab=comp_en}
+N 110 70 120 70 {lab=#net1}
+N 200 70 215 70 {lab=#net2}
+N 295 70 315 70 {lab=sample_in}
+N 90 -60 415 -60 {lab=compout}
+N 415 -60 415 120 {lab=compout}
 C {comparator/discrete_time/DT_comparator.sym} -30 -60 0 0 {name=x1}
 C {dac_icms_cell/dac.sym} -870 -610 0 0 {name=x2 cu=10}
 C {logic/logic.sym} -870 710 2 1 {name=x3 }
@@ -68,9 +72,11 @@ C {lab_pin.sym} -240 50 1 0 {name=p40 lab=d1}
 C {lab_pin.sym} -220 50 1 0 {name=p41 lab=d0}
 C {lab_pin.sym} -460 -10 1 0 {name=p29 lab=sample}
 C {lab_pin.sym} 50 -140 0 1 {name=p10 lab=comp_clk}
-C {lab_pin.sym} -50 70 2 1 {name=p28 lab=sample_in}
-C {sg13g2_stdcells/sg13g2_inv_2.sym} -10 70 0 0 {name=x6 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {lab_pin.sym} 30 40 2 1 {name=p43 lab=comp_en}
+C {lab_pin.sym} 315 70 1 1 {name=p28 lab=sample_in}
+C {sg13g2_stdcells/sg13g2_inv_2.sym} 70 70 0 1 {name=x6 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {lab_pin.sym} 30 65 2 1 {name=p43 lab=comp_en}
 C {iopin.sym} -460 -340 0 1 {name=p4 lab=vcm}
 C {lab_pin.sym} -730 210 0 0 {name=p42 lab=comp_clk}
 C {lab_pin.sym} 20 -140 3 1 {name=p44 lab=vcm}
+C {sg13g2_stdcells/sg13g2_dlygate4sd3_1.sym} 160 70 0 1 {name=x5 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {sg13g2_stdcells/sg13g2_dlygate4sd3_1.sym} 255 70 0 1 {name=x4 VDD=VDD VSS=VSS prefix=sg13g2_ }

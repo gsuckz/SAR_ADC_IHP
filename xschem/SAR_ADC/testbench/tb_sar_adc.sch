@@ -1,8 +1,9 @@
-v {xschem version=3.4.6 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N -430 -210 -405 -210 {
 lab=vinn}
@@ -25,7 +26,7 @@ value="
 .param W_N = 0.5u
 .param L_N = 0.13u
 
-.param vdiff = 1.796484
+.param vdiff = 1.2
 
 .options klu method=gear reltol=1e-2 abstol=1e-15 gmin=1e-15
 

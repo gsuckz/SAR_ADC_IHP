@@ -1,0 +1,2607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADC SAR 12-bit · 40 MS/s · SG13G2</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap');
+
+:root {
+  --bg: #050810;
+  --surface: #0d1117;
+  --surface2: #161b22;
+  --surface3: #1c2128;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e6edf3;
+  --text2: #8b949e;
+  --text3: #484f58;
+  --vdd: #ff4444;
+  --vdd2: #ff6b6b;
+  --vss: #4488ff;
+  --vss2: #6ba3ff;
+  --vcm: #22c55e;
+  --vcm2: #4ade80;
+  --vin: #f0f6fc;
+  --gray: #484f58;
+  --accent: #58a6ff;
+  --accent2: #79c0ff;
+  --amber: #e3b341;
+  --purple: #a371f7;
+  --mono: 'JetBrains Mono', monospace;
+  --display: 'Syne', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── SECTIONS ── */
+section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  padding: 60px 40px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(5,8,16,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 40px; height: 52px; gap: 4px;
+}
+.nav-logo {
+  font-family: var(--display);
+  font-size: 13px; font-weight: 700;
+  color: var(--accent); margin-right: 20px;
+  letter-spacing: 0.05em; white-space: nowrap;
+}
+.nav-link {
+  font-size: 11px; color: var(--text3);
+  text-decoration: none; padding: 4px 10px;
+  border-radius: 4px; transition: all 0.2s;
+  letter-spacing: 0.03em;
+}
+.nav-link:hover, .nav-link.active { color: var(--accent); background: rgba(88,166,255,0.08); }
+
+/* ── TYPOGRAPHY ── */
+.sec-label {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 8px; font-weight: 500;
+}
+h1 { font-family: var(--display); font-size: clamp(36px,6vw,72px); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; }
+h2 { font-family: var(--display); font-size: clamp(24px,4vw,42px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
+h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+p { color: var(--text2); line-height: 1.7; }
+
+/* ── LAYOUT UTILITIES ── */
+.container { max-width: 1100px; margin: 0 auto; width: 100%; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+}
+.card-accent { border-left: 2px solid var(--accent); }
+.card-warn  { border-left: 2px solid var(--amber); }
+.card-red   { border-left: 2px solid var(--vdd); }
+.card-green { border-left: 2px solid var(--vcm); }
+
+/* ── BADGE ── */
+.badge {
+  display: inline-block; font-size: 10px;
+  padding: 3px 8px; border-radius: 4px;
+  letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
+}
+.badge-blue   { background: rgba(88,166,255,0.15);  color: var(--accent2); }
+.badge-green  { background: rgba(34,197,94,0.15);   color: var(--vcm2); }
+.badge-amber  { background: rgba(227,179,65,0.15);  color: var(--amber); }
+.badge-red    { background: rgba(255,68,68,0.15);   color: var(--vdd2); }
+.badge-gray   { background: rgba(72,79,88,0.3);     color: var(--text2); }
+
+/* ── BUTTONS ── */
+.btn {
+  font-family: var(--mono); font-size: 12px; font-weight: 500;
+  padding: 8px 20px; border-radius: 6px; cursor: pointer;
+  border: 1px solid var(--border2); background: var(--surface2);
+  color: var(--text2); transition: all 0.15s; letter-spacing: 0.04em;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,0.08); }
+.btn.primary { background: rgba(88,166,255,0.15); border-color: var(--accent); color: var(--accent2); }
+.btn:disabled { opacity: 0.3; cursor: default; pointer-events: none; }
+
+/* ── INPUTS ── */
+input[type=range] {
+  appearance: none;
+  -webkit-appearance: none; width: 100%; height: 3px;
+  background: var(--surface3); border-radius: 2px; outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px;
+  background: var(--accent); border-radius: 50%; cursor: pointer;
+  border: 2px solid var(--bg);
+}
+.toggle-switch {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+  font-size: 12px; color: var(--text2);
+}
+.toggle-switch input { display: none; }
+.toggle-track {
+  width: 34px; height: 18px; background: var(--surface3);
+  border-radius: 9px; position: relative; transition: background 0.2s;
+  border: 1px solid var(--border2);
+}
+.toggle-switch input:checked + .toggle-track { background: rgba(88,166,255,0.3); border-color: var(--accent); }
+.toggle-thumb {
+  position: absolute; top: 2px; left: 2px;
+  width: 12px; height: 12px; background: var(--text3);
+  border-radius: 50%; transition: all 0.2s;
+}
+.toggle-switch input:checked + .toggle-track .toggle-thumb {
+  left: 18px; background: var(--accent);
+}
+
+/* ── EQ BOX ── */
+.eq {
+  font-family: var(--mono); font-size: 12px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 12px 16px;
+  color: var(--text); line-height: 1.8; overflow-x: auto;
+}
+.eq .c-vdd { color: var(--vdd2); }
+.eq .c-vcm { color: var(--vcm2); }
+.eq .c-acc { color: var(--accent2); }
+.eq .c-amb { color: var(--amber); }
+
+/* ── TABLE ── */
+.tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+.tbl th { color: var(--text3); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; font-size: 10px; padding: 10px 14px; border-bottom: 1px solid var(--border2); text-align: left; }
+.tbl td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text2); }
+.tbl tr:last-child td { border-bottom: none; }
+.tbl tr:hover td { background: var(--surface2); }
+.ok { color: var(--vcm2); }
+.warn { color: var(--amber); }
+.bad { color: var(--vdd2); }
+
+/* ── STAT PILL ── */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 12px; margin-top: 20px; }
+.stat {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 16px;
+}
+.stat-val { font-family: var(--display); font-size: 22px; font-weight: 700; color: var(--text); }
+.stat-label { font-size: 10px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+
+/* ── HERO ── */
+#s-hero {
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(88,166,255,0.06) 0%, transparent 70%);
+  justify-content: center; align-items: center; text-align: center;
+}
+.hero-title { margin-bottom: 16px; }
+.hero-title .line1 { display: block; color: var(--text); }
+.hero-title .line2 { display: block; color: var(--accent); }
+.hero-sub { color: var(--text2); max-width: 580px; margin: 0 auto 28px; font-size: 14px; line-height: 1.8; }
+.hero-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.scan-line {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: scan 3s ease-in-out infinite;
+}
+@keyframes scan { 0%,100%{opacity:0} 50%{opacity:0.6} }
+
+/* ── BIT REGISTER ── */
+.bit-register { display: flex; gap: 4px; flex-wrap: wrap; }
+.bit-cell {
+  width: 36px; height: 48px; border-radius: 6px;
+  border: 1px solid var(--border2); background: var(--surface2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; transition: all 0.25s;
+}
+.bit-cell .bit-idx { font-size: 9px; color: var(--text3); letter-spacing: 0.05em; }
+.bit-cell .bit-val { font-size: 16px; font-weight: 700; color: var(--text3); }
+.bit-cell.b1 { background: rgba(34,197,94,0.12); border-color: var(--vcm); }
+.bit-cell.b1 .bit-val { color: var(--vcm2); }
+.bit-cell.b0 { background: rgba(255,68,68,0.08); border-color: rgba(255,68,68,0.3); }
+.bit-cell.b0 .bit-val { color: var(--vdd2); }
+.bit-cell.active { border-color: var(--amber); background: rgba(227,179,65,0.12); box-shadow: 0 0 10px rgba(227,179,65,0.2); }
+.bit-cell.active .bit-val { color: var(--amber); }
+
+/* ── CDAC SVG STYLES ── */
+.cap-body { fill: var(--surface2); stroke: var(--border2); stroke-width: 1; }
+.cap-plate { stroke-width: 2.5; }
+.switch-line { stroke-width: 2; stroke-linecap: round; }
+.wire { stroke-width: 1.5; fill: none; stroke-linecap: round; }
+.node-label { font-family: var(--mono); font-size: 11px; }
+
+/* ── SVG SMART INVERT ── */
+img[src$=".svg"] {
+  background: transparent !important;
+  filter: invert(0.93) hue-rotate(180deg) brightness(1.2) contrast(1.1);
+  border-radius: 4px;
+}
+
+/* ── WAVEFORM CANVAS ── */
+canvas { display: block; border-radius: 8px; background: var(--surface2); }
+
+/* ── PROGRESS BAR ── */
+.progress-bar {
+  height: 3px; background: var(--surface3); border-radius: 2px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: var(--accent); border-radius: 2px;
+  transition: width 0.3s;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 2px; }
+
+/* ── IMAGE PLACEHOLDER ── */
+.image-placeholder {
+  background: var(--surface2); border: 1px dashed var(--border2);
+  border-radius: 8px; padding: 30px; text-align: center;
+  color: var(--text3); font-size: 12px; letter-spacing: 0.05em;
+}
+
+/* ── ASSET REFERENCES ── */
+.asset-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+}
+.asset-title {
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 10px;
+}
+.asset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+}
+.asset-item {
+  display: block;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000000 !important;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.asset-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.asset-item img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  display: block;
+  background: transparent !important;
+}
+.asset-meta {
+  padding: 8px 10px;
+}
+.asset-name {
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 600;
+}
+.asset-path {
+  color: var(--text3);
+  font-size: 10px;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── COMPARATOR NODE ── */
+.comp-node {
+  width: 70px; height: 70px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; font-size: 11px; border: 2px solid;
+  transition: all 0.4s; font-weight: 600;
+}
+
+/* ── PHASE INDICATOR ── */
+.phase-dots { display: flex; gap: 6px; }
+.phase-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--surface3); transition: all 0.3s;
+}
+.phase-dot.active { background: var(--accent); }
+
+/* ── TIMING BAR ── */
+.timing-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.timing-label { font-size: 11px; color: var(--text2); min-width: 90px; }
+.timing-bar { flex: 1; height: 28px; border-radius: 4px; display: flex; align-items: center; padding: 0 10px; font-size: 11px; font-weight: 600; }
+
+/* ── LIMITATIONS TABLE ── */
+.lim-table { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+
+/* ── RESPONSIVE ── */
+@media(max-width: 768px) {
+  section { padding: 80px 20px 40px; }
+  nav { padding: 0 16px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .nav-link { display: none; }
+}
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(5,8,16,0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  cursor: zoom-out;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.lightbox.show {
+  display: flex;
+  opacity: 1;
+}
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.8);
+  transform: scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.lightbox.show img {
+  transform: scale(1);
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════ NAVIGATION ════════════════ -->
+<nav>
+  <div class="nav-logo">SAR·ADC·12b</div>
+  <a href="#s-hero" class="nav-link active">Intro</a>
+  <a href="#s-workflow" class="nav-link">Workflow</a>
+  <a href="#s-overview" class="nav-link">Overview</a>
+  <a href="#s-sar" class="nav-link">Algoritmo</a>
+  <a href="#s-cdac" class="nav-link">CDAC</a>
+  <a href="#s-parasitos" class="nav-link">Parásitos</a>
+  <a href="#s-comp" class="nav-link">Comparador</a>
+  <a href="#s-logic" class="nav-link">Lógica SAR</a>
+  <a href="#s-pgen" class="nav-link">Pulsos PGEN</a>
+  <a href="#s-timing" class="nav-link">Timing</a>
+  <a href="#s-layout" class="nav-link">Layout</a>
+  <a href="#s-limits" class="nav-link">Limitaciones</a>
+  <a href="#s-end" class="nav-link">Conclusión</a>
+</nav>
+
+<!-- ════════════════ 1. HERO ════════════════ -->
+<section id="s-hero">
+<div class="container" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px">
+  <div class="sec-label">Trabajo de Graduación · FACET · UNT · 2025</div>
+  <h1 class="hero-title">
+    <span class="line1">ADC SAR de</span>
+    <span class="line2">12 bits @ 40 MS/s</span>
+  </h1>
+  <p class="hero-sub">
+    Diseño completo de un convertidor analógico-digital de aproximaciones sucesivas en tecnología open-source <strong style="color:var(--text)">ihp-sg13g2 (130 nm)</strong> con herramientas <strong style="color:var(--accent)">xschem · ngspice · KLayout</strong>.
+  </p>
+  <div class="hero-tags">
+    <span class="badge badge-blue">IMCS Switching</span>
+    <span class="badge badge-green">Split 6+6 DAC</span>
+    <span class="badge badge-amber">Bindra Comparator</span>
+    <span class="badge badge-gray">Open PDK</span>
+    <span class="badge badge-gray">DRC/LVS Pass</span>
+  </div>
+  <div class="stat-grid" style="max-width:700px;width:100%">
+    <div class="stat"><div class="stat-val" style="color:var(--accent)">12</div><div class="stat-label">Bits resolución</div></div>
+    <div class="stat"><div class="stat-val" style="color:var(--vcm2)">40</div><div class="stat-label">MSa/s objetivo</div></div>
+    <div class="stat"><div class="stat-val" style="color:var(--amber)">878</div><div class="stat-label">µV por LSB</div></div>
+    <div class="stat"><div class="stat-val" style="color:var(--vdd2)">220</div><div class="stat-label">pJ / conversión</div></div>
+    <div class="stat"><div class="stat-val">1.8</div><div class="stat-label">V alimentación</div></div>
+  </div>
+  <img src="assets/images/misc/logo_unt.png" alt="Logo UNT" style="height:44px;opacity:.9;filter:grayscale(.1);margin-top:6px">
+  <div style="color:var(--text3);font-size:11px;animation:pulse 2s infinite">▼ scroll para explorar</div>
+</div>
+<div class="scan-line"></div>
+<style>@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}</style>
+</section>
+
+<!-- ════════════════ 1.5 WORKFLOW ════════════════ -->
+<section id="s-workflow" style="scroll-snap-align:start">
+<div class="container">
+  <div class="sec-label">01.5 — Contexto y Ecosistema</div>
+  <h2><span style="color:var(--accent)">Workflow</span> de Diseño IC Analógico</h2>
+  <p style="max-width:700px;margin-bottom:30px">El desarrollo de un circuito integrado analógico sigue un flujo de trabajo estructurado. En esta tesis, se utilizó el entorno <strong>IIC-OSIC-TOOLS</strong>, que integra herramientas open-source para abarcar todas las etapas del diseño utilizando el PDK <strong style="color:var(--vcm2)">ihp-sg13g2</strong>.</p>
+
+  <!-- Flow Diagram SVG -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:30px;overflow-x:auto;">
+    <svg width="100%" viewBox="0 0 930 100" style="min-width: 800px;">
+      <defs>
+        <marker id="arrow-flow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+      </defs>
+      
+      <!-- Boxes -->
+      <!-- 1. Specs -->
+      <rect x="10" y="30" width="130" height="40" rx="6" fill="#0d1117" stroke="#1c2128" stroke-width="1.5"/>
+      <text x="75" y="54" fill="#8b949e" text-anchor="middle" font-size="11" font-family="var(--mono)">Especificaciones</text>
+      <line x1="140" y1="50" x2="160" y2="50" stroke="#8b949e" stroke-width="1.5" marker-end="url(#arrow-flow)"/>
+
+      <!-- 2. Schematic -->
+      <rect x="165" y="30" width="130" height="40" rx="6" fill="rgba(88,166,255,0.08)" stroke="#2a3f5a" stroke-width="1.5"/>
+      <text x="230" y="48" fill="#58a6ff" text-anchor="middle" font-size="11" font-weight="600" font-family="var(--mono)">Esquemático</text>
+      <text x="230" y="62" fill="#8b949e" text-anchor="middle" font-size="9" font-family="var(--mono)">Captura xschem</text>
+      <line x1="295" y1="50" x2="315" y2="50" stroke="#8b949e" stroke-width="1.5" marker-end="url(#arrow-flow)"/>
+
+      <!-- 3. Pre-Lay Sim -->
+      <rect x="320" y="30" width="130" height="40" rx="6" fill="rgba(227,179,65,0.08)" stroke="rgba(227,179,65,0.3)" stroke-width="1.5"/>
+      <text x="385" y="48" fill="#e3b341" text-anchor="middle" font-size="11" font-weight="600" font-family="var(--mono)">Pre-Layout Sim</text>
+      <text x="385" y="62" fill="#8b949e" text-anchor="middle" font-size="9" font-family="var(--mono)">Simulación ngspice</text>
+      <line x1="450" y1="50" x2="470" y2="50" stroke="#8b949e" stroke-width="1.5" marker-end="url(#arrow-flow)"/>
+
+      <!-- 4. Layout -->
+      <rect x="475" y="30" width="130" height="40" rx="6" fill="rgba(34,197,94,0.08)" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="540" y="48" fill="#4ade80" text-anchor="middle" font-size="11" font-weight="600" font-family="var(--mono)">Diseño Físico</text>
+      <text x="540" y="62" fill="#8b949e" text-anchor="middle" font-size="9" font-family="var(--mono)">Layout KLayout</text>
+      <line x1="605" y1="50" x2="625" y2="50" stroke="#8b949e" stroke-width="1.5" marker-end="url(#arrow-flow)"/>
+
+      <!-- 5. DRC/LVS -->
+      <rect x="630" y="30" width="130" height="40" rx="6" fill="rgba(163,113,247,0.08)" stroke="rgba(163,113,247,0.3)" stroke-width="1.5"/>
+      <text x="695" y="48" fill="#a371f7" text-anchor="middle" font-size="11" font-weight="600" font-family="var(--mono)">Verificación</text>
+      <text x="695" y="62" fill="#8b949e" text-anchor="middle" font-size="9" font-family="var(--mono)">DRC &amp; LVS</text>
+      <line x1="760" y1="50" x2="780" y2="50" stroke="#8b949e" stroke-width="1.5" marker-end="url(#arrow-flow)"/>
+
+      <!-- 6. Post-Lay Sim -->
+      <rect x="785" y="30" width="130" height="40" rx="6" fill="#0d1117" stroke="#1c2128" stroke-width="1.5"/>
+      <text x="850" y="48" fill="#8b949e" text-anchor="middle" font-size="11" font-family="var(--mono)">Post-Layout Sim</text>
+      <text x="850" y="62" fill="#484f58" text-anchor="middle" font-size="9" font-family="var(--mono)">Extracción PEX</text>
+
+    </svg>
+  </div>
+
+  <h3>Ecosistema <span style="color:var(--vcm2)">Open Source</span></h3>
+  <p style="margin-bottom:20px;">Las herramientas comunitarias han democratizado el acceso al diseño de ICs, permitiendo transitar desde la idea hasta el "Tapeout" sin requerir licencias cerradas.</p>
+
+  <div class="grid-3" style="gap:20px; align-items:stretch">
+    <!-- Xschem -->
+    <div class="card card-accent" style="display:flex; flex-direction:column; gap:12px">
+      <div style="display:flex; align-items:center; gap:12px">
+        <div style="width:45px; height:45px; border-radius:8px; background:var(--surface2); border:1px solid var(--border2); display:flex; align-items:center; justify-content:center; padding:5px">
+          <img src="https://xschem.sourceforge.io/stefan/web_files/xschem_logo.png" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" style="max-width:100%;max-height:100%">
+          <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M4 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M20 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M4 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M20 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M4 10v4"/><path d="M20 10v4"/><path d="M6 8h12"/><path d="M6 16h12"/></svg>
+        </div>
+        <div>
+          <h3 style="font-size:16px; margin:0">Xschem</h3>
+          <div class="badge badge-blue" style="margin-top:4px">Captura</div>
+        </div>
+      </div>
+      <p style="font-size:12px; margin:0">Herramienta gráfica para dibujar el esquemático y extraer netlists SPICE.</p>
+      <div class="image-placeholder" style="margin-top:auto; height: 120px; display:flex; align-items:center; justify-content:center">
+        Inserte Captura de Xschem (tb_sar_adc)
+      </div>
+    </div>
+
+    <!-- Ngspice -->
+    <div class="card card-warn" style="display:flex; flex-direction:column; gap:12px">
+      <div style="display:flex; align-items:center; gap:12px">
+        <div style="width:45px; height:45px; border-radius:8px; background:var(--surface2); border:1px solid var(--border2); display:flex; align-items:center; justify-content:center; padding:5px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div>
+          <h3 style="font-size:16px; margin:0">Ngspice</h3>
+          <div class="badge badge-amber" style="margin-top:4px">Simulación</div>
+        </div>
+      </div>
+      <p style="font-size:12px; margin:0">Motor SPICE mixto analizado para comportamiento temporal, ruido y consumos.</p>
+      <div class="image-placeholder" style="margin-top:auto; height: 120px; display:flex; align-items:center; justify-content:center">
+        Inserte Gráfica de Ngspice
+      </div>
+    </div>
+
+    <!-- KLayout -->
+    <div class="card card-green" style="display:flex; flex-direction:column; gap:12px">
+      <div style="display:flex; align-items:center; gap:12px">
+        <div style="width:45px; height:45px; border-radius:8px; background:var(--surface2); border:1px solid var(--border2); display:flex; align-items:center; justify-content:center; padding:5px">
+           <img src="https://www.klayout.de/klayout_logo_h80.png" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" style="max-width:100%;max-height:100%; filter:invert(1)">
+           <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="var(--vcm)" stroke-width="2"><rect width="18" height="18" x="3" y="3" fill="#22c55e" fill-opacity="0.2" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/></svg>
+        </div>
+        <div>
+          <h3 style="font-size:16px; margin:0">KLayout</h3>
+          <div class="badge badge-green" style="margin-top:4px">Físico y DRC</div>
+        </div>
+      </div>
+      <p style="font-size:12px; margin:0">Visor y editor avanzado para trazar el layout del chip y validar las reglas DRC.</p>
+      <div class="image-placeholder" style="margin-top:auto; height: 120px; display:flex; align-items:center; justify-content:center">
+        Inserte Layout de KLayout
+      </div>
+    </div>
+  </div>
+
+  <!-- Note on unused tools -->
+  <div style="margin-top:24px; background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:12px 16px; border-left:3px solid var(--text3); font-size:11px; display:flex; gap:12px; align-items:center;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="2" style="min-width:20px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+    <div style="color:var(--text2)">
+      <strong>Otras herramientas relevantes:</strong> Aunque este proyecto se enfoca en el desarrollo Analógico Custom y se resolvió con la tríada anterior, el ecosistema cuenta con robustas utilidades como <strong>Magic</strong> (alternativa de layout/extracción a usar con Netgen) y ecosistemas para flujos digitales automatizados como <strong>OpenLANE y OpenROAD</strong>.
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ════════════════ 2. SYSTEM OVERVIEW ════════════════ -->
+<section id="s-overview">
+<div class="container">
+  <div class="sec-label">02 — Sistema</div>
+  <h2>Arquitectura del <span style="color:var(--accent)">SAR ADC</span></h2>
+  <p style="max-width:600px;margin-bottom:30px">Tres bloques funcionales trabajan en lazo cerrado: el CDAC genera voltajes de prueba, el comparador toma decisiones binarias, y la lógica SAR orquesta la búsqueda binaria bit a bit.</p>
+
+  <!-- Block diagram SVG -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:24px">
+    <svg width="100%" viewBox="0 0 820 200" style="max-height:200px">
+      <defs>
+        <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#58a6ff" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <marker id="av" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <marker id="aa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#e3b341" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+      </defs>
+      <!-- VIN -->
+      <rect x="10" y="75" width="80" height="50" rx="6" fill="#0d1117" stroke="#1c2128" stroke-width="1"/>
+      <text x="50" y="96" fill="#8b949e" text-anchor="middle" font-size="9" font-family="'JetBrains Mono'">ENTRADA</text>
+      <text x="50" y="111" fill="#f0f6fc" text-anchor="middle" font-size="13" font-weight="600" font-family="'JetBrains Mono'">VIN</text>
+      <line x1="90" y1="100" x2="125" y2="100" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#a)"/>
+      <!-- CDAC -->
+      <rect x="125" y="55" width="160" height="90" rx="8" fill="#0d1117" stroke="#2a3f5a" stroke-width="1.5"/>
+      <text x="205" y="85" fill="#484f58" text-anchor="middle" font-size="9" font-family="'JetBrains Mono'" letter-spacing="1">CDAC</text>
+      <text x="205" y="103" fill="#e6edf3" text-anchor="middle" font-size="12" font-weight="600" font-family="'JetBrains Mono'">DAC Capacitivo</text>
+      <text x="205" y="119" fill="#58a6ff" text-anchor="middle" font-size="10" font-family="'JetBrains Mono'">IMCS · Split 6+6</text>
+      <text x="205" y="133" fill="#484f58" text-anchor="middle" font-size="9" font-family="'JetBrains Mono'">Cu=13.9fF · 2pF total</text>
+      <!-- CDAC → COMP -->
+      <line x1="285" y1="100" x2="325" y2="100" stroke="#22c55e" stroke-width="1.5" marker-end="url(#av)"/>
+      <text x="305" y="92" fill="#4ade80" text-anchor="middle" font-size="9" font-family="'JetBrains Mono'">VDAC</text>
+      <!-- COMP -->
+      <rect x="325" y="55" width="160" height="90" rx="8" fill="#0d1117" stroke="#2a3f5a" stroke-width="1.5"/>
+      <text x="405" y="85" fill="#484f58" text-anchor="middle" font-size="9" font-family="'JetBrains Mono'" letter-spacing="1">COMP</text>
+      <text x="405" y="103" fill="#e6edf3" text-anchor="middle" font-size="12" font-weight="600" font-family="'JetBrains Mono'">Comparador</text>
+      <text x="405" y="119" fill="#a371f7" text-anchor="middle" font-size="10" font-family="'JetBrains Mono'">Bindra double-tail</text>
+      <text x="405" y="133" fill="#484f58" text-anchor="middle" font-size="9" font-family="'JetBrains Mono'">548ps @ 1LSB</text>
+      <!-- COMP → LOGIC -->
+      <line x1="485" y1="100" x2="525" y2="100" stroke="#e3b341" stroke-width="1.5" marker-end="url(#aa)"/>
+      <text x="505" y="92" fill="#e3b341" text-anchor="middle" font-size="9" font-family="'JetBrains Mono'">bit</text>
+      <!-- LOGIC -->
+      <rect x="525" y="55" width="160" height="90" rx="8" fill="#0d1117" stroke="#2a3f5a" stroke-width="1.5"/>
+      <text x="605" y="85" fill="#484f58" text-anchor="middle" font-size="9" font-family="'JetBrains Mono'" letter-spacing="1">LOGIC</text>
+      <text x="605" y="103" fill="#e6edf3" text-anchor="middle" font-size="12" font-weight="600" font-family="'JetBrains Mono'">Lógica SAR</text>
+      <text x="605" y="119" fill="#22c55e" text-anchor="middle" font-size="10" font-family="'JetBrains Mono'">Celdas estándar</text>
+      <text x="605" y="133" fill="#484f58" text-anchor="middle" font-size="9" font-family="'JetBrains Mono'">D[11:0] · 258ps delay</text>
+      <!-- OUTPUT -->
+      <line x1="685" y1="100" x2="720" y2="100" stroke="#e3b341" stroke-width="1.5" marker-end="url(#aa)"/>
+      <rect x="720" y="75" width="90" height="50" rx="6" fill="#0d1117" stroke="#1c2128" stroke-width="1"/>
+      <text x="765" y="96" fill="#8b949e" text-anchor="middle" font-size="9" font-family="'JetBrains Mono'">CÓDIGO</text>
+      <text x="765" y="111" fill="#e3b341" text-anchor="middle" font-size="12" font-weight="600" font-family="'JetBrains Mono'">D[11:0]</text>
+      <!-- Feedback LOGIC → CDAC -->
+      <path d="M605 145 L605 170 L205 170 L205 145" fill="none" stroke="#484f58" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#ag)"/>
+      <text x="405" y="164" fill="#484f58" text-anchor="middle" font-size="9" font-family="'JetBrains Mono'">B[11:0] → switches CDAC</text>
+    </svg>
+  </div>
+
+  <!-- Spec cards -->
+  <div class="grid-3">
+    <div class="card card-accent">
+      <div class="badge badge-blue" style="margin-bottom:10px">Tecnología</div>
+      <h3 style="font-size:16px">ihp-sg13g2</h3>
+      <p style="font-size:12px;margin-top:6px">PDK abierto · 130 nm BiCMOS · Flujo 100% open-source (xschem + ngspice + KLayout)</p>
+    </div>
+    <div class="card card-green">
+      <div class="badge badge-green" style="margin-bottom:10px">Switching</div>
+      <h3 style="font-size:16px">IMCS Split 6+6</h3>
+      <p style="font-size:12px;margin-top:6px">Inverted Merged Capacitor Switching. Insensible a Cp en top-plate. VCM constante durante conversión.</p>
+    </div>
+    <div class="card card-warn">
+      <div class="badge badge-amber" style="margin-bottom:10px">Objetivo</div>
+      <h3 style="font-size:16px">Material didáctico</h3>
+      <p style="font-size:12px;margin-top:6px">Primer diseño CI analógico completo en FACET con herramientas open-source. Base para futuros trabajos.</p>
+    </div>
+  </div>
+
+  <div class="asset-panel" style="margin-top:20px">
+    <div class="asset-title">Recursos de arquitectura</div>
+    <div class="asset-grid">
+      <a class="asset-item" href="assets/images/sar/sar_diagrama_xschem.svg" target="_blank">
+        <img src="assets/images/sar/sar_diagrama_xschem.svg" alt="Diagrama SAR xschem">
+        <div class="asset-meta">
+          <div class="asset-name">Diagrama SAR (xschem)</div>
+          <div class="asset-path">assets/images/sar/sar_diagrama_xschem.svg</div>
+        </div>
+      </a>
+      <a class="asset-item" href="assets/images/sar/tb_sar_adc.svg" target="_blank">
+        <img src="assets/images/sar/tb_sar_adc.svg" alt="Testbench SAR ADC">
+        <div class="asset-meta">
+          <div class="asset-name">Testbench SAR ADC</div>
+          <div class="asset-path">assets/images/sar/tb_sar_adc.svg</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════ 3. SAR ALGORITHM ════════════════ -->
+<section id="s-sar" style="scroll-snap-align:start">
+<div class="container">
+  <div class="sec-label">03 — Algoritmo Interactivo</div>
+  <h2>Búsqueda Binaria <span style="color:var(--accent)">SAR</span></h2>
+  <p style="max-width:580px;margin-bottom:24px">Cada bit se decide comparando VIN contra el voltaje que genera el DAC. El algoritmo prueba cada peso binario de mayor a menor.</p>
+
+  <div class="grid-2" style="gap:30px">
+    <!-- Controls -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <span style="font-size:12px;color:var(--text2)">VIN diferencial</span>
+          <span style="color:var(--vin);font-weight:600" id="sar-vin-val">+0 mV</span>
+        </div>
+        <input type="range" id="sar-vin-slider" min="-900" max="900" value="0" step="1" oninput="sarVinChange()">
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button class="btn" onclick="sarPreset(-900)">-FS</button>
+          <button class="btn" onclick="sarPreset(-450)">-1/2 FS</button>
+          <button class="btn" onclick="sarPreset(0)">0</button>
+          <button class="btn" onclick="sarPreset(450)">+1/2 FS</button>
+          <button class="btn" onclick="sarPreset(900)">+FS</button>
+        </div>
+      </div>
+
+      <!-- Step controls -->
+      <div class="card">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+          <button class="btn primary" id="sar-step-btn" onclick="sarNextStep()">▶ Siguiente bit</button>
+          <button class="btn" onclick="sarReset()">↺ Reset</button>
+          <button class="btn" onclick="sarAutoRun()">Auto ▶▶</button>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="sar-progress" style="width:0%"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:var(--text3)">
+          <span id="sar-step-label">Bit 11 (MSB)</span>
+          <span id="sar-step-count">0 / 12</span>
+        </div>
+      </div>
+
+      <!-- Decision box -->
+      <div class="card card-accent" id="sar-decision-card">
+        <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Decisión actual</div>
+        <div style="font-size:13px;color:var(--text2)" id="sar-decision-text">Presioná "Siguiente bit" para iniciar</div>
+        <div style="margin-top:10px" id="sar-decision-detail"></div>
+      </div>
+
+      <!-- VDAC readout -->
+      <div class="card">
+        <div class="grid-2" style="gap:12px">
+          <div>
+            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em">VDAC</div>
+            <div style="font-family:var(--display);font-size:22px;font-weight:700;color:var(--vcm2)" id="sar-vdac-val">0 mV</div>
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em">Código</div>
+            <div style="font-family:var(--display);font-size:22px;font-weight:700;color:var(--amber)" id="sar-code-dec">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bit register + canvas -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Registro de bits D[11:0]</div>
+        <div class="bit-register" id="sar-bit-register"></div>
+      </div>
+      <div class="card" style="padding:16px">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Convergencia VDAC vs VIN</div>
+        <canvas id="sar-canvas" height="160" style="width:100%"></canvas>
+      </div>
+
+      <div class="asset-panel">
+        <div class="asset-title">Recursos del algoritmo</div>
+        <div class="asset-grid">
+          <a class="asset-item" href="assets/images/sar/conversion_ejemplo_1.svg" target="_blank">
+            <img src="assets/images/sar/conversion_ejemplo_1.svg" alt="Ejemplo de conversion">
+            <div class="asset-meta">
+              <div class="asset-name">Conversión ejemplo</div>
+              <div class="asset-path">assets/images/sar/conversion_ejemplo_1.svg</div>
+            </div>
+          </a>
+          <a class="asset-item" href="assets/images/sar/salidas_sar_ej1.svg" target="_blank">
+            <img src="assets/images/sar/salidas_sar_ej1.svg" alt="Salidas SAR">
+            <div class="asset-meta">
+              <div class="asset-name">Salidas SAR</div>
+              <div class="asset-path">assets/images/sar/salidas_sar_ej1.svg</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════ 4. CDAC INTERACTIVE ════════════════ -->
+<section id="s-cdac" style="scroll-snap-align:start">
+<div class="container">
+  <div class="sec-label">04 — CDAC Principal</div>
+  <h2>DAC Capacitivo <span style="color:var(--accent)">IMCS</span></h2>
+  <div class="grid-2" style="align-items:stretch; gap:24px; margin-bottom:24px;">
+    <a href="assets/images/cdac/dac_diagrama.svg" class="asset-item" style="display:block; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--surface2); height:100%;">
+      <img src="assets/images/cdac/dac_diagrama.svg" style="width:100%; height:100%; min-height:180px; max-height:240px; object-fit:contain; padding:16px;" alt="Esquema del CDAC">
+    </a>
+    <div style="display:flex; flex-direction:column; justify-content:center;">
+      <p>El esquema IMCS muestrea VCM en la top-plate y VIN en las bottom-plates. En la inversión, las bottom-plates pasan a VCM y por conservación de carga V_top = 2·VCM − VIN. El top-plate parte y termina en VCM, haciendo la conversión insensible a Cp.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+    <button class="btn primary" id="cdac-phase-btn" onclick="cdacNextPhase()">▶ Siguiente fase</button>
+    <button class="btn" onclick="cdacPrevPhase()">◀ Anterior</button>
+    <button class="btn" onclick="cdacReset()">↺ Reset</button>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:auto; overflow-x:auto">
+      <span style="font-size:11px;color:var(--text3)">Fase:</span>
+      <div class="phase-dots" id="cdac-phase-dots">
+        <div class="phase-dot active"></div>
+        <div class="phase-dot"></div>
+        <div class="phase-dot"></div>
+        <div class="phase-dot"></div>
+        <div class="phase-dot"></div>
+        <div class="phase-dot"></div>
+        <div class="phase-dot"></div>
+        <div class="phase-dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="display:flex;align-items:center;gap:16px;margin-bottom:16px;padding:12px 16px">
+    <span style="font-size:12px;color:var(--text2)">VIN dif. (VINP − VINN)</span>
+    <input type="range" id="cdac-vin-slider" min="-800" max="800" value="600" step="10" style="flex:1" oninput="cdacVinChange()">
+    <span style="color:var(--vin);font-weight:600;min-width:80px;text-align:right" id="cdac-vin-val">+600 mV</span>
+  </div>
+
+  <div class="grid-2" style="gap:20px;align-items:start">
+    <!-- CDAC SVG diagram -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px">
+      <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px" id="cdac-phase-title">FASE 0 — REPOSO</div>
+      <svg id="cdac-svg" width="100%" viewBox="0 0 540 380" style="max-height:380px"></svg>
+    </div>
+
+    <!-- CDAC description -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card card-accent" id="cdac-phase-card">
+        <div class="badge badge-blue" id="cdac-phase-badge">REPOSO</div>
+        <h3 style="margin-top:10px;font-size:16px" id="cdac-phase-heading">Estado inicial</h3>
+        <p style="font-size:12px;margin-top:8px" id="cdac-phase-desc">El CDAC está en estado de reposo. Los switches están configurados para el próximo ciclo de muestreo.</p>
+        <div class="eq" style="margin-top:12px;font-size:11px" id="cdac-phase-eq">
+          V_top = VCM = <span class="c-vcm">0.9 V</span>
+        </div>
+      </div>
+
+      <!-- Top plate voltage P & N -->
+      <div class="card">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Voltaje top-plate diferencial</div>
+        <div style="display:flex;gap:16px;margin-bottom:8px">
+          <div>
+            <div style="font-size:10px;color:var(--vdd2)">V_top P</div>
+            <div style="font-family:var(--display);font-size:20px;font-weight:700;color:var(--vdd2)" id="cdac-vtop-p">900 mV</div>
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--vss2)">V_top N</div>
+            <div style="font-family:var(--display);font-size:20px;font-weight:700;color:var(--vss2)" id="cdac-vtop-n">900 mV</div>
+          </div>
+          <div style="margin-left:auto">
+            <div style="font-size:10px;color:var(--text3)">Diferencial</div>
+            <div style="font-family:var(--display);font-size:20px;font-weight:700;color:var(--amber)" id="cdac-vtop-diff">0 mV</div>
+          </div>
+        </div>
+        <canvas id="cdac-canvas" height="180" style="width:100%"></canvas>
+      </div>
+
+      <!-- IMCS insight -->
+      <div class="card card-green" style="font-size:12px">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Propiedad IMCS</div>
+        <div style="color:var(--text2)">
+          <strong style="color:var(--vcm2)">V_top parte de VCM y converge a VCM.</strong><br>
+          V_top(sample) = VCM<br>
+          V_top(inversión) = 2·VCM − VIN<br>
+          V_top(final) → VCM<br>
+          ΔQ_Cp = Cp × (VCM − VCM) = <strong style="color:var(--vcm2)">0</strong><br>
+          → Insensible a Cp en top-plate.<br>
+          <strong style="color:var(--amber)">P y N convergen simétricamente.</strong>
+        </div>
+      </div>
+
+      <div class="asset-panel">
+        <div class="asset-title">Recursos CDAC</div>
+        <div class="asset-grid">
+          <a class="asset-item" href="assets/images/cdac/dac_diagrama.svg" target="_blank">
+            <img src="assets/images/cdac/dac_diagrama.svg" alt="Diagrama CDAC">
+            <div class="asset-meta">
+              <div class="asset-name">Diagrama DAC capacitivo</div>
+              <div class="asset-path">assets/images/cdac/dac_diagrama.svg</div>
+            </div>
+          </a>
+          <a class="asset-item" href="assets/images/layout/cdac/cdacUnitCellVista.png" target="_blank">
+            <img src="assets/images/layout/cdac/cdacUnitCellVista.png" alt="Layout unit cell CDAC">
+            <div class="asset-meta">
+              <div class="asset-name">Layout unit cell CDAC</div>
+              <div class="asset-path">assets/images/layout/cdac/cdacUnitCellVista.png</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════ 5. PARASITICS ════════════════ -->
+<section id="s-parasitos" style="scroll-snap-align:start">
+<div class="container">
+  <div class="sec-label">05 — No Idealidades</div>
+  <h2>Parásitos y <span style="color:var(--accent)">Charge Injection</span></h2>
+  <p style="max-width:600px;margin-bottom:24px">Cuando un switch MOSFET abre, la carga almacenada en su canal se inyecta parcialmente al capacitor de muestreo. Esto introduce un error dependiente de la señal.</p>
+
+  <div class="grid-2" style="gap:24px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <!-- Toggle -->
+      <div class="card" style="display:flex;gap:20px;flex-wrap:wrap">
+        <label class="toggle-switch">
+          <input type="checkbox" id="tog-dummy" onchange="updateParasitics()">
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+          <span>Transistores dummy</span>
+        </label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="tog-parasitic" onchange="updateParasitics()">
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+          <span>Mostrar Cp parásito</span>
+        </label>
+      </div>
+
+      <!-- Charge injection canvas -->
+      <div class="card" style="padding:16px">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Efecto de charge injection en V_top</div>
+        <canvas id="para-canvas" height="160" style="width:100%"></canvas>
+      </div>
+
+      <!-- Result text -->
+      <div class="card card-accent" id="para-result-card">
+        <div style="font-size:12px;color:var(--text2)" id="para-result-text">
+          Activá "Transistores dummy" para ver la diferencia.
+        </div>
+      </div>
+    </div>
+
+    <!-- Explanation -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card card-red">
+        <h3 style="font-size:14px;margin-bottom:8px">Sin dummies</h3>
+        <div class="eq" style="font-size:11px">
+          Q_ch = C_ox × W × L × (V_GS − V_th)<br>
+          → <span class="c-vdd">Inyectada al capacitor</span><br>
+          → Error <span class="c-vdd">∝ VIN</span> (no lineal)<br>
+          → Degrada SNDR y SFDR
+        </div>
+      </div>
+      <div class="card card-green">
+        <h3 style="font-size:14px;margin-bottom:8px">Con dummies (W_d = 0.5 × W_act)</h3>
+        <div class="eq" style="font-size:11px">
+          W_dummy = <span class="c-vcm">0.5 × W_active</span><br>
+          → Dummy absorbe ½ de la carga<br>
+          → Error reducido significativamente<br>
+          → Efectivo si falltime es corto
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="font-size:14px;margin-bottom:8px">Capacitancia parásita Cp</h3>
+        <p style="font-size:12px">En TPS, V_top varía de VIN → GND. Cp debe cargarse/descargarse introduciendo error ∝ VIN.</p>
+        <p style="font-size:12px;margin-top:8px">En <strong style="color:var(--accent)">IMCS</strong>, V_top parte y termina en VCM → ΔQ_Cp = 0 exacto.</p>
+      </div>
+
+      <div class="asset-panel">
+        <div class="asset-title">Recursos de no idealidades</div>
+        <div class="asset-grid">
+          <a class="asset-item" href="assets/images/cdac/tg_diagrama_dummies.svg" target="_blank">
+            <img src="assets/images/cdac/tg_diagrama_dummies.svg" alt="Transmission gate con dummies">
+            <div class="asset-meta">
+              <div class="asset-name">TG y dummies</div>
+              <div class="asset-path">assets/images/cdac/tg_diagrama_dummies.svg</div>
+            </div>
+          </a>
+          <a class="asset-item" href="assets/images/logic_timing/sample_rapido_vs_lento_dummies.svg" target="_blank">
+            <img src="assets/images/logic_timing/sample_rapido_vs_lento_dummies.svg" alt="Comparativa de muestreo">
+            <div class="asset-meta">
+              <div class="asset-name">Sample rápido vs lento</div>
+              <div class="asset-path">assets/images/logic_timing/sample_rapido_vs_lento_dummies.svg</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════ 6. COMPARATOR ARCHITECTURE ════════════════ -->
+<section id="s-comp" style="scroll-snap-align:start; min-height:auto; padding-bottom:0px;">
+<div class="container">
+  <div class="sec-label">06 — Comparador Bindra</div>
+  <h2>Arquitectura del <span style="color:var(--accent)">Comparador Double-Tail</span></h2>
+  
+  <div class="grid-2" style="align-items:stretch; gap:24px; margin-bottom:24px;">
+    <a href="assets/images/comparator/DT_comparator.svg" class="asset-item" style="display:block; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--surface2); height:100%;">
+      <img src="assets/images/comparator/DT_comparator.svg" style="width:100%; height:100%; min-height:180px; max-height:240px; object-fit:contain; padding:16px;" alt="Topología DT Comparator">
+    </a>
+    <div style="display:flex; flex-direction:column; justify-content:center;">
+      <p style="margin-bottom:12px">El comparador de doble cola (Double-Tail) Bindra consta de dos etapas: un <strong>preamplificador</strong> con polarización dinámica (capacitor C1 en la cola) para alta ganancia inicial sin depender de corriente estática, y un <strong>latch regenerativo</strong> robusto que se alimenta de la etapa anterior.</p>
+      
+      <div class="card" style="padding:0;overflow:hidden;margin-top:10px;">
+        <table class="tbl">
+          <tr><th>Parámetro</th><th>Valor Real</th></tr>
+          <tr><td>T_comp (1 LSB)</td><td class="ok">548 ps</td></tr>
+          <tr><td>T_reset (pgen)</td><td class="ok">768 ps</td></tr>
+          <tr><td>Offset estático</td><td class="warn">No evaluado</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════ 6.1 PREAMP ════════════════ -->
+<section id="s-comp-preamp" style="scroll-snap-align:start; min-height:auto; padding-top:40px;">
+<div class="container">
+  <div class="sec-label">06.1 — Etapa de Preamplificación</div>
+  <div class="grid-2" style="gap:24px; margin-bottom:24px;">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <span style="font-size:12px;color:var(--text2)">Diferencial VIN+ − VIN−</span>
+          <span style="color:var(--vin);font-weight:600" id="preamp-dvin-val">+1 LSB (878 µV)</span>
+        </div>
+        <input type="range" id="preamp-dvin" min="-3" max="3" value="1" step="0.5" oninput="preampDvinChange()">
+        <p style="font-size:11px; margin-top:14px; color:var(--text3);">Desplaza el diferencial para observar cómo se descargan asimétricamente los nodos en la integración.</p>
+        <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
+          <button class="btn primary" onclick="preampNextPhase()">▶ Siguiente Fase</button>
+          <button class="btn" onclick="preampReset()">↺ Reset</button>
+        </div>
+      </div>
+
+      <div class="card card-accent" id="preamp-phase-card">
+        <h3 style="font-size:15px;margin-top:4px" id="preamp-phase-title">Fase de Reset</h3>
+        <p style="font-size:12px;margin-top:6px" id="preamp-phase-desc">En fase de reset, <b>vcpp</b> y <b>vcpn</b> están cargados a VDD.</p>
+      </div>
+    </div>
+
+    <!-- Nodos -->
+    <div style="display:flex;flex-direction:column;gap:14px;justify-content:center;">
+      <div class="card" style="padding:20px;height:100%;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:24px">Tensión instantánea en Nodos VCP</div>
+        <div style="display:flex;justify-content:space-around;">
+          <div style="text-align:center">
+            <div class="comp-node" id="node-vcpp" style="border-color:var(--vdd2);color:var(--vdd2);background:rgba(255,68,68,0.1);padding:14px 20px;border-width:2px;border-radius:10px;">
+              <div style="font-size:11px;color:var(--text3);margin-bottom:6px">vcpp</div>
+              <div id="val-vcpp" style="font-size:18px;font-weight:700">1.80V</div>
+            </div>
+          </div>
+          <div style="text-align:center">
+            <div class="comp-node" id="node-vcpn" style="border-color:var(--vdd2);color:var(--vdd2);background:rgba(255,68,68,0.1);padding:14px 20px;border-width:2px;border-radius:10px;">
+              <div style="font-size:11px;color:var(--text3);margin-bottom:6px">vcpn</div>
+              <div id="val-vcpn" style="font-size:18px;font-weight:700">1.80V</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:24px; align-items:stretch;">
+    <a href="assets/images/comparator/bindra_preamp_diagrama.svg" class="asset-item" style="display:block; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--surface2);">
+      <img src="assets/images/comparator/bindra_preamp_diagrama.svg" style="width:100%; height:100%; min-height:220px; max-height:260px; object-fit:contain; padding:10px;" alt="Preamplificador Diagrama">
+    </a>
+    
+    <div class="card" style="padding:14px; display:flex; flex-direction:column;">
+      <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Forma de Onda (Preamp)</div>
+      <canvas id="canvas-preamp" height="220" style="width:100%; flex:1;"></canvas>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════ 6.2 LATCH ════════════════ -->
+<section id="s-comp-latch" style="scroll-snap-align:start; padding-top:40px;">
+<div class="container">
+  <div class="sec-label">06.2 — Latch Regenerativo</div>
+  <div class="grid-2" style="gap:24px; margin-bottom:24px;">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <!-- Input control -->
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <span style="font-size:12px;color:var(--text2)">Diferencia Inicial (ΔV_preamp)</span>
+          <span style="color:var(--accent);font-weight:600" id="latch-din-val">+ ΔV</span>
+        </div>
+        <input type="range" id="latch-din" min="-3" max="3" value="1" step="0.5" oninput="latchDinChange()">
+        <p style="font-size:11px; margin-top:14px; color:var(--text3);">Modifica el desbalance inicial y dispara el Latch.</p>
+        <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
+          <button class="btn primary" onclick="latchNextPhase()">▶ Siguiente Fase</button>
+          <button class="btn" onclick="latchReset()">↺ Reset</button>
+        </div>
+      </div>
+
+      <!-- Phase card -->
+      <div class="card card-purple" style="border-left:2px solid var(--purple);" id="latch-phase-card">
+        <h3 style="font-size:15px;margin-top:4px" id="latch-phase-title">Fase de Reposo (Pre-carga)</h3>
+        <p style="font-size:12px;margin-top:6px" id="latch-phase-desc">Previo a la decisión, ambos nodos <b>voutp</b> y <b>voutn</b> se encuentran precargados a VDD (1.80V) a la espera del inicio de evaluación.</p>
+      </div>
+    </div>
+
+    <!-- Node visualization -->
+    <div style="display:flex;flex-direction:column;gap:14px;justify-content:center;">
+      <div class="card" style="padding:20px;height:100%;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:24px">Tensión instantánea en Nodos Latch</div>
+        <div style="display:flex;justify-content:space-around;">
+          <div style="text-align:center">
+            <div class="comp-node" id="node-voutp" style="border-color:var(--vdd2);color:var(--vdd2);background:rgba(255,68,68,0.1);padding:14px 20px;border-width:2px;border-radius:10px;">
+               <div style="font-size:11px;color:var(--text3);margin-bottom:6px">voutp</div>
+               <div id="val-voutp" style="font-size:18px;font-weight:700">1.80V</div>
+            </div>
+          </div>
+          <div style="text-align:center">
+            <div class="comp-node" id="node-voutn" style="border-color:var(--vdd2);color:var(--vdd2);background:rgba(255,68,68,0.1);padding:14px 20px;border-width:2px;border-radius:10px;">
+               <div style="font-size:11px;color:var(--text3);margin-bottom:6px">voutn</div>
+               <div id="val-voutn" style="font-size:18px;font-weight:700">1.80V</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:24px; align-items:stretch;">
+    <a href="assets/images/comparator/latch_diagrama.svg" class="asset-item" style="display:block; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--surface2);">
+      <img src="assets/images/comparator/latch_diagrama.svg" style="width:100%; height:100%; min-height:220px; max-height:260px; object-fit:contain; padding:10px;" alt="Latch Diagrama">
+    </a>
+
+    <div class="card" style="padding:14px; display:flex; flex-direction:column;">
+      <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Forma de Onda (Latch)</div>
+      <canvas id="canvas-latch" height="220" style="width:100%; flex:1;"></canvas>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<!-- ════════════════ 7. LÓGICA SAR ════════════════ -->
+<section id="s-logic" style="scroll-snap-align:start">
+<div class="container">
+  <div class="sec-label">07 — Lógica de Control</div>
+  <h2>Lógica de <span style="color:var(--accent)">Aproximaciones Sucesivas</span></h2>
+  <div class="grid-2" style="align-items:stretch; gap:24px; margin-bottom:24px;">
+    <a href="assets/images/misc/logica_parte.svg" class="asset-item" style="display:block; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--surface2); height:100%;">
+      <img src="assets/images/misc/logica_parte.svg" style="width:100%; height:100%; min-height:180px; max-height:240px; object-fit:contain; padding:16px;" alt="Bloque Lógico SAR">
+    </a>
+    <div style="display:flex; flex-direction:column; justify-content:center;">
+      <p>La lógica SAR se encarga de almacenar la decisión del comparador y avanzar al siguiente bit. En este diseño, se utilizaron compuertas estándar del PDK en una topología asincrónica basada en registros de desplazamiento (shift registers) y celdas unitarias.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:24px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card card-accent">
+        <h3 style="font-size:15px;margin-bottom:8px">Shift Register Secuenciador</h3>
+        <p style="font-size:12px">El secuenciador desplaza un "1" lógico desde el MSB hasta el LSB con cada pulso del reloj asíncrono. Este valor actúa como un <i>token</i> que habilita una celda específica del array para muestrear la salida del comparador.</p>
+      </div>
+      <div class="card card-green">
+        <h3 style="font-size:15px;margin-bottom:8px">Celda Unitaria SAR</h3>
+        <p style="font-size:12px">Cada uno de los 12 bits cuenta con una celda conformada por lógica combinacional básica y un Flip-Flop D. Asegura la retención de la decisión previa y proporciona la señal constante para el control de los switches correspondientes en el CDAC.</p>
+      </div>
+      <div class="card">
+         <h3 style="font-size:15px;margin-bottom:8px">Implementación con Celdas Estándar</h3>
+         <p style="font-size:12px">No requiere celdas lógicas personalizadas a nivel de layout; emplea las celdas <i>sg13g2_stdcell</i> base de IHP, reduciendo la complejidad del ruteo y brindando niveles lógicos asegurados para interactuar con los conmutadores.</p>
+      </div>
+    </div>
+
+    <!-- Images -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="asset-panel" style="height:100%">
+        <div class="asset-title">Recursos de la Lógica</div>
+        <div class="asset-grid" style="grid-template-columns: 1fr;">
+          <a class="asset-item" href="assets/images/sar/bit_cell_diagrama.svg" target="_blank">
+            <img src="assets/images/sar/bit_cell_diagrama.svg" alt="Diagrama de celda unitaria SAR" style="height:120px;object-fit:contain;padding:10px;">
+            <div class="asset-meta">
+              <div class="asset-name">Celda Unitaria SAR</div>
+              <div class="asset-path">assets/images/sar/bit_cell_diagrama.svg</div>
+            </div>
+          </a>
+          <a class="asset-item" href="assets/images/misc/logica_parte.svg" target="_blank">
+            <img src="assets/images/misc/logica_parte.svg" alt="Diagrama general de lógica" style="height:120px;object-fit:contain;padding:10px;">
+            <div class="asset-meta">
+              <div class="asset-name">Bloque SAR Estructural</div>
+              <div class="asset-path">assets/images/misc/logica_parte.svg</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════ 8. GENERADOR DE PULSOS ════════════════ -->
+<section id="s-pgen" style="scroll-snap-align:start">
+<div class="container">
+  <div class="sec-label">08 — Control de Tiempos</div>
+  <h2>Generador de <span style="color:var(--accent)">Pulsos (PGEN)</span></h2>
+  <div class="grid-2" style="align-items:stretch; gap:24px; margin-bottom:24px;">
+    <a href="assets/images/logic_timing/pgen_diagrama.svg" class="asset-item" style="display:block; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--surface2); height:100%;">
+      <img src="assets/images/logic_timing/pgen_diagrama.svg" style="width:100%; height:100%; min-height:180px; max-height:240px; object-fit:contain; padding:16px;" alt="Esquema del PGEN">
+    </a>
+    <div style="display:flex; flex-direction:column; justify-content:center;">
+      <p>Para evitar la necesidad de un reloj externo de ultra-alta frecuencia, el SAR utiliza un lazo asincrónico interno. El PGEN detecta el momento en que el comparador toma su decisión y genera automáticamente el pulso de reset para iniciar la siguiente evaluación.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:24px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card card-accent">
+        <h3 style="font-size:15px;margin-bottom:8px">Líneas de Retardo (Delay Lines)</h3>
+        <p style="font-size:12px">Implementadas mediante inversores en cascada y capacitores de estabilización. Garantizan el tiempo de "settling" del CDAC antes de permitir que el comparador emita una nueva respuesta.</p>
+      </div>
+      <div class="card card-warn">
+        <h3 style="font-size:15px;margin-bottom:8px">Schmitt Trigger</h3>
+        <p style="font-size:12px">Dada la naturaleza analógica del comparador, la detección del estado de validación (Ready) puede transcurrir suavemente. El uso de compuertas NAND de tipo Schmitt Trigger inmuniza el esquema frente al ruido durante las transiciones lentas.</p>
+      </div>
+      <div class="card card-green">
+        <h3 style="font-size:15px;margin-bottom:8px">Funcionamiento Dinámico</h3>
+        <p style="font-size:12px">El comparador baja su señal 'Done' al regenerar, esto atraviesa el PGEN, que responde levantando 'RST'. El comparador se resetea y levanta 'Done'. Tras el retardo estipulado, el PGEN baja 'RST' nuevamente y una nueva comparación comienza. Un ciclo asincrónico perfecto.</p>
+      </div>
+    </div>
+
+    <!-- Images -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="asset-panel" style="height:100%">
+        <div class="asset-title">Recursos del PGEN</div>
+        <div class="asset-grid" style="grid-template-columns: 1fr;">
+          <a class="asset-item" href="assets/images/logic_timing/pgen_diagrama.svg" target="_blank">
+            <img src="assets/images/logic_timing/pgen_diagrama.svg" alt="Diagrama PGEN" style="height:110px;object-fit:contain;padding:8px;">
+            <div class="asset-meta">
+              <div class="asset-name">Esquema del PGEN</div>
+              <div class="asset-path">assets/images/logic_timing/pgen_diagrama.svg</div>
+            </div>
+          </a>
+          <a class="asset-item" href="assets/images/logic_timing/senales_pgen.svg" target="_blank">
+            <img src="assets/images/logic_timing/senales_pgen.svg" alt="Señales del PGEN" style="height:110px;object-fit:contain;padding:8px;">
+            <div class="asset-meta">
+              <div class="asset-name">Formas de onda</div>
+              <div class="asset-path">assets/images/logic_timing/senales_pgen.svg</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════ 9. TIMING ════════════════ -->
+<section id="s-timing" style="scroll-snap-align:start">
+<div class="container">
+  <div class="sec-label">09 — Presupuesto de Tiempo</div>
+  <h2>Timing del <span style="color:var(--accent)">Sistema</span></h2>
+  <p style="max-width:600px;margin-bottom:28px">Con 40 MSa/s, cada ciclo es 25 ns: 2 ns de muestreo y 23 ns de conversión para 12 bits. Cada bit tiene ~1.9 ns.</p>
+
+  <!-- Timing diagram -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:24px">
+    <svg width="100%" viewBox="0 0 760 180" style="max-height:180px">
+      <!-- Time axis -->
+      <line x1="80" y1="160" x2="740" y2="160" stroke="#484f58" stroke-width="1" marker-end="url(#ag)"/>
+      <text x="745" y="164" fill="#484f58" font-size="9" font-family="'JetBrains Mono'">ns</text>
+      <!-- Marks -->
+      <line x1="88" y1="155" x2="88" y2="165" stroke="#484f58" stroke-width="1"/>
+      <text x="88" y="176" fill="#484f58" text-anchor="middle" font-size="8" font-family="'JetBrains Mono'">0</text>
+      <line x1="141" y1="155" x2="141" y2="165" stroke="#484f58" stroke-width="1"/>
+      <text x="141" y="176" fill="#484f58" text-anchor="middle" font-size="8" font-family="'JetBrains Mono'">2</text>
+      <line x1="716" y1="155" x2="716" y2="165" stroke="#484f58" stroke-width="1"/>
+      <text x="716" y="176" fill="#484f58" text-anchor="middle" font-size="8" font-family="'JetBrains Mono'">25</text>
+      <!-- SAMPLE bar -->
+      <rect x="88" y="20" width="53" height="36" rx="4" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="1"/>
+      <text x="114" y="33" fill="#79c0ff" text-anchor="middle" font-size="9" font-weight="600" font-family="'JetBrains Mono'">SAMPLE</text>
+      <text x="114" y="47" fill="#484f58" text-anchor="middle" font-size="8" font-family="'JetBrains Mono'">2 ns</text>
+      <!-- CONVERSION bar -->
+      <rect x="141" y="20" width="575" height="36" rx="4" fill="rgba(34,197,94,0.08)" stroke="#22c55e" stroke-width="1"/>
+      <text x="428" y="33" fill="#4ade80" text-anchor="middle" font-size="9" font-weight="600" font-family="'JetBrains Mono'">CONVERSIÓN — 12 bits × 1.9 ns ≈ 23 ns</text>
+      <text x="428" y="47" fill="#484f58" text-anchor="middle" font-size="8" font-family="'JetBrains Mono'">T_conv = 23 ns</text>
+      <!-- Individual bit bars -->
+      <g id="timing-bits"></g>
+    </svg>
+    <script>
+    (function(){
+      const g = document.getElementById('timing-bits');
+      const colors = ['#58a6ff','#a371f7','#22c55e','#e3b341','#ff6b6b','#58a6ff','#a371f7','#22c55e','#e3b341','#ff6b6b','#58a6ff','#a371f7'];
+      for(let i=0;i<12;i++){
+        const x = 141 + i*47.9;
+        const el = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        el.setAttribute('x', x+2); el.setAttribute('y', 70);
+        el.setAttribute('width', 43.9); el.setAttribute('height', 24);
+        el.setAttribute('rx', 3); el.setAttribute('fill', colors[i]+'22');
+        el.setAttribute('stroke', colors[i]); el.setAttribute('stroke-width','0.8');
+        g.appendChild(el);
+        const txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+        txt.setAttribute('x', x+24); txt.setAttribute('y', 86);
+        txt.setAttribute('text-anchor','middle'); txt.setAttribute('font-size','8');
+        txt.setAttribute('fill', colors[i]); txt.setAttribute('font-family',"'JetBrains Mono'");
+        txt.textContent = 'B'+(11-i);
+        g.appendChild(txt);
+      }
+    })();
+    </script>
+  </div>
+
+  <div class="grid-2">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="timing-row">
+        <span class="timing-label">Muestreo</span>
+        <div class="timing-bar" style="background:rgba(88,166,255,0.12);border:1px solid var(--accent);color:var(--accent2);width:8%">2 ns</div>
+      </div>
+      <div class="timing-row">
+        <span class="timing-label">Settling CDAC</span>
+        <div class="timing-bar" style="background:rgba(34,197,94,0.12);border:1px solid var(--vcm);color:var(--vcm2);width:22%">527 ps max</div>
+      </div>
+      <div class="timing-row">
+        <span class="timing-label">Reset pgen</span>
+        <div class="timing-bar" style="background:rgba(34,197,94,0.12);border:1px solid var(--vcm);color:var(--vcm2);width:30%">768 ps (≥ 2×settle)</div>
+      </div>
+      <div class="timing-row">
+        <span class="timing-label">Comparación</span>
+        <div class="timing-bar" style="background:rgba(163,113,247,0.12);border:1px solid var(--purple);color:var(--purple);width:40%">548 ps (1 LSB)</div>
+      </div>
+      <div class="timing-row">
+        <span class="timing-label">Lógica SAR</span>
+        <div class="timing-bar" style="background:rgba(227,179,65,0.12);border:1px solid var(--amber);color:var(--amber);width:15%">258 ps</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="eq">
+        T_total = <span class="c-acc">25 ns</span> = 1/40MHz<br>
+        T_sample = <span class="c-vcm">2 ns</span><br>
+        T_conv = <span class="c-vcm">23 ns</span><br>
+        T_bit = 23/12 ≈ <span class="c-amb">1.9 ns</span><br><br>
+        T_bit = T_reset + T_comp + T_logic<br>
+             = <span class="c-vcm">768</span> + <span class="c-acc">548</span> + <span class="c-amb">258</span> ps<br>
+             = <span class="c-acc">1.574 ns</span> ✓ (margen OK)<br><br>
+        Throughput efectivo:<br>
+        1/(18ns + 2ns) ≈ <span class="c-vcm">50 MSa/s</span> en TT
+      </div>
+    </div>
+  </div>
+
+  <div class="asset-panel" style="margin-top:20px">
+    <div class="asset-title">Recursos de timing y control</div>
+    <div class="asset-grid">
+      <a class="asset-item" href="assets/images/logic_timing/pgen_diagrama.svg" target="_blank">
+        <img src="assets/images/logic_timing/pgen_diagrama.svg" alt="Diagrama PGEN">
+        <div class="asset-meta">
+          <div class="asset-name">Diagrama PGEN</div>
+          <div class="asset-path">assets/images/logic_timing/pgen_diagrama.svg</div>
+        </div>
+      </a>
+      <a class="asset-item" href="assets/images/logic_timing/tb_top_tran_step.svg" target="_blank">
+        <img src="assets/images/logic_timing/tb_top_tran_step.svg" alt="Testbench transitorio top">
+        <div class="asset-meta">
+          <div class="asset-name">Testbench top transitorio</div>
+          <div class="asset-path">assets/images/logic_timing/tb_top_tran_step.svg</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════ 10. LAYOUT ════════════════ -->
+<section id="s-layout" style="scroll-snap-align:start">
+<div class="container">
+  <div class="sec-label">10 — Diseño Físico</div>
+  <h2>Layout y <span style="color:var(--accent)">Ruteo</span></h2>
+  <p style="max-width:600px;margin-bottom:24px">El diseño físico es un paso crítico. En tecnología de 130 nm, la interacción entre componentes analógicos, capacitores y celdas digitales demanda cuidado para mitigar los parásitos, minimizar el mismatch y garantizar simetría.</p>
+
+  <div class="grid-2" style="gap:24px">
+    <!-- Explicativa -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card card-accent">
+        <h3 style="font-size:15px;margin-bottom:8px">Common-Centroid y Simetría</h3>
+        <p style="font-size:12px">El CDAC y el comparador requieren distribuciones físicas simétricas para que procesos estocásticos de fabricación (gradientes térmicos o dopaje) afecten de forma equilibrada a las ramas diferenciales y no introduzcan offsets drásticos.</p>
+      </div>
+      <div class="card card-green">
+        <h3 style="font-size:15px;margin-bottom:8px">Aislamiento por Anillos de Guarda</h3>
+        <p style="font-size:12px">Dado que conviven bloques ruidosos de switching digital con partes analógicas sensibles, se incluyeron guard rings para atrapar portadores inyectados al sustrato. Asegura que el comparador tome decisiones limpias sin inyección de ruido de la lógica.</p>
+      </div>
+      <div class="card">
+         <h3 style="font-size:15px;margin-bottom:8px">Geometrías en IHP SG13G2</h3>
+         <p style="font-size:12px">Usando el PDK open-source se extrajeron e insertaron capacitores MIM (Metal-Insulator-Metal) que ofrecen la densidad de capacitancia óptima en la tecnología elegida.</p>
+      </div>
+    </div>
+
+    <!-- Carrusel de assets visuales -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="asset-panel" style="height:100%">
+        <div class="asset-title">Galería de Layout</div>
+        <div class="asset-grid" style="grid-template-columns: 1fr 1fr;">
+          <a class="asset-item" href="assets/images/layout/cdac/cdacUnitCellVista.png" target="_blank">
+            <img src="assets/images/layout/cdac/cdacUnitCellVista.png" alt="Layout CDAC Unit Cell" style="height:90px;object-fit:cover;">
+            <div class="asset-meta">
+              <div class="asset-name">Celda CDAC Unit.</div>
+              <div class="asset-path">/cdac/cdacUnitCell...</div>
+            </div>
+          </a>
+          <a class="asset-item" href="assets/images/layout/comparator/comparadorVistaTOPConexiones.png" target="_blank">
+            <img src="assets/images/layout/comparator/comparadorVistaTOPConexiones.png" alt="Comparador TOP" style="height:90px;object-fit:cover;">
+            <div class="asset-meta">
+              <div class="asset-name">Comparador TOP</div>
+              <div class="asset-path">/comparator/... TOP</div>
+            </div>
+          </a>
+          <a class="asset-item" href="assets/images/layout/comparator/Vista1_comp_lo.png" target="_blank">
+            <img src="assets/images/layout/comparator/Vista1_comp_lo.png" alt="Vista LO comp" style="height:90px;object-fit:cover;">
+            <div class="asset-meta">
+              <div class="asset-name">Routing Comp</div>
+              <div class="asset-path">/comparator/Vista1...</div>
+            </div>
+          </a>
+          <a class="asset-item" href="assets/images/layout/cdac/cdacPrueba.png" target="_blank">
+            <img src="assets/images/layout/cdac/cdacPrueba.png" alt="Estructura matriz CDAC" style="height:90px;object-fit:cover;">
+            <div class="asset-meta">
+              <div class="asset-name">Matriz CDAC</div>
+              <div class="asset-path">/cdac/cdacPrueba.png</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════ 11. LIMITATIONS ════════════════ -->
+<section id="s-limits" style="scroll-snap-align:start">
+<div class="container">
+  <div class="sec-label">11 — Limitaciones</div>
+  <h2>Análisis de <span style="color:var(--amber)">Limitaciones</span></h2>
+  <div style="background:rgba(227,179,65,0.08);border:1px solid rgba(227,179,65,0.3);border-radius:8px;padding:16px 20px;margin-bottom:24px;max-width:700px">
+    <strong style="color:var(--amber)">⚠️ Declaración formal:</strong>
+    <p style="font-size:13px;margin-top:6px;color:var(--text2)">Este es un diseño funcional nominal. La validación completa requiere simulaciones Monte Carlo, análisis de mismatch (Pelgrom), simulaciones PEX post-layout y caracterización de ruido del comparador.</p>
+  </div>
+
+  <div class="grid-2" style="gap:24px">
+    <!-- Limitations table -->
+    <div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <table class="tbl">
+          <thead><tr><th>Efecto / Error</th><th>Estado</th><th>Estimación</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Ruido kT/C muestreo</td>
+              <td><span class="badge badge-green">Verificado</span></td>
+              <td class="ok">σ≈42µV ≪ 440µV</td>
+            </tr>
+            <tr>
+              <td>Settling CDAC</td>
+              <td><span class="badge badge-green">Verificado</span></td>
+              <td class="ok">527ps, margen 47%</td>
+            </tr>
+            <tr>
+              <td>Parásitos top-plate</td>
+              <td><span class="badge badge-green">IMCS garantiza</span></td>
+              <td class="ok">ΔQ_Cp = 0</td>
+            </tr>
+            <tr>
+              <td>Mismatch CDAC</td>
+              <td><span class="badge badge-red">No evaluado</span></td>
+              <td class="bad">~0.13%* estimado</td>
+            </tr>
+            <tr>
+              <td>Ruido comparador</td>
+              <td><span class="badge badge-red">No evaluado</span></td>
+              <td class="bad">Requiere .noise sim</td>
+            </tr>
+            <tr>
+              <td>Offset comparador</td>
+              <td><span class="badge badge-red">No evaluado</span></td>
+              <td class="bad">Requiere Monte Carlo</td>
+            </tr>
+            <tr>
+              <td>INL / DNL completa</td>
+              <td><span class="badge badge-amber">Parcial</span></td>
+              <td class="warn">3 puntos DC sólo</td>
+            </tr>
+            <tr>
+              <td>Simulación PEX</td>
+              <td><span class="badge badge-red">No realizada</span></td>
+              <td class="bad">Layout incompleto</td>
+            </tr>
+            <tr>
+              <td>Corners PVT</td>
+              <td><span class="badge badge-red">No evaluado</span></td>
+              <td class="bad">Solo TT simulado</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pelgrom explanation -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card card-warn">
+        <h3 style="font-size:15px;margin-bottom:10px">Mismatch CDAC — Ley de Pelgrom</h3>
+        <div class="eq" style="font-size:11px">
+          σ(ΔC/C) = <span class="c-amb">Ac / √Area</span><br><br>
+          Ac ≈ 0.4%·µm (típico 130nm)<br>
+          Area = 3µm × 3µm = 9µm²<br><br>
+          σ(ΔC/C) ≈ 0.4/√9 = <span class="c-vdd">0.13%</span><br><br>
+          Req. MSB (12b): σ &lt; 1/(2×4096)<br>
+          = <span class="c-vcm">0.012%</span><br><br>
+          <span class="c-vdd">0.13% &gt; 0.012% → INSUFICIENTE</span><br>
+          sin common-centroid + calibración
+        </div>
+        <p style="font-size:11px;margin-top:8px;color:var(--text3)">* Ac no publicado en PDK ihp-sg13g2. Valor asumido de literatura para 130nm.</p>
+      </div>
+
+      <div class="card">
+        <h3 style="font-size:15px;margin-bottom:8px">ENOB esperado</h3>
+        <p style="font-size:12px">El diseño no garantiza 12 bits ENOB en silicio por la ausencia de análisis de mismatch y ruido del comparador. Los errores verificados (kT/C, settling) son satisfactorios.</p>
+        <p style="font-size:12px;margin-top:8px">Objetivo declarado: <strong style="color:var(--accent)">diseño funcional nominal</strong>, no desempeño optimizado.</p>
+      </div>
+
+      <div class="card card-accent">
+        <h3 style="font-size:15px;margin-bottom:8px">Trabajo futuro prioritario</h3>
+        <ol style="font-size:12px;color:var(--text2);padding-left:18px;line-height:2">
+          <li>Common-centroid del array CDAC</li>
+          <li>Simulación de ruido del comparador</li>
+          <li>Corners PVT (FF/SS/TT mínimo)</li>
+          <li>Layout completo + PEX</li>
+          <li>Bootstrap switches para S&H</li>
+        </ol>
+      </div>
+
+      <div class="asset-panel">
+        <div class="asset-title">Anexos técnicos recomendados</div>
+        <div class="asset-grid">
+          <a class="asset-item" href="assets/docs/cdac_unit_cell_lo_explicado.pdf" target="_blank">
+            <img src="assets/images/cdac/cdac_unit_cell_lo_explicado.svg" alt="Anexo CDAC">
+            <div class="asset-meta">
+              <div class="asset-name">Anexo CDAC (PDF)</div>
+              <div class="asset-path">assets/docs/cdac_unit_cell_lo_explicado.pdf</div>
+            </div>
+          </a>
+          <a class="asset-item" href="assets/docs/comparadorFullLayoutt.pdf" target="_blank">
+            <img src="assets/images/comparator/comparadorFullLayoutt.svg" alt="Anexo comparador">
+            <div class="asset-meta">
+              <div class="asset-name">Anexo comparador (PDF)</div>
+              <div class="asset-path">assets/docs/comparadorFullLayoutt.pdf</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════ 12. CONCLUSION ════════════════ -->
+<section id="s-end" style="scroll-snap-align:start;justify-content:center;align-items:center;text-align:center">
+<div class="container" style="max-width:700px">
+  <div class="sec-label">12 — Conclusión</div>
+  <h2 style="margin-bottom:16px">Logros del <span style="color:var(--vcm2)">Trabajo</span></h2>
+  <p style="margin-bottom:30px;font-size:15px">El diseño demuestra que el flujo completo de diseño de CI analógico es realizable con herramientas 100% open-source, documentando cada decisión para uso educativo.</p>
+
+  <div class="grid-2" style="text-align:left;margin-bottom:28px">
+    <div class="card card-green">
+      <div class="badge badge-green" style="margin-bottom:10px">Logrado</div>
+      <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2.1">
+        <li>Flujo completo xschem → KLayout</li>
+        <li>DRC/LVS pass en bloques principales</li>
+        <li>IMCS implementado (único en open-source)</li>
+        <li>Comparador Bindra + pgen auto-clock</li>
+        <li>Repositorio público en GitHub</li>
+        <li>40 MSa/s verificado en simulación TT</li>
+      </ul>
+    </div>
+    <div class="card card-warn">
+      <div class="badge badge-amber" style="margin-bottom:10px">Pendiente</div>
+      <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2.1">
+        <li>Layout completo integrado</li>
+        <li>Simulaciones post-layout (PEX)</li>
+        <li>Monte Carlo + corners PVT</li>
+        <li>Caracterización DNL/INL completa</li>
+        <li>Validación de ruido del comparador</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px;font-size:13px;color:var(--text2);line-height:1.8">
+    El diseño es <strong style="color:var(--vcm2)">funcionalmente correcto</strong> en condiciones TT y alcanza el objetivo de 40 MSa/s. No garantiza 12 bits ENOB en silicio hasta completar las verificaciones estadísticas pendientes.
+    Esta honestidad es parte fundamental del rigor científico del trabajo.
+  </div>
+
+  <div class="asset-panel" style="margin-bottom:24px;text-align:left">
+    <div class="asset-title">Material adicional y respaldo</div>
+    <div class="asset-grid">
+      <a class="asset-item" href="assets/ASSET_PLACEMENT.md" target="_blank">
+        <div class="asset-meta">
+          <div class="asset-name">Guía de ubicación de assets</div>
+          <div class="asset-path">assets/ASSET_PLACEMENT.md</div>
+        </div>
+      </a>
+      <a class="asset-item" href="assets/docs/pgenlayoutexplicado.pdf" target="_blank">
+        <div class="asset-meta">
+          <div class="asset-name">Anexo PGEN (PDF)</div>
+          <div class="asset-path">assets/docs/pgenlayoutexplicado.pdf</div>
+        </div>
+      </a>
+      <a class="asset-item" href="assets/docs/SR_latch_export.pdf" target="_blank">
+        <div class="asset-meta">
+          <div class="asset-name">Anexo SR latch (PDF)</div>
+          <div class="asset-path">assets/docs/SR_latch_export.pdf</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <a href="https://github.com/gsuckz/SAR_ADC_IHP" target="_blank" style="display:inline-block;background:rgba(88,166,255,0.12);border:1px solid var(--accent);color:var(--accent2);padding:12px 28px;border-radius:8px;text-decoration:none;font-size:13px;letter-spacing:0.05em">
+    ⬡ github.com/gsuckz/SAR_ADC_IHP
+  </a>
+</div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     JAVASCRIPT MODULES
+═══════════════════════════════════════════════════ -->
+<script>
+/* ────────────────────────────────
+   CONSTANTS
+──────────────────────────────── */
+const C = {
+  N: 12,
+  VDD: 1800,  /* mV */
+  VCM: 900,   /* mV */
+  VREF: 1800,
+  LSB: 0.878, /* mV */
+  Cu: 13.9,   /* fF */
+  FULL: 4096  /* 2^12 */
+};
+
+/* ────────────────────────────────
+   NAV ACTIVE STATE
+──────────────────────────────── */
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if(link) link.classList.add('active');
+    }
+  });
+}, {threshold: 0.5});
+sections.forEach(s => obs.observe(s));
+
+/* ═══════════════════════════════════════════
+   MODULE: SAR ALGORITHM
+═══════════════════════════════════════════ */
+const sarState = {
+  vin: 0,
+  vdac: 0,
+  sign: 1,
+  step: 0,
+  bits: new Array(12).fill(-1),
+  autoTimer: null
+};
+const SAR_FS_MV = 900;
+const SAR_MAG_BITS = 11;
+const SAR_MAG_MAX = (1 << SAR_MAG_BITS) - 1;
+
+function fmtSignedMv(v) {
+  const r = Math.round(v);
+  return (r >= 0 ? '+' : '') + r + ' mV';
+}
+
+function sarVinChange() {
+  sarState.vin = parseInt(document.getElementById('sar-vin-slider').value);
+  document.getElementById('sar-vin-val').textContent = fmtSignedMv(sarState.vin);
+  sarReset();
+}
+function sarPreset(v) {
+  sarState.vin = v;
+  document.getElementById('sar-vin-slider').value = v;
+  document.getElementById('sar-vin-val').textContent = fmtSignedMv(v);
+  sarReset();
+}
+function sarReset() {
+  if(sarState.autoTimer) { clearInterval(sarState.autoTimer); sarState.autoTimer = null; }
+  sarState.vdac = 0;
+  sarState.sign = 1;
+  sarState.step = 0;
+  sarState.bits = new Array(12).fill(-1);
+  document.getElementById('sar-decision-card').className = 'card card-accent';
+  document.getElementById('sar-decision-text').textContent = 'Presioná "Siguiente bit" para iniciar';
+  document.getElementById('sar-decision-detail').innerHTML = '';
+  sarRender();
+}
+function sarNextStep() {
+  if(sarState.step >= 12) return;
+
+  if(sarState.step === 0) {
+    const signBit = sarState.vin < 0 ? 1 : 0;
+    sarState.bits[0] = signBit;
+    sarState.sign = signBit === 1 ? -1 : 1;
+    sarState.vdac = 0;
+    document.getElementById('sar-decision-text').textContent = `MSB (signo): VIN ${sarState.vin < 0 ? '<' : '≥'} 0`;
+    document.getElementById('sar-decision-detail').innerHTML = `<span style="color:${signBit ? 'var(--vdd2)' : 'var(--vcm2)'};font-size:12px">→ Bit 11 = ${signBit} (${signBit ? 'negativo' : 'positivo'})</span>`;
+    document.getElementById('sar-decision-card').className = signBit ? 'card card-red' : 'card card-green';
+    sarState.step++;
+    sarRender();
+    return;
+  }
+
+  const magStep = sarState.step - 1;
+  const bitPos = 10 - magStep;
+  const weightCode = (1 << bitPos);
+  const weightMv = SAR_FS_MV * weightCode / SAR_MAG_MAX;
+  const trialAbs = Math.abs(sarState.vdac) + weightMv;
+  const vinAbs = Math.abs(sarState.vin);
+
+  if(vinAbs >= trialAbs) {
+    sarState.bits[sarState.step] = 1;
+    sarState.vdac = sarState.sign * trialAbs;
+    document.getElementById('sar-decision-text').textContent = `|VIN| (${Math.round(vinAbs)} mV) ≥ |VDAC_trial| (${Math.round(trialAbs)} mV)`;
+    document.getElementById('sar-decision-detail').innerHTML = `<span style="color:var(--vcm2);font-size:12px">→ Bit ${bitPos} = 1 ✓ (se mantiene)</span>`;
+    document.getElementById('sar-decision-card').className = 'card card-green';
+  } else {
+    sarState.bits[sarState.step] = 0;
+    document.getElementById('sar-decision-text').textContent = `|VIN| (${Math.round(vinAbs)} mV) < |VDAC_trial| (${Math.round(trialAbs)} mV)`;
+    document.getElementById('sar-decision-detail').innerHTML = `<span style="color:var(--vdd2);font-size:12px">→ Bit ${bitPos} = 0 ✗ (se descarta)</span>`;
+    document.getElementById('sar-decision-card').className = 'card card-red';
+  }
+  sarState.step++;
+  sarRender();
+}
+function sarAutoRun() {
+  if(sarState.autoTimer) { clearInterval(sarState.autoTimer); sarState.autoTimer = null; return; }
+  sarReset();
+  sarState.autoTimer = setInterval(() => {
+    if(sarState.step >= 12) { clearInterval(sarState.autoTimer); sarState.autoTimer = null; return; }
+    sarNextStep();
+  }, 500);
+}
+function sarRender() {
+  /* Bits */
+  const reg = document.getElementById('sar-bit-register');
+  reg.innerHTML = '';
+  for(let i=0;i<12;i++) {
+    const bit = 11 - i;
+    const v = sarState.bits[i];
+    const div = document.createElement('div');
+    div.className = 'bit-cell' + (v===1?' b1':v===0?' b0':'') + (sarState.step===i?' active':'');
+    div.innerHTML = `<span class="bit-idx">B${bit}</span><span class="bit-val">${v===-1?'?':v}</span>`;
+    reg.appendChild(div);
+  }
+  /* Progress */
+  document.getElementById('sar-progress').style.width = (sarState.step/12*100) + '%';
+  if(sarState.step === 0) {
+    document.getElementById('sar-step-label').textContent = 'Bit 11 (MSB signo)';
+  } else if(sarState.step < 12) {
+    document.getElementById('sar-step-label').textContent = `Bit ${11-sarState.step} (magnitud)`;
+  } else {
+    document.getElementById('sar-step-label').textContent = 'Conversión completa';
+  }
+  document.getElementById('sar-step-count').textContent = sarState.step + ' / 12';
+  /* Readouts */
+  document.getElementById('sar-vdac-val').textContent = fmtSignedMv(sarState.vdac);
+  const bitsResolved = sarState.bits.map(b => b === -1 ? 0 : b);
+  const ucode = bitsResolved.reduce((a,b,i) => a + b*(1<<(11-i)), 0);
+  const signedCode = ucode >= 2048 ? ucode - 4096 : ucode;
+  document.getElementById('sar-code-dec').textContent = sarState.step > 0 ? `${ucode} (${signedCode})` : '0';
+  /* Canvas */
+  drawSarCanvas();
+}
+
+function drawSarCanvas() {
+  const cvs = document.getElementById('sar-canvas');
+  const w = cvs.offsetWidth; if(!w) return;
+  cvs.width = w; cvs.height = 180;
+  const ctx = cvs.getContext('2d');
+  /* Background & grid */
+  ctx.fillStyle = '#0d1117'; ctx.fillRect(0,0,w,180);
+  ctx.strokeStyle = '#1c2128'; ctx.lineWidth = 1;
+  const yOf = v => 90 - (v / SAR_FS_MV) * 70;
+  [-900, -450, 0, 450, 900].forEach(v => {
+    const y = yOf(v);
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+    ctx.fillStyle = '#484f58'; ctx.font = '9px JetBrains Mono'; ctx.textAlign = 'left';
+    ctx.fillText((v>0?'+':'') + v + 'mV', 6, y - 4);
+  });
+
+  /* VIN target */
+  const vinY = yOf(sarState.vin);
+  ctx.strokeStyle = '#f0f6fc'; ctx.setLineDash([5,5]);
+  ctx.beginPath(); ctx.moveTo(0, vinY); ctx.lineTo(w, vinY); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#f0f6fc'; ctx.font = '10px JetBrains Mono'; ctx.textAlign = 'right';
+  ctx.fillText('VIN', w - 8, vinY - 4);
+
+  /* VDAC staircase */
+  ctx.strokeStyle = '#58a6ff'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(0, yOf(0));
+  let currentAbs = 0;
+  const sign = sarState.step > 0 ? (sarState.bits[0] === 1 ? -1 : 1) : (sarState.vin < 0 ? -1 : 1);
+  const stepW = w / 12;
+  if(sarState.step > 0) {
+    ctx.lineTo(stepW, yOf(0));
+  }
+  for(let i=1; i<sarState.step; i++) {
+    const x = i * stepW;
+    const magStep = i - 1;
+    const bitPos = 10 - magStep;
+    const weightMv = SAR_FS_MV * (1 << bitPos) / SAR_MAG_MAX;
+    const trialAbs = currentAbs + weightMv;
+    const trial = sign * trialAbs;
+
+    ctx.lineTo(x, yOf(trial));
+    ctx.lineTo(x + stepW, yOf(trial));
+
+    if(sarState.bits[i] === 1) currentAbs = trialAbs;
+    ctx.lineTo(x + stepW, yOf(sign * currentAbs));
+  }
+  ctx.stroke();
+}
+
+/* Init SAR */
+sarRender();
+
+/* ═══════════════════════════════════════════
+   MODULE: CDAC VISUALIZATION
+═══════════════════════════════════════════ */
+const cdacState = {
+  phase: 0,
+  vinDiff: 600 /* mV differential: VINP − VINN */
+};
+
+function getCdacPhaseData(phase, fullTl) {
+  if (phase === 0) return {
+    title: 'FASE 0 — MUESTREO (IMCS)', badge: 'SAMPLE', badgeClass: 'badge-blue',
+    heading: 'Muestreo invertido',
+    desc: 'Top-plates se conectan a VCM (SampleA). Bottom-plates del array P a VINP y N a VINN (SampleB). Se almacena Q = C×(VCM − VIN) en cada array.'
+  };
+  if (phase === 1) return {
+    title: 'FASE 1 — INVERSIÓN', badge: 'INVERSIÓN', badgeClass: 'badge-amber',
+    heading: 'Inversión bottom-plate',
+    desc: 'Top-plates flotantes. Bottom-plates pasan a VCM. El MSB se decide inmediatamente comparando los diferenciales residuales.'
+  };
+  const bitLevel = 5 - (phase - 2);
+  const bit = fullTl[phase].bit;
+  return {
+    title: `FASE ${phase} — CYCLE B${bitLevel}`, badge: `BIT ${bitLevel}`, badgeClass: 'badge-green',
+    heading: `Evaluando Bit ${bitLevel}`,
+    desc: `El iterador arroja Bit=${bit}. El DAC conecta las placas inferiores de B${bitLevel} a VDD/VSS de forma opuesta para aproximar V_top a VCM.`
+  };
+}
+
+function cdacVinChange() {
+  cdacState.vinDiff = parseInt(document.getElementById('cdac-vin-slider').value);
+  document.getElementById('cdac-vin-val').textContent =
+    (cdacState.vinDiff >= 0 ? '+' : '') + cdacState.vinDiff + ' mV';
+  cdacRenderPhase();
+}
+
+function getCdacTimeline() {
+  const VCM = 900, N = 6;
+  const vd = cdacState.vinDiff;
+  const VINP = VCM + vd / 2;
+  const VINN = VCM - vd / 2;
+  const Ctotal = (1 << N) - 1; /* 63 */
+  const tl = [];
+  /* Phase 0: sample — top plates held at VCM */
+  tl.push({vtopP: VCM, vtopN: VCM, phase: 0});
+  /* Phase 1: inversion — bottom plates → VCM, Q conserved */
+  const invP = 2 * VCM - VINP;
+  const invN = 2 * VCM - VINN;
+  tl.push({vtopP: invP, vtopN: invN, phase: 1});
+  /* Phase 2..7: bit cycling — binary search back to VCM */
+  let vP = invP, vN = invN;
+  for (let i = 0; i < N; i++) {
+    const w = 1 << (N - 1 - i);
+    const step = VCM * w / Ctotal;
+    /* Comparator: if V_top_P < V_top_N → bit=1 */
+    const bit = (vP < vN) ? 1 : 0;
+    if (bit === 1) {
+      /* P: bottom VCM→VDD  →  V_top_P rises */
+      /* N: bottom VCM→VSS  →  V_top_N falls */
+      vP += step; vN -= step;
+    } else {
+      /* P: bottom VCM→VSS  →  V_top_P falls */
+      /* N: bottom VCM→VDD  →  V_top_N rises */
+      vP -= step; vN += step;
+    }
+    // phase index matches iteration: 2 + i
+    tl.push({vtopP: vP, vtopN: vN, phase: 2 + i, bit: bit, label: 'B' + (N - 1 - i)});
+  }
+  return tl;
+}
+
+function cdacPrevPhase() {
+  cdacState.phase = (cdacState.phase - 1 + 8) % 8;
+  cdacRenderPhase();
+}
+function cdacNextPhase() {
+  cdacState.phase = (cdacState.phase + 1) % 8;
+  cdacRenderPhase();
+}
+function cdacReset() {
+  cdacState.phase = 0;
+  cdacRenderPhase();
+}
+
+function cdacRenderPhase() {
+  const phase = cdacState.phase;
+  const fullTl = getCdacTimeline();
+  const pd = getCdacPhaseData(phase, fullTl);
+  const VCM = 900;
+  const vd = cdacState.vinDiff;
+  const VINP = VCM + vd / 2;
+  const VINN = VCM - vd / 2;
+
+  document.getElementById('cdac-phase-title').textContent = pd.title;
+  document.getElementById('cdac-phase-badge').textContent = pd.badge;
+  document.getElementById('cdac-phase-badge').className = 'badge ' + pd.badgeClass;
+  document.getElementById('cdac-phase-heading').textContent = pd.heading;
+  document.getElementById('cdac-phase-desc').textContent = pd.desc;
+
+  /* Dynamic equation per phase */
+  let eq;
+  if (phase === 0) {
+    eq = 'TP → <span class="c-vcm">VCM</span> (SampleA)' +
+      '<br>BP_P → VINP = <span class="c-vdd">' + VINP + ' mV</span>' +
+      '<br>BP_N → VINN = <span class="c-vss">' + VINN + ' mV</span>' +
+      '<br>Q_P = C·(VCM − VINP) = C·(' + (VCM - VINP) + ' mV)' +
+      '<br>Q_N = C·(VCM − VINN) = C·(' + (VCM - VINN) + ' mV)';
+  } else if (phase === 1) {
+    const invP = 2 * VCM - VINP, invN = 2 * VCM - VINN;
+    eq = 'BP → <span class="c-vcm">VCM</span> (ambos arrays)' +
+      '<br>V_top_P = 2·VCM − VINP = <span class="c-vdd">' + Math.round(invP) + ' mV</span>' +
+      '<br>V_top_N = 2·VCM − VINN = <span class="c-vss">' + Math.round(invN) + ' mV</span>' +
+      '<br>Dif = <span class="c-amb">' + Math.round(invP - invN) + ' mV = −VIN_dif</span>';
+  } else {
+    const bit = fullTl[phase].bit;
+    eq = 'Decisión de iteración iterativa arrojó Bit=' + bit + '. Ajustando sub-nets...' +
+      (bit === 1 ? '<br>BP_P → <span class="c-vdd">VDD</span>, BP_N → <span class="c-vss">VSS</span>' : '<br>BP_P → <span class="c-vss">VSS</span>, BP_N → <span class="c-vdd">VDD</span>') +
+      '<br>Dif residual: <span class="c-amb">' + Math.round(fullTl[phase].vtopP - fullTl[phase].vtopN) + ' mV</span>';
+  }
+  document.getElementById('cdac-phase-eq').innerHTML = eq;
+
+  /* Compute voltages at current phase */
+  const pt = fullTl[phase];
+  document.getElementById('cdac-vtop-p').textContent = Math.round(pt.vtopP) + ' mV';
+  document.getElementById('cdac-vtop-n').textContent = Math.round(pt.vtopN) + ' mV';
+  document.getElementById('cdac-vtop-diff').textContent = Math.round(pt.vtopP - pt.vtopN) + ' mV';
+
+  /* Phase dots */
+  document.querySelectorAll('#cdac-phase-dots .phase-dot')
+    .forEach((d, i) => d.classList.toggle('active', i === phase));
+
+  drawCDACsvg(phase, fullTl);
+  drawCDACcanvas(fullTl, phase);
+}
+
+function drawCDACsvg(phase, fullTl) {
+  const svg = document.getElementById('cdac-svg');
+  const COLORS = {
+    vdd: '#ff4444', vss: '#4488ff', vcm: '#22c55e',
+    vinp: '#f0f6fc', vinn: '#79c0ff', inactive: '#484f58', float: '#2a3f5a'
+  };
+  function swColor(s) { return COLORS[s] || COLORS.inactive; }
+  function swLabel(s) {
+    return {vdd:'VDD',vss:'VSS',vcm:'VCM',vinp:'VINP',vinn:'VINN',float:'FLOAT'}[s] || s.toUpperCase();
+  }
+
+  const xCenters = [30, 80, 130,   240, 290, 340];
+  const labels   = ['1Cu', '2Cu', '4Cu', '8Cu', '16Cu', '32Cu'];
+  const TPL_startX = 10, TPL_endX = 150;
+  const TPR_startX = 220, TPR_endX = 360;
+  const bridgeX = 185;
+
+  const yP = 80;
+  const yN = 250;
+  
+  const tpCol = (phase === 0) ? COLORS.vcm : ((phase === 1) ? COLORS.float : '#a371f7');
+
+  let html = '';
+
+  function drawArray(isP, topY) {
+    const arr = isP ? 'P' : 'N';
+    const botY = topY + 65;
+    
+    // TPS Buses
+    html += `<line x1="${TPL_startX}" y1="${topY}" x2="${TPL_endX}" y2="${topY}" stroke="${tpCol}" stroke-width="2.5" stroke-linecap="round"/>`;
+    html += `<text x="${TPL_startX}" y="${topY-8}" fill="${tpCol}" font-size="9" font-family="'JetBrains Mono'" text-anchor="start">TPL_${arr}</text>`;
+
+    html += `<line x1="${TPR_startX}" y1="${topY}" x2="${TPR_endX}" y2="${topY}" stroke="${tpCol}" stroke-width="2.5" stroke-linecap="round"/>`;
+    html += `<text x="${TPR_endX}" y="${topY-8}" fill="${tpCol}" font-size="9" font-family="'JetBrains Mono'" text-anchor="end">TPR_${arr}</text>`;
+
+    // Bridge Capacitor (drawn explicitly as capacitor)
+    html += `<line x1="${bridgeX-3}" y1="${topY-12}" x2="${bridgeX-3}" y2="${topY+12}" stroke="#e3b341" stroke-width="2.5"/>`;
+    html += `<line x1="${bridgeX+3}" y1="${topY-12}" x2="${bridgeX+3}" y2="${topY+12}" stroke="#e3b341" stroke-width="2.5"/>`;
+    html += `<text x="${bridgeX}" y="${topY+22}" text-anchor="middle" fill="#e3b341" font-size="8" font-family="'JetBrains Mono'">CB</text>`;
+    html += `<line x1="${TPL_endX}" y1="${topY}" x2="${bridgeX-3}" y2="${topY}" stroke="${tpCol}" stroke-width="2.5"/>`;
+    html += `<line x1="${bridgeX+3}" y1="${topY}" x2="${TPR_startX}" y2="${topY}" stroke="${tpCol}" stroke-width="2.5"/>`;
+
+    // VCM switches (drawn upwards)
+    const tplSwX = 145;
+    const tplSwCol = (phase === 0) ? COLORS.vcm : COLORS.inactive;
+    html += `<line x1="${tplSwX}" y1="${topY}" x2="${tplSwX}" y2="${topY-14}" stroke="${tplSwCol}" stroke-width="1.5"/>`;
+    if(phase === 0) {
+      html += `<line x1="${tplSwX}" y1="${topY-14}" x2="${tplSwX}" y2="${topY-26}" stroke="${tplSwCol}" stroke-width="1.5"/>`;
+      html += `<text x="${tplSwX}" y="${topY-30}" fill="${COLORS.vcm}" font-size="9" text-anchor="middle" font-family="'JetBrains Mono'">VCM</text>`;
+    } else {
+      html += `<line x1="${tplSwX}" y1="${topY-14}" x2="${tplSwX-8}" y2="${topY-22}" stroke="${tplSwCol}" stroke-width="1.5"/>`;
+      html += `<text x="${tplSwX-8}" y="${topY-26}" fill="${COLORS.inactive}" font-size="9" text-anchor="middle" font-family="'JetBrains Mono'">VCM</text>`;
+    }
+
+    const tprSwX = 225;
+    html += `<line x1="${tprSwX}" y1="${topY}" x2="${tprSwX}" y2="${topY-14}" stroke="${tplSwCol}" stroke-width="1.5"/>`;
+    if(phase === 0) {
+      html += `<line x1="${tprSwX}" y1="${topY-14}" x2="${tprSwX}" y2="${topY-26}" stroke="${tplSwCol}" stroke-width="1.5"/>`;
+      html += `<text x="${tprSwX}" y="${topY-30}" fill="${COLORS.vcm}" font-size="9" text-anchor="middle" font-family="'JetBrains Mono'">VCM</text>`;
+    } else {
+      html += `<line x1="${tprSwX}" y1="${topY-14}" x2="${tprSwX+8}" y2="${topY-22}" stroke="${tplSwCol}" stroke-width="1.5"/>`;
+      html += `<text x="${tprSwX+8}" y="${topY-26}" fill="${COLORS.inactive}" font-size="9" text-anchor="middle" font-family="'JetBrains Mono'">VCM</text>`;
+    }
+
+    // Array Capacitors
+    xCenters.forEach((cx, i) => {
+      html += `<line x1="${cx}" y1="${topY}" x2="${cx}" y2="${topY+15}" stroke="${tpCol}" stroke-width="1.5"/>`;
+      html += `<line x1="${cx-10}" y1="${topY+15}" x2="${cx+10}" y2="${topY+15}" stroke="${tpCol}" stroke-width="2.5"/>`;
+      html += `<line x1="${cx-10}" y1="${topY+25}" x2="${cx+10}" y2="${topY+25}" stroke="#8b949e" stroke-width="2.5"/>`;
+      
+      let sw = '';
+      if(phase === 0) sw = isP ? 'vinp' : 'vinn';
+      else if(phase === 1) sw = 'vcm';
+      else {
+        // bit logic mapping index i (0..5) to bit levels (Bit 0 to Bit 5)
+        // Array index 5 (32Cu) is Bit 5 -> decided at phase=2
+        // Array index 0 (1Cu) is Bit 0 -> decided at phase=7
+        const testPhase = 2 + (5 - i); // phase 2..7
+        if (phase < testPhase) {
+          sw = 'vcm';
+        } else {
+          const bitDecision = fullTl[testPhase].bit; // 1 or 0
+          if (bitDecision === 1) sw = isP ? 'vdd' : 'vss';
+          else sw = isP ? 'vss' : 'vdd';
+        }
+      }
+      
+      const swCol = swColor(sw);
+      html += `<line x1="${cx}" y1="${topY+25}" x2="${cx}" y2="${botY}" stroke="${swCol}" stroke-width="1.5"/>`;
+      html += `<rect x="${cx-16}" y="${botY}" width="32" height="18" rx="4" fill="rgba(28,33,40,0.9)" stroke="${swCol}" stroke-width="1"/>`;
+      html += `<text x="${cx}" y="${botY+12}" text-anchor="middle" fill="${swCol}" font-size="8" font-weight="600" font-family="'JetBrains Mono'">${swLabel(sw)}</text>`;
+      html += `<text x="${cx}" y="${topY+10}" text-anchor="middle" fill="#484f58" font-size="8" font-family="'JetBrains Mono'">${labels[i]}</text>`;
+    });
+  }
+
+  drawArray(true, yP);
+  drawArray(false, yN);
+
+  // Comparator drawing spanning both arrays
+  const compCol = (phase >= 2) ? '#a371f7' : '#484f58';
+  html += `<polygon points="410,${yP-20} 500,${(yP+yN)/2} 410,${yN+20}" fill="rgba(13,17,23,0.9)" stroke="${compCol}" stroke-width="2"/>`;
+  html += `<text x="440" y="${(yP+yN)/2 + 4}" fill="${compCol}" font-size="11" font-weight="600" font-family="'JetBrains Mono'" text-anchor="middle">COMP</text>`;
+
+  // Connections TPR -> Comparator
+  html += `<line x1="${TPR_endX}" y1="${yP}" x2="410" y2="${yP}" stroke="${tpCol}" stroke-width="1.5"/>`;
+  html += `<text x="395" y="${yP-5}" fill="#f0f6fc" font-size="10" font-family="'JetBrains Mono'">+</text>`;
+  
+  html += `<line x1="${TPR_endX}" y1="${yN}" x2="410" y2="${yN}" stroke="${tpCol}" stroke-width="1.5"/>`;
+  html += `<text x="395" y="${yN+12}" fill="#f0f6fc" font-size="10" font-family="'JetBrains Mono'">−</text>`;
+
+  // Parasitic caps to GND
+  function drawCp(x, y, labelY) {
+    let ht = '';
+    ht += `<line x1="${x}" y1="${y}" x2="${x}" y2="${y+15}" stroke="#f87171" stroke-width="1"/>`;
+    ht += `<line x1="${x-8}" y1="${y+15}" x2="${x+8}" y2="${y+15}" stroke="#f87171" stroke-width="2"/>`;
+    ht += `<line x1="${x-8}" y1="${y+21}" x2="${x+8}" y2="${y+21}" stroke="#f87171" stroke-width="2"/>`;
+    ht += `<line x1="${x}" y1="${y+21}" x2="${x}" y2="${y+35}" stroke="#f87171" stroke-width="1"/>`;
+    // Explicit GND symbol
+    ht += `<line x1="${x-8}" y1="${y+35}" x2="${x+8}" y2="${y+35}" stroke="#8b949e" stroke-width="1.5"/>`;
+    ht += `<line x1="${x-5}" y1="${y+38}" x2="${x+5}" y2="${y+38}" stroke="#8b949e" stroke-width="1.5"/>`;
+    ht += `<line x1="${x-2}" y1="${y+41}" x2="${x+2}" y2="${y+41}" stroke="#8b949e" stroke-width="1.5"/>`;
+    ht += `<text x="${x-12}" y="${y+labelY}" fill="#f87171" font-size="8" font-family="'JetBrains Mono'" text-anchor="end">Cp</text>`;
+    return ht;
+  }
+  
+  html += drawCp(380, yP, 23);
+  html += drawCp(380, yN, 23);
+
+  svg.innerHTML = html;
+}
+
+function drawCDACcanvas(fullTl, phase) {
+  const cvs = document.getElementById('cdac-canvas');
+  const w = cvs.offsetWidth; if (!w) return;
+  cvs.width = w; cvs.height = 180;
+  const ctx = cvs.getContext('2d');
+  ctx.fillStyle = '#161b22'; ctx.fillRect(0, 0, w, 180);
+  const pad = {l: 50, r: 10, t: 22, b: 26};
+  const cw = w - pad.l - pad.r;
+  const ch = 180 - pad.t - pad.b;
+  const VCM = 900, VDD = 1800;
+  const totalPts = fullTl.length; // 8
+  const tl = fullTl.slice(0, phase + 1);
+  const drawnPts = tl.length;
+
+  /* Determine Y range statically using fullTl to avoid jumping scales */
+  let allMin = VCM, allMax = VCM;
+  fullTl.forEach(function(pt) {
+    if (pt.vtopP < allMin) allMin = pt.vtopP;
+    if (pt.vtopN < allMin) allMin = pt.vtopN;
+    if (pt.vtopP > allMax) allMax = pt.vtopP;
+    if (pt.vtopN > allMax) allMax = pt.vtopN;
+  });
+  const vMin = Math.min(0, allMin - 60);
+  const vMax = Math.max(VDD, allMax + 60);
+  const vRange = vMax - vMin;
+  function yOf(v) { return pad.t + ch - ((v - vMin) / vRange) * ch; }
+
+  /* Grid lines */
+  ctx.strokeStyle = '#1c2128'; ctx.lineWidth = 0.5;
+  [0, VCM, VDD].forEach(function(v) {
+    if (v >= vMin && v <= vMax) {
+      const y = yOf(v);
+      ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + cw, y); ctx.stroke();
+      ctx.fillStyle = v === VCM ? '#4ade80' : '#484f58';
+      ctx.font = '8px JetBrains Mono'; ctx.textAlign = 'right';
+      ctx.fillText(v === VCM ? 'VCM' : v + 'mV', pad.l - 3, y + 3);
+    }
+  });
+
+  /* X positions for the 8 phases (0 to 7) */
+  const xPos = [];
+  for (let i = 0; i < totalPts; i++) {
+    if (i < 2) xPos.push(pad.l + (i / 2) * cw * 0.25);
+    else xPos.push(pad.l + cw * 0.25 + ((i - 2) / (totalPts - 2)) * cw * 0.75);
+  }
+
+  /* Phase boundary dashed lines */
+  ctx.strokeStyle = '#1c2128'; ctx.lineWidth = 0.5; ctx.setLineDash([3, 3]);
+  [0, 1].forEach(function(idx) {
+    if (idx < totalPts) {
+      ctx.beginPath(); ctx.moveTo(xPos[idx], pad.t); ctx.lineTo(xPos[idx], pad.t + ch); ctx.stroke();
+    }
+  });
+  ctx.setLineDash([]);
+
+  /* Highlight current phase region */
+  // The specific phase width highlights the step we are currently at
+  const phIdx0 = phase;
+  const phIdx1 = Math.min(totalPts - 1, phase + 1);
+  const phColors = phase === 0 ? '#58a6ff' : (phase === 1 ? '#e3b341' : '#22c55e');
+  ctx.fillStyle = phColors + '12';
+  // Highlight only the current segment (or end point region)
+  if (phase < totalPts - 1) {
+    ctx.fillRect(xPos[phIdx0] - 1, pad.t, xPos[phIdx1] - xPos[phIdx0] + 2, ch);
+  } else {
+    ctx.fillRect(xPos[phIdx0] - 10, pad.t, 20, ch);
+  }
+
+  /* VCM target dashed line */
+  ctx.strokeStyle = '#22c55e44'; ctx.lineWidth = 1; ctx.setLineDash([5, 5]);
+  ctx.beginPath(); ctx.moveTo(pad.l, yOf(VCM)); ctx.lineTo(pad.l + cw, yOf(VCM)); ctx.stroke();
+  ctx.setLineDash([]);
+
+  /* Trace P: staircase (warm red) */
+  ctx.strokeStyle = '#ff6b6b'; ctx.lineWidth = 2; ctx.beginPath();
+  for (let i = 0; i < drawnPts; i++) {
+    const x = xPos[i], y = yOf(tl[i].vtopP);
+    if (i === 0) ctx.moveTo(x, y);
+    else { ctx.lineTo(x, yOf(tl[i - 1].vtopP)); ctx.lineTo(x, y); }
+  }
+  ctx.stroke();
+
+  /* Trace N: staircase (cool blue) */
+  ctx.strokeStyle = '#6ba3ff'; ctx.lineWidth = 2; ctx.beginPath();
+  for (let i = 0; i < drawnPts; i++) {
+    const x = xPos[i], y = yOf(tl[i].vtopN);
+    if (i === 0) ctx.moveTo(x, y);
+    else { ctx.lineTo(x, yOf(tl[i - 1].vtopN)); ctx.lineTo(x, y); }
+  }
+  ctx.stroke();
+
+  /* Endpoint dots */
+  const last = tl[drawnPts - 1];
+  ctx.fillStyle = '#ff6b6b';
+  ctx.beginPath(); ctx.arc(xPos[drawnPts - 1], yOf(last.vtopP), 3, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#6ba3ff';
+  ctx.beginPath(); ctx.arc(xPos[drawnPts - 1], yOf(last.vtopN), 3, 0, Math.PI * 2); ctx.fill();
+
+  /* X axis labels */
+  ctx.font = '7px JetBrains Mono'; ctx.textAlign = 'center'; ctx.fillStyle = '#484f58';
+  ctx.fillText('Smp.', xPos[0], pad.t + ch + 12);
+  ctx.fillText('Inv.', xPos[1], pad.t + ch + 12);
+  for (let i = 2; i < totalPts; i++) {
+    if (fullTl[i].label) ctx.fillText(fullTl[i].label, xPos[i], pad.t + ch + 12);
+  }
+
+  /* Legend */
+  ctx.font = '9px JetBrains Mono';
+  ctx.fillStyle = '#ff6b6b'; ctx.fillRect(pad.l + 4, pad.t - 2, 14, 3);
+  ctx.textAlign = 'left'; ctx.fillText('V_top P', pad.l + 22, pad.t + 3);
+  ctx.fillStyle = '#6ba3ff'; ctx.fillRect(pad.l + 90, pad.t - 2, 14, 3);
+  ctx.fillText('V_top N', pad.l + 108, pad.t + 3);
+}
+
+cdacRenderPhase();
+
+/* ═══════════════════════════════════════════
+   MODULE: PARASITICS
+═══════════════════════════════════════════ */
+function updateParasitics() {
+  const dummy = document.getElementById('tog-dummy').checked;
+  const parasitic = document.getElementById('tog-parasitic').checked;
+  drawParaCanvas(dummy, parasitic);
+  const card = document.getElementById('para-result-card');
+  const txt = document.getElementById('para-result-text');
+  if(dummy) {
+    card.className = 'card card-green';
+    txt.innerHTML = '<strong style="color:var(--vcm2)">Con dummies activos:</strong><br>W_dummy = 0.5 × W_active. El transistor dummy absorbe ~50% de la carga inyectada, reduciendo significativamente el error. Efectivo cuando el falltime de sample es corto.';
+  } else {
+    card.className = 'card card-red';
+    txt.innerHTML = '<strong style="color:var(--vdd2)">Sin dummies:</strong><br>La carga inyectada al capacitor de muestreo es proporcional a VIN. Introduce un error no lineal que degrada el SNDR y el SFDR del ADC.';
+  }
+}
+
+function drawParaCanvas(dummy, parasitic) {
+  const cvs = document.getElementById('para-canvas');
+  const w = cvs.offsetWidth; if(!w) return;
+  cvs.width = w; cvs.height = 160;
+  const ctx = cvs.getContext('2d');
+  ctx.fillStyle = '#161b22'; ctx.fillRect(0,0,w,160);
+  const pad = {l:50,r:10,t:12,b:24};
+  const cw = w-pad.l-pad.r, ch = 160-pad.t-pad.b;
+  const VIN = 1200; /* mV */
+  const inject = dummy ? 8 : 35; /* mV glitch */
+  const cpErr = parasitic ? 15 : 0;
+  /* Axes */
+  ctx.strokeStyle = '#1c2128'; ctx.lineWidth = 0.5;
+  [0, C.VCM, VIN, C.VDD].forEach(v => {
+    const y = pad.t + ch - (v/C.VDD)*ch;
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+cw,y); ctx.stroke();
+    ctx.fillStyle = '#484f58'; ctx.font='8px JetBrains Mono'; ctx.textAlign='right';
+    ctx.fillText(v+'mV', pad.l-4, y+3);
+  });
+  ctx.textAlign='left';
+  /* Waveform: VIN steady → glitch at switch open → settle */
+  const pts = [];
+  const n = 100;
+  for(let i=0;i<n;i++) {
+    const t = i/n;
+    let v;
+    if(t < 0.3) { v = VIN; }
+    else if(t < 0.35) {
+      const g = Math.exp(-(((t-0.32)/0.02)**2));
+      v = VIN - inject*g - cpErr*g*0.5;
+    } else {
+      const settle = 1 - Math.exp(-(t-0.35)*25);
+      const finalErr = dummy ? 3 : inject*0.6;
+      v = VIN - finalErr*settle;
+    }
+    pts.push({x: pad.l + t*cw, y: pad.t + ch - (v/C.VDD)*ch});
+  }
+  ctx.strokeStyle = dummy ? '#4ade80' : '#ff6b6b';
+  ctx.lineWidth = 2; ctx.setLineDash([]);
+  ctx.beginPath();
+  pts.forEach((p,i) => i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y));
+  ctx.stroke();
+  /* Sample edge marker */
+  const ex = pad.l + 0.3*cw;
+  ctx.strokeStyle = '#e3b341'; ctx.lineWidth = 1; ctx.setLineDash([4,3]);
+  ctx.beginPath(); ctx.moveTo(ex,pad.t); ctx.lineTo(ex,pad.t+ch); ctx.stroke();
+  ctx.setLineDash([]); ctx.fillStyle = '#e3b341'; ctx.font='9px JetBrains Mono';
+  ctx.fillText('sample↓', ex+4, pad.t+12);
+  /* Glitch annotation */
+  if(!dummy) {
+    ctx.fillStyle = '#f87171'; ctx.font='9px JetBrains Mono';
+    ctx.fillText(`glitch≈${inject}mV`, ex+4, pad.t+ch-30);
+  } else {
+    ctx.fillStyle = '#4ade80'; ctx.font='9px JetBrains Mono';
+    ctx.fillText('glitch reducido', ex+4, pad.t+ch-30);
+  }
+  /* X labels */
+  ctx.fillStyle = '#484f58'; ctx.font='8px JetBrains Mono'; ctx.textAlign='center';
+  ctx.fillText('tracking', pad.l+cw*0.15, pad.t+ch+14);
+  ctx.fillText('switch open', pad.l+cw*0.35, pad.t+ch+14);
+  ctx.fillText('hold', pad.l+cw*0.7, pad.t+ch+14);
+}
+
+drawParaCanvas(false, false);
+
+/* ═══════════════════════════════════════════
+   MODULE: PREAMP & LATCH
+═══════════════════════════════════════════ */
+const preampState = { phase: 0, dvin: 1 };
+function preampDvinChange() {
+  preampState.dvin = parseFloat(document.getElementById('preamp-dvin').value);
+  document.getElementById('preamp-dvin-val').textContent = (preampState.dvin >= 0 ? '+' : '') + preampState.dvin + ' LSB (' + Math.round(Math.abs(preampState.dvin)*C.LSB*1000) + ' µV)';
+  preampUpdate();
+}
+function preampNextPhase() {
+  preampState.phase = (preampState.phase === 0) ? 1 : 0;
+  preampUpdate();
+}
+function preampReset() { preampState.phase = 0; preampUpdate(); }
+function preampUpdate() {
+  if (preampState.phase === 0) {
+    document.getElementById('preamp-phase-title').textContent = 'Fase de Reset';
+    document.getElementById('preamp-phase-desc').innerHTML = 'En fase de reset, <b>vcpp</b> y <b>vcpn</b> están cargados a VDD (1.80V) a la espera del flanco positivo del reloj.';
+    setNodeColor('node-vcpp','val-vcpp', 1.8);
+    setNodeColor('node-vcpn','val-vcpn', 1.8);
+  } else {
+    document.getElementById('preamp-phase-title').textContent = 'Fase de Integración';
+    document.getElementById('preamp-phase-desc').innerHTML = 'El pulso de reloj activa la cola. Los nodos se descargan a <b>velocidades diferentes</b> debido al ΔV en la entrada, generando el desbalance para el latch. Al final de la fase, ambos convergen a la misma tensión final de reposo.';
+    
+    const final_v = 0.8;
+    setNodeColor('node-vcpp','val-vcpp', final_v);
+    setNodeColor('node-vcpn','val-vcpn', final_v);
+  }
+  drawPreampCanvas();
+}
+
+const latchState = { phase: 0, din: 1 };
+function latchDinChange() {
+  latchState.din = parseFloat(document.getElementById('latch-din').value);
+  document.getElementById('latch-din-val').textContent = (latchState.din >= 0 ? '+' : '') + latchState.din + ' ΔV';
+  latchUpdate();
+}
+function latchNextPhase() {
+  latchState.phase = (latchState.phase === 0) ? 1 : 0;
+  latchUpdate();
+}
+function latchReset() { latchState.phase = 0; latchUpdate(); }
+function latchUpdate() {
+  const sign = latchState.din > 0 ? 1 : (latchState.din < 0 ? -1 : 0);
+  const isMeta = (sign === 0);
+  const absDin = Math.abs(latchState.din);
+  
+  if (latchState.phase === 0) {
+    document.getElementById('latch-phase-title').textContent = 'Fase de Reposo (Pre-carga)';
+    document.getElementById('latch-phase-desc').innerHTML = 'Previo a la decisión, ambos nodos <b>voutp</b> y <b>voutn</b> se encuentran precargados a VDD (1.80V) a la espera del inicio de evaluación.';
+    setNodeColor('node-voutp','val-voutp', 1.8);
+    setNodeColor('node-voutn','val-voutn', 1.8);
+    document.getElementById('latch-phase-card').className = 'card card-purple';
+  } else {
+    if (isMeta) {
+      document.getElementById('latch-phase-title').textContent = 'Estado Metaestable';
+      document.getElementById('latch-phase-desc').innerHTML = 'Al no haber diferencia de tensión, ambos nodos caen simétricamente de forma solapada sin que la realimentación positiva logre forzar la decisión.';
+      document.getElementById('latch-phase-card').className = 'card card-warn';
+    } else {
+      document.getElementById('latch-phase-title').textContent = 'Amplificación y Regeneración';
+      document.getElementById('latch-phase-desc').innerHTML = '<b>Amplificación:</b> Ambos comienzan a descargar a GND. La tensión diferencial causa que uno caiga más rápido que el otro.<br><b>Regeneración:</b> El nodo que bajaba más lento regenera subiendo rápidamente a VDD, y el rápido es forzado a 0V.';
+      document.getElementById('latch-phase-card').className = 'card card-green';
+    }
+    
+    const voutp = isMeta ? 1.0 : (sign > 0 ? 1.8 : 0.0);
+    const voutn = isMeta ? 1.0 : (sign > 0 ? 0.0 : 1.8);
+    setNodeColor('node-voutp','val-voutp', voutp);
+    setNodeColor('node-voutn','val-voutn', voutn);
+  }
+  drawLatchCanvas();
+}
+
+function setNodeColor(id, valId, v) {
+  const el = document.getElementById(id);
+  let c = { border:'#e3b341', bg:'rgba(227,179,65,0.1)' };
+  if(v > 1.3) c = {border:getComputedStyle(document.documentElement).getPropertyValue('--vdd').trim(), bg:'rgba(255,68,68,0.12)'};
+  if(v < 0.5) c = {border:getComputedStyle(document.documentElement).getPropertyValue('--vss').trim(), bg:'rgba(68,136,255,0.12)'};
+  el.style.borderColor = c.border; el.style.background = c.bg; el.style.color = c.border;
+  document.getElementById(valId).textContent = v.toFixed(2)+'V';
+}
+
+function initGridCanvas(cvs, w, h) {
+  cvs.width = w; cvs.height = h;
+  const ctx = cvs.getContext('2d');
+  ctx.fillStyle = '#161b22'; ctx.fillRect(0,0,w,h);
+  const pad = {l:46,r:10,t:10,b:22};
+  const cw = w-pad.l-pad.r, ch = h-pad.t-pad.b;
+  ctx.strokeStyle = '#1c2128'; ctx.lineWidth = 0.5;
+  [0,0.9,1.8].forEach(v => {
+    const y = pad.t + ch - (v/1.8)*ch;
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+cw,y); ctx.stroke();
+    ctx.fillStyle = '#484f58'; ctx.font='8px JetBrains Mono'; ctx.textAlign='right';
+    ctx.fillText(v.toFixed(1)+'V', pad.l-3, y+3);
+  });
+  return { ctx, cw, ch, pad };
+}
+
+function drawTrace(ctx, getVal, color, pad, cw, ch) {
+  ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.beginPath();
+  for(let i=0;i<=80;i++) {
+    const t = i/80;
+    const v = getVal(t);
+    const x = pad.l + t*cw;
+    const y = pad.t + ch - (Math.max(0,Math.min(1.8,v))/1.8)*ch;
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+}
+
+function drawPreampCanvas() {
+  const cvs = document.getElementById('canvas-preamp');
+  if(!cvs) return;
+  const { ctx, cw, ch, pad } = initGridCanvas(cvs, cvs.offsetWidth, 150);
+  
+  // boundaries
+  ctx.strokeStyle = '#1c2128'; ctx.lineWidth = 0.5; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(pad.l+cw*0.5, pad.t); ctx.lineTo(pad.l+cw*0.5, pad.t+ch); ctx.stroke();
+  ctx.setLineDash([]);
+  
+  if (preampState.phase === 1) {
+    ctx.fillStyle = 'rgba(88,166,255,0.05)';
+    ctx.fillRect(pad.l + cw*0.5, pad.t, cw*0.5, ch);
+  }
+  
+  const sign = preampState.dvin >= 0 ? 1 : -1;
+  const factor = Math.abs(preampState.dvin) * 0.20;
+  const final_v = 0.8;
+  const base_speed = 1.6;
+
+  drawTrace(ctx, t => {
+    if (t < 0.5) return 1.8;
+    const r = (t-0.5)/0.5;
+    const dyn_speed = sign >= 0 ? (base_speed + factor) : (base_speed - factor);
+    const prog = Math.min(1, r * dyn_speed);
+    return 1.8 - (1.8 - final_v) * (1 - Math.pow(1-prog, 2));
+  }, '#58a6ff', pad, cw, ch);
+  
+  drawTrace(ctx, t => {
+    if (t < 0.5) return 1.8;
+    const r = (t-0.5)/0.5;
+    const dyn_speed = sign < 0 ? (base_speed + factor) : (base_speed - factor);
+    const prog = Math.min(1, r * dyn_speed);
+    return 1.8 - (1.8 - final_v) * (1 - Math.pow(1-prog, 2));
+  }, '#a371f7', pad, cw, ch);
+  
+  ctx.textAlign='center'; ctx.font='8px JetBrains Mono';
+  ctx.fillStyle = preampState.phase === 0 ? '#e6edf3' : '#484f58'; ctx.fillText('RESET',pad.l+cw*0.25,pad.t+ch+14);
+  ctx.fillStyle = preampState.phase === 1 ? '#e6edf3' : '#484f58'; ctx.fillText('INTEGRA',pad.l+cw*0.75,pad.t+ch+14);
+
+  // Legend
+  [[`#58a6ff`,'vcpp'],[`#a371f7`,'vcpn']].forEach(([c,l],i) => {
+    const lx = pad.l + i*(cw/4);
+    ctx.fillStyle=c; ctx.fillRect(lx,pad.t-6,18,3);
+    ctx.fillStyle='#484f58'; ctx.textAlign='left'; ctx.fillText(l, lx+22, pad.t-3);
+  });
+}
+
+function drawLatchCanvas() {
+  const cvs = document.getElementById('canvas-latch');
+  if(!cvs) return;
+  const { ctx, cw, ch, pad } = initGridCanvas(cvs, cvs.offsetWidth, 150);
+  
+  ctx.strokeStyle = '#1c2128'; ctx.lineWidth = 0.5; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(pad.l+cw*0.5, pad.t); ctx.lineTo(pad.l+cw*0.5, pad.t+ch); ctx.stroke();
+  ctx.setLineDash([]);
+  
+  if (latchState.phase === 1) {
+    ctx.fillStyle = 'rgba(88,166,255,0.05)';
+    ctx.fillRect(pad.l + cw*0.5, pad.t, cw*0.5, ch);
+  }
+  
+  const sign = latchState.din > 0 ? 1 : (latchState.din < 0 ? -1 : 0);
+  const isMeta = (sign === 0);
+  const absDin = Math.abs(latchState.din);
+  
+  // Emulate latch delay depending on differential input strength
+  const strength = Math.min(3, absDin) / 3; 
+  const t_regen = 0.80 - strength * 0.40; 
+  const regen_dur = 0.20; 
+  
+  const v_w_drop = 0.4;
+  const v_l_drop = 0.4 + strength * 0.4 + 0.05;
+
+  function getWinner(r) {
+    if (isMeta) return 1.8 - 0.8 * Math.pow(r, 2);
+    if (r <= t_regen) {
+        return 1.8 - v_w_drop * Math.pow(r / t_regen, 2);
+    } else {
+        const u = Math.min(1, (r - t_regen) / regen_dur);
+        const start_v = 1.8 - v_w_drop;
+        return start_v + (1.8 - start_v) * Math.pow(u, 2);
+    }
+  }
+
+  function getLoser(r) {
+    if (isMeta) return 1.8 - 0.8 * Math.pow(r, 2);
+    if (r <= t_regen) {
+        return 1.8 - v_l_drop * Math.pow(r / t_regen, 2);
+    } else {
+        const u = Math.min(1, (r - t_regen) / regen_dur);
+        const start_v = 1.8 - v_l_drop;
+        return start_v * Math.pow(1 - u, 2);
+    }
+  }
+
+  drawTrace(ctx, t => {
+    if (t < 0.5) return 1.8;
+    const r = (t-0.5)/0.5;
+    return sign >= 0 ? getWinner(r) : getLoser(r);
+  }, '#ff6b6b', pad, cw, ch);
+  
+  drawTrace(ctx, t => {
+    if (t < 0.5) return 1.8;
+    const r = (t-0.5)/0.5;
+    return sign < 0 ? getWinner(r) : getLoser(r);
+  }, '#4ade80', pad, cw, ch);
+  
+  ctx.textAlign='center'; ctx.font='8px JetBrains Mono';
+  ctx.fillStyle = latchState.phase === 0 ? '#e6edf3' : '#484f58'; ctx.fillText('REPOSO',pad.l+cw*0.25,pad.t+ch+14);
+  ctx.fillStyle = latchState.phase === 1 ? '#e6edf3' : '#484f58'; ctx.fillText(isMeta ? 'METAESTABLE' : 'EVAL (AMP + REGEN)',pad.l+cw*0.75,pad.t+ch+14);
+
+  // Legend
+  [[`#ff6b6b`,'voutp'],[`#4ade80`,'voutn']].forEach(([c,l],i) => {
+    const lx = pad.l + i*(cw/4);
+    ctx.fillStyle=c; ctx.fillRect(lx,pad.t-6,18,3);
+    ctx.fillStyle='#484f58'; ctx.textAlign='left'; ctx.fillText(l, lx+22, pad.t-3);
+  });
+}
+
+preampUpdate();
+latchUpdate();
+
+/* ════════════════
+   RESIZE HANDLER
+════════════════ */
+window.addEventListener('resize', () => {
+  drawSarCanvas();
+  drawParaCanvas(document.getElementById('tog-dummy').checked, document.getElementById('tog-parasitic').checked);
+  drawCDACcanvas();
+  drawPreampCanvas();
+  drawLatchCanvas();
+});
+
+/* ════════════════ LIGHTBOX SCRIPT ════════════════ */
+const lightbox = document.createElement('div');
+lightbox.className = 'lightbox';
+lightbox.innerHTML = `
+  <div class="lb-prev" style="position:absolute;left:20px;font-size:50px;line-height:50px;color:rgba(255,255,255,0.4);cursor:pointer;padding:20px;user-select:none;transition:0.2s;z-index:2">&lsaquo;</div>
+  <img src="" alt="Enlarged view" style="position:relative;z-index:1">
+  <div class="lb-next" style="position:absolute;right:20px;font-size:50px;line-height:50px;color:rgba(255,255,255,0.4);cursor:pointer;padding:20px;user-select:none;transition:0.2s;z-index:2">&rsaquo;</div>
+`;
+document.body.appendChild(lightbox);
+
+const lbImg = lightbox.querySelector('img');
+const lbPrev = lightbox.querySelector('.lb-prev');
+const lbNext = lightbox.querySelector('.lb-next');
+
+lbPrev.onmouseover = () => lbPrev.style.color = '#fff';
+lbPrev.onmouseout = () => lbPrev.style.color = 'rgba(255,255,255,0.4)';
+lbNext.onmouseover = () => lbNext.style.color = '#fff';
+lbNext.onmouseout = () => lbNext.style.color = 'rgba(255,255,255,0.4)';
+
+let lbImages = []; // Modificado para ser variable
+let currentLbIndex = -1;
+
+document.querySelectorAll('a.asset-item').forEach(item => {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    const href = this.getAttribute('href');
+    if (href && href.match(/\.(jpeg|jpg|gif|png|svg|bmp)$/i)) {
+      // Filtrar a nivel de seccion
+      const sec = this.closest('section') || document.body;
+      lbImages = [];
+      sec.querySelectorAll('a.asset-item').forEach(el => {
+        const h = el.getAttribute('href');
+        if (h && h.match(/\.(jpeg|jpg|gif|png|svg|bmp)$/i) && !lbImages.includes(h)) {
+          lbImages.push(h);
+        }
+      });
+      currentLbIndex = lbImages.indexOf(href);
+      if (currentLbIndex === -1) {
+         lbImages.push(href);
+         currentLbIndex = lbImages.length - 1;
+      }
+      showLightboxImage();
+    }
+  });
+});
+
+function showLightboxImage() {
+  lbImg.src = lbImages[currentLbIndex];
+  lightbox.style.display = 'flex';
+  void lightbox.offsetWidth; // Forzar render
+  lightbox.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function nextLbImage(e) {
+  if (e) e.stopPropagation();
+  if(currentLbIndex < lbImages.length - 1) {
+    currentLbIndex++;
+    lbImg.src = lbImages[currentLbIndex];
+  }
+}
+function prevLbImage(e) {
+  if (e) e.stopPropagation();
+  if(currentLbIndex > 0) {
+    currentLbIndex--;
+    lbImg.src = lbImages[currentLbIndex];
+  }
+}
+
+lbPrev.addEventListener('click', prevLbImage);
+lbNext.addEventListener('click', nextLbImage);
+
+function closeLightbox(e) {
+  if (e && (e.target === lbPrev || e.target === lbNext || e.target === lbImg)) return;
+  lightbox.classList.remove('show');
+  setTimeout(() => {
+    lightbox.style.display = 'none';
+    document.body.style.overflow = '';
+  }, 300);
+}
+
+lightbox.addEventListener('click', closeLightbox);
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('show')) return;
+  if (e.key === "Escape") closeLightbox();
+  if (e.key === "ArrowRight") nextLbImage();
+  if (e.key === "ArrowLeft") prevLbImage();
+});
+</script>
+
+</body>
+</html>

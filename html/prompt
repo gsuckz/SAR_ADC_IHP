@@ -1,0 +1,447 @@
+Eres un experto en diseño web y microelectrónica. Vas a modificar un archivo HTML de 
+presentación interactiva de una tesis sobre un ADC SAR 12-bit. El archivo usa 
+scroll-snap, animaciones canvas (SAR staircase, CDAC phases, preamp waveform, latch 
+waveform, parasitics), un lightbox de imágenes y un sistema de nav activo.
+
+REGLA ABSOLUTA: no romper ninguna animación ni función de interactividad existente. 
+Solo modificar estructura HTML, texto visible, y agregar nuevas secciones estáticas.
+
+════════════════════════════════════════════
+CAMBIOS GLOBALES DE ESTILO
+════════════════════════════════════════════
+
+En TODAS las secciones existentes:
+- Eliminar todos los párrafos <p> de más de 2 líneas. Reemplazar con bullets 
+  de máximo 5 palabras cada uno.
+- Reemplazar texto descriptivo con datos numéricos en .eq boxes o stat-pills.
+- Eliminar frases que "el presentador diría en voz" — solo datos y conceptos clave.
+- NO agregar texto nuevo donde ya hay texto. Solo reducir.
+
+════════════════════════════════════════════
+ORDEN FINAL DE SECCIONES
+════════════════════════════════════════════
+
+00  #s-whoami        ← NUEVA
+01  #s-hero          ← existente (sin cambios internos)
+02  #s-workflow      ← existente (reducir texto, mantener SVG)
+03  #s-specs         ← NUEVA
+04  #s-overview      ← existente (mantener SVG, reducir texto)
+05  #s-sar           ← existente (sin cambios)
+06  #s-cdac          ← existente + agregar 3 cards nuevas al final:
+                        non-overlap, charge sharing, referencia a parásitos
+07  #s-parasitos     ← existente (mantener TODO intacto — solo reducir texto)
+08  #s-comp          ← existente (reducir texto, agregar cards puntos críticos)
+09  #s-logic         ← existente (reducir texto, agregar card cadena de buffers)
+10  #s-pgen-timing   ← FUSIÓN de s-pgen + s-timing
+11  #s-layout        ← existente (sin cambios)
+12  #s-pcells        ← NUEVA
+13  #s-lohice        ← NUEVA
+14  #s-tapeout       ← NUEVA
+15  #s-limits        ← existente (reducir texto, conservar tabla)
+16  #s-end           ← existente (agregar agradecimientos)
+
+Actualizar el <nav> con exactamente estos IDs en este orden.
+Eliminar nav-links de #s-comp-preamp y #s-comp-latch.
+Reemplazar nav-links de #s-pgen y #s-timing por uno solo:
+  <a href="#s-pgen-timing" class="nav-link">PGEN</a>
+
+════════════════════════════════════════════
+SECCIÓN NUEVA: #s-whoami
+════════════════════════════════════════════
+
+Insertar como primera sección, antes de #s-hero.
+scroll-snap-align: start. Layout centrado igual al hero, sin scan-line.
+
+- sec-label: "00 — Presentación"
+- grid-2 interno, gap 40px, align-items center, max-width 800px, margin auto:
+
+  Columna izquierda:
+  <div class="image-placeholder" style="width:180px;height:180px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  margin:0 auto">[ Foto ]</div>
+
+  Columna derecha:
+  · h1 font-size clamp(32px,5vw,60px), font-weight 800:
+    "[NOMBRE COMPLETO]"
+  · p font-size 16px, color var(--text2), margin-top 8px:
+    "Ingeniería en Electrónica · FACET · UNT"
+  · div .hero-tags margin-top 16px:
+      <span class="badge badge-blue">Trabajo Final de Carrera</span>
+      <span class="badge badge-gray">2025</span>
+  · p font-size 13px, color var(--text3), margin-top 20px:
+    "Diseño de un ADC SAR 12b en tecnología open-source ihp-sg13g2."
+
+════════════════════════════════════════════
+SECCIÓN NUEVA: #s-specs
+════════════════════════════════════════════
+
+Insertar después de #s-workflow, antes de #s-overview.
+scroll-snap-align: start.
+
+- sec-label: "01 — Especificaciones"
+- h2: "Especificaciones del <span style='color:var(--accent)'>Sistema</span>"
+
+stat-grid con 6 stat-pills:
+  12          | Bits resolución
+  40 MSa/s    | Velocidad objetivo
+  1.8 V       | VDD
+  3.6 Vpp     | Rango diferencial
+  878 µV      | 1 LSB
+  220 pJ      | Energía / conversión
+
+grid-2 debajo (gap 24px):
+  Columna izquierda — tabla .tbl, columnas: Parámetro / Valor / Condición:
+    Frecuencia muestreo  | 40 MS/s              | Simulación TT
+    Resolución           | 12 bits              | —
+    VDD                  | 1.8 V                | —
+    Vin diferencial      | ±0.9 V               | Diferencial
+    1 LSB                | 878 µV               | Vref = 1.8 V
+    Cu (unit cap)        | 13.9 fF              | CDAC MIM
+    C_total CDAC         | ~2 pF                | Array 6+6
+    Arquitectura         | SAR + IMCS           | —
+    PDK                  | ihp-sg13g2           | 130 nm BiCMOS
+    Herramientas         | xschem·ngspice·KLayout | Open-source
+
+  Columna derecha — placeholder:
+  <div class="image-placeholder" style="min-height:280px;display:flex;
+  align-items:center;justify-content:center">
+    [ Diagrama de bloques simplificado del sistema ]
+  </div>
+
+════════════════════════════════════════════
+MODIFICAR: #s-workflow
+════════════════════════════════════════════
+
+- Reemplazar párrafo introductorio por 1 frase de máx 15 palabras.
+- En cada card (xschem, ngspice, KLayout): eliminar el <p> descriptivo. 
+  Dejar solo título + badge + placeholder existente.
+- Eliminar completamente el div de "Otras herramientas relevantes".
+- No tocar el SVG de flujo.
+
+════════════════════════════════════════════
+MODIFICAR: #s-overview
+════════════════════════════════════════════
+
+- Reemplazar párrafo introductorio por 1 línea.
+- No tocar el SVG block diagram.
+- En las 3 cards debajo: reducir cada <p> a 2 bullets de máx 5 palabras.
+- Conservar asset-panel.
+
+════════════════════════════════════════════
+MODIFICAR: #s-cdac — agregar 3 cards nuevas al final
+════════════════════════════════════════════
+
+No tocar nada del bloque interactivo (canvas, fases, sliders, botones, 
+texto principal, asset-panel existente).
+
+Agregar DESPUÉS del asset-panel existente, en este orden, las siguientes 
+3 cards nuevas:
+
+─── CARD 1: Non-Overlap ───
+<div class="card card-accent" style="margin-top:16px">
+  <h3 style="font-size:15px;margin-bottom:8px">Non-Overlap — CDAC</h3>
+  <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2.2">
+    <li>Genera 2 señales desfasadas para los switches</li>
+    <li>Top-plate se desconecta de VCM <strong>primero</strong></li>
+    <li>Bottom-plates se conectan a VCM <strong>después</strong></li>
+    <li>Evita descarga del CDAC durante la transición</li>
+    <li>Sin non-overlap: carga del cap se redistribuye a VCM → error</li>
+  </ul>
+  <div class="image-placeholder" style="margin-top:12px;min-height:100px;
+  display:flex;align-items:center;justify-content:center">
+    [ Diagrama non-overlap CDAC: timing top-plate vs bottom-plates ]
+  </div>
+</div>
+
+─── CARD 2: Charge Sharing ───
+<div class="card card-green" style="margin-top:16px">
+  <h3 style="font-size:15px;margin-bottom:8px">Charge Sharing</h3>
+  <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2.2">
+    <li>Redistribución de carga entre caps del array</li>
+    <li>Circuito abierto → sin transferencia de carga</li>
+    <li>IMCS: V_top parte y termina en VCM → ΔQ_Cp = 0</li>
+    <li>Split 6+6: reduce peor caso de charge sharing al 50%</li>
+  </ul>
+  <div class="image-placeholder" style="margin-top:12px;min-height:100px;
+  display:flex;align-items:center;justify-content:center">
+    [ Diagrama: charge sharing en switching del CDAC ]
+  </div>
+</div>
+
+─── CARD 3: Referencia a parásitos ───
+<div class="card card-warn" style="margin-top:16px">
+  <div class="badge badge-amber" style="margin-bottom:8px">Ver siguiente sección</div>
+  <h3 style="font-size:14px;margin-bottom:6px">Charge Injection y Parásitos</h3>
+  <p style="font-size:12px;color:var(--text2)">
+    Switch de muestreo → transistores dummy · capacitancia top-plate Cp
+  </p>
+</div>
+
+════════════════════════════════════════════
+MODIFICAR: #s-parasitos — reducir texto, mantener todo lo interactivo
+════════════════════════════════════════════
+
+No tocar: canvas, toggles, cards de "Sin dummies" / "Con dummies", 
+card de Cp, asset-panel. Todo el bloque interactivo permanece intacto.
+
+Solo reducir:
+- El párrafo introductorio (<p> debajo del h2): reemplazar por 2 bullets puntuales.
+- En card "Sin dummies": conservar el .eq box, eliminar cualquier <p> extra.
+- En card "Con dummies": ídem.
+- En card "Capacitancia parásita Cp": reducir a 2 bullets + conservar el contenido 
+  de comparación TPS vs IMCS.
+
+════════════════════════════════════════════
+MODIFICAR: #s-comp, #s-comp-preamp, #s-comp-latch
+════════════════════════════════════════════
+
+NO tocar ningún canvas, slider, botón ni función JS.
+
+--- #s-comp (arquitectura) ---
+- Reducir <p> introductorio a 2 bullets.
+- En tabla de parámetros agregar fila:
+    Kickback | Absorbido por preamp | No llega al CDAC
+- Agregar card nueva (card-accent) después de la tabla:
+    badge: "Punto clave"
+    · "Kickback del latch → vcpp/vcpn"
+    · "No llega al CDAC → sin error en V_top"
+    · "Preamp = buffer de kickback"
+
+--- #s-comp-preamp ---
+- Reducir <p> del card de fases a 1 línea.
+- Agregar card nueva (card-accent) después del grid:
+    h3: "Puntos críticos — Preamp"
+    · "Transistores saturados → dominan ruido"
+    · "Zona óhmica → ganancia baja → menos ruido"
+    · "Sale por drenador → mayor ganancia"
+    · "Latch puede recuperar si preamp reacciona tarde"
+    · "Entrada simétrica sin importar decisión previa"
+    placeholder: "[ Sim: vcpp/vcpn con distintos ΔVin ]"
+
+--- #s-comp-latch ---
+- Reducir texto de cards existentes a bullets de máx 5 palabras.
+- Agregar card nueva (card-accent) después del grid:
+    h3: "Decisiones de diseño — Latch"
+    · "Arranca abierto → sin corriente en RESET"
+    · "Solo abre camino de corriente en EVAL"
+    · "Resetea a 0 → PMOS domina en VDD"
+    · "Salida en drenador → máxima ganancia"
+    · "Metaestabilidad: ΔV→0 → regeneración→∞"
+    · "Av preamp y latch: signos opuestos ✓"
+    · "Transistor de reset → habilita comparación"
+    · "Todos en zona óhmica durante RESET"
+    placeholder: "[ Sim: kickback del latch — a preamp, no al CDAC ]"
+- Agregar card nueva (card-warn) a continuación:
+    h3: "Non-Overlap — Comparador"
+    · "EVAL debe llegar con ΔV ya amplificado"
+    · "Demasiado temprano → latch ve solo ruido"
+    · "Demasiado tarde → pulso perdido"
+    · "OR con retardo calibrado: RST → EVAL"
+    placeholder: "[ Diagrama non-overlap: timing RST vs EVAL en comparador ]"
+    placeholder 2: "[ Formas de onda: reset → eval → regeneración ]"
+
+════════════════════════════════════════════
+MODIFICAR: #s-logic — reducir
+════════════════════════════════════════════
+
+- Reemplazar texto corrido de las 3 cards por 2 bullets de máx 5 palabras cada una.
+- Agregar card nueva (card-accent):
+    h3: "Cadena de Buffers"
+    · "Aísla lógica digital del CDAC"
+    · "Buffer entre FF y switch CDAC"
+    · "Niveles lógicos garantizados para TG"
+- Conservar los 2 asset-items sin cambios.
+
+════════════════════════════════════════════
+FUSIONAR: #s-pgen + #s-timing → #s-pgen-timing
+════════════════════════════════════════════
+
+Crear <section id="s-pgen-timing" style="scroll-snap-align:start">
+Un único <div class="container"> con:
+
+1. sec-label: "08 — PGEN y Timing"
+2. h2: "Generador de Pulsos <span style='color:var(--accent)'>y Timing</span>"
+3. Todo el HTML interno original de s-pgen sin cambios, EXCEPTO:
+   eliminar el asset-item duplicado del pgen_diagrama.svg 
+   (aparece dos veces en el original — conservar solo la primera).
+4. Estas 2 cards nuevas entre el bloque de s-pgen y el SVG de timing:
+
+   Card A (card-accent):
+     h3: "Entrada del PGEN"
+     · "Entrada: OR de salidas del comparador"
+     · "Detecta fin de evaluación"
+     · "Asegura settling CDAC — NO resetea comp"
+
+   Card B (card-green):
+     h3: "Lazo asincrónico"
+     · "Error de settling no se acumula entre bits"
+     · "Solo afecta si ΔV_cdac < 1 LSB"
+     · "Esa diferencia puede ocurrir en cualquier bit"
+
+5. Todo el HTML interno original de s-timing sin cambios.
+
+════════════════════════════════════════════
+SECCIÓN NUEVA: #s-pcells
+════════════════════════════════════════════
+
+Después de #s-layout. scroll-snap-align: start.
+
+- sec-label: "10.5 — Diseño Físico"
+- h2: "PCells y <span style='color:var(--accent)'>Proceso</span>"
+- grid-3:
+
+  Card 1 (card-accent):
+    badge badge-blue: "PCells"
+    h3: "Celdas Parametrizables"
+    · "Generadas por script KLayout/Python"
+    · "Parámetros: W, L, fingers, espejo"
+    · "DRC garantizado automáticamente"
+    placeholder: "[ PCell editor KLayout — parámetros ]"
+
+  Card 2 (card-green):
+    badge badge-green: "Primitivas"
+    h3: "Bloques Usados"
+    · "MIM caps — array CDAC"
+    · "nMOS/pMOS — comparador y switches"
+    · "Celdas estándar — lógica SAR"
+    · "Guard rings — aislamiento A/D"
+    placeholder: "[ Lista visual de primitivas ]"
+
+  Card 3 (card):
+    badge badge-gray: "Proceso"
+    h3: "Stacker SG13G2"
+    · "130 nm BiCMOS"
+    · "Poly, OD, metal1–5, MIM, vías"
+    placeholder: "[ Cross-section stacker SG13G2 ]"
+
+════════════════════════════════════════════
+SECCIÓN NUEVA: #s-lohice
+════════════════════════════════════════════
+
+Después de #s-pcells. scroll-snap-align: start.
+
+- sec-label: "11 — Resultado"
+- h2: "Lo que <span style='color:var(--accent)'>Hice</span>"
+- Sin párrafo introductorio.
+- grid-2:
+
+  Card izquierda (card-green):
+    badge badge-green: "Completado"
+    ul line-height 2, font-size 12px:
+    · Esquemático completo — xschem
+    · Simulación pre-layout TT — ngspice
+    · Layout CDAC: unit cell + array
+    · Layout comparador — DRC/LVS pass
+    · PGEN diseñado y simulado
+    · Lógica SAR — celdas estándar
+    · IMCS switching implementado
+    · Repositorio público en GitHub
+
+  Card derecha (card-warn):
+    badge badge-amber: "Pendiente"
+    ul line-height 2, font-size 12px:
+    · Layout integrado top-level
+    · Simulación PEX post-layout
+    · Monte Carlo + corners PVT
+    · DNL/INL completa
+    · Ruido y offset comparador
+    · Bootstrap switches S&H
+
+- Debajo: asset-panel con 4 asset-items con imagen SVG placeholder gris:
+
+  Para el <img> de cada asset-item usar exactamente este src:
+  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' 
+  height='90'%3E%3Crect width='200' height='90' fill='%23f1f3f5'/%3E%3Ctext 
+  x='100' y='50' text-anchor='middle' font-size='11' fill='%23aaaaaa' 
+  font-family='monospace'%3E[imagen pendiente]%3C/text%3E%3C/svg%3E"
+
+  item 1: nombre "Sim: conversión 12 bits"     path "assets/sim/conversion_12b.png"
+  item 2: nombre "Sim: comparador 1 LSB"       path "assets/sim/comp_1lsb.png"
+  item 3: nombre "Layout: CDAC array"          path "assets/layout/cdac_array.png"
+  item 4: nombre "Layout: comparador"          path "assets/layout/comp_layout.png"
+
+════════════════════════════════════════════
+SECCIÓN NUEVA: #s-tapeout
+════════════════════════════════════════════
+
+Después de #s-lohice. scroll-snap-align: start.
+
+- sec-label: "12 — Próximos Pasos"
+- h2: "Qué resta para el <span style='color:var(--accent)'>Tapeout</span>"
+- Tabla .tbl, columnas: Tarea / Prioridad / Estado:
+
+  Layout top-level integrado | Alta  | <span class="bad">Pendiente</span>
+  Extracción PEX             | Alta  | <span class="bad">Pendiente</span>
+  Simulación post-layout     | Alta  | <span class="bad">Pendiente</span>
+  Common-centroid CDAC       | Alta  | <span class="warn">Parcial</span>
+  Monte Carlo mismatch       | Alta  | <span class="bad">Pendiente</span>
+  Corners PVT (FF/SS/TT)     | Media | <span class="bad">Pendiente</span>
+  Ruido comparador (.noise)  | Media | <span class="bad">Pendiente</span>
+  Bootstrap switches S&H     | Baja  | <span class="bad">No iniciado</span>
+
+- Placeholder debajo de la tabla:
+  <div class="image-placeholder" style="margin-top:16px;min-height:80px;
+  display:flex;align-items:center;justify-content:center">
+    [ Checklist visual hacia tapeout ]
+  </div>
+
+════════════════════════════════════════════
+MODIFICAR: #s-limits
+════════════════════════════════════════════
+
+- Reemplazar div de "declaración formal" por:
+  <p style="font-size:13px;color:var(--text2);margin-bottom:24px">
+    Diseño funcional nominal en condiciones TT.
+  </p>
+- Conservar tabla de limitaciones sin cambios.
+- Card Pelgrom: conservar .eq box, eliminar <p> de pie de nota.
+- Card "ENOB esperado": reemplazar <p> por 2 bullets.
+- Card "Trabajo futuro": reducir lista a máximo 4 ítems.
+- Eliminar completamente el asset-panel de "Anexos técnicos recomendados".
+
+════════════════════════════════════════════
+MODIFICAR: #s-end — agregar agradecimientos
+════════════════════════════════════════════
+
+Al final del contenido existente, después de todo lo que ya hay, agregar:
+
+<div style="margin-top:40px;border-top:1px solid var(--border);padding-top:28px">
+  <div class="sec-label" style="margin-bottom:14px">Agradecimientos</div>
+  <div class="card card-accent" style="max-width:560px;margin:0 auto;text-align:left">
+    <p style="font-size:12px;line-height:2.2;color:var(--text2)">
+      A [Director/a de tesis] — por la guía y el espacio en FACET.<br>
+      A [Compañeros / colegas] — por el acompañamiento.<br>
+      A la comunidad open-source de IHP y IIC-OSIC-TOOLS.
+    </p>
+  </div>
+</div>
+
+════════════════════════════════════════════
+REGLAS DE ORO — ABSOLUTAS
+════════════════════════════════════════════
+
+1. NO modificar ninguna función JS: sarNextStep, cdacNextPhase, preampUpdate, 
+   latchUpdate, drawSarCanvas, drawParaCanvas, drawCDACcanvas, drawPreampCanvas, 
+   drawLatchCanvas, lightbox, IntersectionObserver, resize handler.
+
+2. NO cambiar ningún id referenciado por JS. IDs protegidos:
+   sar-canvas, sar-bit-register, sar-vin-slider, sar-vin-val, sar-step-btn,
+   sar-progress, sar-step-label, sar-step-count, sar-decision-card,
+   sar-decision-text, sar-decision-detail, sar-vdac-val, sar-code-dec,
+   cdac-svg, cdac-canvas, cdac-vin-slider, cdac-vin-val, cdac-phase-btn,
+   cdac-phase-dots, cdac-phase-title, cdac-phase-card, cdac-phase-badge,
+   cdac-phase-heading, cdac-phase-desc, cdac-phase-eq, cdac-vtop-p, cdac-vtop-n,
+   cdac-vtop-diff, tog-dummy, tog-parasitic, para-canvas, para-result-card,
+   para-result-text, canvas-preamp, canvas-latch, preamp-dvin, preamp-dvin-val,
+   preamp-phase-card, preamp-phase-title, preamp-phase-desc, node-vcpp, node-vcpn,
+   val-vcpp, val-vcpn, timing-bits.
+
+3. Al mover secciones: mover bloque completo sin tocar nada interno, excepto lo 
+   explícitamente indicado.
+
+4. El bloque <script> al final del HTML: no modificar absolutamente nada.
+
+5. Nuevos placeholders de imagen: usar class="image-placeholder". Son divs 
+   decorativos, NO asset-items del lightbox.
+
+6. Entregar el archivo HTML completo y funcional, no fragmentos.

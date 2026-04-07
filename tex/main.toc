@@ -1,100 +1,101 @@
 \babel@toc {spanish}{}\relax 
-\contentsline {chapter}{Resumen}{5}{chapter*.3}%
-\contentsline {chapter}{\numberline {1}Introducción}{8}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Motivación}{8}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Estado del Arte}{8}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Evolución de los Comparadores}{8}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Arquitecturas de CDAC}{9}{subsection.1.2.2}%
-\contentsline {subsection}{\numberline {1.2.3}Implementaciones Digitales}{9}{subsection.1.2.3}%
-\contentsline {section}{\numberline {1.3}Resumen del Trabajo}{9}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Alcance y Limitaciones}{10}{subsection.1.3.1}%
-\contentsline {section}{\numberline {1.4}Requerimientos del Sistema}{10}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Organizacion del documento}{10}{section.1.5}%
-\contentsline {chapter}{\numberline {2}Implementación del SAR ADC}{12}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Descripcion del SAR ADC nivel TOP}{13}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Arquitectura Inverted Merged Capacitor Switching (IMCS)}{14}{subsection.2.1.1}%
-\contentsline {subsubsection}{Beneficios de la Arquitectura IMCS}{14}{section*.9}%
-\contentsline {subsubsection}{Funcionamiento del Esquema IMCS}{15}{section*.11}%
-\contentsline {section}{\numberline {2.2}DAC Capacitivo (CDAC)}{16}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Definición del Capacitor Unitario ($C_u$)}{16}{subsection.2.2.1}%
-\contentsline {subsubsection}{Criterio de Ruido Térmico}{16}{section*.12}%
-\contentsline {subsection}{\numberline {2.2.2}Implementación del Array Split-Binary}{16}{subsection.2.2.2}%
-\contentsline {subsubsection}{Selección del capacitor unitario $C_u$}{17}{section*.13}%
-\contentsline {subsection}{\numberline {2.2.3}Cálculo de Capacitores de Atenuación ($C_B$) y Grounding ($C_X$)}{17}{subsection.2.2.3}%
-\contentsline {subsubsection}{Problema del Capacitor Fraccional}{17}{section*.14}%
-\contentsline {subsubsection}{Problema de los rieles del Sub-DAC}{17}{section*.15}%
-\contentsline {subsubsection}{Metodología de Cálculo}{18}{section*.16}%
-\contentsline {subsubsection}{Valores Finales}{18}{section*.17}%
-\contentsline {subsection}{\numberline {2.2.4}Logica de las señales de control de la Bottom Plate de cada celda}{18}{subsection.2.2.4}%
-\contentsline {subsubsection}{Switches de Placa Inferior (Bottom Plate)}{19}{section*.20}%
-\contentsline {subsection}{\numberline {2.2.5}Generador de Señales Non-Overlap}{20}{subsection.2.2.5}%
-\contentsline {subsubsection}{Funcionamiento}{20}{section*.22}%
-\contentsline {subsection}{\numberline {2.2.6}Top Plate Sample switch}{22}{subsection.2.2.6}%
-\contentsline {subsection}{\numberline {2.2.7}Requerimiento de Settling}{22}{subsection.2.2.7}%
-\contentsline {subsubsection}{Presupuesto de Tiempo}{22}{section*.25}%
-\contentsline {subsection}{\numberline {2.2.8}Dimensionamiento del Transmission Gate (sample) }{23}{subsection.2.2.8}%
-\contentsline {subsection}{\numberline {2.2.9}Compensación de Inyección de Carga con Dummies}{28}{subsection.2.2.9}%
-\contentsline {subsubsection}{Problema de Charge Injection}{29}{section*.33}%
-\contentsline {subsubsection}{Implementación de Dummies}{29}{section*.34}%
-\contentsline {subsection}{\numberline {2.2.10}Testbench del CDAC}{30}{subsection.2.2.10}%
-\contentsline {subsubsection}{Objetivo del Test}{30}{section*.37}%
-\contentsline {subsubsection}{Configuración del Test}{30}{section*.38}%
-\contentsline {subsubsection}{Resultados}{31}{section*.39}%
-\contentsline {section}{\numberline {2.3}Comparador de Doble Cola}{32}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Presupuesto de Tiempos}{32}{subsection.2.3.1}%
-\contentsline {subsubsection}{Ciclo de Conversión}{32}{section*.42}%
-\contentsline {subsection}{\numberline {2.3.2}Arquitectura del Comparador}{33}{subsection.2.3.2}%
-\contentsline {subsubsection}{Dimensionamiento}{34}{section*.47}%
-\contentsline {subsection}{\numberline {2.3.3}Testbench del Comparador}{34}{subsection.2.3.3}%
-\contentsline {subsubsection}{Objetivo}{34}{section*.48}%
-\contentsline {subsubsection}{Configuración del Test}{35}{section*.49}%
-\contentsline {subsubsection}{Resultados}{36}{section*.51}%
-\contentsline {subsection}{\numberline {2.3.4}Generador de Pulsos (Delay Line)}{37}{subsection.2.3.4}%
-\contentsline {subsubsection}{Criterio de Diseño}{37}{section*.54}%
-\contentsline {subsubsection}{Implementación del generador de pulsos}{37}{section*.55}%
-\contentsline {section}{\numberline {2.4}Buffers de Control}{40}{section.2.4}%
-\contentsline {subsubsection}{Metodología de Cálculo de Buffers}{40}{section*.60}%
-\contentsline {subsubsection}{Testebench fanout optimo}{40}{section*.61}%
-\contentsline {subsubsection}{Buffer de Salidas del Comparador}{42}{section*.66}%
-\contentsline {subsubsection}{Buffer de Salida Pulse del Comparador}{43}{section*.68}%
-\contentsline {subsubsection}{Buffer de Señales de Lógica a CDAC}{44}{section*.69}%
-\contentsline {subsubsection}{Buffer de Señales de Sampleo}{44}{section*.70}%
-\contentsline {section}{\numberline {2.5}Lógica SAR}{45}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}Bloque Unitario de Lógica}{46}{subsection.2.5.1}%
-\contentsline {subsubsection}{Entradas y Salidas del Bloque Unitario}{46}{section*.74}%
-\contentsline {subsubsection}{Entradas y Salidas del Bloque Unitario}{46}{section*.75}%
-\contentsline {subsection}{\numberline {2.5.2}Implementación con Celdas Estándar}{47}{subsection.2.5.2}%
-\contentsline {subsection}{\numberline {2.5.3}Análisis de Timing}{47}{subsection.2.5.3}%
-\contentsline {subsubsection}{Delay de Propagación}{47}{section*.76}%
-\contentsline {subsubsection}{Medición del Delay}{47}{section*.77}%
-\contentsline {section}{\numberline {2.6}Simulación TOP}{48}{section.2.6}%
-\contentsline {subsection}{\numberline {2.6.1}Caracterización}{50}{subsection.2.6.1}%
-\contentsline {chapter}{\numberline {3}Diseño de Layout}{52}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Comparador}{53}{section.3.1}%
-\contentsline {section}{\numberline {3.2}CDAC}{56}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Imagenes 2.5D}{56}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Conclusiones y Trabajo Futuro}{64}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Estado Actual del Trabajo}{64}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Conclusiones}{64}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Logros Principales}{64}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Lecciones Aprendidas y Recomendaciones Metodológicas}{65}{subsection.4.2.2}%
-\contentsline {subsubsection}{Simulaciones y Herramientas}{65}{section*.98}%
-\contentsline {subsubsection}{Documentación Continua}{65}{section*.99}%
-\contentsline {section}{\numberline {4.3}Trabajo Futuro}{65}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Mejoras en Metodología y Automatización}{65}{subsection.4.3.1}%
-\contentsline {subsubsection}{Automatización de Simulaciones}{65}{section*.100}%
-\contentsline {subsubsection}{Diseño Basado en Corners}{66}{section*.101}%
-\contentsline {subsection}{\numberline {4.3.2}Mejoras Específicas del ADC}{66}{subsection.4.3.2}%
-\contentsline {subsubsection}{Implementación de Bootstrap Switches}{66}{section*.102}%
-\contentsline {subsubsection}{Comparación con Arquitectura de Top-Plate Sampling}{66}{section*.103}%
-\contentsline {subsection}{\numberline {4.3.3}Análisis Avanzados}{66}{subsection.4.3.3}%
-\contentsline {subsubsection}{Caracterización con Entradas Aleatorias}{66}{section*.104}%
-\contentsline {subsubsection}{Análisis de Parásitos por Bloque}{67}{section*.105}%
-\contentsline {subsection}{\numberline {4.3.4}Mejoras de Layout}{67}{subsection.4.3.4}%
-\contentsline {subsubsection}{Layout con Common-Centroid}{67}{section*.106}%
-\contentsline {subsubsection}{Completar Layout del Sistema Integrado}{67}{section*.107}%
-\contentsline {subsection}{\numberline {4.3.5}Escalabilidad: Arquitectura Time-Interleaved}{67}{subsection.4.3.5}%
-\contentsline {subsubsection}{Motivación}{68}{section*.108}%
-\contentsline {subsubsection}{Desafíos}{68}{section*.109}%
-\contentsline {subsubsection}{Trabajo Futuro}{68}{section*.110}%
-\contentsline {section}{\numberline {4.4}Reflexión Final}{68}{section.4.4}%
+\contentsline {chapter}{Agradecimientos}{5}{chapter*.3}%
+\contentsline {chapter}{Resumen}{6}{chapter*.4}%
+\contentsline {chapter}{\numberline {1}Introducción}{9}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivación}{9}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Estado del Arte}{9}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Evolución de los Comparadores}{9}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Arquitecturas de CDAC}{10}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Implementaciones Digitales}{10}{subsection.1.2.3}%
+\contentsline {section}{\numberline {1.3}Resumen del Trabajo}{10}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Alcance y Limitaciones}{11}{subsection.1.3.1}%
+\contentsline {section}{\numberline {1.4}Requerimientos del Sistema}{11}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Organizacion del documento}{11}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Implementación del SAR ADC}{13}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Descripcion del SAR ADC nivel TOP}{14}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Arquitectura Inverted Merged Capacitor Switching (IMCS)}{15}{subsection.2.1.1}%
+\contentsline {subsubsection}{Beneficios de la Arquitectura IMCS}{15}{section*.10}%
+\contentsline {subsubsection}{Funcionamiento del Esquema IMCS}{16}{section*.12}%
+\contentsline {section}{\numberline {2.2}DAC Capacitivo (CDAC)}{17}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Definición del Capacitor Unitario ($C_u$)}{17}{subsection.2.2.1}%
+\contentsline {subsubsection}{Criterio de Ruido Térmico}{17}{section*.13}%
+\contentsline {subsection}{\numberline {2.2.2}Implementación del Array Split-Binary}{17}{subsection.2.2.2}%
+\contentsline {subsubsection}{Selección del capacitor unitario $C_u$}{18}{section*.14}%
+\contentsline {subsection}{\numberline {2.2.3}Cálculo de Capacitores de Atenuación ($C_B$) y Grounding ($C_X$)}{18}{subsection.2.2.3}%
+\contentsline {subsubsection}{Problema del Capacitor Fraccional}{18}{section*.15}%
+\contentsline {subsubsection}{Problema de los rieles del Sub-DAC}{18}{section*.16}%
+\contentsline {subsubsection}{Metodología de Cálculo}{19}{section*.17}%
+\contentsline {subsubsection}{Valores Finales}{19}{section*.18}%
+\contentsline {subsection}{\numberline {2.2.4}Logica de las señales de control de la Bottom Plate de cada celda}{19}{subsection.2.2.4}%
+\contentsline {subsubsection}{Switches de Placa Inferior (Bottom Plate)}{20}{section*.21}%
+\contentsline {subsection}{\numberline {2.2.5}Generador de Señales Non-Overlap}{21}{subsection.2.2.5}%
+\contentsline {subsubsection}{Funcionamiento}{21}{section*.23}%
+\contentsline {subsection}{\numberline {2.2.6}Top Plate Sample switch}{23}{subsection.2.2.6}%
+\contentsline {subsection}{\numberline {2.2.7}Requerimiento de Settling}{23}{subsection.2.2.7}%
+\contentsline {subsubsection}{Presupuesto de Tiempo}{23}{section*.26}%
+\contentsline {subsection}{\numberline {2.2.8}Dimensionamiento del Transmission Gate (sample) }{24}{subsection.2.2.8}%
+\contentsline {subsection}{\numberline {2.2.9}Compensación de Inyección de Carga con Dummies}{29}{subsection.2.2.9}%
+\contentsline {subsubsection}{Problema de Charge Injection}{30}{section*.34}%
+\contentsline {subsubsection}{Implementación de Dummies}{30}{section*.35}%
+\contentsline {subsection}{\numberline {2.2.10}Testbench del CDAC}{31}{subsection.2.2.10}%
+\contentsline {subsubsection}{Objetivo del Test}{31}{section*.38}%
+\contentsline {subsubsection}{Configuración del Test}{31}{section*.39}%
+\contentsline {subsubsection}{Resultados}{32}{section*.40}%
+\contentsline {section}{\numberline {2.3}Comparador de Doble Cola}{33}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Presupuesto de Tiempos}{33}{subsection.2.3.1}%
+\contentsline {subsubsection}{Ciclo de Conversión}{33}{section*.43}%
+\contentsline {subsection}{\numberline {2.3.2}Arquitectura del Comparador}{34}{subsection.2.3.2}%
+\contentsline {subsubsection}{Dimensionamiento}{35}{section*.48}%
+\contentsline {subsection}{\numberline {2.3.3}Testbench del Comparador}{35}{subsection.2.3.3}%
+\contentsline {subsubsection}{Objetivo}{35}{section*.49}%
+\contentsline {subsubsection}{Configuración del Test}{36}{section*.50}%
+\contentsline {subsubsection}{Resultados}{37}{section*.52}%
+\contentsline {subsection}{\numberline {2.3.4}Generador de Pulsos (Delay Line)}{38}{subsection.2.3.4}%
+\contentsline {subsubsection}{Criterio de Diseño}{38}{section*.55}%
+\contentsline {subsubsection}{Implementación del generador de pulsos}{38}{section*.56}%
+\contentsline {section}{\numberline {2.4}Buffers de Control}{41}{section.2.4}%
+\contentsline {subsubsection}{Metodología de Cálculo de Buffers}{41}{section*.61}%
+\contentsline {subsubsection}{Testebench fanout optimo}{41}{section*.62}%
+\contentsline {subsubsection}{Buffer de Salidas del Comparador}{43}{section*.67}%
+\contentsline {subsubsection}{Buffer de Salida Pulse del Comparador}{44}{section*.69}%
+\contentsline {subsubsection}{Buffer de Señales de Lógica a CDAC}{45}{section*.70}%
+\contentsline {subsubsection}{Buffer de Señales de Sampleo}{45}{section*.71}%
+\contentsline {section}{\numberline {2.5}Lógica SAR}{46}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Bloque Unitario de Lógica}{47}{subsection.2.5.1}%
+\contentsline {subsubsection}{Entradas y Salidas del Bloque Unitario}{47}{section*.75}%
+\contentsline {subsubsection}{Entradas y Salidas del Bloque Unitario}{47}{section*.76}%
+\contentsline {subsection}{\numberline {2.5.2}Implementación con Celdas Estándar}{48}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Análisis de Timing}{48}{subsection.2.5.3}%
+\contentsline {subsubsection}{Delay de Propagación}{48}{section*.77}%
+\contentsline {subsubsection}{Medición del Delay}{48}{section*.78}%
+\contentsline {section}{\numberline {2.6}Simulación TOP}{49}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Caracterización}{51}{subsection.2.6.1}%
+\contentsline {chapter}{\numberline {3}Diseño de Layout}{53}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Comparador}{54}{section.3.1}%
+\contentsline {section}{\numberline {3.2}CDAC}{57}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Imagenes 2.5D}{57}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Conclusiones y Trabajo Futuro}{65}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Estado Actual del Trabajo}{65}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Conclusiones}{65}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Logros Principales}{65}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Lecciones Aprendidas y Recomendaciones Metodológicas}{66}{subsection.4.2.2}%
+\contentsline {subsubsection}{Simulaciones y Herramientas}{66}{section*.99}%
+\contentsline {subsubsection}{Documentación Continua}{66}{section*.100}%
+\contentsline {section}{\numberline {4.3}Trabajo Futuro}{66}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Mejoras en Metodología y Automatización}{66}{subsection.4.3.1}%
+\contentsline {subsubsection}{Automatización de Simulaciones}{66}{section*.101}%
+\contentsline {subsubsection}{Diseño Basado en Corners}{67}{section*.102}%
+\contentsline {subsection}{\numberline {4.3.2}Mejoras Específicas del ADC}{67}{subsection.4.3.2}%
+\contentsline {subsubsection}{Implementación de Bootstrap Switches}{67}{section*.103}%
+\contentsline {subsubsection}{Comparación con Arquitectura de Top-Plate Sampling}{67}{section*.104}%
+\contentsline {subsection}{\numberline {4.3.3}Análisis Avanzados}{67}{subsection.4.3.3}%
+\contentsline {subsubsection}{Caracterización con Entradas Aleatorias}{67}{section*.105}%
+\contentsline {subsubsection}{Análisis de Parásitos por Bloque}{68}{section*.106}%
+\contentsline {subsection}{\numberline {4.3.4}Mejoras de Layout}{68}{subsection.4.3.4}%
+\contentsline {subsubsection}{Layout con Common-Centroid}{68}{section*.107}%
+\contentsline {subsubsection}{Completar Layout del Sistema Integrado}{68}{section*.108}%
+\contentsline {subsection}{\numberline {4.3.5}Escalabilidad: Arquitectura Time-Interleaved}{68}{subsection.4.3.5}%
+\contentsline {subsubsection}{Motivación}{69}{section*.109}%
+\contentsline {subsubsection}{Desafíos}{69}{section*.110}%
+\contentsline {subsubsection}{Trabajo Futuro}{69}{section*.111}%
+\contentsline {section}{\numberline {4.4}Reflexión Final}{69}{section.4.4}%
