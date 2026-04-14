@@ -36,7 +36,6 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
-  scroll-snap-type: y mandatory;
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
@@ -44,16 +43,15 @@ html {
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--mono);
-  font-size: 14px;
+  font-family: var(--display);
+  font-size: 16px;
   line-height: 1.6;
 }
 
 /* ── SECTIONS ── */
 section {
   min-height: 100vh;
-  scroll-snap-align: start;
-  padding: 60px 40px;
+  padding: 80px 40px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -73,12 +71,12 @@ nav {
 }
 .nav-logo {
   font-family: var(--display);
-  font-size: 13px; font-weight: 700;
+  font-size: 15px; font-weight: 700;
   color: var(--accent); margin-right: 20px;
   letter-spacing: 0.05em; white-space: nowrap;
 }
 .nav-link {
-  font-size: 11px; color: var(--text3);
+  font-size: 13px; color: var(--text3);
   text-decoration: none; padding: 4px 10px;
   border-radius: 4px; transition: all 0.2s;
   letter-spacing: 0.03em;
@@ -87,12 +85,12 @@ nav {
 
 /* ── TYPOGRAPHY ── */
 .sec-label {
-  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--accent); margin-bottom: 8px; font-weight: 600;
 }
 h1 { font-family: var(--display); font-size: clamp(36px,6vw,72px); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; }
-h2 { font-family: var(--display); font-size: clamp(24px,4vw,42px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
-h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+h2 { font-family: var(--display); font-size: clamp(28px,5vw,48px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
+h3 { font-family: var(--display); font-size: 24px; font-weight: 600; margin-bottom: 10px; }
 p { color: var(--text2); line-height: 1.7; }
 
 /* ── LAYOUT UTILITIES ── */
@@ -126,8 +124,8 @@ p { color: var(--text2); line-height: 1.7; }
 
 /* ── BUTTONS ── */
 .btn {
-  font-family: var(--mono); font-size: 12px; font-weight: 600;
-  padding: 8px 20px; border-radius: 6px; cursor: pointer;
+  font-family: var(--display); font-size: 14px; font-weight: 600;
+  padding: 10px 24px; border-radius: 6px; cursor: pointer;
   border: 1px solid var(--border2); background: var(--surface2);
   color: var(--text2); transition: all 0.15s; letter-spacing: 0.04em;
 }
@@ -168,7 +166,7 @@ input[type=range]::-webkit-slider-thumb {
 
 /* ── EQ BOX ── */
 .eq {
-  font-family: var(--mono); font-size: 12px;
+  font-family: var(--mono); font-size: 15px;
   background: var(--surface2); border: 1px solid var(--border);
   border-radius: 6px; padding: 12px 16px;
   color: var(--text); line-height: 1.8; overflow-x: auto;
@@ -179,8 +177,8 @@ input[type=range]::-webkit-slider-thumb {
 .eq .c-amb { color: var(--amber); }
 
 /* ── TABLE ── */
-.tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
-.tbl th { color: var(--text3); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; font-size: 10px; padding: 10px 14px; border-bottom: 1px solid var(--border2); text-align: left; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 15px; }
+.tbl th { color: var(--text3); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; font-size: 13px; padding: 12px 14px; border-bottom: 1px solid var(--border2); text-align: left; }
 .tbl td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text2); }
 .tbl tr:last-child td { border-bottom: none; }
 .tbl tr:hover td { background: var(--surface2); }
@@ -194,8 +192,8 @@ input[type=range]::-webkit-slider-thumb {
   background: var(--surface2); border: 1px solid var(--border);
   border-radius: 8px; padding: 14px 16px;
 }
-.stat-val { font-family: var(--display); font-size: 22px; font-weight: 700; color: var(--text); }
-.stat-label { font-size: 10px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+.stat-val { font-family: var(--display); font-size: 26px; font-weight: 700; color: var(--text); }
+.stat-label { font-size: 13px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
 
 /* ── HERO ── */
 #s-hero {
@@ -205,7 +203,7 @@ input[type=range]::-webkit-slider-thumb {
 .hero-title { margin-bottom: 16px; }
 .hero-title .line1 { display: block; color: var(--text); }
 .hero-title .line2 { display: block; color: var(--accent); }
-.hero-sub { color: var(--text2); max-width: 580px; margin: 0 auto 28px; font-size: 14px; line-height: 1.8; }
+.hero-sub { color: var(--text2); max-width: 680px; margin: 0 auto 28px; font-size: 18px; line-height: 1.8; }
 .hero-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
 .scan-line {
   position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
@@ -812,20 +810,17 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
       <a class="asset-item" href="img/imcs_diagrama.svg"><img src="img/imcs_diagrama.svg" style="width:100%; border-radius:8px;" alt="IMCS CDAC Architecture"></a>
       <div style="font-size:10px; color:var(--text3); text-align:center; margin-top:8px; margin-bottom:12px;">Diagrama IMCS: Invariant Mutual Capacitance Sampling</div>
       <a class="asset-item" href="img/IMCS_Explicacion.png"><img src="img/IMCS_Explicacion.png" style="width:100%; border-radius:8px;" alt="IMCS Explicación"></a>
-      <div style="font-size:10px; color:var(--text3); text-align:center; margin-top:8px;">Explicación detallada IMCS</div>
+      <div style="font-size:10px; color:var(--text3); text-align:center; margin-top:8px; margin-bottom:12px;">Explicación detallada IMCS</div>
+      <a class="asset-item" href="img2/cdac_cell_sch.png"><img src="img2/cdac_cell_sch.png" style="width:100%; border-radius:8px;" alt="CDAC Cell Schematic"></a>
+      <div style="font-size:10px; color:var(--text3); text-align:center; margin-top:8px; margin-bottom:12px;">Esquemático CDAC Cell</div>
+      <a class="asset-item" href="img2/explicacion_grounding_y_bridge_cap.png"><img src="img2/explicacion_grounding_y_bridge_cap.png" style="width:100%; border-radius:8px;" alt="Explicación Grounding y Bridge"></a>
+      <div style="font-size:10px; color:var(--text3); text-align:center; margin-top:8px;">Explicación Grounding y Bridge Cap</div>
     </div>
     
     <div style="display:flex; flex-direction:column; gap:16px">
-      <div class="card">
-        <div style="font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:12px">Topología Array 6+6</div>
-        <ul class="bullets">
-          <li>Array segmentado unitario.</li>
-          <li>Cancelación activa de Offset.</li>
-          <li>Referencia constante VCM.</li>
-        </ul>
-      </div>
+
       <div class="card" style="padding:10px;">
-        <div style="font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px">Simulación de Switch</div>
+        <div style="font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px">Simulación de sample & hold</div>
         <a class="asset-item" href="img/respuesta_c.svg"><img src="img/respuesta_c.svg" style="width:100%; border-radius:6px;" alt="Switch response simulation"></a>
       </div>
     </div>
@@ -894,34 +889,7 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
         <canvas id="cdac-canvas" height="180" style="width:100%"></canvas>
       </div>
 
-        <div style="color:var(--text2)">
-          <strong style="color:var(--vcm2)">V_top parte de VCM y converge a VCM.</strong><br>
-          V_top(sample) = VCM<br>
-          V_top(inversión) = 2·VCM − VIN<br>
-          V_top(final) → VCM<br>
-          ΔQ_Cp = Cp × (VCM − VCM) = <strong style="color:var(--vcm2)">0</strong><br>
-          → Insensible a Cp en top-plate.<br>
-          <strong style="color:var(--amber)">P y N convergen simétricamente.</strong>
-        </div>
-        <div class="asset-panel">
-        <div class="asset-title">Recursos CDAC</div>
-        <div class="asset-grid">
-          <a class="asset-item" href="assets/images/cdac/dac_diagrama.svg" target="_blank">
-            <img src="assets/images/cdac/dac_diagrama.svg" alt="Diagrama CDAC">
-            <div class="asset-meta">
-              <div class="asset-name">Diagrama DAC capacitivo</div>
-              <div class="asset-path">assets/images/cdac/dac_diagrama.svg</div>
-            </div>
-          </a>
-          <a class="asset-item" href="assets/images/layout/cdac/cdacUnitCellVista.png" target="_blank">
-            <img src="assets/images/layout/cdac/cdacUnitCellVista.png" alt="Layout unit cell CDAC">
-            <div class="asset-meta">
-              <div class="asset-name">Layout unit cell CDAC</div>
-              <div class="asset-path">assets/images/layout/cdac/cdacUnitCellVista.png</div>
-            </div>
-          </a>
-        </div>
-      </div>
+
 
 
 </div>
@@ -946,7 +914,7 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
       <div class="card card-green">
         <h3 style="font-size:15px;margin-bottom:8px">Estrategia de Control</h3>
         <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2.2">
-          <li>Lógica de puertas NOR con retardo</li>
+
           <li>Señales desfasadas: SampleA y SampleB</li>
           <li>Margen de seguridad contra variaciones PVT</li>
         </ul>
@@ -961,6 +929,17 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
       <div class="card">
         <div style="font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:12px">Formas de Onda NOL</div>
         <a class="asset-item" href="img/nol_formas_de_onda_editado.svg"><img src="img/nol_formas_de_onda_editado.svg" style="width:100%; border-radius:6px;" alt="Non-overlap waveforms"></a>
+      </div>
+    </div>
+
+    <div class="grid-2" style="gap:24px; margin-top:24px;">
+      <div class="card">
+        <div style="font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:12px">Non-Overlap Schematic</div>
+        <a class="asset-item" href="img2/non_overlap_sch.png"><img src="img2/non_overlap_sch.png" style="width:100%; border-radius:6px;" alt="Non-overlap schematic"></a>
+      </div>
+      <div class="card">
+        <div style="font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:12px">Non-Overlap Schematic (con Buffer)</div>
+        <a class="asset-item" href="img2/non_overlap_con_buffer_sch.png"><img src="img2/non_overlap_con_buffer_sch.png" style="width:100%; border-radius:6px;" alt="Non-overlap with buffer"></a>
       </div>
     </div>
   </div>
@@ -1050,10 +1029,11 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
 <section id="s-comp-preamp" style="scroll-snap-align:start; min-height:auto; padding-top:40px;">
 <div class="container">
   <div style="display:flex; flex-direction:column; gap:20px; align-items:center; min-height:85vh; justify-content:center;">
-    <!-- Metaestabilidad Theory (Top) -->
+
+    <!-- Kickback Theory (Top) -->
     <div style="border:1px solid var(--border); border-radius:12px; overflow:hidden; background:var(--surface2); padding:10px; width:100%; max-height:35vh; display:flex; align-items:center; justify-content:center;">
-      <a class="asset-item" href="img/CircuitosConMetaestabilidad.png" style="display:block; height:100%;">
-        <img src="img/CircuitosConMetaestabilidad.png" style="width:auto; height:100%; max-height:30vh; object-fit:contain;" alt="Metaestabilidad en Comparadores">
+      <a class="asset-item" href="img2/kickback_comparador_explicacion.png" style="display:block; height:100%;">
+        <img src="img2/kickback_comparador_explicacion.png" style="width:auto; height:100%; max-height:30vh; object-fit:contain;" alt="Explicación de Kickback en Comparator">
       </a>
     </div>
 
@@ -1189,8 +1169,10 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
     </div>
   </div>
 
-  <div class="image-placeholder" style="margin-top:24px; min-height:220px; display:flex; align-items:center; justify-content:center; background:var(--surface2); border:1px dashed var(--border);">
-    [ Simulación: Formas de onda de la Lógica SAR y Shift Register ]
+  <div style="margin-top:24px; border:1px solid var(--border); border-radius:12px; overflow:hidden; background:var(--surface2); padding:10px; display:flex; align-items:center; justify-content:center;">
+    <a class="asset-item" href="img2/formas_de_onda_logica_SAR.png" style="display:block; width:100%;">
+      <img src="img2/formas_de_onda_logica_SAR.png" style="width:100%; max-height:40vh; object-fit:contain;" alt="Formas de Onda Logica SAR">
+    </a>
   </div>
 </div>
 </section>
@@ -1211,6 +1193,10 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
 
   <a href="img/senales_pgen.svg" class="asset-item" style="display:block; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--surface2); margin-bottom:24px;">
     <img src="img/senales_pgen.svg" style="width:100%; height:auto; min-height:200px; object-fit:contain; padding:16px;" alt="Señales PGEN">
+  </a>
+  
+  <a href="img/RecorridoDelNodoVsDuranteLasConversiones.png" class="asset-item" style="display:block; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--surface2); margin-bottom:24px;">
+    <img src="img/RecorridoDelNodoVsDuranteLasConversiones.png" style="width:100%; height:auto; min-height:200px; object-fit:contain; padding:16px;" alt="Recorrido Nodo Vs">
   </a>
 
   <div style="margin-top:40px;"></div>
@@ -1378,23 +1364,7 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
   <div class="sec-label">10.1 — Diseño Físico</div>
   <h2>Generación de <span style="color:var(--accent)">PCells en KLayout</span></h2>
   <div class="grid-2" style="gap:24px;margin-bottom:24px">
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <div class="card card-purple">
-        <h3 style="font-size:15px;margin-bottom:8px">Manejo de Geometrías Complejas</h3>
-        <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2.2">
-          <li>Transistores interdigitados y common-centroid</li>
-          <li>Capacitores MIM con dummies</li>
-          <li>Ruteo automatizado intracelda</li>
-        </ul>
-      </div>
-      <div class="card card-accent">
-        <h3 style="font-size:15px;margin-bottom:8px">DRC y LVS integrados</h3>
-        <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2.2">
-          <li>Diseño validado por reglas (DRC)</li>
-          <li>Extracción de netlist layout (LVS)</li>
-        </ul>
-      </div>
-    </div>
+
     <a href="img/InstanciacionDeUnaPCellEnKLayout.png" class="asset-item" style="display:block; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--surface2);">
       <img src="img/InstanciacionDeUnaPCellEnKLayout.png" style="width:100%; height:auto; min-height:240px; object-fit:contain; padding:16px;" alt="Instanciación de una PCell en KLayout">
     </a>
@@ -1422,13 +1392,7 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
     </ul>
   </div>
 
-  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px;text-align:left">
-    <h3 style="font-size:15px;margin-bottom:8px">Agradecimientos</h3>
-    <ul style="font-size:13px;color:var(--text2);padding-left:18px;line-height:1.8">
-      <li><strong>IHP Microelectronics:</strong> Por democratizar el diseño de hardware con el PDK sg13g2.</li>
-      <li><strong>Carlos Lake:</strong> Por su invaluable mentoría técnica y paciencia constante durante el desarrollo.</li>
-    </ul>
-  </div>
+
 
   <a href="https://github.com/gsuckz/SAR_ADC_IHP" target="_blank" style="display:inline-block;background:rgba(88,166,255,0.12);border:1px solid var(--accent);color:var(--accent2);padding:12px 28px;border-radius:8px;text-decoration:none;font-size:13px;letter-spacing:0.05em">
     ⬡ github.com/gsuckz/SAR_ADC_IHP
@@ -1819,11 +1783,11 @@ function drawCDACsvg(phase, fullTl) {
     return {vdd:'VDD',vss:'VSS',vcm:'VCM',vinp:'VINP',vinn:'VINN',float:'FLOAT'}[s] || s.toUpperCase();
   }
 
-  const xCenters = [30, 80, 130,   240, 290, 340];
-  const labels   = ['1Cu', '2Cu', '4Cu', '8Cu', '16Cu', '32Cu'];
-  const TPL_startX = 10, TPL_endX = 150;
-  const TPR_startX = 220, TPR_endX = 360;
-  const bridgeX = 185;
+  const xCenters = [30, 80, 130, 180,  260, 310, 360];
+  const labels   = ['1Cu', '1Cu', '2Cu', '4Cu', '1Cu', '2Cu', '4Cu'];
+  const TPL_startX = 10, TPL_endX = 195;
+  const TPR_startX = 245, TPR_endX = 380;
+  const bridgeX = 220;
 
   const yP = 80;
   const yN = 250;
@@ -1851,7 +1815,7 @@ function drawCDACsvg(phase, fullTl) {
     html += `<line x1="${bridgeX+3}" y1="${topY}" x2="${TPR_startX}" y2="${topY}" stroke="${tpCol}" stroke-width="2.5"/>`;
 
     // VCM switches (drawn upwards)
-    const tplSwX = 145;
+    const tplSwX = 190;
     const tplSwCol = (phase === 0) ? COLORS.vcm : COLORS.inactive;
     html += `<line x1="${tplSwX}" y1="${topY}" x2="${tplSwX}" y2="${topY-14}" stroke="${tplSwCol}" stroke-width="1.5"/>`;
     if(phase === 0) {
@@ -1862,7 +1826,7 @@ function drawCDACsvg(phase, fullTl) {
       html += `<text x="${tplSwX-8}" y="${topY-26}" fill="${COLORS.inactive}" font-size="9" text-anchor="middle" font-family="'JetBrains Mono'">VCM</text>`;
     }
 
-    const tprSwX = 225;
+    const tprSwX = 250;
     html += `<line x1="${tprSwX}" y1="${topY}" x2="${tprSwX}" y2="${topY-14}" stroke="${tplSwCol}" stroke-width="1.5"/>`;
     if(phase === 0) {
       html += `<line x1="${tprSwX}" y1="${topY-14}" x2="${tprSwX}" y2="${topY-26}" stroke="${tplSwCol}" stroke-width="1.5"/>`;
@@ -1882,22 +1846,26 @@ function drawCDACsvg(phase, fullTl) {
       if(phase === 0) sw = isP ? 'vinp' : 'vinn';
       else if(phase === 1) sw = 'vcm';
       else {
-        // bit logic mapping index i (0..5) to bit levels (Bit 0 to Bit 5)
-        // Array index 5 (32Cu) is Bit 5 -> decided at phase=2
-        // Array index 0 (1Cu) is Bit 0 -> decided at phase=7
-        const testPhase = 2 + (5 - i); // phase 2..7
-        if (phase < testPhase) {
+        if (i === 0) {
           sw = 'vcm';
         } else {
-          const bitDecision = fullTl[testPhase].bit; // 1 or 0
-          if (bitDecision === 1) sw = isP ? 'vdd' : 'vss';
-          else sw = isP ? 'vss' : 'vdd';
+          // bit logic mapping index i (1..6) to bit levels (Bit 0 to Bit 5)
+          // Array index 6 (4Cu right) is Bit 5 -> decided at phase=2
+          // Array index 1 (1Cu left) is Bit 0 -> decided at phase=7
+          const testPhase = 2 + (6 - i); // phase 2..7
+          if (phase < testPhase) {
+            sw = 'vcm';
+          } else {
+            const bitDecision = fullTl[testPhase].bit; // 1 or 0
+            if (bitDecision === 1) sw = isP ? 'vdd' : 'vss';
+            else sw = isP ? 'vss' : 'vdd';
+          }
         }
       }
       
       const swCol = swColor(sw);
       html += `<line x1="${cx}" y1="${topY+25}" x2="${cx}" y2="${botY}" stroke="${swCol}" stroke-width="1.5"/>`;
-      html += `<rect x="${cx-16}" y="${botY}" width="32" height="18" rx="4" fill="rgba(28,33,40,0.9)" stroke="${swCol}" stroke-width="1"/>`;
+      html += `<rect x="${cx-16}" y="${botY}" width="32" height="18" rx="4" fill="#ffffff" stroke="${swCol}" stroke-width="1"/>`;
       html += `<text x="${cx}" y="${botY+12}" text-anchor="middle" fill="${swCol}" font-size="8" font-weight="600" font-family="'JetBrains Mono'">${swLabel(sw)}</text>`;
       html += `<text x="${cx}" y="${topY+10}" text-anchor="middle" fill="#555555" font-size="8" font-family="'JetBrains Mono'">${labels[i]}</text>`;
     });
@@ -1908,7 +1876,7 @@ function drawCDACsvg(phase, fullTl) {
 
   // Comparator drawing spanning both arrays
   const compCol = (phase >= 2) ? '#6a1b9a' : '#555555';
-  html += `<polygon points="410,${yP-20} 500,${(yP+yN)/2} 410,${yN+20}" fill="rgba(13,17,23,0.9)" stroke="${compCol}" stroke-width="2"/>`;
+  html += `<polygon points="410,${yP-20} 500,${(yP+yN)/2} 410,${yN+20}" fill="#ffffff" stroke="${compCol}" stroke-width="2"/>`;
   html += `<text x="440" y="${(yP+yN)/2 + 4}" fill="${compCol}" font-size="11" font-weight="600" font-family="'JetBrains Mono'" text-anchor="middle">COMP</text>`;
 
   // Connections TPR -> Comparator
@@ -1933,8 +1901,8 @@ function drawCDACsvg(phase, fullTl) {
     return ht;
   }
   
-  html += drawCp(380, yP, 23);
-  html += drawCp(380, yN, 23);
+  html += drawCp(395, yP, 23);
+  html += drawCp(395, yN, 23);
 
   svg.innerHTML = html;
 }

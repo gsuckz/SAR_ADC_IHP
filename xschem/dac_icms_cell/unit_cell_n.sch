@@ -1,17 +1,10 @@
-v {xschem version=3.4.6 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
-T {Cell for thermometer code including unit capacitor and SPDT switch with high-Z} 220 -1720 0 0 1 1 {}
-T {v0, if di_clk = 0
-v1, if di_clk = 1} 1155 -1325 0 0 0.4 0.4 {}
-T {di_clk = 1, di_cell_en = 1: v_c connected to v_a, v_b = High-Z
-di_clk = 0, di_cell_en = 1: v_c connected to v_b, v_a = High-Z
-di_clk = X, di_cell_en = 0: v_b = High-Z, v_a = High-Z} 1600 -1390 0 0 0.4 0.4 {}
-T {ToDo: What capacitor technology?
-MIM and / or MOM capacitor?} 2185 -730 0 0 0.2 0.2 {}
 N 1050 -385 1115 -385 {lab=v_top}
 N 1050 -385 1050 -320 {lab=v_top}
 N 1050 -440 1050 -385 {lab=v_top}
@@ -92,7 +85,6 @@ N 1990 -1070 2030 -1070 {lab=tg_vcm_ctrl_1}
 N 1990 -1130 1990 -1070 {lab=tg_vcm_ctrl_1}
 N 2015 -950 2030 -950 {lab=tg_vcm_ctrl_n_1}
 N 2015 -950 2015 -925 {lab=tg_vcm_ctrl_n_1}
-C {devices/title-3.sym} 0 0 0 0 {name=l1 author="Simon Dorrer" rev=1.0 lock=true}
 C {devices/iopin.sym} 1050 -320 1 0 {name=p6 lab=v_top}
 C {devices/ipin.sym} 1195 -425 3 1 {name=p4 lab=a_sample}
 C {devices/ipin.sym} 1195 -345 1 1 {name=p7 lab=a_sample_n}
@@ -142,8 +134,8 @@ C {devices/lab_pin.sym} 1570 -840 3 1 {name=p33 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 1570 -760 1 1 {name=p34 sig_type=std_logic lab=VSS}
 C {sg13g2_stdcells/sg13g2_inv_1.sym} 2030 -660 2 0 {name=x32 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {devices/lab_pin.sym} 2150 -1010 2 0 {name=p41 sig_type=std_logic lab=b_sample_n}
-C {iopin.sym} 605 -1330 3 0 {name=p127 sig_type=std_logic lab=VSS}
-C {iopin.sym} 605 -1310 1 0 {name=p139 sig_type=std_logic lab=VDD}
+C {iopin.sym} 825 -730 3 0 {name=p127 sig_type=std_logic lab=VSS}
+C {iopin.sym} 825 -710 1 0 {name=p139 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 1120 -1000 1 0 {name=p2 sig_type=std_logic lab=TOP_C}
 C {sg13g2_stdcells/sg13g2_or2_1.sym} 2090 -1070 0 1 {name=x1 VDD=VDD VSS=VSS prefix=sg13g2_ }
 C {sg13g2_stdcells/sg13g2_nor2_1.sym} 2090 -950 2 0 {name=x8 VDD=VDD VSS=VSS prefix=sg13g2_ }
