@@ -407,8 +407,8 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
   <a href="#s-pgen-timing" class="nav-link">PGEN</a>
   <a href="#s-layout" class="nav-link">Layout</a>
   <a href="#s-pcells" class="nav-link">PCells</a>
-  <a href="#s-end" class="nav-link">Conclusiones</a>
   <a href="#s-future" class="nav-link">Futuro</a>
+  <a href="#s-end" class="nav-link">Conclusiones</a>
 </nav>
 
 <!-- ════════════════ 0. INTRO ════════════════ -->
@@ -1030,10 +1030,10 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
 <div class="container">
   <div style="display:flex; flex-direction:column; gap:20px; align-items:center; min-height:85vh; justify-content:center;">
 
-    <!-- Kickback Theory (Top) -->
+    <!-- Diagrama Preamp -->
     <div style="border:1px solid var(--border); border-radius:12px; overflow:hidden; background:var(--surface2); padding:10px; width:100%; max-height:35vh; display:flex; align-items:center; justify-content:center;">
-      <a class="asset-item" href="img2/kickback_comparador_explicacion.png" style="display:block; height:100%;">
-        <img src="img2/kickback_comparador_explicacion.png" style="width:auto; height:100%; max-height:30vh; object-fit:contain;" alt="Explicación de Kickback en Comparator">
+      <a class="asset-item" href="assets/images/comparator/bindra_preamp_diagrama.svg" style="display:block; height:100%;">
+        <img src="assets/images/comparator/bindra_preamp_diagrama.svg" style="width:auto; height:100%; max-height:30vh; object-fit:contain;" alt="Diagrama Preamp Bindra">
       </a>
     </div>
 
@@ -1105,9 +1105,18 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
     </div>
   </div>
 
+  <div class="grid-2" style="gap:20px; align-items:stretch; margin-top:20px;">
+    <a href="assets/images/comparator/conversion_comparador_1.svg" class="asset-item" style="display:block; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--surface2); height:100%;">
+      <img src="assets/images/comparator/conversion_comparador_1.svg" style="width:100%; height:100%; min-height:180px; max-height:240px; object-fit:contain; padding:16px;" alt="Conversion Comparador 1">
+    </a>
+    <a href="assets/images/comparator/tiempo_rst_comp_editado.svg" class="asset-item" style="display:block; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--surface2); height:100%;">
+      <img src="assets/images/comparator/tiempo_rst_comp_editado.svg" style="width:100%; height:100%; min-height:180px; max-height:240px; object-fit:contain; padding:16px;" alt="Tiempo RST Comp">
+    </a>
+  </div>
+
   <!-- Simulation Results Gallery (New) -->
   <div style="margin-top:40px; width:100%;">
-    <div style="font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:12px; text-align:center;">Resultados de Simulación Post-Layout</div>
+    <div style="font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:12px; text-align:center;">Simulacion</div>
     <div class="grid-2" style="gap:20px;">
       <div class="card">
         <div style="font-size:11px; margin-bottom:8px; color:var(--text2); font-weight:600;">Caso: Vin = 219 mV (Señal Grande)</div>
@@ -1117,6 +1126,14 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
         <div style="font-size:11px; margin-bottom:8px; color:var(--text2); font-weight:600;">Caso: Vin = 219 µV (Baja Señal)</div>
         <a class="asset-item" href="img/SeñalesComapradorVin219uV.png"><img src="img/SeñalesComapradorVin219uV.png" style="width:100%; border-radius:6px;" alt="Simulacion 219uV"></a>
       </div>
+    </div>
+  </div>
+
+  <!-- Falstad Simulation -->
+  <div style="margin-top:40px; width:100%;">
+    <div style="font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:12px; text-align:center;">Circuito Interactivo (Falstad)</div>
+    <div style="border:1px solid var(--border); border-radius:12px; overflow:hidden; background:white; height:600px; width:100%;">
+      <iframe src="https://www.falstad.com/circuit/circuitjs.html?ctz=DwYwlgTgBAZgvAIgIwKgFwM6IAwDpsEECsqYIOuRATAJwAsdNx2dA7AQMyogBGiRADlQAHPgiLZUANwj9UAW0z8ApgFokKAHwAoKFGAwoAD0QcWUJADZsUOhyoXrqeAg5coUtIiSVUPZRTYVAgA9Dp6BsamlgJQVHQ2dg7xkrCINKzSXsi+UP6BwWG6+oYmCBmWjjYClnRVzqbunt65+Qh4QaHhJVHlVLEpUDV1KQ3lmR7ZPiR5Ae34hd2RZUSslRwCdYzrm2P2WS0zbR2LxcuIrFQ2G3UCBFA3e8GTh35zJ11nAEq9lvFDNj+dX2aXaqAA7i5UvIAIZGKSIKi+IoRUqmcw3Wz2B67UEg5o5I7vBafVG9Co4261SlPA6Et4FUn6cG9JIWBhYhw0SxjSQo5ms7HcqBAqDc3lM4Assqi4Wiu4S-lS37-YXDMU80F8pbSxDqtXUpAMRU63rqpBrIbUqjxE1nXUINkWypsm10O0RB1ssxbbEcGIegVlb0xWzC-1CLWSh13a6h9URwPKsoJ-1W4EBqNKr3YhKJXMKrOm4MFxLCuiFqHR1nl+7bWyVnDVlPUvPphupKvZs2tu4AxKNsHdlN1vux2wEJNe8t92oDztN4eIOcd-sdpMAc1+CVXK+oka7xf4lsxl2uuMP9t6qx2dRvIqImsvnp7wLTPoe-qnvQ-mN-X6LK8yn-dZzCsBchyPR0-XMCkfW-MoKXAsUTxYBD0lQuo4IvRcoNTSp1SoR90Og5JH05B40MAskVn6IZy2pARxTxJoplaYlOiVNEEHHJiCMY5iXDcOlpgZeZOKWH4ZXIzZYksGTJyjKBISbKBYXhRFkSguhGL7HTbgrEj9KGCsHwIwzqKDZcZNM9VZJIuzbN0iDtSA-g6L4qBWDTPiSO8gjhX8rzqCTbi2yQbABFiYyIqisZmIJPBWCJRkuPJOjYtic1IoPdJNUS3BkrEj4lx4w1sEudsIsihzysi9saCQZ5nysx1qUahwYoIXLILctq6mq6LysuULr0tJq5R3Can1MZ4CVE2ZUqg+95Mqe9pr8ny1XuXzLPOBAgqa+4YliI6IIStiUvE04XzKILPMOq4XMlEBfiiiwqGpE6LH9CD3SgchkDUJrSARcTsBQKAMFkMEPAAE00yxuWwDIjToCL7FYJA1EyUrvqaqwRXeprahI-HPrqFcSf+lrk2XKaKZFBnB1c276ZsJAOCapmOd+ozDQirYBYA2mvWFyp8c5mberZhBJbTSWcJl1r5f4gapdq9WfIFqjRe3XnrCJ06+b2rcZWJ36jZ+mhmtwvqIziHcHcGkjne62w6p61nWptgYd19ixupIgPBqqoO9oASW3YLknq5LbdhjAABsKBmAALMBNJIUqrlieOvLTeOSJW8ivuIvaHTLiW6iLvapPpszHDMsZIZUhBmph6roThMGkSOMAYSwHIiMlM3EC696iG5zLN1fQP3vHGfTbe06np5j7FNp+vSMd+dd4lZSqzUnu5CVbfCJ3ARCdGJS2+7jTxElAA1GEIC+GEwCT1l7kyh5qHnr2EIXATBgJ3XASAZjqV7rkDA2Qn5gAAHbCGfq-d+n90qnRyihSoS8j5txAWAiBCgT7txgXAxBCDJRJwQYKBwv5NiURpuPVAaA5hSAAPbIKVNQuebhKgdU-NLf6rDEAcModwmhMpKalzvDbMYwi5gQGUBgZQaBJTsKgMoBBeoaCoAwMIbwYwjBXCuCDKABjYbyARsgSQ3QIjCA8KpDAgNIFD2ePICxqgaBCH5PYzReoJhg1SM4uQakh6Qw8XbPQfi5hxUcYnFxChwkKAsd7YAIR2E6HSeACAOggA" style="width:100%; height:100%; border:none;" title="Falstad Simulation"></iframe>
     </div>
   </div>
   </div>
@@ -1195,11 +1212,17 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
     <img src="img/senales_pgen.svg" style="width:100%; height:auto; min-height:200px; object-fit:contain; padding:16px;" alt="Señales PGEN">
   </a>
   
-  <a href="img/RecorridoDelNodoVsDuranteLasConversiones.png" class="asset-item" style="display:block; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--surface2); margin-bottom:24px;">
-    <img src="img/RecorridoDelNodoVsDuranteLasConversiones.png" style="width:100%; height:auto; min-height:200px; object-fit:contain; padding:16px;" alt="Recorrido Nodo Vs">
-  </a>
+
 
   <div style="margin-top:40px;"></div>
+
+  <!-- Falstad Simulation - PGEN -->
+  <div style="margin-top:40px; width:100%;">
+    <div style="font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:12px; text-align:center;">Circuito Interactivo (Falstad) - PGEN</div>
+    <div style="border:1px solid var(--border); border-radius:12px; overflow:hidden; background:white; height:600px; width:100%;">
+      <iframe src="https://www.falstad.com/circuit/circuitjs.html?ctz=DwYwlgTgBAZgvAIgIwKgFwM6IMwDokBMArAKYC0SADKmCIlbgZZQQOyvaUAcBAbAJz9WqEACNERalAAO4hJNQA3CBNQBbTBPJIUAPgBQUKMBhQAHogJcuUbEygAWO7aap4CO0rT1cRVKJJESlwWBAB6AyMTcwleSigkOMcueMSpd2xsLx8-KACgkIJwyONTC3l+Ahd4okJqtxwiqEVvZF9-QIRg0IjDYwgAdxiEBxSE1l5HZ04HBq6EXVHKABokCYBuJwJVja3lmeAwwZLgQeHaqpmpy8pZ2CCFi-3bzbtnh0Pjvujyyps0qBcXgOBJxOaZbJtXL5LqFYrfMqIP5QAgEEFAkGou4ZLLNVpIdp5TrdIq9KKIhD8Op2eIY+r3DxNFo5DoFZikk4AeWg5So1hR-MIzisXDm1DJxgAyiAABZqMBoNDDLj8SZsKpUbgo1hNdxSDAAGxUsNyBtaTQArq07gaAPYAO1UUDtMD18KiAElhrw0aCakk0mLUIaCrkZWBVBLTkNynSmDY6WteEHdBjlvH1mmk58BiczrHgQkHOjCykU1ni5ngcsUjm8zHEEsiyCm2WGdRFilVpWljXKHXvvnG2MR6X0g9OysUlWHH2B1Eh-JqdhJhdbFxsROnpleOttxv5-0G8huDZ1QlmGedSm+Vx0zr1pq7+rD9HhlTLvZb7ZbimP-smEfU8AMoIDrHeV9F2RLEEgIYVrD-Kx0zRR84O2LFULeEVIOPIUqhFBJsDqEUbzQ9NrEfIj0OsHDvV9AEdVSZN2wWH1ZzSdZeB1VY4k47jVT47ZEnWRieNo3lT21KpGNBG9gPVMC72E0TEnE+hJKuVgiCqYtRRY3Rb3eR8qFnGZjNuZYHGEnQLN0kTtMs0ZXwAJWGVt4l0wFx2QZiBjdKA1AAQzMRRIxOVzfisP0oCESZAwZRJUD8h4AuC0KPHdYwAHNzmpDcoDXLYgyjRciEqaoCryzd5l0MrthpPdKn2XguD3Qhmta-cPiOXNvgiyx+RpAUr11ehfPcXVjUkZhmHUNLLEJUQwECrAEAIQkABMrQATwAYW2kADWJfBMuAY86SuOMHG88UTnOws0XiVh8se4q7uVVUpKgZ7MWvFio2PH6UWu76Xr+t0AbcsYk2SeJXv+97yi0nTRm+7SpLe75jybR7YYxhHvhygsQRXBNC2um7TqJxtpha65HFmgmomx2mbC2WwV0x5nlULHdAV5lqueMEBlWYYavPibBtKDKA6GQch+BodLukoFAoAwY0pEUDaciEdgV24DgiG0hw-CjamEBSSX0athnKch2MxYIuMEKZ4x7sxfkrvtk4RfKLj8J1KAA9saWWNl+gFaVtlVeDTWlB12EZu4fhJCILgytYfhKB9JgsnN70g6lqoQ+wDchbO4Zka+nHwYeB3h1SCY8fjCvsbGeNg6D1u3cr-3u61EP1Qr20oBIR15nV6REGBOYzFxafJ7UROqAWPoomkZoUowOXV4lDet4y9W5eCDl1+MTfOk4JRt9327z+AS+cC1nBgxPxhMoPzo1hvyed-Uz+F8x70GEIfXE-9YRnyMF-SwoDlZvwAfvIBnQ2C-3Ae-KBxgwi2gMIccAEADBAA" style="width:100%; height:100%; border:none;" title="Falstad Simulation PGEN"></iframe>
+    </div>
+  </div>
 
   <p style="max-width:600px;margin-bottom:28px">Con 40 MSa/s, cada ciclo es 25 ns: 2 ns de muestreo y 23 ns de conversión para 12 bits. Cada bit tiene ~1.9 ns.</p>
 
@@ -1374,10 +1397,43 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
 </div>
 </section>
 
-<!-- ════════════════ 11. CONCLUSIÓN ════════════════ -->
+<!-- ════════════════ 11. FUTURO ════════════════ -->
+<section id="s-future" style="scroll-snap-align:start">
+<div class="container">
+  <div class="sec-label">11 — Trabajo Futuro</div>
+  <h2>Próximos <span style="color:var(--amber)">Pasos</span></h2>
+  
+  <div class="grid-2" style="gap:24px;">
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="card card-warn">
+        <h3 style="font-size:15px;margin-bottom:8px">Verificación Estadística</h3>
+        <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2.2">
+          <li>Monte Carlo: Mismatch (Comparador/CDAC).</li>
+          <li>Ruido térmico y simulaciones transitorias.</li>
+          <li>Corners PVT y barridos térmicos.</li>
+        </ul>
+      </div>
+      <div class="card card-accent">
+        <h3 style="font-size:15px;margin-bottom:8px">Backend Final (Hacia el Tape-out)</h3>
+        <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2.2">
+          <li>Matriz CDAC en Common-Centroid.</li>
+          <li>Floorplanning y Power Grid.</li>
+          <li>Ruteo Top-Level y Padframe (ESD).</li>
+          <li>Extracción PEX y simulación post-layout.</li>
+          <li>Tape-out: Shuttle MPW (IHP).</li>
+        </ul>
+      </div>
+    </div>
+    
+
+  </div>
+</div>
+</section>
+
+<!-- ════════════════ 12. CONCLUSIÓN ════════════════ -->
 <section id="s-end" style="scroll-snap-align:start;justify-content:center;align-items:center;text-align:center">
 <div class="container" style="max-width:700px">
-  <div class="sec-label">11 — Conclusión</div>
+  <div class="sec-label">12 — Conclusión</div>
   <h2 style="margin-bottom:16px">Resumen del <span style="color:var(--vcm2)">Trabajo</span></h2>
   <p style="margin-bottom:30px;font-size:15px">Desarrollo integral de un ADC SAR de 12 bits utilizando herramientas 100% open-source y el PDK SG13G2 de IHP.</p>
 
@@ -1394,40 +1450,9 @@ canvas { display: block; border-radius: 8px; background: var(--surface2); }
 
 
 
-  <a href="https://github.com/gsuckz/SAR_ADC_IHP" target="_blank" style="display:inline-block;background:rgba(88,166,255,0.12);border:1px solid var(--accent);color:var(--accent2);padding:12px 28px;border-radius:8px;text-decoration:none;font-size:13px;letter-spacing:0.05em">
-    ⬡ github.com/gsuckz/SAR_ADC_IHP
-  </a>
-</div>
-</section>
 
-<!-- ════════════════ 12. FUTURO ════════════════ -->
-<section id="s-future" style="scroll-snap-align:start">
-<div class="container">
-  <div class="sec-label">12 — Trabajo Futuro</div>
-  <h2>Próximos <span style="color:var(--amber)">Pasos</span></h2>
   
-  <div class="grid-2" style="gap:24px;">
-    <div style="display:flex; flex-direction:column; gap:16px;">
-      <div class="card card-warn">
-        <h3 style="font-size:15px;margin-bottom:8px">Verificación Estadística</h3>
-        <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2.2">
-          <li>Simulaciones Monte Carlo para análisis de mismatch (Pelgrom)</li>
-          <li>Caracterización del ruido térmico (kT/C) en el comparador</li>
-          <li>Impacto de variaciones en el CDAC sobre la linealidad</li>
-        </ul>
-      </div>
-      <div class="card card-accent">
-        <h3 style="font-size:15px;margin-bottom:8px">Backend Final</h3>
-        <ul style="font-size:12px;color:var(--text2);padding-left:16px;line-height:2.2">
-          <li>Extracción de parásitos completa (PEX) y simulación post-layout</li>
-          <li>Integración de Padframe final y protecciones ESD</li>
-          <li>Inclusión en un shuttle de fabricación (Open MPW)</li>
-        </ul>
-      </div>
-    </div>
-    
-
-  </div>
+  <h1 style="margin-top:80px; font-size:clamp(40px,7vw,80px); color:var(--accent); font-weight:800;">MUCHAS GRACIAS!!</h1>
 </div>
 </section>
 
